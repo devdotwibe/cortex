@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessFile;
 use App\Models\ClassDetail;
 use App\Models\LessonMaterial;
 use App\Models\LiveClassPage;
@@ -17,6 +18,7 @@ use App\Support\Helpers\ImageHelper;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -163,7 +165,6 @@ class LiveClassController extends Controller
         /**
          * @var User
          */
-
         $user=Auth::user();
         $live_class =  LiveClassPage::first();   
         $lessonMaterial=LessonMaterial::find($subLessonMaterial->lesson_material_id);
@@ -171,12 +172,9 @@ class LiveClassController extends Controller
         if(TermAccess::where('type','lesson-material')->where('term_id',$lessonMaterial->id)->where('user_id',$user->id)->count()==0){
             return abort(404);
         }
-       
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
         $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
         File::ensureDirectoryExists($cachepath);
-
-      
         // if(!File::exists("$cachepath/render.map.json")){
         //     $pdfmap=ImageHelper::convertPdfToImage($filepath,$cachepath);
         //     file_put_contents("$cachepath/render.map.json",json_encode($pdfmap));
@@ -194,125 +192,33 @@ class LiveClassController extends Controller
         //     ]);
         // }
 
+         $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
 
-        // if(!File::exists("$cachepath/render.map.json")){
+         $jobId = $process->getJobId();
 
-        //         // ini_set('memory_limit', '512M');
-        //         // ini_set('max_execution_time', 300);
-        //     $hash=md5("$filepath/render".time());              
-        //     $imginfo = new Imagick();
-        //     $imginfo->pingImage($filepath);
-        //     $count= $imginfo->getNumberImages();
-        //     $imgdata=[]; 
+         $jobStatus = Cache::get("job_status_{$jobId}");
 
-        //     for ($pageIndex=0; $pageIndex <$count ; $pageIndex++) { 
+         Cache::put("job_status_{$jobId}", 'processing', now()->addMinutes(30));
 
-        //         $page = new Imagick();
-        //         $page->setResolution(570, 800);
-                
-        //         $page->readImage("$filepath"."[$pageIndex]");
-               
-        //         $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
-        //         $page->setImageFormat('jpeg');
-        //         $page->setCompressionQuality(99);
-        //         $page->writeImage("$cachepath/$bytefile");
-        //         $width = $page->getImageWidth();
-        //         $height = $page->getImageHeight();
-        //         $imgdata[] = [
-        //             'page' => $pageIndex + 1, 
-        //             'width' => $width,
-        //             'height' => $height,
-        //             "data" => $bytefile,
-        //             'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
-        //         ];
-        //         $page->clear();  
-        //         $page->destroy(); 
-        //     }
-       
-        //     file_put_contents("$cachepath/render.map.json",json_encode($imgdata));
-        // }else{
-        //     $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
-        // }
-
-        dd($filepath);
-
-        if (!File::exists("$cachepath/render.map.json")) {
-            try {
-                // Optional: Set memory limit and max execution time
-                // ini_set('memory_limit', '512M');
-                // ini_set('max_execution_time', 300);
-        
-                $hash = md5("$filepath/render" . time());
-                
-                // Initialize Imagick
-                $imginfo = new Imagick();
-                $imginfo->pingImage($filepath);
-                $count = $imginfo->getNumberImages();
-                $imgdata = [];
-        
-                // Loop through each page of the PDF
-                for ($pageIndex = 0; $pageIndex < $count; $pageIndex++) {
-                    try {
-                        $page = new Imagick();
-                        $page->setResolution(570, 800);  // Set resolution for image quality
-                        
-                        // Read a specific page from the PDF
-                        $page->readImage("$filepath"."[$pageIndex]");
-                        
-                        // $bytefile = sprintf("$hash-%02d.jpg", $pageIndex);
-                        
-                        // // Set the image format and compression quality
-                        // $page->setImageFormat('jpeg');
-                        // $page->setCompressionQuality(99);
-                        
-                        // // Write the image to the specified location
-                        // $page->writeImage("$cachepath/$bytefile");
-        
-                        // // Get image dimensions
-                        // // $width = $page->getImageWidth();
-                        // // $height = $page->getImageHeight();
-        
-                        // // Prepare the image data
-                        // $imgdata[] = [
-                        //     'page' => $pageIndex + 1,
-                        //     'width' => $width,
-                        //     'height' => $height,
-                        //     "data" => $bytefile,
-                        //     'url' => route("live-class.privateclass.lessonpdf.load", [
-                        //         'live' => $user->slug, 
-                        //         'sub_lesson_material' => $subLessonMaterial->slug,
-                        //         "file" => $bytefile
-                        //     ])
-                        // ];
-        
-                        // Clear memory
-                        $page->clear();
-                        $page->destroy();
-                    } catch (Exception $e) {
-                        // Log the error and continue processing other pages
-                        Log::error("Error processing page $pageIndex of PDF: " . $e->getMessage());
-                        // Optionally, you can continue or break based on the severity of the error
-                    }
-                }
-        
-                // Save the generated image data to a JSON file
-                // file_put_contents("$cachepath/render.map.json", json_encode($imgdata));
-        
-            } catch (Exception $e) {
-                // Log any errors that occur during the PDF processing
-                Log::error("Error processing the PDF file $filepath: " . $e->getMessage());
-                // Handle the error, e.g., show a message to the user or return a response
-                // Optionally, you could also return an error response here.
-            }
-        } else {
-            // If the map JSON file exists, load the data
-            // $imgdata = json_decode(file_get_contents("$cachepath/render.map.json"), true);
-        }
+         if ($jobStatus === 'processing') {
       
-        // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
-    //   return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
+            return response()->json(['message' => 'Please wait for the file to finish processing.']);
 
+        }
+        elseif ($jobStatus === 'failed') {
+            return response()->json(['message' => 'There was an error processing the file. Please try again.']);
+        }
+        else{
+
+            $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
+        }
+
+        // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
+        return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
     }
+
+
+    
     public function privateclasslessonpdfload(Request  $request,$live,SubLessonMaterial $subLessonMaterial,$file){
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file)); 
         File::ensureDirectoryExists($cachepath);
