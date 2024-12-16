@@ -193,15 +193,15 @@ class LiveClassController extends Controller
         if(!File::exists("$cachepath/render.map.json")){
 
             ini_set('memory_limit', '256M');
-            
-            // $imginfo = new \Imagick();
-            // $imginfo->pingImage($filepath);    
-        
-            // $count= $imginfo->getNumberImages();
 
-            // $imagic = new \Imagick();
-            // $imagic->setResolution(570, 800);
-            // $imagic->readImage($filepath);
+            $imginfo = new \Imagick();
+            $imginfo->pingImage($filepath);    
+        
+            $count= $imginfo->getNumberImages();
+
+            $imagic = new \Imagick();
+            $imagic->setResolution(570, 800);
+            $imagic->readImage($filepath);
       
             $imgdata=[]; 
 
