@@ -197,7 +197,7 @@ class LiveClassController extends Controller
 
          $jobId = $process->getJobId();
 
-         $jobStatus = Cache::get("job_status_{$jobId}");
+         $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
 
          Cache::put("job_status_{$jobId}", 'processing', now()->addMinutes(30));
 
