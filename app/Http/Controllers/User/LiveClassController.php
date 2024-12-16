@@ -192,14 +192,9 @@ class LiveClassController extends Controller
         //     ]);
         // }
 
-        dd('tet');
          $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
 
-         $jobId = $process->getJobId();
-
          $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
-
-         Cache::put("job_status_{$jobId}", 'processing', now()->addMinutes(30));
 
          if ($jobStatus === 'processing') {
       

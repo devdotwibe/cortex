@@ -19,6 +19,7 @@ class ProcessFile implements ShouldQueue
     protected $user;
     protected $subLessonMaterial;
     protected $cachepath;
+    protected $jobIdentifier;
     
 
     /**
@@ -30,6 +31,8 @@ class ProcessFile implements ShouldQueue
        $this->user = $user;
        $this->subLessonMaterial = $subLessonMaterial;
        $this->cachepath = $cachepath;
+
+       $this->jobIdentifier = md5($filepath . time()); 
     }
 
     /**
@@ -39,6 +42,8 @@ class ProcessFile implements ShouldQueue
     {
         try {
            
+            Cache::put("job_status_{$this->jobIdentifier}", 'processing', now()->addMinutes(30)); // Mark as processing
+            
             $imginfo = new \Imagick();
             $imginfo->pingImage($this->filepath);    
         
@@ -71,7 +76,7 @@ class ProcessFile implements ShouldQueue
             // file_put_contents("$this->cachepath/render.map.json",json_encode($imgdata));
             file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata));
 
-            Cache::put("job_status_{$this->job->getJobId()}", 'completed', now()->addMinutes(30));
+            Cache::put("job_status_{$this->jobIdentifier}", 'completed', now()->addMinutes(30));
             
             \Log::info("File processed successfully: " . $this->filepath);
         } catch (Exception $e) {
