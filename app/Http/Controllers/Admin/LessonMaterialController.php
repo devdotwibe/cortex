@@ -97,9 +97,9 @@ class LessonMaterialController extends Controller
 
             $file = $request->file('pdf_file');
 
-            dd($file);
-
             $imageName = $avathar . "/" . $file->hashName();
+
+            dd($imageName);
 
             Storage::disk('private')->put("{$avathar}", $file);
 
