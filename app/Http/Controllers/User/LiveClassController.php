@@ -206,11 +206,11 @@ class LiveClassController extends Controller
 
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
-            $imagic->readImage($filepath);
+            // $imagic->readImage($filepath);
       
             $imgdata=[]; 
 
-            dd('ter yy');
+            dd('ter yy image');
 
             $hash=md5("$filepath/render".time());
             foreach ($imagic as $pageIndex => $page) {
