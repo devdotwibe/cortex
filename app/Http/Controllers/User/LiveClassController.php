@@ -203,12 +203,13 @@ class LiveClassController extends Controller
             $count= $imginfo->getNumberImages();
             $imgdata=[]; 
 
-            dd('ioio');
-
             for ($pageIndex=0; $pageIndex <$count ; $pageIndex++) { 
 
                 $page = new \Imagick();
                 $page->setResolution(570, 800);
+                
+            dd('ioio');
+
                 $page->readImage("$filepath"."[$pageIndex]");
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
                 $page->setImageFormat('jpeg');
