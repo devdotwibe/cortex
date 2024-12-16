@@ -192,6 +192,7 @@ class LiveClassController extends Controller
         //     ]);
         // }
 
+        dd('tet');
          $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
 
          $jobId = $process->getJobId();
