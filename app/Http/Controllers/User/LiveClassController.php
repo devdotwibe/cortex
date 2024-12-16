@@ -203,6 +203,8 @@ class LiveClassController extends Controller
             $count= $imginfo->getNumberImages();
             $imgdata=[]; 
 
+            dd('ioio');
+
             for ($pageIndex=0; $pageIndex <$count ; $pageIndex++) { 
 
                 $page = new \Imagick();
