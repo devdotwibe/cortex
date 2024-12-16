@@ -234,6 +234,7 @@ class LiveClassController extends Controller
         //     $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
         // }
 
+        dd($filepath);
 
         if (!File::exists("$cachepath/render.map.json")) {
             try {
