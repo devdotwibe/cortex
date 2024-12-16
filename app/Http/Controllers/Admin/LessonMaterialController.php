@@ -77,6 +77,8 @@ class LessonMaterialController extends Controller
     public function store(Request $request)
     { 
         
+        dd('test');
+
         $request->validate([
 
             "pdf_name" => "required",
@@ -88,11 +90,7 @@ class LessonMaterialController extends Controller
 
         $sub_lesson->pdf_name = $request->pdf_name;
        
-        dd('test');
         if ($request->hasFile('pdf_file')) {
-
-          
-
             $imageName = "";
 
             $avathar = "Lesson-Materials";
