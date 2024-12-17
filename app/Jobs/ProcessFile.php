@@ -51,7 +51,7 @@ class ProcessFile implements ShouldQueue
         
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
-            $imagic->readImage($this->filepath);
+            // $imagic->readImage($this->filepath);
             
             // $imgdata=[]; 
             // $hash = md5($this->filepath . "render" . time());
