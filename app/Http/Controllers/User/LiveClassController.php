@@ -206,7 +206,14 @@ class LiveClassController extends Controller
 
             if($subLessonMaterial->status !='processing')
             {
+
+                $subLessonMaterial->status = 'processing'; 
+
+                $subLessonMaterial->save();
+
                 dispatch(new ProcessFile($filepath, $user, $subLessonMaterial, $cachepath));
+
+
             }
             return response()->json(['message' => 'Please wait for the file to finish processing.' ,'status' => 'processing']);
 
