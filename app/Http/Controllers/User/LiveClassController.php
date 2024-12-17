@@ -197,7 +197,12 @@ class LiveClassController extends Controller
 
          if ($subLessonMaterial->status !== 'completed' && $subLessonMaterial->status !== 'failled') {
       
-            $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
+            // $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
+            // ProcessFile::dispatchNow($filepath, $user, $subLessonMaterial, $cachepath);
+
+            // ProcessFile::dispatch($filepath, $user, $subLessonMaterial, $cachepath);
+
+            dispatch(job: new ProcessFile($filepath, $user, $subLessonMaterial, $cachepath));
 
             return response()->json(['message' => 'Please wait for the file to finish processing.']);
 
