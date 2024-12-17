@@ -162,6 +162,8 @@ class LiveClassController extends Controller
                 });
             }
 
+            $this ->where('status','approved');
+
             if(!empty($request->termname)){
                 $termname= $request->termname;
 
@@ -346,7 +348,7 @@ class LiveClassController extends Controller
             }
 
             $this ->where('status','pending');
-            
+
             if(!empty($request->termname)){
                 $termname= $request->termname;
 
