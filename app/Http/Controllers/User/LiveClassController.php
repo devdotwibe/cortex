@@ -192,12 +192,13 @@ class LiveClassController extends Controller
         //     ]);
         // }
 
-         $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
-
+         
         //  $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
 
-         if ($subLessonMaterial->status !== 'completed') {
+         if ($subLessonMaterial->status !== 'completed' && $subLessonMaterial->status !== 'failled') {
       
+            $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
+
             return response()->json(['message' => 'Please wait for the file to finish processing.']);
 
         }
@@ -205,7 +206,7 @@ class LiveClassController extends Controller
 
             return response()->json(['message' => 'There was an error processing the file. Please try again.']);
         }
-        else{
+        elseif ($subLessonMaterial->status === 'completed') {
 
             $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
         }
