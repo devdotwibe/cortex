@@ -53,34 +53,33 @@
 <script>
 
 function checkStatus(route) {
-  
-    document.getElementById('refreshing-gif').style.display = 'block';
+
+    $('#refreshing-gif').show();
 
     var interval = setInterval(function() {
         $.ajax({
             url: route,
             type: 'GET',
             success: function(response) {
-
                 if (response.status === 'processing') {
-
-                    document.getElementById('refreshing-gif').style.display = 'block';
+        
+                    $('#refreshing-gif').show();
                 }
                 else if (response.status === 'completed') {
-                  
-                    window.location.relaod;
-                    // document.getElementById('pdf-content').innerHTML = 'PDF is ready for download.'; 
-                    clearInterval(interval);
-
+                    window.location.reload(); 
+                    clearInterval(interval);  
                 } else if (response.status === 'failed') {
                   
-                    document.getElementById('refreshing-gif').style.display = 'none';
-                    clearInterval(interval); 
+                    $('#refreshing-gif').hide();
+                    alert('There was an error processing the file.');
+                    clearInterval(interval);
                 }
             },
             error: function() {
+
+                $('#refreshing-gif').hide();
                 alert('An error occurred while checking the status.');
-                clearInterval(interval); 
+                clearInterval(interval);
             }
         });
     }, 10000);
