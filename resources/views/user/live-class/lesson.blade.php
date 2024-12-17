@@ -52,38 +52,69 @@
 
 <script>
 
-function checkStatus(route) {
+// function checkStatus(route) {
 
+//     $('#refreshing-gif').show();
+
+//     var interval = setInterval(function() {
+//         $.ajax({
+//             url: route,
+//             type: 'GET',
+//             success: function(response) {
+//                 if (response.status === 'processing') {
+        
+//                     $('#refreshing-gif').show();
+//                 }
+//                 else if (response.status === 'completed') {
+//                     window.location.reload(); 
+//                     clearInterval(interval);  
+//                 } else if (response.status === 'failed') {
+                  
+//                     $('#refreshing-gif').hide();
+//                     alert('There was an error processing the file.');
+//                     clearInterval(interval);
+//                 }
+//             },
+//             error: function() {
+
+//                 $('#refreshing-gif').hide();
+//                 alert('An error occurred while checking the status.');
+//                 clearInterval(interval);
+//             }
+//         });
+//     }, 10000);
+// }
+
+
+function checkStatus(route) {
+    // Show the refreshing GIF while processing
     $('#refreshing-gif').show();
 
-    var interval = setInterval(function() {
-        $.ajax({
-            url: route,
-            type: 'GET',
-            success: function(response) {
-                if (response.status === 'processing') {
-        
-                    $('#refreshing-gif').show();
-                }
-                else if (response.status === 'completed') {
-                    window.location.reload(); 
-                    clearInterval(interval);  
-                } else if (response.status === 'failed') {
-                  
-                    $('#refreshing-gif').hide();
-                    alert('There was an error processing the file.');
-                    clearInterval(interval);
-                }
-            },
-            error: function() {
-
+    // Send the first AJAX request
+    $.ajax({
+        url: route,
+        type: 'GET',
+        success: function(response) {
+            if (response.status === 'processing') {
+                // If the status is still processing, recursively call the checkStatus function
+                checkStatus(route);  // Recursively call checkStatus until the status is completed or failed
+            } else if (response.status === 'completed') {
+                // If processing is completed, reload the page
+                window.location.reload();
+            } else if (response.status === 'failed') {
+                // If the process failed, hide the refreshing GIF and show an error
                 $('#refreshing-gif').hide();
-                alert('An error occurred while checking the status.');
-                clearInterval(interval);
+                alert('There was an error processing the file.');
             }
-        });
-    }, 10000);
+        },
+        error: function() {
+            // If there’s an error with the request, hide the refreshing GIF and show an error message
+            $('#refreshing-gif').hide();
+            alert('An error occurred while checking the status.');
+        }
+    });
 }
+
 
 
 </script>
