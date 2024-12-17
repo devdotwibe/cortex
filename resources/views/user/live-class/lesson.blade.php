@@ -16,6 +16,12 @@
 </section>
 
 
+<div id="status-container">
+
+    <img id="refreshing-gif" src="{{asset('assets/images/loader.svg')}}" style="display:none;" alt="Processing...">
+
+</div>
+
 <section class="content_section">
     <div class="container">
         <div class="row">
@@ -23,7 +29,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <a href="{{ route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$item->slug ]) }}">
+                        <a  onclick="checkStatus('{{ route('live-class.privateclass.lessonpdf', ['live' => $user->slug, 'sub_lesson_material' => $item->slug]) }}')">
                             <div class="category">
                                 <div class="category-content"> 
                                     <h4>{{$item->pdf_name}}</h4> 
@@ -41,3 +47,46 @@
     </div>
 </section>
 @endsection
+
+@push('footer-script')
+
+<script>
+
+function checkStatus(route) {
+  
+    document.getElementById('refreshing-gif').style.display = 'block';
+
+    var interval = setInterval(function() {
+        $.ajax({
+            url: route,
+            type: 'GET',
+            success: function(response) {
+
+                if (response.status === 'processing') {
+
+                    document.getElementById('refreshing-gif').style.display = 'block';
+                }
+                else if (response.status === 'completed') {
+                  
+                    window.location.relaod;
+                    // document.getElementById('pdf-content').innerHTML = 'PDF is ready for download.'; 
+                    clearInterval(interval);
+
+                } else if (response.status === 'failed') {
+                  
+                    document.getElementById('refreshing-gif').style.display = 'none';
+                    clearInterval(interval); 
+                }
+            },
+            error: function() {
+                alert('An error occurred while checking the status.');
+                clearInterval(interval); 
+            }
+        });
+    }, 10000);
+}
+
+
+</script>
+
+@endpush

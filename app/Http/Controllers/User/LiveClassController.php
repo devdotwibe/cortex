@@ -206,12 +206,12 @@ class LiveClassController extends Controller
             dispatch((new ProcessFile($filepath, $user, $subLessonMaterial, $cachepath))->delay(now()->addSeconds(10)));
 
 
-            return response()->json(['message' => 'Please wait for the file to finish processing.']);
+            return response()->json(['message' => 'Please wait for the file to finish processing.' ,'status' => 'processing']);
 
         }
         elseif ($subLessonMaterial->status === 'failled') {
 
-            return response()->json(['message' => 'There was an error processing the file. Please try again.']);
+            return response()->json(['message' => 'There was an error processing the file. Please try again.' ,'status' => 'failled']);
         }
         elseif ($subLessonMaterial->status === 'completed') {
 
