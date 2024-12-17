@@ -194,16 +194,15 @@ class LiveClassController extends Controller
 
          $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
 
-        dd($process);
-
         //  $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
 
-         if ($jobStatus === 'processing') {
+         if ($subLessonMaterial->status !== 'completed') {
       
             return response()->json(['message' => 'Please wait for the file to finish processing.']);
 
         }
-        elseif ($jobStatus === 'failed') {
+        elseif ($subLessonMaterial->status === 'failled') {
+
             return response()->json(['message' => 'There was an error processing the file. Please try again.']);
         }
         else{
