@@ -212,7 +212,10 @@ class LiveClassController extends Controller
                 $subLessonMaterial->status = 'processing'; 
 
                 $subLessonMaterial->save();
-               $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
+
+                $out ="php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &"
+
+            //    $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
 
 
                 // dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
