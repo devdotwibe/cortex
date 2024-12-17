@@ -194,20 +194,22 @@ class LiveClassController extends Controller
 
          $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
 
+        dd($process);
+
         //  $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
 
-        //  if ($jobStatus === 'processing') {
+         if ($jobStatus === 'processing') {
       
-        //     return response()->json(['message' => 'Please wait for the file to finish processing.']);
+            return response()->json(['message' => 'Please wait for the file to finish processing.']);
 
-        // }
-        // elseif ($jobStatus === 'failed') {
-        //     return response()->json(['message' => 'There was an error processing the file. Please try again.']);
-        // }
-        // else{
+        }
+        elseif ($jobStatus === 'failed') {
+            return response()->json(['message' => 'There was an error processing the file. Please try again.']);
+        }
+        else{
 
-        //     $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
-        // }
+            $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
+        }
 
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
