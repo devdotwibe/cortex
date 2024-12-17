@@ -166,7 +166,6 @@ class LiveClassController extends Controller
         /**
          * @var User
          */
-        dd('ddfd');
         $user=Auth::user();
         $live_class =  LiveClassPage::first();   
         $lessonMaterial=LessonMaterial::find($subLessonMaterial->lesson_material_id);
