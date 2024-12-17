@@ -204,6 +204,7 @@ class LiveClassController extends Controller
             // ProcessFile::dispatch($filepath, $user, $subLessonMaterial, $cachepath);
 
             // dispatch(job: new ProcessFile($filepath, $user, $subLessonMaterial, $cachepath));
+            $out="";
 
             if($subLessonMaterial->status !='processing')
             {
@@ -211,13 +212,13 @@ class LiveClassController extends Controller
                 $subLessonMaterial->status = 'processing'; 
 
                 $subLessonMaterial->save();
-                shell_exec("nohup php imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
+               $out= shell_exec("nohup php imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
 
 
                 // dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
 
             }
-            return response()->json(['message' => 'Please wait for the file to finish processing.' ,'status' => 'processing']);
+            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
 
         }
         elseif ($subLessonMaterial->status === 'failled') {
