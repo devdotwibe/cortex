@@ -129,7 +129,7 @@ class ImageProcess implements ShouldQueue
             
         } catch (Exception $e) {
 
-            $this->subLessonMaterial->status = 'failled'; 
+            $this->subLessonMaterial->status = $e->getMessage(); 
 
             $this->subLessonMaterial->save();
            
