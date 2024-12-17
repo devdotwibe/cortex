@@ -59,28 +59,29 @@ class ProcessFile implements ShouldQueue
                 $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
                 $page->setImageFormat('jpeg');   
                 $page->setCompressionQuality(99);
+
                 // $imagic->writeImage("$this->cachepath/$bytefile");
-                $imagic->writeImage($this->cachepath . '/' . $bytefile);
+            //     $imagic->writeImage($this->cachepath . '/' . $bytefile);
                 $width = $page->getImageWidth();
                 $height = $page->getImageHeight();
-                $imgdata[] = [
-                    'page' => $pageIndex + 1, 
-                    'width' => $width,
-                    'height' => $height,
-                    "data" => $bytefile,
-                    'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $this->user->slug, 'sub_lesson_material' => $this->subLessonMaterial->slug,"file"=>$bytefile])
-                ];
+            //     $imgdata[] = [
+            //         'page' => $pageIndex + 1, 
+            //         'width' => $width,
+            //         'height' => $height,
+            //         "data" => $bytefile,
+            //         'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $this->user->slug, 'sub_lesson_material' => $this->subLessonMaterial->slug,"file"=>$bytefile])
+            //     ];
             }
             $imagic->clear();  
             $imagic->destroy(); 
 
-            $this->subLessonMaterial->status = 'completed'; 
+            // $this->subLessonMaterial->status = 'completed'; 
 
-            $this->subLessonMaterial->save();
+            // $this->subLessonMaterial->save();
             // file_put_contents("$this->cachepath/render.map.json",json_encode($imgdata));
-            file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata));
+            // file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata));
 
-            \Log::info("File processed successfully: " . $this->filepath);
+            // \Log::info("File processed successfully: " . $this->filepath);
             
         } catch (Exception $e) {
 
@@ -88,7 +89,7 @@ class ProcessFile implements ShouldQueue
 
             $this->subLessonMaterial->save();
            
-            \log::error("Error processing file: " . $this->filepath . " - " . $e->getMessage());
+            // \log::error("Error processing file: " . $this->filepath . " - " . $e->getMessage());
         }
     }
 }
