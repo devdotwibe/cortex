@@ -96,15 +96,18 @@ function checkStatus(route) {
         type: 'GET',
         success: function(response) {
             if (response.status === 'processing') {
-             
-                checkStatus(route);
+
+                setInterval(() => {
+                    checkStatus(route);
+                }, 20000);
+
             } else if (response.status === 'completed') {
               
                 window.location.href = route; 
+
             } else if (response.status === 'failed') {
                 
                 $('#refreshing-gif').hide();
-                alert('There was an error processing the file.');
             }
         },
         error: function() {
