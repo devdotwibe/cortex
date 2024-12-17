@@ -215,6 +215,12 @@ class LiveClassController extends Controller
         elseif ($subLessonMaterial->status === 'completed') {
 
             $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
+
+            if (request()->ajax()) {
+            {
+                return response()->json(['message' => 'Render the pdf' ,'status' => 'completed']);
+            }
+           
         }
 
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
