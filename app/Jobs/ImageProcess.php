@@ -46,50 +46,62 @@ class ImageProcess implements ShouldQueue
            
             $imginfo = new \Imagick();
             $imginfo->pingImage($this->filepath);    
+            $count = $imginfo->getNumberImages();
         
-            $count= $imginfo->getNumberImages();
-        
+            // Set up Imagick for reading the PDF
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
             $imagic->readImage($this->filepath);
-            
-            $imgdata=[]; 
-            $pageindex = 0;
-
+        
+            $imgdata = []; 
             $hash = md5($this->filepath . "render" . time());
-
-            for ($pageIndex = 0; $pageIndex < $count; $pageIndex++) {
-
-                $imagic->setIteratorIndex($pageIndex);
-            
-                $imagic->setImageFormat('jpeg');
-                $imagic->setCompressionQuality(99); 
-            
-                $bytefile = sprintf("$hash-%02d.jpg", $pageIndex);
-            
-                $imagic->writeImage($this->cachepath . '/' . $bytefile);
-            
-                $width = $imagic->getImageWidth();
-                $height = $imagic->getImageHeight();
-            
-                $imgdata[] = [
-                    'page' => $pageIndex + 1,
-                    'width' => $width,
-                    'height' => $height,
-                    'data' => $bytefile,
-                    'url' => route("live-class.privateclass.lessonpdf.load", [
-                        'live' => $this->user->slug,
-                        'sub_lesson_material' => $this->subLessonMaterial->slug,
-                        'file' => $bytefile
-                    ])
-                ];
+        
+            // Process images in chunks to avoid timeout
+            $chunkSize = 5; // Number of pages to process at a time
+            for ($pageIndex = 0; $pageIndex < $count; $pageIndex += $chunkSize) {
+                // Process each chunk
+                for ($i = 0; $i < $chunkSize && ($pageIndex + $i) < $count; $i++) {
+                    $currentPageIndex = $pageIndex + $i;
+                    $imagic->setIteratorIndex($currentPageIndex);
+                    $imagic->setImageFormat('jpeg');
+                    $imagic->setCompressionQuality(99); 
+        
+                    // Generate filename for the image
+                    $bytefile = sprintf("%s-%02d.jpg", $hash, $currentPageIndex);
+                    $imagic->writeImage($this->cachepath . '/' . $bytefile);
+        
+                    // Get image dimensions
+                    $width = $imagic->getImageWidth();
+                    $height = $imagic->getImageHeight();
+        
+                    // Prepare data for the response
+                    $imgdata[] = [
+                        'page' => $currentPageIndex + 1,
+                        'width' => $width,
+                        'height' => $height,
+                        'data' => $bytefile,
+                        'url' => route("live-class.privateclass.lessonpdf.load", [
+                            'live' => $this->user->slug,
+                            'sub_lesson_material' => $this->subLessonMaterial->slug,
+                            'file' => $bytefile
+                        ])
+                    ];
+                }
+        
+                // Clear memory and allow PHP to process other requests before continuing
+                if ($i > 0) {
+                    // Clear Imagick resources after processing a chunk
+                    $imagic->clear();
+                    usleep(500000); // Sleep for 0.5 seconds (optional)
+                }
             }
-            
+        
+            // Clean up Imagick resources
             $imagic->clear();
             $imagic->destroy();
-
+        
+            // Update the status of the subLessonMaterial
             $this->subLessonMaterial->status = 'completed'; 
-
             $this->subLessonMaterial->save();
             
             // foreach ($imagic as $pageIndex => $page) {
