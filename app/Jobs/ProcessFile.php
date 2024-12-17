@@ -51,7 +51,7 @@ class ProcessFile implements ShouldQueue
         
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
-            // $imagic->readImage($this->filepath);
+            $imagic->readImage($this->filepath);
             
             // $imgdata=[]; 
             // $hash = md5($this->filepath . "render" . time());
@@ -75,9 +75,9 @@ class ProcessFile implements ShouldQueue
             // $imagic->clear();  
             // $imagic->destroy(); 
 
-            // $this->subLessonMaterial->status = 'completed'; 
+            $this->subLessonMaterial->status = 'completed'; 
 
-            // $this->subLessonMaterial->save();
+            $this->subLessonMaterial->save();
             // file_put_contents("$this->cachepath/render.map.json",json_encode($imgdata));
             // file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata));
 
