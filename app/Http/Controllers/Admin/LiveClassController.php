@@ -151,6 +151,9 @@ class LiveClassController extends Controller
         return view('admin.live-class.private-class',compact('live_class'));
     }
     public function private_class_request(Request $request){
+
+        $page_name = "Users Request";
+
         if($request->ajax()){
             self::reset();
             self::$model=PrivateClass::class;
@@ -330,11 +333,13 @@ class LiveClassController extends Controller
 
         $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
-        return view('admin.live-class.private-class-request',compact('live_class','terms'));
+        return view('admin.live-class.private-class-request',compact('live_class','terms','page_name'));
 
     }
 
     public function private_class_pending(Request $request){
+
+        $page_name = "Pending Users";
 
         if($request->ajax()){
             self::reset();
@@ -515,7 +520,7 @@ class LiveClassController extends Controller
 
         $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
-        return view('admin.live-class.private-class-request',compact('live_class','terms'));
+        return view('admin.live-class.private-class-request',compact('live_class','terms','page_name'));
 
     }
 
