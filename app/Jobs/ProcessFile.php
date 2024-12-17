@@ -78,7 +78,7 @@ class ProcessFile implements ShouldQueue
 
             $this->subLessonMaterial->save();
             // file_put_contents("$this->cachepath/render.map.json",json_encode($imgdata));
-            file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata))
+            file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata));
 
         } catch (Exception $e) {
 
