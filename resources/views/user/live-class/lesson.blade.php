@@ -97,9 +97,10 @@ function checkStatus(route) {
         success: function(response) {
             if (response.status === 'processing') {
 
-                setInterval(() => {
-                    checkStatus(route);
-                }, 20000);
+                checkStatus(route);
+                // setInterval(() => {
+                //     checkStatus(route);
+                // }, 20000);
 
             } else if (response.status === 'completed') {
               
