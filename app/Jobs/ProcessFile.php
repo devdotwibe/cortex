@@ -51,29 +51,29 @@ class ProcessFile implements ShouldQueue
         
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
-            $imagic->readImage($this->filepath);
+            // $imagic->readImage($this->filepath);
             
-            $imgdata=[]; 
-            $hash = md5($this->filepath . "render" . time());
-            foreach ($imagic as $pageIndex => $page) {
-                $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
-                $page->setImageFormat('jpeg');   
-                $page->setCompressionQuality(99);
+            // $imgdata=[]; 
+            // $hash = md5($this->filepath . "render" . time());
+            // foreach ($imagic as $pageIndex => $page) {
+            //     $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
+            //     $page->setImageFormat('jpeg');   
+            //     $page->setCompressionQuality(99);
 
-                // $imagic->writeImage("$this->cachepath/$bytefile");
-            //     $imagic->writeImage($this->cachepath . '/' . $bytefile);
-                $width = $page->getImageWidth();
-                $height = $page->getImageHeight();
-            //     $imgdata[] = [
-            //         'page' => $pageIndex + 1, 
-            //         'width' => $width,
-            //         'height' => $height,
-            //         "data" => $bytefile,
-            //         'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $this->user->slug, 'sub_lesson_material' => $this->subLessonMaterial->slug,"file"=>$bytefile])
-            //     ];
-            }
-            $imagic->clear();  
-            $imagic->destroy(); 
+            //     // $imagic->writeImage("$this->cachepath/$bytefile");
+            // //     $imagic->writeImage($this->cachepath . '/' . $bytefile);
+            //     $width = $page->getImageWidth();
+            //     $height = $page->getImageHeight();
+            // //     $imgdata[] = [
+            // //         'page' => $pageIndex + 1, 
+            // //         'width' => $width,
+            // //         'height' => $height,
+            // //         "data" => $bytefile,
+            // //         'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $this->user->slug, 'sub_lesson_material' => $this->subLessonMaterial->slug,"file"=>$bytefile])
+            // //     ];
+            // }
+            // $imagic->clear();  
+            // $imagic->destroy(); 
 
             // $this->subLessonMaterial->status = 'completed'; 
 
