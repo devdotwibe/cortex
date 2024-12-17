@@ -195,7 +195,7 @@ class LiveClassController extends Controller
          
         //  $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
 
-         if ($subLessonMaterial->status !== 'completed' && $subLessonMaterial->status !== 'failled') {
+         if ($subLessonMaterial->status !== 'completed' && $subLessonMaterial->status !== 'failled' || $subLessonMaterial->status === '') {
       
             // $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
             // ProcessFile::dispatchNow($filepath, $user, $subLessonMaterial, $cachepath);
