@@ -100,7 +100,7 @@ function checkStatus(route) {
                 checkStatus(route);
             } else if (response.status === 'completed') {
               
-                window.location.reload();
+                window.location.href = route; 
             } else if (response.status === 'failed') {
                 
                 $('#refreshing-gif').hide();
