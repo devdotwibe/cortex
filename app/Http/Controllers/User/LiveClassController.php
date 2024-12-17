@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ImageProcess;
 use App\Jobs\ProcessFile;
 use App\Models\ClassDetail;
 use App\Models\LessonMaterial;
@@ -211,7 +212,7 @@ class LiveClassController extends Controller
 
                 $subLessonMaterial->save();
 
-                dispatch(new ProcessFile($filepath, $user, $subLessonMaterial, $cachepath));
+                dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
 
 
             }
