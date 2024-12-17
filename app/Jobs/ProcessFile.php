@@ -80,6 +80,8 @@ class ProcessFile implements ShouldQueue
             // file_put_contents("$this->cachepath/render.map.json",json_encode($imgdata));
             file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata));
 
+            \Log::info("File processed successfully: " . $this->filepath);
+            
         } catch (Exception $e) {
 
             $this->subLessonMaterial->status = 'failled'; 
