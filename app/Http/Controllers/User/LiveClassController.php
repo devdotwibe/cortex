@@ -205,7 +205,6 @@ class LiveClassController extends Controller
             // dispatch(job: new ProcessFile($filepath, $user, $subLessonMaterial, $cachepath));
             dispatch((new ProcessFile($filepath, $user, $subLessonMaterial, $cachepath))->delay(now()->addSeconds(10)));
 
-
             return response()->json(['message' => 'Please wait for the file to finish processing.' ,'status' => 'processing']);
 
         }
