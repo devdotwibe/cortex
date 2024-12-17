@@ -216,7 +216,7 @@ class LiveClassController extends Controller
 
             $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
 
-            if (request()->ajax()) {
+            if (request()->ajax())
             {
                 return response()->json(['message' => 'Render the pdf' ,'status' => 'completed']);
             }
