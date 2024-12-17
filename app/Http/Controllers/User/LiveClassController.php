@@ -195,7 +195,7 @@ class LiveClassController extends Controller
          
         //  $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
 
-         if ($subLessonMaterial->status !== 'completed' && $subLessonMaterial->status !== 'failled' || !File::exists("$cachepath/render.map.json")) {
+         if ($subLessonMaterial->status !== 'completed' && $subLessonMaterial->status !== 'failled') {
       
             // $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
             // ProcessFile::dispatchNow($filepath, $user, $subLessonMaterial, $cachepath);
@@ -215,7 +215,7 @@ class LiveClassController extends Controller
 
             return response()->json(['message' => 'There was an error processing the file. Please try again.' ,'status' => 'failled']);
         }
-        elseif ($subLessonMaterial->status === 'completed' || File::exists("$cachepath/render.map.json") ) {
+        elseif ($subLessonMaterial->status === 'completed') {
 
             $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
 
