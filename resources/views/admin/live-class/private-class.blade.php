@@ -22,9 +22,6 @@
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.live-class.private_class_pending')}}" class="nav_link btn">Pending List</a></li>
             </ul>
-        </div>
-
-        <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{route('admin.live-class.private_class_request')}}" class="nav_link btn">Register List</a></li>
             </ul>

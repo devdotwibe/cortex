@@ -152,7 +152,7 @@ class LiveClassController extends Controller
     }
     public function private_class_request(Request $request){
 
-        $page_name = "Users Request";
+        $page_name = "Registered Users Request";
 
         if($request->ajax()){
             self::reset();
