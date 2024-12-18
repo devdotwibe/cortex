@@ -54,6 +54,8 @@ class ImageProcess implements ShouldQueue
             $command = "gs -q -dNODISPLAY -c \"({$this->filepath}) (r) file runpdfbegin pdfpagecount = quit\"";
             exec($command, $output, $returnCode); 
             if ($returnCode !== 0 || empty($output)) {
+                $this->subLessonMaterial->status = 'failled'; 
+                $this->subLessonMaterial->save();
                 die("Error: Unable to determine the number of pages in the PDF.");
             } 
             $count = (int) $output[0];  
@@ -76,6 +78,8 @@ class ImageProcess implements ShouldQueue
                         ])
                     ];
                 } else { 
+                    $this->subLessonMaterial->status = 'failled'; 
+                    $this->subLessonMaterial->save();
                     die("Error:  PDF Page missing on generation.");
                 }
             }
