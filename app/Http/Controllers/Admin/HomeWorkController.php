@@ -393,33 +393,55 @@ class HomeWorkController extends Controller
 
         if (!empty($request->deleteaction)) {
 
-            if ($request->input('select_all', 'no') == "yes") {
+            // if ($request->input('select_all', 'no') == "yes") {
+            //     $selectAllValues = json_decode($request->select_all_values, true);
+            //     $admin = Auth::guard('admin')->user();
+            //     HomeWorkQuestion::whereIn('id', $selectAllValues)
+            //     ->update(['admin_id' => $admin->id]);
+            //     HomeWorkQuestion::whereIn('id', $selectAllValues)
+            //         ->delete();
+            // } else {
 
-
-                $selectAllValues = json_decode($request->select_all_values, true);
-
-                $admin = Auth::guard('admin')->user();
+            //     $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            //     $admin = Auth::guard('admin')->user();
                 
-                HomeWorkQuestion::whereIn('id', $selectAllValues)
-                ->update(['admin_id' => $admin->id]);
+            //     HomeWorkQuestion::whereIn('id', $selectBoxValues)
+            //     ->update(['admin_id' => $admin->id]);
 
-                HomeWorkQuestion::whereIn('id', $selectAllValues)
-                    ->delete();
+            //     HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
+            // }
+            $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            $admin = Auth::guard('admin')->user();
+            HomeWorkQuestion::whereIn('id', $selectBoxValues)
+            ->update(['admin_id' => $admin->id]);
 
+            $homeworks =  HomeWorkQuestion::whereIn('id', $selectBoxValues)->orderBy('order_no','asc')->get();
 
+            $firstwork = $homeworks->first();
+        
+            HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
 
-            } else {
+            $all_home_work = HomeWorkQuestion::where('category_id', $firstwork->category_id)->where('sub_category_id', $firstwork->sub_category_id)->get();
 
-                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            foreach( $all_home_work  as $item)
+            {
+                $question_count = HomeWorkQuestion::where('order_no','<',$item->order_no)->where('home_work_id', $item->home_work_id)->count();
 
-                $admin = Auth::guard('admin')->user();
-                
-                HomeWorkQuestion::whereIn('id', $selectBoxValues)
-                ->update(['admin_id' => $admin->id]);
+                if(!empty($question_count))
+                {
+                    $item->order_no = $question_count+1; 
+                }
+                else
+                {
+                    $item->order_no =1; 
+                }
 
-                HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
+                $item->save();
+
             }
 
+            
+            
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);
             }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ImageProcess;
+use App\Jobs\ProcessFile;
 use App\Models\ClassDetail;
 use App\Models\LessonMaterial;
 use App\Models\LiveClassPage;
@@ -14,10 +16,14 @@ use App\Models\TermAccess;
 use App\Models\Timetable;
 use App\Models\User;
 use App\Support\Helpers\ImageHelper;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Imagick;
 
 class LiveClassController extends Controller
 {
@@ -186,42 +192,59 @@ class LiveClassController extends Controller
         //         "data"=>file_get_contents($path)
         //     ]);
         // }
-        if(!File::exists("$cachepath/render.map.json")){
-            $imginfo = new \Imagick();
-            $imginfo->pingImage($filepath);    
-        
-            $count= $imginfo->getNumberImages();
-        
-            $imagic = new \Imagick();
-            $imagic->setResolution(570, 800);
-            $imagic->readImage($filepath);
-            
-            $imgdata=[]; 
-            $hash=md5("$filepath/render".time());
-            foreach ($imagic as $pageIndex => $page) {
-                $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
-                $page->setImageFormat('jpeg');   
-                $page->setCompressionQuality(99);
-                $imagic->writeImage("$cachepath/$bytefile");
-                $width = $page->getImageWidth();
-                $height = $page->getImageHeight();
-                $imgdata[] = [
-                    'page' => $pageIndex + 1, 
-                    'width' => $width,
-                    'height' => $height,
-                    "data" => $bytefile,
-                    'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $user->slug, 'sub_lesson_material' => $subLessonMaterial->slug,"file"=>$bytefile])
-                ];
+
+         
+        //  $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
+
+         if ($subLessonMaterial->status !== 'completed' && $subLessonMaterial->status !== 'failled' || $subLessonMaterial->status === '') {
+      
+            // $process =ProcessFile::dispatch($filepath,$user,$subLessonMaterial,$cachepath);
+            // ProcessFile::dispatchNow($filepath, $user, $subLessonMaterial, $cachepath);
+
+            // ProcessFile::dispatch($filepath, $user, $subLessonMaterial, $cachepath);
+
+            // dispatch(job: new ProcessFile($filepath, $user, $subLessonMaterial, $cachepath));
+            $out="";
+
+            if($subLessonMaterial->status !='processing')
+            {
+
+                $subLessonMaterial->status = 'processing'; 
+
+                $subLessonMaterial->save();
+
+                // $out ="php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &";
+
+               $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
+
+
+                // dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
+
             }
-            $imagic->clear();  
-            $imagic->destroy(); 
-            file_put_contents("$cachepath/render.map.json",json_encode($imgdata));
-        }else{
-            $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
+            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
+
         }
+        elseif ($subLessonMaterial->status === 'failled') {
+
+            return response()->json(['message' => 'There was an error processing the file. Please try again.' ,'status' => 'failled']);
+        }
+        elseif ($subLessonMaterial->status === 'completed') {
+
+            $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
+
+            if (request()->ajax())
+            {
+                return response()->json(['message' => 'Render the pdf' ,'status' => 'completed']);
+            }
+           
+        }
+
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata')); 
     }
+
+
+    
     public function privateclasslessonpdfload(Request  $request,$live,SubLessonMaterial $subLessonMaterial,$file){
         $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file)); 
         File::ensureDirectoryExists($cachepath);

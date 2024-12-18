@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('home_work_review_questions', function (Blueprint $table) {
+        Schema::table('sub_lesson_materials', function (Blueprint $table) {
+            
+            $table->string('status')->nullable();
 
-            $table->longText('currect_answer')->nullable()->change();
         });
     }
 
@@ -22,8 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('home_work_review_questions', function (Blueprint $table) {
-           $table->dropColumn('currect_answer');
+        Schema::table('sub_lesson_materials', function (Blueprint $table) {
+
+            $table->dropColumn('status');
+            
         });
     }
 };

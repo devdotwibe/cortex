@@ -441,8 +441,8 @@
                                                 ${v.short_question}
                                             </div>
                                             <div id="note-${lesseonId}-ans" class="form-group">
-                                                <div class="form-data">
-                                                    <div class="forms-inputs mb-4">
+                                                <div class="form-data ">
+                                                    <div class="forms-inputs mb-4 answer_type">
                                                         <input type="text" name="answer" data-question="${v.slug}" id="user-answer-${lesseonId}" value="" class="form-control" placeholder="Write your answer here" aria-placeholder="Write your answer here" autocomplete="off" >
                                                         <div class="invalid-feedback" id="error-answer-field" >The field is required</div>
                                                     </div>
@@ -490,6 +490,9 @@
                             })
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
+
+                                console.log('anser-data',data.value);
+
                                 if(data.value){
                                     summery.answeridx.push(summery.cudx) 
                                     summery.answeridx = [...new Set(summery.answeridx)]
@@ -537,7 +540,10 @@
          async function updateprogress(callback){  
             try { 
                 const csrf= $('meta[name="csrf-token"]').attr('content');  
-                var currentprogress=(summery.questionids.length*100/summery.totalcount)
+                // var currentprogress=(summery.questionids.length*100/summery.totalcount)
+
+                var currentprogress=(summery.answeridx.length*100/summery.totalcount)
+
                 const response1 = await fetch("{{route('progress')}}", {
                     method: 'POST',
                     headers: {
@@ -590,6 +596,7 @@
                     value:ans
                 }),
             }); 
+
          }
          async function refreshquestionanswer(question,callback){
             const csrf= $('meta[name="csrf-token"]').attr('content'); 
@@ -639,8 +646,15 @@
             summery.save() 
          }
          async function updateandsave(callback){ 
+
+
+            console.log('yyyy',$('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length);
+
+            console.log('ppppp',$('#lesson-questionlist-list .answer_type input[name="answer"]').length);
+
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
+
                     updatequestionanswer($(this).data('question'),$(this).val());
                     verifyquestion($(this).data('question'),$(this).val());
                     if($(this).val()){
@@ -649,20 +663,26 @@
                         summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
                         summery.save();
                         refreshstatus(summery.cudx,'answered');
+
                     }else{
                         summery.notansweridx.push(summery.cudx) 
                         summery.notansweridx = [...new Set(summery.notansweridx)]
                         summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
                         summery.save();
                         refreshstatus(summery.cudx,'not-answered');
+
+                     
                     }
                 })
             }
 
-            if ($('#lesson-questionlist-list .forms-inputs input[name="answer"]').length > 0) {
-                $('#lesson-questionlist-list .forms-inputs input[name="answer"]').each(function() {
+
+            if ($('#lesson-questionlist-list .answer_type input[name="answer"]').length > 0) {
+                $('#lesson-questionlist-list .answer_type input[name="answer"]').each(function() {
                 const question = $(this).data('question');
                 const answer = $(this).val();
+
+                console.log('saved-inputs not cheked',answer);
 
                 updatequestionanswer(question, answer);
                 verifyquestion(question, answer);
@@ -675,13 +695,17 @@
                     summery.notansweridx = summery.notansweridx.filter(item => item !== summery.cudx);
                     summery.save();
                     refreshstatus(summery.cudx, 'answered');
+
+
                 } else {
-                    // Add to not-answered, remove from answered
                     summery.notansweridx.push(summery.cudx);
                     summery.notansweridx = [...new Set(summery.notansweridx)];
                     summery.answeridx = summery.answeridx.filter(item => item !== summery.cudx);
                     summery.save();
                     refreshstatus(summery.cudx, 'not-answered');
+
+                    console.log('short not answerd');
+
                 }
             });
         }
@@ -709,7 +733,17 @@
 
             $('.lesson-finish button.finish-btn').click(function(){  
                 updateandsave(function(){
-                    var unfinishcount=summery.totalcount-summery.questionids.length; 
+
+                    var unfinishcount=summery.notansweridx.length + summery.totalcount-(summery.answeridx.length+summery.notansweridx.length); 
+
+                    // var unfinishcount=summery.totalcount-summery.notansweridx.length; 
+
+                    console.log(summery.totalcount,'tottal');
+
+                    // console.log(summery.questionids.length,'questno'); //prre update count
+
+                    // console.log(summery.notansweridx.length,'questno');
+                    
                     if(unfinishcount>0){
                         $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                     }else{
@@ -746,10 +780,13 @@
            
             // setInterval(countownRun,1000)
 
-            $('.exam-exit a').click(function(e){
+            $('.exam-exit a').click(async function(e){
                 e.preventDefault();
                 e.stopPropagation();
-                localStorage.removeItem("home-work-booklet")
+
+                const csrf= $('meta[name="csrf-token"]').attr('content'); 
+             
+                localStorage.removeItem("home-work-booklet");
                 exitconfirm($(this).attr("href")); 
             }) 
          })

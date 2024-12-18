@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Users Request')
+@section('title', $page_name)
 @section('content')
 
 <section class="header_nav">
@@ -10,7 +10,7 @@
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
-            <h2>Users Request</h2>
+            <h2>{{$page_name}}</h2>
         </div> 
         <div class="header_content">
             <div class="form-group">

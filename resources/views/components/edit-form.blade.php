@@ -426,18 +426,18 @@
                         }else{
                             const descriptionField = $(this).find('[name="description"]');
                             const descriptionValue = descriptionField.val().trim() ?? '';
-                            if (CKEDITOR.instances['description-{{ $frmID }}'].getData().trim() === '') {
-                                descriptionField.addClass("is-invalid");
-                                $('#description-{{$frmID}}-texteditor').text('Description is required.').show();
-                                isValid = false;
-                                if (!firstInvalidFeedback) {
-                                    firstInvalidFeedback = $('#description-{{$frmID}}-texteditor');
-                                }
+                            // if (CKEDITOR.instances['description-{{ $frmID }}'].getData().trim() === '') {
+                            //     descriptionField.addClass("is-invalid");
+                            //     $('#description-{{$frmID}}-texteditor').text('Description is required.').show();
+                            //     isValid = false;
+                            //     if (!firstInvalidFeedback) {
+                            //         firstInvalidFeedback = $('#description-{{$frmID}}-texteditor');
+                            //     }
 
-                            } else {
-                                descriptionField.removeClass('is-invalid');
-                                $('#description-{{$frmID}}-texteditor').hide();
-                            }
+                            // } else {
+                            //     descriptionField.removeClass('is-invalid');
+                            //     $('#description-{{$frmID}}-texteditor').hide();
+                            // }
                         }
                         
                         if(exam=='full-mock-exam'){

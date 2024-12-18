@@ -144,37 +144,66 @@ class FullMockExamController extends Controller
     public function bulkaction(Request $request,Exam $exam)
     {
         if (!empty($request->deleteaction)) {
-            if ($request->input('select_all', 'no') == "yes") {
+            // if ($request->input('select_all', 'no') == "yes") {
 
-                if($request->category){
+            //     if($request->category){
 
                     
-                $admin = Auth::guard('admin')->user();
+            //     $admin = Auth::guard('admin')->user();
                                 
-                Question::where('exam_id', $exam->id)->where('category_id',$request->category)
-                ->update(['admin_id' => $admin->id]);
+            //     Question::where('exam_id', $exam->id)->where('category_id',$request->category)
+            //     ->update(['admin_id' => $admin->id]);
 
-                    Question::where('exam_id', $exam->id)
-                            ->where('category_id',$request->category)
-                            ->delete();     
-                }else{
+            //         Question::where('exam_id', $exam->id)
+            //                 ->where('category_id',$request->category)
+            //                 ->delete();     
+            //     }else{
 
-                    $admin = Auth::guard('admin')->user();
+            //         $admin = Auth::guard('admin')->user();
                                 
-                    Question::where('exam_id', $exam->id)
-                    ->update(['admin_id' => $admin->id]);
+            //         Question::where('exam_id', $exam->id)
+            //         ->update(['admin_id' => $admin->id]);
 
-                    Question::where('exam_id', $exam->id)->delete();     
-                }
-            } else {
+            //         Question::where('exam_id', $exam->id)->delete();     
+            //     }
+            // } else {
 
-                $admin = Auth::guard('admin')->user();
+            //     $admin = Auth::guard('admin')->user();
                                 
+            //     Question::whereIn('id', $request->input('selectbox', []))
+            //     ->update(['admin_id' => $admin->id]);
+
+            //     Question::whereIn('id', $request->input('selectbox', []))->delete();
+            // }
+                $admin = Auth::guard('admin')->user();                               
                 Question::whereIn('id', $request->input('selectbox', []))
-                ->update(['admin_id' => $admin->id]);
+                        ->update(['admin_id' => $admin->id]);
 
-                Question::whereIn('id', $request->input('selectbox', []))->delete();
-            }
+            $questions =  Question::whereIn('id',$request->input('selectbox', []))->orderBy('order_no','asc')->get();
+
+            $firstquestion = $questions->first();
+
+            Question::whereIn('id', $request->input('selectbox', []))->delete();
+
+            $all_questions = Question::where('exam_id', $firstquestion->exam_id)->get();
+
+            foreach( $all_questions  as $item)
+            {
+                $question_count = Question::where('order_no','<',$item->order_no)->where('exam_id', $item->exam_id)->count();
+
+                if(!empty($question_count))
+                {
+                    $item->order_no = $question_count+1; 
+                }
+                else
+                {
+                    $item->order_no =1; 
+                }
+
+                $item->save();
+
+            }  
+
 
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted success"]);
@@ -200,18 +229,18 @@ class FullMockExamController extends Controller
                     # code...
                     break;
             }
-            if ($request->input('select_all', 'no') == "yes") {
-                if($request->category){
-                    Question::where('exam_id', $exam->id)
-                            ->where('category_id',$request->category)
-                            ->update($data);
-                }else{
-                    Question::where('exam_id', $exam->id)->update($data);
-                }
-            } else {
-                Question::whereIn('id', $request->input('selectbox', []))->update($data);
-            }
-
+            // if ($request->input('select_all', 'no') == "yes") {
+            //     if($request->category){
+            //         Question::where('exam_id', $exam->id)
+            //                 ->where('category_id',$request->category)
+            //                 ->update($data);
+            //     }else{
+            //         Question::where('exam_id', $exam->id)->update($data);
+            //     }
+            // } else {
+            //     Question::whereIn('id', $request->input('selectbox', []))->update($data);
+            // }
+            Question::whereIn('id', $request->input('selectbox', []))->update($data);
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions update success"]);
             }

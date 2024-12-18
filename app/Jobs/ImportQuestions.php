@@ -112,10 +112,10 @@ class ImportQuestions implements ShouldQueue
                     "category_id"=>$category_id,
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
-                    "description"=>nl2br($row[$this->fields['description']]),
-                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? nl2br($row[$this->fields['title_text']]) : null,
-                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
-                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
+                    "description" => (isset($this->fields['description']) && isset($row[$this->fields['description']])) ? '<p>' . nl2br($row[$this->fields['description']]) . '</p>' : null,
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? '<p>' . nl2br($row[$this->fields['title_text']]) . '</p>' : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? '<p>' . nl2br($row[$this->fields['sub_question']]) . '</p>' : null,
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? '<p>' . nl2br($row[$this->fields['explanation']]) . '</p>': null,
                 ]);
             }
             else if($this->exam->name=="question-bank"){
@@ -140,10 +140,10 @@ class ImportQuestions implements ShouldQueue
                     "category_id"=>optional($this->category)->id,
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
-                    "description"=>nl2br($row[$this->fields['description']]),
-                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
-                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? nl2br($row[$this->fields['title_text']]) : null,
-                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
+                    "description" => (isset($this->fields['description']) && isset($row[$this->fields['description']])) ? '<p>' . nl2br($row[$this->fields['description']]) . '</p>' : null,
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? '<p>' . nl2br($row[$this->fields['explanation']]) . '</p>'  : null,
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? '<p>' . nl2br($row[$this->fields['title_text']]) . '</p>'  : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? '<p>' . nl2br($row[$this->fields['sub_question']]) . '</p>'  : null,
                 ]);
 
             }
@@ -167,10 +167,11 @@ class ImportQuestions implements ShouldQueue
                     "category_id"=>optional($this->category)->id,
                     "sub_category_id"=>optional($this->subCategory)->id,
                     "sub_category_set"=>optional($this->setname)->id,
-                    "description"=>nl2br($row[$this->fields['description']]),
-                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? nl2br($row[$this->fields['explanation']]) : null,
-                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? nl2br($row[$this->fields['title_text']]) : null,
-                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? nl2br($row[$this->fields['sub_question']]) : null,
+                    // "description"=>nl2br($row[$this->fields['description']]),
+                    "description" => (isset($this->fields['description']) && isset($row[$this->fields['description']])) ? '<p>' . nl2br($row[$this->fields['description']]) . '</p>' : null,
+                    "explanation" => (isset($this->fields['explanation']) && isset($row[$this->fields['explanation']])) ? '<p>' . nl2br($row[$this->fields['explanation']]) . '</p>' : null,
+                    "title_text" => (isset($this->fields['title_text']) && isset($row[$this->fields['title_text']])) ? '<p>' . nl2br($row[$this->fields['title_text']]) . '</p>' : null,
+                    "sub_question" => (isset($this->fields['sub_question']) && isset($row[$this->fields['sub_question']])) ? '<p>' . nl2br($row[$this->fields['sub_question']]) . '</p>' : null,
                 ]);
             }
             if(isset($this->fields['answer_1']) && isset($row[$this->fields['answer_1']]))

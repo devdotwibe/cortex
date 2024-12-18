@@ -737,6 +737,7 @@ button.close {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row {
     padding: 20px 30px 0;
+    position: relative;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-title {
@@ -841,7 +842,7 @@ button.close {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check {
     padding-left: 20px;
-    margin: 0 0 30px;
+    margin: 0 0 20px;
     font-size: 16px;
     display: flex;
     flex-wrap: wrap;
@@ -1468,6 +1469,12 @@ button.close {
 .exam-result .exam-result-content .exam-mark-bottom .btn {
     display: block;
     margin: 10px 0;
+}
+
+.exam-result .exam-result-content .exam-mark-bottom .btn.video-btn {
+    background: #1789fa;
+    border-color: #1789fa;
+    color: #ffffff;
 }
 
 .submit {
@@ -3183,7 +3190,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 }
 
 .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    width: 50%;
+    width: 49.5%;
     padding: 0 0 0 35px;
 }
 
@@ -3191,9 +3198,10 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     content: "";
     position: absolute;
     width: 1px;
-    height: 92.35%;
-    top: 0;
+    height: 100%;
+    top: -28px;
     left: 50%;
+    display: none;
     transform: translateX(-50%);
     background: #1789fa;
 }
@@ -3263,7 +3271,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     padding: 0 0 0 35px;
 }
 
-.exam-container .question-bank-review .lesson .lesson-body .mcq-container:after {
+.exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
     content: "";
     position: absolute;
     width: 1px;
@@ -3338,6 +3346,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    margin: 0 0 14px !important;
 }
 
 .bartop-hide .exam-container .lesson {
@@ -3364,8 +3373,9 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 }
 
 .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-group, .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 229px) !important;
+    height: calc(100vh - 238px) !important;
     min-height: inherit !important;
+    margin: 0;
 }
 
 .questionclass .mcq-container-wrap.nopaginationclass .lesson .lesson-body {
@@ -3638,6 +3648,11 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
         min-width: inherit;
     }
 
+    .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
+        height: 100%;
+    }
+    
+
 }
 
 @media screen and (max-width:991px) {
@@ -3647,6 +3662,15 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 
     .exam-container .container-wrap .lesson #lesson-footer-pagination {
         bottom: -6px;
+    }
+
+    .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
+        height: 100%;
+        top: -26px;
+    }
+
+    .exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
+        height: 104%;
     }
 
 }
@@ -5368,7 +5392,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .mcq-title-text {
     width: 100%;
-    padding: 10px 10px;
+    padding: 20px 10px 10px;
     border: 1px solid #414141;
     border-radius: 0;
     margin: 0 0 10px;
@@ -6489,8 +6513,9 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 226px) !important;
-    padding: 0 50px 50px;
+    height: calc(100vh - 238px) !important;
+    padding: 0 50px 0;
+    margin: 0 0 50px;
     overflow-y: auto;
 }
 
@@ -7084,9 +7109,16 @@ nav.navbar.header-class {
 
 
 .exam-container .container-wrap .lesson .lesson-body p,
-.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label,
+.exam-container .container-wrap .lesson .lesson-body p sup, 
+.exam-container .container-wrap .lesson .lesson-body p sub {
     font-family: 'Arial';
     line-height: 1.5;
+}
+
+.exam-container .container-wrap .lesson .lesson-body p sup, .exam-container .container-wrap .lesson .lesson-body p sub {
+    position: relative;
+    font-size: 12px;
 }
 
 .exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .correctanswerclass label {
@@ -7832,7 +7864,7 @@ nav.navbar.top-barhide {
 }
 
 .exam-container.answerclass .mcq-container-wrap.full-mock-exam-review .lesson .lesson-body .mcq-container .mcq-group {
-    height: calc(100vh - 266px);
+    height: calc(100vh - 264px);
 }
 
 .exam-container.answerclass .mcq-container-wrap.full-mock-exam-review .lesson .lesson-body .mcq-container .mcq-answer {
@@ -7978,7 +8010,7 @@ nav.navbar.top-barhide {
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-        height: calc(100vh - 172px) !important;
+        height: calc(100vh - 200px) !important;
     }
     
     .critical-reasoning h2 {
@@ -8414,8 +8446,9 @@ nav.navbar.top-barhide {
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-        padding: 20px;
+        padding: 20px 20px 0;
         height: calc(100vh - 170px) !important;
+        margin: 0 0 20px;
     }
 
     .questionclass .mcq-container-wrap .lesson .lesson-body .col-md-12 {
@@ -8630,7 +8663,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.questionclass.answerclass .container-wrap {
-        padding-bottom: 3.4em !important;
+        padding-bottom: 2.9em !important;
     }
 
     .exam-container .container-wrap.homeclass .lesson #lesson-footer-pagination {
@@ -8645,6 +8678,10 @@ nav.navbar.top-barhide {
     .live-class-section .col-md-6 {
         width: 49%;
     }
+
+    /* .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
+        top: 0;
+    } */
 
 }
 
@@ -9046,6 +9083,10 @@ nav.navbar.top-barhide {
         width: 100%;
         margin: 0;
     }
+
+    .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
+        top: -18px;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -9085,12 +9126,16 @@ nav.navbar.top-barhide {
     .exam-container.answerclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
         width: 100%;
         /* padding: 0 0 0; */
-        height: inherit;
+        height: inherit !important;
     }
 
     .exam-container.answerclass .mcq-container-wrap {
         padding: 20px;
         min-height: calc(100vh - 117px);
+    }
+
+    .exam-container.questionclass.answerclass .container-wrap.nopaginationclass .lesson-body .row .mcq-row .mcq-container {
+        height: auto;
     }
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
@@ -9230,6 +9275,10 @@ nav.navbar.top-barhide {
 
     .admin_section.private_section > .container > .row > a {
         width: 100%;
+    }
+
+    .exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
+        display: none;
     }
 
 }

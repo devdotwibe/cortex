@@ -53,8 +53,14 @@ class LearnController extends Controller
         self::$routeName = "admin.learn";
         self::$defaultActions = [];
 
-        $category_sub=SubCategory::where('category_id',$category->id)->first();
-        
+        if(!empty($request->subcat))
+        {
+            $category_sub=SubCategory::find($request->subcat);
+        }
+        else
+        {
+            $category_sub=SubCategory::where('category_id',$category->id)->first();
+        }
 
         if ($request->ajax()) {
 
@@ -67,11 +73,16 @@ class LearnController extends Controller
             }
             else
             {
-                $this->where('sub_category_id', $category_sub->id);
+        
+                if(!empty(optional($category_sub)->id))
+                {
+                    $this->where('sub_category_id', $category_sub->id);
 
-                $sub_category =$category_sub->id;
+                    $sub_category =$category_sub->id;
 
-                $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+                    $examCount = Learn::where('category_id',$category->id)->where('sub_category_id',$sub_category)->count();
+                }
+                $examCount = Learn::where('category_id',$category->id)->count();
             }
            
             $this->orderBy('order_no', 'ASC');
@@ -141,7 +152,7 @@ class LearnController extends Controller
             ]);
             $exam = Exam::find($exam->id);
         }
-        return view("admin.learn.show", compact('category', 'exam'));
+        return view("admin.learn.show", compact('category', 'exam','category_sub'));
     }
 
 
@@ -300,7 +311,7 @@ class LearnController extends Controller
             }
         }
 
-        $redirect = $request->redirect ?? route('admin.learn.index');
+        $redirect = $request->redirect.'?subcat='.$request->sub_category_id ?? route('admin.learn.index');
         return redirect($redirect)->with("success", "Learn has been successfully created");
     }
     public function update(Request $request, Category $category, Learn $learn)
@@ -409,7 +420,7 @@ class LearnController extends Controller
         }
         LearnAnswer::where('learn_id', $learn->id)->whereNotIn('id', $ansIds)->delete();
 
-        $redirect = $request->redirect ?? route('admin.learn.index');
+        $redirect = $request->redirect.'?subcat='.$request->sub_category_id ?? route('admin.learn.index');
         return redirect($redirect)->with("success", "Learn has been successfully updated");
     }
     public function destroy(Request $request, Category $category, Learn $learn)
@@ -453,30 +464,72 @@ class LearnController extends Controller
         
         if (!empty($request->deleteaction)  ) {
 
-            if ($request->input('select_all', 'no') == "yes") {
+            // if ($request->input('select_all', 'no') == "yes") {
                
-                $selectAllValues = json_decode($request->select_all_values, true);
+            //     $selectAllValues = json_decode($request->select_all_values, true);
                 
-                $admin = Auth::guard('admin')->user();
+            //     $admin = Auth::guard('admin')->user();
                                 
-                Learn::whereIn('id', $selectAllValues)
-                ->update(['admin_id' => $admin->id]);
+            //     Learn::whereIn('id', $selectAllValues)
+            //     ->update(['admin_id' => $admin->id]);
 
-                Learn::whereIn('id', $selectAllValues)  
-                    ->delete();
+            //     Learn::whereIn('id', $selectAllValues)  
+            //         ->delete();
 
-            } else {
+            // } else {
                
-                $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
+            //     $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];
                 
-                $admin = Auth::guard('admin')->user();
+            //     $admin = Auth::guard('admin')->user();
 
-                Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
+            //     Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
          
-                Learn::whereIn('id', $selectBoxValues)->delete();
+            //     Learn::whereIn('id', $selectBoxValues)->delete();
                    
-            }
+            // }
+            $selectBoxValues = is_array($request->input('selectbox', [])) ? $request->input('selectbox', []) : [];                
+            $admin = Auth::guard('admin')->user();
+            Learn::whereIn('id', $selectBoxValues)->update(['admin_id' => $admin->id]);
+
+            $learns =  Learn::whereIn('id', $selectBoxValues)->orderBy('order_no','asc')->get();
+
+                $firstLearn = $learns->first();
             
+                Learn::whereIn('id', $selectBoxValues)->delete();
+
+                $all_learn = Learn::where('category_id', $firstLearn->category_id)->where('sub_category_id', $firstLearn->sub_category_id)->get();
+
+                foreach( $all_learn  as $item)
+                {
+                    $question_count = Learn::where('order_no','<',$item->order_no)->where('category_id', $item->category_id)->where('sub_category_id', $item->sub_category_id)->count();
+
+                    if(!empty($question_count))
+                    {
+                        $item->order_no = $question_count+1; 
+                    }
+                    else
+                    {
+                        $item->order_no =1; 
+                    }
+
+                    $item->save();
+
+                }
+       
+            // foreach($learns as $learn)
+            // {
+            //     Learn::where('order_no','>',$learn->order_no)
+            //     ->where('category_id',$learn->category_id)
+            //     ->where('sub_category_id',$learn->sub_category_id)
+            //     ->decrement('order_no');
+
+            //     $ids[] =$learn->order_no;
+
+            //     $learn->delete();
+            // }
+            // dd($ids);
+
+            // Learn::whereIn('id', $selectBoxValues)->delete();
     
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);

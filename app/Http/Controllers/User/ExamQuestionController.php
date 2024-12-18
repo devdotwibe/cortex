@@ -79,7 +79,7 @@ class ExamQuestionController extends Controller
             $qry->where('time_of_exam', '!=', '00:00')
             ->where('time_of_exam', '!=', '00 : 00');
         })
-        ->orderBy('updated_at', 'asc')->get();
+        ->orderBy('created_at', 'asc')->get();
 
         /**
          *  @var User
@@ -262,7 +262,7 @@ class ExamQuestionController extends Controller
 
             $data = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->orderBy('order_no')->paginate(1);
 
-            $data_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->get();
+            $data_questions = UserReviewQuestion::whereIn('review_type',['mcq'])->where('user_id',$user->id)->where('user_exam_review_id',$userExamReview->id)->orderBy('order_no')->get();
 
             $user_review = UserReviewAnswer::where('user_id',$user->id)->where('user_answer',true)->where('user_exam_review_id',$userExamReview->id)->get();
 
