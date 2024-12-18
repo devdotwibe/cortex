@@ -215,10 +215,10 @@ class LiveClassController extends Controller
 
                 // $out ="php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &";
 
-               $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
+            //    $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
 
 
-                // dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
+                dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
 
             }
             return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
