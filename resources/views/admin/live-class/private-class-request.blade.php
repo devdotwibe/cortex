@@ -19,12 +19,17 @@
        </div>    
        <div class="header_content">
         <div class="form-group">
-            {{-- <select id="term-list" class="select2 form-control" data-allow-clear="true" onchange="termchange()">
+            @if($page_name!='Pending users')
+            <select id="term-list" class="select2 form-control" data-allow-clear="true" onchange="termchange()">
+
                 <option value="">Select Term</option> 
                 @foreach($terms  as $term)
                     <option value="{{ $term }}">{{ $term }}</option>
                 @endforeach
-            </select> --}}
+
+
+            </select>
+            @endif
         </div>
     </div>
     
