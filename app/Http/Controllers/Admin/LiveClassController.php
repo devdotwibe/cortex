@@ -352,7 +352,10 @@ class LiveClassController extends Controller
                 });
             }
 
-            $this ->where('status','pending');
+            $this->where(function($qry){
+                $qry->where('status','pending');
+                $qry->orWhere('status','rejected');
+            });
 
             if(!empty($request->termname)){
                 $termname= $request->termname;
