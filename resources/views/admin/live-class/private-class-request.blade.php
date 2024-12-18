@@ -344,7 +344,9 @@
         return buf;    
     }
     async function exportrequestdata(exportType="Export Csv"){
-        const responce =await fetch("{{route('admin.live-class.private_class_request_export')}}",{
+        const page_name = "{{ $page_name }}"; // Set the desired value dynamically
+
+        const responce =await fetch("{{route('admin.live-class.private_class_request_export')}}?page_name=" + encodeURIComponent(page_name),{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json', 
