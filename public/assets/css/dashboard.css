@@ -1471,6 +1471,12 @@ button.close {
     margin: 10px 0;
 }
 
+.exam-result .exam-result-content .exam-mark-bottom .btn.video-btn {
+    background: #1789fa;
+    border-color: #1789fa;
+    color: #ffffff;
+}
+
 .submit {
     margin-top: 7px;
 }
@@ -6507,7 +6513,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 244px) !important;
+    height: calc(100vh - 238px) !important;
     padding: 0 50px 0;
     margin: 0 0 50px;
     overflow-y: auto;
