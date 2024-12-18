@@ -1471,6 +1471,12 @@ button.close {
     margin: 10px 0;
 }
 
+.exam-result .exam-result-content .exam-mark-bottom .btn.video-btn {
+    background: #1789fa;
+    border-color: #1789fa;
+    color: #ffffff;
+}
+
 .submit {
     margin-top: 7px;
 }
