@@ -53,10 +53,14 @@
         } 
         function loadimage(k,v){
             const image = new Image(); 
+            image.crossOrigin = 'anonymous';
             image.onload = function() {
                 imgdata[k].render=image
             };
-            image.src = v.url;
+            image.src = v.url; 
+            image.onerror = () => {
+                console.error('Failed to load the image');
+            };
         }
         function printdata() {
             // Check if an iframe already exists; if not, create it
