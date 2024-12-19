@@ -81,7 +81,7 @@ class LessonMaterialController extends Controller
         $request->validate([
 
             "pdf_name" => "required",
-            "pdf_file" => ["required",'file','size:30720'],
+            "pdf_file" => ["required",'file','max:30720'],
 
         ]);
 
