@@ -1710,6 +1710,10 @@ button.close {
     justify-content: center;
 }
 
+.pdfsection .lesson .print-bnt img {
+    width: 38px;
+}
+
 section.post-section {
     margin: 10px 0px;
     width: 100%;
