@@ -1703,6 +1703,13 @@ button.close {
     margin: 16px 10px 0 0;
 }
 
+.pdfsection .lesson .print-bnt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 section.post-section {
     margin: 10px 0px;
     width: 100%;
