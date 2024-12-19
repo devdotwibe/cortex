@@ -101,7 +101,7 @@
             let htmlsection ="";
             $.each(imgdata,function(k,v){ 
                 htmlsection+=`
-                <section class="pagebreak">
+                <section >
                     <img src="${v.url}" alt="">
                 </section>
                 `
