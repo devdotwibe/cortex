@@ -62,6 +62,7 @@
                                     <div class="invalid-feedback" id="error-pdf_name">The field is required</div>
                                 </div> 
                                 <div class="forms-inputs mb-8">
+                                    <p  >Note: Maximum file size allowed is 30 MB.</p> 
                                     <label class="dropzone form-control" for="pdf_file"> 
                                         <p>Drag & Drop your PDF files here or click to upload</p>
                                         <input type="file" name="pdf_file" id="pdf_file" style="display: none" accept="application/pdf" >
@@ -171,13 +172,20 @@
        {
             $('#lesson-material-modal').modal('hide');
             $('#selected-files').html('')
-       }
+       } 
 
        $(function(){
             $('#pdf_file').change(function(e){
-                if(this.files.length>0){
-                    filename= this.files[0].name
-                    $('#selected-files').html(`<span>${filename}</span>`)
+                if(this.files.length>0){ 
+                    const fileSizeMB = this.files[0].size / (1024 * 1024);
+                    if (fileSizeMB > 30) {
+                        $('#error-pdf_file').text(`File size (${fileSizeMB.toFixed(2)} MB) exceeds the limit of 30 MB.`).show();
+
+                    }else{
+                        $('#error-pdf_file').hide();
+                        filename= this.files[0].name
+                        $('#selected-files').html(`<span>${filename}</span>`)
+                    }
                 }
                 
             })
