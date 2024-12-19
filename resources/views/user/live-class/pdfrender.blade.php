@@ -76,22 +76,55 @@
             }
 
             // Prepare content with the canvas image
+            // const windowContent = `
+            //     <!DOCTYPE html>
+            //     <html>
+            //     <head>
+            //         <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
+            //         <style>
+            //             @page {
+            //                 size: A4;
+            //                 margin: 0;
+            //             }
+            //             @media print {
+            //                 body { margin: 0; }
+            //                 img{ width:100%!important; } 
+            //                 .pagebreak { page-break-after: always; } 
+            //             }
+            //         </style>
+            //     </head>
+            //     <body>
+            //         <img src="${canvas.toDataURL()}"  >
+            //     </body>
+            //     </html>
+            // `;
+            let htmlsection ="";
+            $.each(imgdata,function(k,v){ 
+                htmlsection+=`
+                <section class="pagebreak">
+                    <img src="${v.url}" alt="">
+                </section>
+                `
+            })
             const windowContent = `
                 <!DOCTYPE html>
                 <html>
                 <head>
                     <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
                     <style>
+                        @page {
+                            size: A4;
+                            margin: 0;
+                        }
                         @media print {
                             body { margin: 0; }
-                        }
-                        img{
-                          width:100%!important;
+                            img{ width:100%!important; } 
+                            .pagebreak { page-break-after: always; } 
                         }
                     </style>
                 </head>
                 <body>
-                    <img src="${canvas.toDataURL()}"  >
+                    ${htmlsection}
                 </body>
                 </html>
             `;
