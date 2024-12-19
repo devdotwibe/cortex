@@ -9,7 +9,7 @@
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="exiticon">
                 </a>
                 <div class="lesson-title">
-                    <button class="btn btn-danger btn-sm float-end" onclick="printdata()" id="print-data">Print  <img src="{{ asset('assets/images/loader.gif') }}" alt="" style="display: none" width="50"></button>
+                    <button class="btn btn-danger btn-sm float-end print-bnt" onclick="printdata()" id="print-data">Print  <img src="{{ asset('assets/images/loader.gif') }}" alt="" style="display: none" width="50"></button>
                     <h5><span>{{ ucfirst($subLessonMaterial->pdf_name) }}</h5>
                 </div>
                 <div class="lesson-body">
