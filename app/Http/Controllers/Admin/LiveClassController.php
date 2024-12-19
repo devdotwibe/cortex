@@ -151,7 +151,6 @@ class LiveClassController extends Controller
         return view('admin.live-class.private-class',compact('live_class'));
     }
     public function private_class_request(Request $request){
-
         $page_name = "Registered Users";
 
         if($request->ajax()){
@@ -164,7 +163,6 @@ class LiveClassController extends Controller
                     $qry->whereJsonContains('timeslot',$slot);
                 });
             }
-
             $this ->where('status','approved');
 
             if(!empty($request->termname)){
@@ -334,9 +332,7 @@ class LiveClassController extends Controller
         $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
         return view('admin.live-class.private-class-request',compact('live_class','terms','page_name'));
-
     }
-
     public function private_class_pending(Request $request){
 
         $page_name = "Pending Users";
@@ -372,14 +368,14 @@ class LiveClassController extends Controller
 
                ;
                 });
-                
-                
-                
+
+
+
             }
 
 
-            
-            
+
+
 
             return $this->addAction(function($data) {
                 $action = "";
@@ -409,8 +405,6 @@ class LiveClassController extends Controller
                     if($data->status=="approved"&&!empty($data->user)){
                     $action .= '
                    
-
-
                     <a href="' . route("admin.user.spectate1", $data->user->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                     <span class="adminside-icon">
                         <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
@@ -422,8 +416,8 @@ class LiveClassController extends Controller
 
 
                 }
-                
-                
+
+
 
 
                 if($data->status=="approved"&&!empty($data->user)){
@@ -438,8 +432,6 @@ class LiveClassController extends Controller
         <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
     </span>
 </a>
-
-
                     ';
                 }
                 $action.=' 
@@ -452,10 +444,7 @@ class LiveClassController extends Controller
                         </span>
                     </a>
                 
-
                 
-
-
                 ';
                 return $action;
             })->addColumn('timeslottext',function($data){
@@ -495,26 +484,26 @@ class LiveClassController extends Controller
         $terms2 = LessonMaterial::get();
         $terms3 = HomeWork::get();
         $terms4 = LessonRecording::get();
-        
+
         // Collect unique terms from $terms1
         foreach ($terms1 as $item) {
             $terms[] = $item->term_name;
         }
-        
+
         // Collect unique terms from $terms2
         foreach ($terms2 as $item) {
             if (!in_array($item->term_name, $terms)) { // Use in_array() to check existence
                 $terms[] = $item->term_name;
             }
         }
-        
+
         // You can repeat similar logic for $terms3 and $terms4 if needed
         foreach ($terms3 as $item) {
             if (!in_array($item->term_name, $terms)) {
                 $terms[] = $item->term_name;
             }
         }
-        
+
         foreach ($terms4 as $item) {
             if (!in_array($item->term_name, $terms)) {
                 $terms[] = $item->term_name;
@@ -526,6 +515,8 @@ class LiveClassController extends Controller
         return view('admin.live-class.private-class-request',compact('live_class','terms','page_name'));
 
     }
+
+   
 
 
     public function private_class_request_show(Request $request,PrivateClass $privateClass){
@@ -557,7 +548,8 @@ class LiveClassController extends Controller
                                     $qry->where('status', '!=', 'pending')
                                         ->where('status', '!=', 'rejected');
                                 })
-                                ->get();
+                                ->get();       
+
         }
     }
     public function private_class_request_accept(Request $request,PrivateClass $privateClass){
