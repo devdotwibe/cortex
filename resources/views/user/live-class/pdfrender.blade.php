@@ -85,10 +85,13 @@
                         @media print {
                             body { margin: 0; }
                         }
+                        img{
+                          width:100%!important;
+                        }
                     </style>
                 </head>
                 <body>
-                    <img src="${canvas.toDataURL()}" width="500">
+                    <img src="${canvas.toDataURL()}"  >
                 </body>
                 </html>
             `;
