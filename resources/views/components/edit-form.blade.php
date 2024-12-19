@@ -11,8 +11,10 @@
                     $exam_type = Null;
                     foreach ($fields as $item) {
                         if (isset($item->name) && ($item->name === 'answer' || $item->name === 'mcq_answer')) {
-                            $choiceName = $item->name;
-                            $choice = 1;
+                            if($item->value!=null){
+                                $choiceName = $item->name;
+                                $choice = 1;
+                            }
                         }
                         if (isset($item->name) && ($item->name === 'exam_type')) {
                             $exam_type = $item->value;
@@ -403,6 +405,9 @@
             if (choice != 0) {
                 let name = "{{ $choiceName }}"
                 let exam = '{{ $exam_type }}';
+                console.log(name)
+                console.log(exam)
+                console.log($('.mcq_section').is(':visible') )
                 if ($('.mcq_section').is(':visible') || exam=='full-mock-exam' || exam=='topic-test' || exam=='question-bank' || name=='mcq_answer') {
                     $("#{{$frmID}}").on("submit", function (e) {
                         let isValid = true;
