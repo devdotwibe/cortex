@@ -9,7 +9,7 @@
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="exiticon">
                 </a>
                 <div class="lesson-title">
-                    <button class="btn btn-danger btn-sm float-end" onclick="printdata()">Print</button>
+                    <button class="btn btn-danger btn-sm float-end" onclick="printdata()" id="print-data">Print  <img src="{{ asset('assets/images/loader.gif') }}" alt="" style="display: none" width="50"></button>
                     <h5><span>{{ ucfirst($subLessonMaterial->pdf_name) }}</h5>
                 </div>
                 <div class="lesson-body">
@@ -74,6 +74,9 @@
                 printFrame.style.border = "none";
                 document.body.appendChild(printFrame);
             }
+            $('#print-data').prop("disabled", true);
+            $('#print-data img').show();
+
 
             // Prepare content with the canvas image
             // const windowContent = `
@@ -138,6 +141,8 @@
             // Trigger print after the iframe content has loaded
             printFrame.onload = function() {
                 printFrame.contentWindow.print();
+                $('#print-data').prop("disabled", false);
+                $('#print-data img').hide();
             };
         }
 
