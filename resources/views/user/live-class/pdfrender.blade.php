@@ -9,7 +9,7 @@
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="exiticon">
                 </a>
                 <div class="lesson-title">
-                    <button class="btn btn-danger btn-sm float-end" onclick="printdata()">Print</button>
+                    <button class="btn btn-danger btn-sm float-end" onclick="printdata()" id="print-data">Print  <img src="{{ asset('assets/images/loader.gif') }}" alt="" style="display: none" width="50"></button>
                     <h5><span>{{ ucfirst($subLessonMaterial->pdf_name) }}</h5>
                 </div>
                 <div class="lesson-body">
@@ -53,10 +53,14 @@
         } 
         function loadimage(k,v){
             const image = new Image(); 
+            image.crossOrigin = 'anonymous';
             image.onload = function() {
                 imgdata[k].render=image
             };
-            image.src = v.url;
+            image.src = v.url; 
+            image.onerror = () => {
+                console.error('Failed to load the image');
+            };
         }
         function printdata() {
             // Check if an iframe already exists; if not, create it
@@ -70,21 +74,60 @@
                 printFrame.style.border = "none";
                 document.body.appendChild(printFrame);
             }
+            $('#print-data').prop("disabled", true);
+            $('#print-data img').show();
+
 
             // Prepare content with the canvas image
+            // const windowContent = `
+            //     <!DOCTYPE html>
+            //     <html>
+            //     <head>
+            //         <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
+            //         <style>
+            //             @page {
+            //                 size: A4;
+            //                 margin: 0;
+            //             }
+            //             @media print {
+            //                 body { margin: 0; }
+            //                 img{ width:100%!important; } 
+            //                 .pagebreak { page-break-after: always; } 
+            //             }
+            //         </style>
+            //     </head>
+            //     <body>
+            //         <img src="${canvas.toDataURL()}"  >
+            //     </body>
+            //     </html>
+            // `;
+            let htmlsection ="";
+            $.each(imgdata,function(k,v){ 
+                htmlsection+=`
+                <section >
+                    <img src="${v.url}" alt="">
+                </section>
+                `
+            })
             const windowContent = `
                 <!DOCTYPE html>
                 <html>
                 <head>
                     <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
                     <style>
+                        @page {
+                            size: A4;
+                            margin: 0;
+                        }
                         @media print {
                             body { margin: 0; }
+                            img{ width:100%!important; } 
+                            .pagebreak { page-break-after: always; } 
                         }
                     </style>
                 </head>
                 <body>
-                    <img src="${canvas.toDataURL()}" width="500">
+                    ${htmlsection}
                 </body>
                 </html>
             `;
@@ -98,6 +141,8 @@
             // Trigger print after the iframe content has loaded
             printFrame.onload = function() {
                 printFrame.contentWindow.print();
+                $('#print-data').prop("disabled", false);
+                $('#print-data img').hide();
             };
         }
 
