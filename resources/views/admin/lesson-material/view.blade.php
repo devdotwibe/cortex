@@ -180,7 +180,7 @@
                     const fileSizeMB = this.files[0].size / (1024 * 1024);
                     if (fileSizeMB > 30) {
                         $('#error-pdf_file').text(`File size (${fileSizeMB.toFixed(2)} MB) exceeds the limit of 30 MB.`).show();
-
+                        $('#pdf_file').val("")
                     }else{
                         $('#error-pdf_file').hide();
                         filename= this.files[0].name
