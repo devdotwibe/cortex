@@ -405,6 +405,9 @@
             if (choice != 0) {
                 let name = "{{ $choiceName }}"
                 let exam = '{{ $exam_type }}';
+                console.log(name)
+                console.log(exam)
+                console.log($('.mcq_section').is(':visible') )
                 if ($('.mcq_section').is(':visible') || exam=='full-mock-exam' || exam=='topic-test' || exam=='question-bank' || name=='mcq_answer') {
                     $("#{{$frmID}}").on("submit", function (e) {
                         let isValid = true;

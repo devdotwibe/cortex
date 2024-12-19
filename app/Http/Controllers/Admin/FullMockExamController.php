@@ -179,16 +179,31 @@ class FullMockExamController extends Controller
                 Question::whereIn('id', $request->input('selectbox', []))
                         ->update(['admin_id' => $admin->id]);
 
-                $questions = Question::whereIn('id', $request->input('selectbox', []))->delete();
+            $questions =  Question::whereIn('id',$request->input('selectbox', []))->orderBy('order_no','asc')->get();
 
-                foreach($questions as $question)
+            $firstquestion = $questions->first();
+
+            Question::whereIn('id', $request->input('selectbox', []))->delete();
+
+            $all_questions = Question::where('exam_id', $firstquestion->exam_id)->get();
+
+            foreach( $all_questions  as $item)
+            {
+                $question_count = Question::where('order_no','<',$item->order_no)->where('exam_id', $item->exam_id)->count();
+
+                if(!empty($question_count))
                 {
-                    Question::where('order_no','>',$question->order_no)
-                    ->where('exam_id', $question->exam_id)
-                    ->decrement('order_no');
-                }  
+                    $item->order_no = $question_count+1; 
+                }
+                else
+                {
+                    $item->order_no =1; 
+                }
 
-                Question::whereIn('id', $request->input('selectbox', []))->delete();
+                $item->save();
+
+            }  
+
 
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted success"]);

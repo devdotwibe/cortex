@@ -780,10 +780,13 @@
            
             // setInterval(countownRun,1000)
 
-            $('.exam-exit a').click(function(e){
+            $('.exam-exit a').click(async function(e){
                 e.preventDefault();
                 e.stopPropagation();
-                localStorage.removeItem("home-work-booklet")
+
+                const csrf= $('meta[name="csrf-token"]').attr('content'); 
+             
+                localStorage.removeItem("home-work-booklet");
                 exitconfirm($(this).attr("href")); 
             }) 
          })

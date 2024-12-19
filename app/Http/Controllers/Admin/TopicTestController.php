@@ -343,17 +343,32 @@ class TopicTestController extends Controller
             Question::whereIn('id', $request->input('selectbox', []))
                     ->update(['admin_id' => $admin->id]); 
 
-            $questions = Question::whereIn('id', $request->input('selectbox', []))->delete();
 
-            foreach($questions as $question)
-            {
-                Question::where('order_no','>',$question->order_no)
-                ->where('category_id', $question->category_id)
-                ->where('exam_id', $question->exam_id)
-                ->decrement('order_no');
-            }   
-                    
+            $questions =  Question::whereIn('id',$request->input('selectbox', []))->orderBy('order_no','asc')->get();
+
+            $firstquestion = $questions->first();
+
             Question::whereIn('id', $request->input('selectbox', []))->delete();
+
+            $all_questions = Question::where('category_id', $firstquestion->category_id)->where('exam_id', $firstquestion->exam_id)->get();
+
+            foreach( $all_questions  as $item)
+            {
+                $question_count = Question::where('order_no','<',$item->order_no)->where('category_id', $item->category_id)->where('exam_id', $item->exam_id)->count();
+
+                if(!empty($question_count))
+                {
+                    $item->order_no = $question_count+1; 
+                }
+                else
+                {
+                    $item->order_no =1; 
+                }
+
+                $item->save();
+
+            }      
+           
 
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);

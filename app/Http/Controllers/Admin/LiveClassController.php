@@ -152,6 +152,7 @@ class LiveClassController extends Controller
     }
     public function private_class_request(Request $request){
         $page_name = "Registered Users";
+
         if($request->ajax()){
             self::reset();
             self::$model=PrivateClass::class;
@@ -163,6 +164,7 @@ class LiveClassController extends Controller
                 });
             }
             $this ->where('status','approved');
+
             if(!empty($request->termname)){
                 $termname= $request->termname;
 
@@ -513,6 +515,10 @@ class LiveClassController extends Controller
         return view('admin.live-class.private-class-request',compact('live_class','terms','page_name'));
 
     }
+
+   
+
+
     public function private_class_request_show(Request $request,PrivateClass $privateClass){
         $privateClass->rejectUrl=route("admin.live-class.request.reject",$privateClass->slug);
         $privateClass->acceptUrl=route("admin.live-class.request.accept",$privateClass->slug);
@@ -543,6 +549,7 @@ class LiveClassController extends Controller
                                         ->where('status', '!=', 'rejected');
                                 })
                                 ->get();       
+
         }
     }
     public function private_class_request_accept(Request $request,PrivateClass $privateClass){

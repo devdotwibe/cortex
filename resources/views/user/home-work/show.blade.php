@@ -93,6 +93,7 @@
                         <th>Date</th>
                         <th>Progress</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody >
@@ -110,12 +111,22 @@
                     url:url
                 },
                 order: [
-                    [0, 'DESC']
+                    [0, 'ASC']
                 ],
                 initComplete: function() {
                     var info = this.api().page.info(); 
                     var json = this.api().ajax.json();
+                    console.log(json);
+
                     $('#restart-btn').attr('href', json.url);
+                
+                    // $('#restart-btn').onclick('confimbooklet(`${json.url}'','${json.name}')');
+
+                    // $('#restart-btn').attr('onclick', `confimbooklet('${json.url}', '${json.name}')`);
+
+
+                    //  $('#restart-btn').attr('href','{{route('home-work.booklet', ['home_work' => $homeWork->slug, 'home_work_book' => $homeWorkBook->slug])');
+                    
                     $('#review-history-label').html(` ${json.name} `)
                     if (info.pages > 1) {
                         $("#attemt-list-table_wrapper .pagination").show();
@@ -132,6 +143,9 @@
                     var info = this.api().page.info();
                     var json = this.api().ajax.json();
                     $('#restart-btn').attr('href', json.url);
+
+                    // $('#restart-btn').attr('onclick', `confirmbooklet('${json.url}', '${json.name}')`);
+
                     $('#review-history-label').html(` ${json.name} `)
                     if (info.pages > 1) {
                         $("#attemt-list-table_wrapper .pagination").show();
@@ -167,7 +181,14 @@
                     {
                         data: 'action', 
                         orderable: false,
-                        searchable: false, 
+                        searchable: false,  
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at',
+                        orderable: false,
+                        searchable: false,
+                        visible: false,
                     },
                 ],
             }) 

@@ -244,7 +244,7 @@ class PrivateClassHomeWorkController extends Controller
         if (TermAccess::where('type', 'home-work')->where('term_id', $homeWork->id)->where('user_id', $user->id)->count() == 0) {
             return abort(404);
         }
-        return DataTables::of(HomeWorkReview::where('user_id', $user->id)->where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->select('slug', 'created_at', 'progress'))
+        return DataTables::of(HomeWorkReview::where('user_id', $user->id)->where('home_work_id', $homeWork->id)->where('home_work_book_id', $homeWorkBook->id)->select('slug', 'created_at', 'progress','updated_at'))
             ->addColumn('progress', function ($data) {
 
                 // $numberformat=number_format($data->progress,2);
