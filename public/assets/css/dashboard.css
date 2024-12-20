@@ -1243,7 +1243,7 @@ button.close {
     top: 88px;
     left: 0;
     width: 100%;
-    height: 83%;
+    height: calc(100% - 158px);
     background: #EEEEEE;
     z-index: 11;
     padding: 0 30px;
@@ -8037,7 +8037,7 @@ nav.navbar.top-barhide {
 
     .modal-expand {
         top: 50px;
-        height: 40.75vw;
+        height: calc(100% - 118px);
     }
 
     /* .exam-container .container-wrap .lesson .lesson-body p {
@@ -8631,7 +8631,7 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 55px;
+        top: 46px;
         padding: 0 15px;
     }
 
@@ -9016,7 +9016,7 @@ nav.navbar.top-barhide {
 
     .modal-expand .container-wrap {
         width: 100%;
-        min-height: calc(111vh - 0px) !important;
+        /* min-height: calc(111vh - 0px) !important; */
     }
 
     .support-content p {
