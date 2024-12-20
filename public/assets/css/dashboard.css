@@ -1244,7 +1244,6 @@ button.close {
     left: 0;
     width: 100%;
     height: 83%;
-    max-height: max-content;
     background: #EEEEEE;
     z-index: 11;
     padding: 0 30px;
