@@ -161,6 +161,7 @@
             // $.each(imgdata,function(k,v){ 
             //     loadimage(k,v)
             // })
+            $('#print-data').prop("disabled", true);
             let htmlsection ="";
             $.each(imgdata,function(k,v){ 
                 htmlsection+=`
@@ -197,6 +198,9 @@
             doc.document.open();
             doc.document.write(windowContent);
             doc.document.close();
+            printFrame.onload = function() { 
+                $('#print-data').prop("disabled", false); 
+            };
         })
     </script>
 
