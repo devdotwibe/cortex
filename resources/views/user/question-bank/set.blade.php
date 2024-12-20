@@ -58,38 +58,37 @@
                          </div>
                      </div>
                      <script>
-                         document.addEventListener("DOMContentLoaded", function () {
-                             const magnifierIcon = document.getElementById("magnifier-icon");
-                             const zoomDropdown = document.getElementById("zoom-dropdown");
-                             const zoomOptions = document.querySelectorAll(".zoom-option");
-                     
-                             // Show/hide the zoom dropdown when the icon is clicked
-                             magnifierIcon.addEventListener("click", function () {
-                                 zoomDropdown.style.display = zoomDropdown.style.display === "block" ? "none" : "block";
-                             });
-                     
-                             // Handle zoom option clicks
-                             zoomOptions.forEach(option => {
-                                 option.addEventListener("click", function () {
-                                     const zoomLevel = this.getAttribute("data-zoom");
-                     
-                                     // Apply the zoom to the body
-                                     document.body.style.transform = `scale(${zoomLevel / 100})`;
-                                     document.body.style.transformOrigin = "top left";
-                                     document.body.style.width = `${100 / (zoomLevel / 100)}%`;
-                     
-                                     // Hide the dropdown after selection
-                                     zoomDropdown.style.display = "none";
-                                 });
-                             });
-                     
-                             // Hide dropdown if clicked outside
-                             document.addEventListener("click", function (event) {
-                                 if (!event.target.closest("#zoom-controls")) {
-                                     zoomDropdown.style.display = "none";
-                                 }
-                             });
-                         });
+                        document.addEventListener("DOMContentLoaded", function () {
+                        const magnifierIcon = document.getElementById("magnifier-icon");
+                        const zoomDropdown = document.getElementById("zoom-dropdown");
+                        const zoomOptions = document.querySelectorAll(".zoom-option");
+
+                        // Show/hide the zoom dropdown when the icon is clicked
+                        magnifierIcon.addEventListener("click", function () {
+                            zoomDropdown.style.display = zoomDropdown.style.display === "block" ? "none" : "block";
+                        });
+
+                        // Handle zoom option clicks
+                        zoomOptions.forEach(option => {
+                            option.addEventListener("click", function () {
+                                const zoomLevel = this.getAttribute("data-zoom");
+
+                                // Apply zoom to the body
+                                document.body.style.zoom = `${zoomLevel}%`;
+
+                                // Hide the dropdown after selection
+                                zoomDropdown.style.display = "none";
+                            });
+                        });
+
+                        // Hide dropdown if clicked outside
+                        document.addEventListener("click", function (event) {
+                                if (!event.target.closest("#zoom-controls")) {
+                                    zoomDropdown.style.display = "none";
+                                }
+                            });
+                        });
+
                      </script>
                     <div class="exam-exit">
                         <a   href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
