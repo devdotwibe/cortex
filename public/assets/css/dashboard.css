@@ -1240,10 +1240,10 @@ button.close {
 
 .modal-expand {
     position: absolute;
-    top: 120px;
+    top: 88px;
     left: 0;
     width: 100%;
-    height: max-content;
+    height: 83%;
     background: #EEEEEE;
     z-index: 11;
     padding: 0 30px;
@@ -1701,6 +1701,17 @@ button.close {
 
 .pdfsection .lesson .lesson-exit.float-start {
     margin: 16px 10px 0 0;
+}
+
+.pdfsection .lesson .print-bnt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdfsection .lesson .print-bnt img {
+    width: 38px;
 }
 
 section.post-section {
@@ -4138,11 +4149,13 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 #question-preview-page .container-wrap .lesson-footer {
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto 0;
 }
 
 #question-preview-page .container-wrap .lesson-footer button.btn {
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     margin: 5px;
 }
 
@@ -4439,12 +4452,13 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 
 .header_nav .header_wrapp .header_content select.form-control {
-    border: 1px solid #E6E6E6;
+    border: 1px solid #000000;
     height: 43px;
     padding: 8px 22px 8px 8px;
     background: url(../images/chevron-down.svg) no-repeat center;
     background-size: 12px;
     background-position-x: 95%;
+    border-radius: 10px;
 }
 
 
@@ -8022,7 +8036,8 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 90px;
+        top: 50px;
+        height: 40.75vw;
     }
 
     /* .exam-container .container-wrap .lesson .lesson-body p {
@@ -9086,6 +9101,11 @@ nav.navbar.top-barhide {
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         top: -18px;
+    }
+
+    #question-preview-page .container-wrap .lesson-footer button.btn {
+        width: 45px;
+        height: 45px;
     }
 }
 
