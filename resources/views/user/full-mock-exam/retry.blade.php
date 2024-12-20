@@ -8,7 +8,89 @@
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
                 <div class="progress-main">
+                     <!-- FontAwesome CSS -->
+                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                     <style>
+                         #zoom-controls {
+                             position: fixed;
+                             top: 20px;
+                             left: 20px;
+                             z-index: 999;
+                         }
 
+                         #zoom-controls i {
+                             color: #555;
+                             transition: color 0.3s;
+                         }
+
+                         #zoom-controls i:hover {
+                             color: #000;
+                         }
+
+                         #zoom-dropdown li:hover {
+                             background-color: #f0f0f0;
+                             color: #333;
+                         }
+
+                     </style>
+                     <div id="zoom-controls" style="position: fixed; top: 20px; left: 20px; z-index: 999;">
+                         <!-- Magnifier Icon -->
+                         <div id="magnifier-icon" style="cursor: pointer; display: inline-block;">
+                             <i class="fas fa-search-plus" style="font-size: 24px; color: #333;"></i>
+                         </div>
+                     
+                         <!-- Hidden Dropdown for Zoom Options -->
+                         <div id="zoom-dropdown" style="
+                             display: none;
+                             position: absolute;
+                             top: 30px;
+                             left: 0;
+                             background-color: #f9f9f9;
+                             border: 1px solid #ddd;
+                             border-radius: 5px;
+                             box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+                         ">
+                             <ul style="list-style: none; margin: 0; padding: 10px;">
+                                <li class="zoom-option" data-zoom="100" style="padding: 5px 10px; cursor: pointer;">100%</li>
+                                <li class="zoom-option" data-zoom="130" style="padding: 5px 10px; cursor: pointer;">150%</li>
+                                <li class="zoom-option" data-zoom="180" style="padding: 5px 10px; cursor: pointer;">200%</li>
+                                <li class="zoom-option" data-zoom="280" style="padding: 5px 10px; cursor: pointer;">300%</li>
+                             </ul>
+                         </div>
+                     </div>
+                     <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                        const magnifierIcon = document.getElementById("magnifier-icon");
+                        const zoomDropdown = document.getElementById("zoom-dropdown");
+                        const zoomOptions = document.querySelectorAll(".zoom-option");
+
+                        // Show/hide the zoom dropdown when the icon is clicked
+                        magnifierIcon.addEventListener("click", function () {
+                            zoomDropdown.style.display = zoomDropdown.style.display === "block" ? "none" : "block";
+                        });
+
+                        // Handle zoom option clicks
+                        zoomOptions.forEach(option => {
+                            option.addEventListener("click", function () {
+                                const zoomLevel = this.getAttribute("data-zoom");
+
+                                // Apply zoom to the body
+                                document.body.style.zoom = `${zoomLevel}%`;
+
+                                // Hide the dropdown after selection
+                                zoomDropdown.style.display = "none";
+                            });
+                        });
+
+                        // Hide dropdown if clicked outside
+                        document.addEventListener("click", function (event) {
+                                if (!event.target.closest("#zoom-controls")) {
+                                    zoomDropdown.style.display = "none";
+                                }
+                            });
+                        });
+
+                     </script>
                     <div class="exam-exit ">
                         <a   href="{{route('full-mock-exam.index')}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
