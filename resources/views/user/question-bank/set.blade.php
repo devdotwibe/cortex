@@ -7,8 +7,91 @@
         <div class="exam-progress-inner">
             <div class="exam-progress-inner-item exam-left">
                 <div class="progress-main">
+                     <!-- FontAwesome CSS -->
+                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                     <style>
+                         #zoom-controls {
+                             position: fixed;
+                             top: 20px;
+                             left: 20px;
+                             z-index: 999;
+                         }
 
-                    <div class="exam-exit ">
+                         #zoom-controls i {
+                             color: #555;
+                             transition: color 0.3s;
+                         }
+
+                         #zoom-controls i:hover {
+                             color: #000;
+                         }
+
+                         #zoom-dropdown li:hover {
+                             background-color: #f0f0f0;
+                             color: #333;
+                         }
+
+                     </style>
+                     <div id="zoom-controls" style="position: fixed; top: 20px; left: 20px; z-index: 999;">
+                         <!-- Magnifier Icon -->
+                         <div id="magnifier-icon" style="cursor: pointer; display: inline-block;">
+                             <i class="fas fa-search-plus" style="font-size: 24px; color: #333;"></i>
+                         </div>
+                     
+                         <!-- Hidden Dropdown for Zoom Options -->
+                         <div id="zoom-dropdown" style="
+                             display: none;
+                             position: absolute;
+                             top: 30px;
+                             left: 0;
+                             background-color: #f9f9f9;
+                             border: 1px solid #ddd;
+                             border-radius: 5px;
+                             box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+                         ">
+                             <ul style="list-style: none; margin: 0; padding: 10px;">
+                                 <li class="zoom-option" data-zoom="100" style="padding: 5px 10px; cursor: pointer;">100%</li>
+                                 <li class="zoom-option" data-zoom="150" style="padding: 5px 10px; cursor: pointer;">150%</li>
+                                 <li class="zoom-option" data-zoom="200" style="padding: 5px 10px; cursor: pointer;">200%</li>
+                                 <li class="zoom-option" data-zoom="300" style="padding: 5px 10px; cursor: pointer;">300%</li>
+                             </ul>
+                         </div>
+                     </div>
+                     <script>
+                         document.addEventListener("DOMContentLoaded", function () {
+                             const magnifierIcon = document.getElementById("magnifier-icon");
+                             const zoomDropdown = document.getElementById("zoom-dropdown");
+                             const zoomOptions = document.querySelectorAll(".zoom-option");
+                     
+                             // Show/hide the zoom dropdown when the icon is clicked
+                             magnifierIcon.addEventListener("click", function () {
+                                 zoomDropdown.style.display = zoomDropdown.style.display === "block" ? "none" : "block";
+                             });
+                     
+                             // Handle zoom option clicks
+                             zoomOptions.forEach(option => {
+                                 option.addEventListener("click", function () {
+                                     const zoomLevel = this.getAttribute("data-zoom");
+                     
+                                     // Apply the zoom to the body
+                                     document.body.style.transform = `scale(${zoomLevel / 100})`;
+                                     document.body.style.transformOrigin = "top left";
+                                     document.body.style.width = `${100 / (zoomLevel / 100)}%`;
+                     
+                                     // Hide the dropdown after selection
+                                     zoomDropdown.style.display = "none";
+                                 });
+                             });
+                     
+                             // Hide dropdown if clicked outside
+                             document.addEventListener("click", function (event) {
+                                 if (!event.target.closest("#zoom-controls")) {
+                                     zoomDropdown.style.display = "none";
+                                 }
+                             });
+                         });
+                     </script>
+                    <div class="exam-exit">
                         <a   href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
                             <img src="{{asset("assets/images/exiticon-wht.svg")}}" alt="exiticon">
                         </a>
@@ -731,6 +814,7 @@
                 title:"Are you sure do you want to exit?" ,
                 message: "If you exit in-between the exam, The answered questions will not save and you should need to start the exam from the beginning.",
             })){
+                localStorage.removeItem("question-bank-summery")
                 window.location.href=url;
             }
         }
@@ -788,7 +872,6 @@
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
                 e.stopPropagation();
-                localStorage.removeItem("question-bank-summery")
                 exitconfirm($(this).attr("href")); 
             }) 
          })
