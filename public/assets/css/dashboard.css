@@ -1240,10 +1240,11 @@ button.close {
 
 .modal-expand {
     position: absolute;
-    top: 120px;
+    top: 88px;
     left: 0;
     width: 100%;
-    height: max-content;
+    height: 83%;
+    max-height: max-content;
     background: #EEEEEE;
     z-index: 11;
     padding: 0 30px;
