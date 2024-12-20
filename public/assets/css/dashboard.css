@@ -1061,6 +1061,31 @@ button.close {
     color: #005d93 !important;
 }
 
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown {
+    border-radius: 0 !important;
+    left: -16px !important;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul {
+    padding: 0 !important;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li {
+    font-size: 14px;
+    background: #1789fa;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+    transition: all 0.25s ease-in;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li:last-child {
+    border-bottom: 0;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li:hover {
+    background: #005d93;
+}
+
 .exam-progress>.exam-progress-inner>.exam-right {
     width: auto;
     height: 100%;
