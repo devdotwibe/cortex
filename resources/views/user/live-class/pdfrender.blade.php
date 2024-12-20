@@ -15,7 +15,7 @@
                 <div class="lesson-body">
                     <div id="lesson-pdf-body" class="lesson-pdf-body"> 
                         {{-- <canvas id="image-render" width="500" height="800"></canvas> --}}
-                        <iframe src="print-frame" frameborder="0" width="500" height="800"></iframe>
+                        <iframe id="print-frame" frameborder="0" width="500" height="800"></iframe>
                         <div class="canover"></div>
                     </div>
                 </div>
