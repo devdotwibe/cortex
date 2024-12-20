@@ -1703,6 +1703,17 @@ button.close {
     margin: 16px 10px 0 0;
 }
 
+.pdfsection .lesson .print-bnt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdfsection .lesson .print-bnt img {
+    width: 38px;
+}
+
 section.post-section {
     margin: 10px 0px;
     width: 100%;
@@ -4138,11 +4149,13 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 #question-preview-page .container-wrap .lesson-footer {
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto 0;
 }
 
 #question-preview-page .container-wrap .lesson-footer button.btn {
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     margin: 5px;
 }
 
@@ -9087,6 +9100,11 @@ nav.navbar.top-barhide {
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         top: -18px;
+    }
+
+    #question-preview-page .container-wrap .lesson-footer button.btn {
+        width: 45px;
+        height: 45px;
     }
 }
 
