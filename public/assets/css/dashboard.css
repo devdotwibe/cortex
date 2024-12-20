@@ -1240,10 +1240,10 @@ button.close {
 
 .modal-expand {
     position: absolute;
-    top: 120px;
+    top: 88px;
     left: 0;
     width: 100%;
-    height: max-content;
+    height: 83%;
     background: #EEEEEE;
     z-index: 11;
     padding: 0 30px;
@@ -8036,7 +8036,8 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 90px;
+        top: 50px;
+        height: 40.75vw;
     }
 
     /* .exam-container .container-wrap .lesson .lesson-body p {
