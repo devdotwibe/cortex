@@ -290,10 +290,10 @@
           
 
          <span class="side-icon" >
-             <img src="{{asset("assets/images/iconshover/shop.svg")}}" alt="Dashboard">
+             <img src="{{asset("assets/images/iconshover/shop-hover.svg")}}" alt="Dashboard">
          </span>
          <span class="active-icon">
-             <img src="{{asset("assets/images/icons/shop-hover.svg")}}" alt="Dashboard" title="Shop" data-title="Shop" class="titledisplay">
+             <img src="{{asset("assets/images/icons/shop.svg")}}" alt="Dashboard" title="Shop" data-title="Shop" class="titledisplay">
          </span>
          <span class="menutext">
          Shop
