@@ -14,7 +14,8 @@
                 </div>
                 <div class="lesson-body">
                     <div id="lesson-pdf-body" class="lesson-pdf-body"> 
-                        <canvas id="image-render" width="500" height="800"></canvas>
+                        {{-- <canvas id="image-render" width="500" height="800"></canvas> --}}
+                        <iframe src="print-frame" frameborder="0" width="500" height="800"></iframe>
                         <div class="canover"></div>
                     </div>
                 </div>
@@ -28,40 +29,48 @@
 @push('footer-script')
     <script>
         var imgdata = @json($imgdata);
-        var canvas = document.getElementById('image-render');
+        // var canvas = document.getElementById('image-render');
+        let printFrame = document.getElementById("print-frame");
         var scale = 500/800;
         pdfwidth=$('#lesson-pdf-body').width()
         pdfheight= pdfwidth/scale
-        canvas.width=pdfwidth;
-        canvas.height=pdfheight*imgdata.length; 
-        var ctx = canvas.getContext('2d');
+
+        printFrame.width=pdfwidth;
+        printFrame.height=pdfheight*imgdata.length; 
+        // canvas.width=pdfwidth;
+        // canvas.height=pdfheight*imgdata.length; 
+        // var ctx = canvas.getContext('2d');
          
-        function renderPdf() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            for (let index = 0; index < imgdata.length; index++) {
-                const element = imgdata[index]; 
-                // let imageData = ctx.createImageData(element.width, element.height);
-                if(element.render){   
-                    // for (let i = 0; i < element.render.length&&i<imageData.data.length; i++) {
-                    //     imageData.data[i] = element.render[i];
-                    // }   
-                    ctx.drawImage(element.render, 0, index*pdfheight,pdfwidth,pdfheight);          
-                }
-                // ctx.putImageData(imageData, 0, index*element.height);
-            }  
-            requestAnimationFrame(renderPdf);
-        } 
-        function loadimage(k,v){
-            const image = new Image(); 
-            image.crossOrigin = 'anonymous';
-            image.onload = function() {
-                imgdata[k].render=image
-            };
-            image.src = v.url; 
-            image.onerror = () => {
-                console.error('Failed to load the image');
-            };
+        // function renderPdf() {
+        //     ctx.clearRect(0,0,canvas.width,canvas.height);
+        //     for (let index = 0; index < imgdata.length; index++) {
+        //         const element = imgdata[index]; 
+        //         // let imageData = ctx.createImageData(element.width, element.height);
+        //         if(element.render){   
+        //             // for (let i = 0; i < element.render.length&&i<imageData.data.length; i++) {
+        //             //     imageData.data[i] = element.render[i];
+        //             // }   
+        //             ctx.drawImage(element.render, 0, index*pdfheight,pdfwidth,pdfheight);          
+        //         }
+        //         // ctx.putImageData(imageData, 0, index*element.height);
+        //     }  
+        //     requestAnimationFrame(renderPdf);
+        // } 
+        // function loadimage(k,v){
+        //     const image = new Image(); 
+        //     image.crossOrigin = 'anonymous';
+        //     image.onload = function() {
+        //         imgdata[k].render=image
+        //     };
+        //     image.src = v.url; 
+        //     image.onerror = () => {
+        //         console.error('Failed to load the image');
+        //     };
+        // }
+        function printdata() {            
+            printFrame.contentWindow.print();
         }
+        /*
         function printdata() {
             // Check if an iframe already exists; if not, create it
             let printFrame = document.getElementById("print-frame");
@@ -145,12 +154,49 @@
                 $('#print-data img').hide();
             };
         }
+            */
 
         $(function(){
-            renderPdf()
+            // renderPdf()
+            // $.each(imgdata,function(k,v){ 
+            //     loadimage(k,v)
+            // })
+            let htmlsection ="";
             $.each(imgdata,function(k,v){ 
-                loadimage(k,v)
+                htmlsection+=`
+                <section >
+                    <img src="${v.url}" alt="">
+                </section>
+                `
             })
+            const windowContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
+                    <style>
+                        @page {
+                            size: A4;
+                            margin: 0;
+                        }
+                        @media print {
+                            body { margin: 0; }
+                            img{ width:100%!important; } 
+                            .pagebreak { page-break-after: always; } 
+                        }
+                        body { margin: 0; }
+                        img{ width:100%!important; } 
+                    </style>
+                </head>
+                <body>
+                    ${htmlsection}
+                </body>
+                </html>
+            `;
+            const doc = printFrame.contentWindow || printFrame.contentDocument;
+            doc.document.open();
+            doc.document.write(windowContent);
+            doc.document.close();
         })
     </script>
 
