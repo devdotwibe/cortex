@@ -50,10 +50,10 @@
                              box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
                          ">
                              <ul style="list-style: none; margin: 0; padding: 10px;">
-                                 <li class="zoom-option" data-zoom="100" style="padding: 5px 10px; cursor: pointer;">100%</li>
-                                 <li class="zoom-option" data-zoom="150" style="padding: 5px 10px; cursor: pointer;">150%</li>
-                                 <li class="zoom-option" data-zoom="200" style="padding: 5px 10px; cursor: pointer;">200%</li>
-                                 <li class="zoom-option" data-zoom="300" style="padding: 5px 10px; cursor: pointer;">300%</li>
+                                <li class="zoom-option" data-zoom="100" style="padding: 5px 10px; cursor: pointer;">100%</li>
+                                <li class="zoom-option" data-zoom="130" style="padding: 5px 10px; cursor: pointer;">150%</li>
+                                <li class="zoom-option" data-zoom="180" style="padding: 5px 10px; cursor: pointer;">200%</li>
+                                <li class="zoom-option" data-zoom="250" style="padding: 5px 10px; cursor: pointer;">300%</li>
                              </ul>
                          </div>
                      </div>
