@@ -9130,6 +9130,10 @@ nav.navbar.top-barhide {
     .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
         font-size: 18px !important;
     }
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
+        top: 46px !important;
+    }
 }
 
 @media screen and (max-width:600px) {
