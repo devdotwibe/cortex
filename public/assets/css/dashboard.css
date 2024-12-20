@@ -1048,6 +1048,17 @@ button.close {
     height: 100%;
     display: inline-block;
     float: left;
+    position: relative;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
+    left: 5px !important;
+    top: 90px !important;
+    position: absolute !important;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+    color: #005d93 !important;
 }
 
 .exam-progress>.exam-progress-inner>.exam-right {
@@ -8119,6 +8130,10 @@ nav.navbar.top-barhide {
         width: 49%;
     }
 
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
+        top: 68px !important;
+    }
+
 }
 
 @media screen and (max-width:1199px) {
@@ -8698,6 +8713,10 @@ nav.navbar.top-barhide {
         top: 0;
     } */
 
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+        font-size: 20px !important;
+    }
+
 }
 
 @media screen and (max-width:767px) {
@@ -9106,6 +9125,10 @@ nav.navbar.top-barhide {
     #question-preview-page .container-wrap .lesson-footer button.btn {
         width: 45px;
         height: 45px;
+    }
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+        font-size: 18px !important;
     }
 }
 
