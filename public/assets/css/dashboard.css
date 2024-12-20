@@ -8036,7 +8036,8 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 90px;
+        top: 50px;
+        height: 40.75vw;
     }
 
     /* .exam-container .container-wrap .lesson .lesson-body p {
