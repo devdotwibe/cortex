@@ -9101,6 +9101,11 @@ nav.navbar.top-barhide {
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         top: -18px;
     }
+
+    #question-preview-page .container-wrap .lesson-footer button.btn {
+        width: 45px;
+        height: 45px;
+    }
 }
 
 @media screen and (max-width:600px) {
