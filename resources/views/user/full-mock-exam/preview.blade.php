@@ -52,7 +52,7 @@
                              <ul style="list-style: none; margin: 0; padding: 10px;">
                                 <li class="zoom-option" data-zoom="100" style="padding: 5px 10px; cursor: pointer;">100%</li>
                                 <li class="zoom-option" data-zoom="140" style="padding: 5px 10px; cursor: pointer;">150%</li>
-                                <li class="zoom-option" data-zoom="175" style="padding: 5px 10px; cursor: pointer;">200%</li>
+                                <li class="zoom-option" data-zoom="185" style="padding: 5px 10px; cursor: pointer;">200%</li>
                                 <li class="zoom-option" data-zoom="280" style="padding: 5px 10px; cursor: pointer;">300%</li>
                              </ul>
                          </div>
