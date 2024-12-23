@@ -7364,6 +7364,7 @@ nav.navbar.top-barhide {
     display: block;
     width: 100%;
     height: 100%;
+    cursor: pointer;
 }
 
 .menu-icon.modecolor img {
