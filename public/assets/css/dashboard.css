@@ -6698,6 +6698,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .quest-progress .Review-mode {
     font-size: 22px;
     color: #ffff;
+    padding: 0 30px 0 0;
 }
 
 .exam-progress.quest-progress>.exam-progress-inner {
