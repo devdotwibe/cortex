@@ -61,7 +61,7 @@ class ImageProcess implements ShouldQueue
             $count = (int) $output[0];  
             for ($page = 1; $page <= $count; $page++) {
                 $bytefile = sprintf("$hash-%02d.jpg", $page); 
-                $command = "gs -dNOPAUSE -dBATCH -dSAFER -sDEVICE=jpeg -r$resolution -dFirstPage=$page -dLastPage=$page -sOutputFile={$this->cachepath}/{$bytefile} {$this->filepath}";
+                $command = "gs -dNOPAUSE -dBATCH -dSAFER -dPDFA -sDEVICE=jpeg -r$resolution -dFirstPage=$page -dLastPage=$page -sOutputFile={$this->cachepath}/{$bytefile} {$this->filepath}";
                 exec($command, $execOutput, $returnCode);
             
                 if ($returnCode === 0) { 
