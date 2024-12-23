@@ -151,7 +151,7 @@
                             <div class="col-md-12">
                                 <div class="video-row video-box" >
                                     <div class="video-title">
-                                        <span>${v.title}</span>
+                                       <span> <strong>  ${v.title} </strong></span>
                                     </div>
                                     <div class="video-container">
                                         <div class="videoframe" id="vimo-videoframe-${lesseonId}">
