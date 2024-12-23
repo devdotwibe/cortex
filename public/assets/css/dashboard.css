@@ -8156,8 +8156,8 @@ nav.navbar.top-barhide {
         width: 49%;
     }
 
-    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
-        top: 68px !important;
+    .exam-progress>.exam-progress-inner #zoom-controls {
+        top: 10px !important;
     }
 
 }
@@ -8915,9 +8915,9 @@ nav.navbar.top-barhide {
         height: calc(100vh - 120px);
     }
 
-    .exam-progress>.exam-progress-inner>.exam-center {
+    /* .exam-progress>.exam-progress-inner>.exam-center {
         margin: 0 0 0 auto;
-    }
+    } */
 
     .progress-menu {
         margin: 0 0 0;
@@ -9158,7 +9158,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
-        top: 46px !important;
+        top: 13px !important;
     }
 }
 
