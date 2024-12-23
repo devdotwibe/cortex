@@ -186,13 +186,11 @@
                             .pagebreak { page-break-after: always; } 
                         }
                         body { margin: 0; }
-                        img{ width:80%!important;    height: auto; } 
+                        img{ width:100%!important; } 
                         section {
-    border: 1px solid red; /* Temporary debugging */
-    margin: 0;
-    padding: 0;
-}
-
+                            overflow: hidden;
+                            height: calc(297mm - 20mm); /* Match the height of an A4 page */
+                        }
                     </style>
                 </head>
                 <body>
@@ -200,6 +198,7 @@
                 </body>
                 </html>
             `;
+            console.log(windowContent)
             const doc = printFrame.contentWindow || printFrame.contentDocument;
             doc.document.open();
             doc.document.write(windowContent);
