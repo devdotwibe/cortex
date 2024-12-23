@@ -59,7 +59,7 @@ class ImageProcess implements ShouldQueue
                 die("Error: Unable to determine the number of pages in the PDF.");
             } 
             $count = (int) $output[0];  
-            for ($page = 1; $page <= $count; $page++) {
+            for ($page = 1; $page < $count; $page++) {
                 $bytefile = sprintf("$hash-%02d.jpg", $page); 
                 $command = "gs -dNOPAUSE -dBATCH -sDEVICE=jpeg -r$resolution -dFirstPage=$page -dLastPage=$page -sOutputFile={$this->cachepath}/{$bytefile} {$this->filepath}";
                 exec($command, $execOutput, $returnCode);
