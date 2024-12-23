@@ -186,7 +186,7 @@
                             .pagebreak { page-break-after: always; } 
                         }
                         body { margin: 0; }
-                        img{ width:100%!important;    height: auto; } 
+                        img{ width:80%!important;    height: auto; } 
                         section {
     border: 1px solid red; /* Temporary debugging */
     margin: 0;
