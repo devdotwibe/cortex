@@ -189,7 +189,6 @@
                         img{ width:100%!important; } 
                         section {
                             overflow: hidden;
-                            height: calc(297mm - 20mm); /* Match the height of an A4 page */
                         }
                     </style>
                 </head>
