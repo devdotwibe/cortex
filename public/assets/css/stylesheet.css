@@ -652,6 +652,9 @@ p.card-text { font-size: 18px;}
 .learning-wrapp .learning-row { flex-direction: column-reverse;}
 .footer-wrapp .footer-col1 img {  width: 300px;}
 
+.courses-wrapp .nav-tabs li.nav-item {width: 100%;}
+.courses-wrapp .courses-col1 .courses-col2 {width: 100%;}
+.courses-wrapp .courses-col1 .courses-col3 {width: 100%;}
 
 }
 
