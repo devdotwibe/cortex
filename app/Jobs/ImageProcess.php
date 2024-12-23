@@ -59,25 +59,24 @@ class ImageProcess implements ShouldQueue
                 die("Error: Unable to determine the number of pages in the PDF.");
             } 
             $count = (int) $output[0];  
-            for ($page = 1; $page <= $count; $page++) {
+            for ($page = 1; $page < $count; $page++) {
                 $bytefile = sprintf("$hash-%02d.jpg", $page); 
                 $command = "gs -dNOPAUSE -dBATCH -sDEVICE=jpeg -r$resolution -dFirstPage=$page -dLastPage=$page -sOutputFile={$this->cachepath}/{$bytefile} {$this->filepath}";
                 exec($command, $execOutput, $returnCode);
             
                 if ($returnCode === 0) { 
-                    if($bytefile){
-                        $imgdata[] = [
-                            'page' => $page,
-                            // 'width' => $width,
-                            // 'height' => $height,
-                            'data' => $bytefile,
-                            'url' => route("live-class.privateclass.lessonpdf.load", [
-                                'live' => $this->user->slug,
-                                'sub_lesson_material' => $this->subLessonMaterial->slug,
-                                'file' => $bytefile
-                            ])
-                        ];
-                    }
+                    
+                    $imgdata[] = [
+                        'page' => $page,
+                        // 'width' => $width,
+                        // 'height' => $height,
+                        'data' => $bytefile,
+                        'url' => route("live-class.privateclass.lessonpdf.load", [
+                            'live' => $this->user->slug,
+                            'sub_lesson_material' => $this->subLessonMaterial->slug,
+                            'file' => $bytefile
+                        ])
+                    ];
                 } else { 
                     $this->subLessonMaterial->status = 'failled'; 
                     $this->subLessonMaterial->save();

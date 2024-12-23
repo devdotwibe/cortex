@@ -187,8 +187,8 @@
                         }
                         body { margin: 0; }
                         img{ width: 100% !important; /* Fit horizontally */
-    height: auto;
-    display: block; } 
+                            height: auto;
+                            display: block; } 
                         section {
                             overflow: hidden;
                         }
