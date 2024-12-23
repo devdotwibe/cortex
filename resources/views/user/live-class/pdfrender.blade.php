@@ -183,9 +183,16 @@
                         @media print {
                             body { margin: 0; }
                             img{ width:100%!important; } 
+                            .pagebreak { page-break-after: always; } 
                         }
                         body { margin: 0; }
                         img{ width:100%!important; } 
+                        section {
+    border: 1px solid red; /* Temporary debugging */
+    margin: 0;
+    padding: 0;
+}
+
                     </style>
                 </head>
                 <body>
