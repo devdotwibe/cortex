@@ -299,11 +299,13 @@ footer .footer-row1 p a:hover { color: #fff;}
 .courses-wrapp .nav-tabs li.nav-item button:hover { color: #1989F8; border-color: #1989F8;}
 .courses-wrapp .nav-tabs li.nav-item button.active { color: #1989F8; border-color: #1989F8;}
 .courses-wrapp .courses-col1 { width: 90%; display: flex; flex-wrap: wrap; margin: 0 auto;justify-content: space-between; text-align: left;}
-.courses-wrapp .courses-col1 .courses-col2 { width: 48%;}
-.courses-wrapp .courses-col1 .courses-col3 { width: 43%; }
+.courses-wrapp .courses-col1 .courses-col2 { width: 48%; display: inline-block; float: left;}
+.courses-wrapp .courses-col1 .courses-col3 { float: right; width: 43%; display: inline-block;}
 
 .tab-content.tab-slider .tab-pane { display: block; opacity: 1;}
 
+.tab-content.tab-slider .tab-pane .slick-track {width: 100% !important;}
+.tab-content.tab-slider .tab-pane .slick-track .slick-slide {width: 100% !important;}
 
 @keyframes fadeInRight {
   from {
