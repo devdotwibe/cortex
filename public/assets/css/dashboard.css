@@ -709,6 +709,8 @@ button.close {
 }
 
 .exam-container .container-wrap .lesson .lesson-body .video-title {
+    font-size: 20px;
+    font-weight: 600;
     margin: 0 0 20px;
 }
 
