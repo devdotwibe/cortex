@@ -647,7 +647,7 @@ p.card-text { font-size: 18px;}
 .features-wrapp1 .features-box {  width: 48%; margin: 0 4% 4% 0;}
 .features-wrapp1 .features-box:nth-child(2n) { margin-right: 0;}
 .learning-wrapp .learning-col1 { width: 100%;}
-.learning-wrapp .learning-col2 { width: 100%;    margin: 0 0 40px;}
+.learning-wrapp .learning-col2 { width: 100%; margin: 0 0 40px;}
 .faq-wrapp { padding: 50px 0;}
 .learning-wrapp .learning-row { flex-direction: column-reverse;}
 .footer-wrapp .footer-col1 img {  width: 300px;}
