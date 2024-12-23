@@ -1048,6 +1048,42 @@ button.close {
     height: 100%;
     display: inline-block;
     float: left;
+    position: relative;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
+    left: 5px !important;
+    top: 90px !important;
+    position: absolute !important;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+    color: #005d93 !important;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown {
+    border-radius: 0 !important;
+    left: -16px !important;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul {
+    padding: 0 !important;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li {
+    font-size: 14px;
+    background: #1789fa;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+    transition: all 0.25s ease-in;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li:last-child {
+    border-bottom: 0;
+}
+
+.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li:hover {
+    background: #005d93;
 }
 
 .exam-progress>.exam-progress-inner>.exam-right {
@@ -1243,7 +1279,7 @@ button.close {
     top: 88px;
     left: 0;
     width: 100%;
-    height: 83%;
+    height: calc(100% - 158px);
     background: #EEEEEE;
     z-index: 11;
     padding: 0 30px;
@@ -8037,7 +8073,7 @@ nav.navbar.top-barhide {
 
     .modal-expand {
         top: 50px;
-        height: 40.75vw;
+        height: calc(100% - 118px);
     }
 
     /* .exam-container .container-wrap .lesson .lesson-body p {
@@ -8117,6 +8153,10 @@ nav.navbar.top-barhide {
 
     .live-class-section .col-md-6 {
         width: 49%;
+    }
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
+        top: 68px !important;
     }
 
 }
@@ -8631,7 +8671,7 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 55px;
+        top: 46px;
         padding: 0 15px;
     }
 
@@ -8697,6 +8737,10 @@ nav.navbar.top-barhide {
     /* .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         top: 0;
     } */
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+        font-size: 20px !important;
+    }
 
 }
 
@@ -9016,7 +9060,7 @@ nav.navbar.top-barhide {
 
     .modal-expand .container-wrap {
         width: 100%;
-        min-height: calc(111vh - 0px) !important;
+        /* min-height: calc(111vh - 0px) !important; */
     }
 
     .support-content p {
@@ -9106,6 +9150,14 @@ nav.navbar.top-barhide {
     #question-preview-page .container-wrap .lesson-footer button.btn {
         width: 45px;
         height: 45px;
+    }
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+        font-size: 18px !important;
+    }
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
+        top: 46px !important;
     }
 }
 

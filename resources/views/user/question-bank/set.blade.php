@@ -50,46 +50,45 @@
                              box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
                          ">
                              <ul style="list-style: none; margin: 0; padding: 10px;">
-                                 <li class="zoom-option" data-zoom="100" style="padding: 5px 10px; cursor: pointer;">100%</li>
-                                 <li class="zoom-option" data-zoom="150" style="padding: 5px 10px; cursor: pointer;">150%</li>
-                                 <li class="zoom-option" data-zoom="200" style="padding: 5px 10px; cursor: pointer;">200%</li>
-                                 <li class="zoom-option" data-zoom="300" style="padding: 5px 10px; cursor: pointer;">300%</li>
+                                <li class="zoom-option" data-zoom="100" style="padding: 5px 10px; cursor: pointer;">100%</li>
+                                <li class="zoom-option" data-zoom="130" style="padding: 5px 10px; cursor: pointer;">150%</li>
+                                <li class="zoom-option" data-zoom="180" style="padding: 5px 10px; cursor: pointer;">200%</li>
+                                <li class="zoom-option" data-zoom="280" style="padding: 5px 10px; cursor: pointer;">300%</li>
                              </ul>
                          </div>
                      </div>
                      <script>
-                         document.addEventListener("DOMContentLoaded", function () {
-                             const magnifierIcon = document.getElementById("magnifier-icon");
-                             const zoomDropdown = document.getElementById("zoom-dropdown");
-                             const zoomOptions = document.querySelectorAll(".zoom-option");
-                     
-                             // Show/hide the zoom dropdown when the icon is clicked
-                             magnifierIcon.addEventListener("click", function () {
-                                 zoomDropdown.style.display = zoomDropdown.style.display === "block" ? "none" : "block";
-                             });
-                     
-                             // Handle zoom option clicks
-                             zoomOptions.forEach(option => {
-                                 option.addEventListener("click", function () {
-                                     const zoomLevel = this.getAttribute("data-zoom");
-                     
-                                     // Apply the zoom to the body
-                                     document.body.style.transform = `scale(${zoomLevel / 100})`;
-                                     document.body.style.transformOrigin = "top left";
-                                     document.body.style.width = `${100 / (zoomLevel / 100)}%`;
-                     
-                                     // Hide the dropdown after selection
-                                     zoomDropdown.style.display = "none";
-                                 });
-                             });
-                     
-                             // Hide dropdown if clicked outside
-                             document.addEventListener("click", function (event) {
-                                 if (!event.target.closest("#zoom-controls")) {
-                                     zoomDropdown.style.display = "none";
-                                 }
-                             });
-                         });
+                        document.addEventListener("DOMContentLoaded", function () {
+                        const magnifierIcon = document.getElementById("magnifier-icon");
+                        const zoomDropdown = document.getElementById("zoom-dropdown");
+                        const zoomOptions = document.querySelectorAll(".zoom-option");
+
+                        // Show/hide the zoom dropdown when the icon is clicked
+                        magnifierIcon.addEventListener("click", function () {
+                            zoomDropdown.style.display = zoomDropdown.style.display === "block" ? "none" : "block";
+                        });
+
+                        // Handle zoom option clicks
+                        zoomOptions.forEach(option => {
+                            option.addEventListener("click", function () {
+                                const zoomLevel = this.getAttribute("data-zoom");
+
+                                // Apply zoom to the body
+                                document.body.style.zoom = `${zoomLevel}%`;
+
+                                // Hide the dropdown after selection
+                                zoomDropdown.style.display = "none";
+                            });
+                        });
+
+                        // Hide dropdown if clicked outside
+                        document.addEventListener("click", function (event) {
+                                if (!event.target.closest("#zoom-controls")) {
+                                    zoomDropdown.style.display = "none";
+                                }
+                            });
+                        });
+
                      </script>
                     <div class="exam-exit">
                         <a   href="{{route('question-bank.show',$category->slug)}}"  title="Exit" data-title="Exit" aria-label="Exit" data-toggle="tooltip">
