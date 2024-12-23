@@ -737,6 +737,7 @@ button.close {
 
 .exam-container .container-wrap .lesson .lesson-body .mcq-row {
     padding: 20px 30px 0;
+    position: relative;
 }
 
 .exam-container .container-wrap .lesson .lesson-body .note-title {
@@ -1030,7 +1031,7 @@ button.close {
     z-index: 9;
 }
 
-.exam-progress>.exam-progress-inner {
+.exam-progress> .exam-progress-inner {
     width: 100%;
     height: 100%;
     display: flex;
@@ -1042,11 +1043,47 @@ button.close {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 17px 30px -12px;
 }
 
-.exam-progress>.exam-progress-inner>.exam-left {
+.exam-progress> .exam-progress-inner>.exam-left {
     width: auto;
     height: 100%;
     display: inline-block;
     float: left;
+}
+
+.exam-progress> .exam-progress-inner #zoom-controls {
+    left: inherit !important;
+    right: 18px !important;
+    top: 31px !important;
+    position: absolute !important;
+}
+
+.exam-progress> .exam-progress-inner #zoom-controls .fa-search-plus {
+    color: #ffffff !important;
+}
+
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown {
+    border-radius: 0 !important;
+    left: -16px !important;
+}
+
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown ul {
+    padding: 0 !important;
+}
+
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown ul li {
+    font-size: 14px;
+    background: #1789fa;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+    transition: all 0.25s ease-in;
+}
+
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown ul li:last-child {
+    border-bottom: 0;
+}
+
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown ul li:hover {
+    background: #005d93;
 }
 
 .exam-progress>.exam-progress-inner>.exam-right {
@@ -1239,10 +1276,10 @@ button.close {
 
 .modal-expand {
     position: absolute;
-    top: 120px;
+    top: 88px;
     left: 0;
     width: 100%;
-    height: max-content;
+    height: calc(100% - 158px);
     background: #EEEEEE;
     z-index: 11;
     padding: 0 30px;
@@ -1470,6 +1507,12 @@ button.close {
     margin: 10px 0;
 }
 
+.exam-result .exam-result-content .exam-mark-bottom .btn.video-btn {
+    background: #1789fa;
+    border-color: #1789fa;
+    color: #ffffff;
+}
+
 .submit {
     margin-top: 7px;
 }
@@ -1694,6 +1737,17 @@ button.close {
 
 .pdfsection .lesson .lesson-exit.float-start {
     margin: 16px 10px 0 0;
+}
+
+.pdfsection .lesson .print-bnt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdfsection .lesson .print-bnt img {
+    width: 38px;
 }
 
 section.post-section {
@@ -3194,6 +3248,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     height: 100%;
     top: -28px;
     left: 50%;
+    display: none;
     transform: translateX(-50%);
     background: #1789fa;
 }
@@ -3263,12 +3318,12 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     padding: 0 0 0 35px;
 }
 
-.exam-container .question-bank-review .lesson .lesson-body .mcq-container:after {
+.exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
     content: "";
     position: absolute;
     width: 1px;
     height: 100%;
-    top: -28px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     background: #1789fa;
@@ -3659,6 +3714,10 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         height: 100%;
         top: -26px;
+    }
+
+    .exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
+        height: 104%;
     }
 
 }
@@ -4126,11 +4185,13 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 #question-preview-page .container-wrap .lesson-footer {
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto 0;
 }
 
 #question-preview-page .container-wrap .lesson-footer button.btn {
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     margin: 5px;
 }
 
@@ -4427,12 +4488,13 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 
 .header_nav .header_wrapp .header_content select.form-control {
-    border: 1px solid #E6E6E6;
+    border: 1px solid #000000;
     height: 43px;
     padding: 8px 22px 8px 8px;
     background: url(../images/chevron-down.svg) no-repeat center;
     background-size: 12px;
     background-position-x: 95%;
+    border-radius: 10px;
 }
 
 
@@ -6501,7 +6563,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
-    height: calc(100vh - 244px) !important;
+    height: calc(100vh - 238px) !important;
     padding: 0 50px 0;
     margin: 0 0 50px;
     overflow-y: auto;
@@ -6636,6 +6698,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .quest-progress .Review-mode {
     font-size: 22px;
     color: #ffff;
+    padding: 0 40px 0 0;
 }
 
 .exam-progress.quest-progress>.exam-progress-inner {
@@ -7097,9 +7160,16 @@ nav.navbar.header-class {
 
 
 .exam-container .container-wrap .lesson .lesson-body p,
-.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label {
+.exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label,
+.exam-container .container-wrap .lesson .lesson-body p sup, 
+.exam-container .container-wrap .lesson .lesson-body p sub {
     font-family: 'Arial';
     line-height: 1.5;
+}
+
+.exam-container .container-wrap .lesson .lesson-body p sup, .exam-container .container-wrap .lesson .lesson-body p sub {
+    position: relative;
+    font-size: 12px;
 }
 
 .exam-container.answerclass.onequestionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .correctanswerclass label {
@@ -8003,7 +8073,8 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 90px;
+        top: 50px;
+        height: calc(100% - 118px);
     }
 
     /* .exam-container .container-wrap .lesson .lesson-body p {
@@ -8083,6 +8154,10 @@ nav.navbar.top-barhide {
 
     .live-class-section .col-md-6 {
         width: 49%;
+    }
+
+    .exam-progress>.exam-progress-inner #zoom-controls {
+        top: 12px !important;
     }
 
 }
@@ -8597,7 +8672,7 @@ nav.navbar.top-barhide {
     }
 
     .modal-expand {
-        top: 55px;
+        top: 46px;
         padding: 0 15px;
     }
 
@@ -8644,7 +8719,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-container.questionclass.answerclass .container-wrap {
-        padding-bottom: 3em !important;
+        padding-bottom: 2.9em !important;
     }
 
     .exam-container .container-wrap.homeclass .lesson #lesson-footer-pagination {
@@ -8663,6 +8738,10 @@ nav.navbar.top-barhide {
     /* .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         top: 0;
     } */
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+        font-size: 20px !important;
+    }
 
 }
 
@@ -8836,9 +8915,9 @@ nav.navbar.top-barhide {
         height: calc(100vh - 120px);
     }
 
-    .exam-progress>.exam-progress-inner>.exam-center {
+    /* .exam-progress>.exam-progress-inner>.exam-center {
         margin: 0 0 0 auto;
-    }
+    } */
 
     .progress-menu {
         margin: 0 0 0;
@@ -8982,7 +9061,7 @@ nav.navbar.top-barhide {
 
     .modal-expand .container-wrap {
         width: 100%;
-        min-height: calc(111vh - 0px) !important;
+        /* min-height: calc(111vh - 0px) !important; */
     }
 
     .support-content p {
@@ -9067,6 +9146,19 @@ nav.navbar.top-barhide {
 
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         top: -18px;
+    }
+
+    #question-preview-page .container-wrap .lesson-footer button.btn {
+        width: 45px;
+        height: 45px;
+    }
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+        font-size: 18px !important;
+    }
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
+        top: 9px !important;
     }
 }
 
@@ -9256,6 +9348,10 @@ nav.navbar.top-barhide {
 
     .admin_section.private_section > .container > .row > a {
         width: 100%;
+    }
+
+    .exam-container .container-wrap.mcq-container-wrap .lesson .lesson-body .mcq-row:after {
+        display: none;
     }
 
 }

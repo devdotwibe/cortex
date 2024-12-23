@@ -322,6 +322,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
                 Route::post('/private/class/bulk-action', [LiveClassController::class, 'bulkaction'])->name('request.bulkaction');
                 Route::delete('/private/class/{private_class}/requests', [LiveClassController::class, 'private_class_request_destroy'])->name('request.destroy');
                 Route::get('/private/class/requests', [LiveClassController::class, 'private_class_request'])->name('private_class_request');
+                Route::get('/private/class/pending', [LiveClassController::class, 'private_class_pending'])->name('private_class_pending');
                 Route::get('/private/class/requests/export', [LiveClassController::class, 'private_class_request_export'])->name('private_class_request_export');
 
                 Route::post('/private/class', [LiveClassController::class, 'private_class'])->name('private_class');

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Users Request')
+@section('title', $page_name)
 @section('content')
 
 <section class="header_nav">
@@ -10,7 +10,7 @@
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
-            <h2>Users Request</h2>
+            <h2>{{$page_name}}</h2>
         </div> 
         <div class="header_content">
             <div class="form-group">
@@ -19,7 +19,7 @@
        </div>    
        <div class="header_content">
         <div class="form-group">
-
+            @if($page_name!='Pending Users')
             <select id="term-list" class="select2 form-control" data-allow-clear="true" onchange="termchange()">
 
                 <option value="">Select Term</option> 
@@ -29,6 +29,7 @@
 
 
             </select>
+            @endif
         </div>
     </div>
     
@@ -346,7 +347,8 @@
         return buf;    
     }
     async function exportrequestdata(exportType="Export Csv"){
-        const responce =await fetch("{{route('admin.live-class.private_class_request_export')}}",{
+        const page_name = "{{ $page_name }}"; 
+        const responce =await fetch("{{route('admin.live-class.private_class_request_export')}}?page_name=" + encodeURIComponent(page_name),{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json', 
@@ -479,7 +481,7 @@
             })
         })
         $('#timeslot-list').val("").select2({
-            placeholder:"Select an Timeslot",
+            placeholder:"Select a timeslot",
             allowClear: true,
             data:timeslotlist,
         }).change(function(){

@@ -11,8 +11,10 @@
                     $exam_type = Null;
                     foreach ($fields as $item) {
                         if (isset($item->name) && ($item->name === 'answer' || $item->name === 'mcq_answer')) {
-                            $choiceName = $item->name;
-                            $choice = 1;
+                            if($item->value!=null){
+                                $choiceName = $item->name;
+                                $choice = 1;
+                            }
                         }
                         if (isset($item->name) && ($item->name === 'exam_type')) {
                             $exam_type = $item->value;
