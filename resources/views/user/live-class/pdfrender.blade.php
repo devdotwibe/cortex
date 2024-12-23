@@ -188,7 +188,6 @@
                         body { margin: 0; }
                         img{ width: 100% !important; /* Fit horizontally */
     height: auto;
-    max-height: calc(297mm - 20mm); /* A4 height minus a small margin */
     display: block; } 
                         section {
                             overflow: hidden;
