@@ -1,5 +1,24 @@
 @extends('layouts.exam')
 @section('title', ucfirst($subLessonMaterial->pdf_name))
+<style>
+    @page {
+    size: A4;
+    margin: 0;
+}
+body {
+    margin: 0;
+}
+img {
+    width: 100% !important;
+    height: auto;
+    display: block; /* Ensures no inline spacing */
+}
+section {
+    break-inside: avoid; /* Prevents breaking within sections */
+    page-break-inside: avoid; /* Ensures no page break inside sections */
+}
+
+</style>
 @section('content')
      <section class="exam-container pdfsection">
         <div class="container-wrap" id="question-answer-page">
