@@ -164,11 +164,13 @@
             $('#print-data').prop("disabled", true);
             let htmlsection ="";
             $.each(imgdata,function(k,v){ 
-                htmlsection+=`
-                <section >
-                    <img src="${v.url}" alt="">
-                </section>
-                `
+                if (v.url) {
+                    htmlsection += `
+                    <section>
+                        <img src="${v.url}" alt="">
+                    </section>
+                    `;
+                }
             })
             const windowContent = `
                 <!DOCTYPE html>
@@ -194,6 +196,8 @@
                 </body>
                 </html>
             `;
+            console.log(windowContent);
+
             const doc = printFrame.contentWindow || printFrame.contentDocument;
             doc.document.open();
             doc.document.write(windowContent);
