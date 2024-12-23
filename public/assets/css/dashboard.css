@@ -1031,7 +1031,7 @@ button.close {
     z-index: 9;
 }
 
-.exam-progress>.exam-progress-inner {
+.exam-progress> .exam-progress-inner {
     width: 100%;
     height: 100%;
     display: flex;
@@ -1043,34 +1043,34 @@ button.close {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 17px 30px -12px;
 }
 
-.exam-progress>.exam-progress-inner>.exam-left {
+.exam-progress> .exam-progress-inner>.exam-left {
     width: auto;
     height: 100%;
     display: inline-block;
     float: left;
-    position: relative;
 }
 
-.exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
-    left: 5px !important;
-    top: 90px !important;
+.exam-progress> .exam-progress-inner #zoom-controls {
+    left: inherit !important;
+    right: 18px !important;
+    top: 31px !important;
     position: absolute !important;
 }
 
-.exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
-    color: #005d93 !important;
+.exam-progress> .exam-progress-inner #zoom-controls .fa-search-plus {
+    color: #ffffff !important;
 }
 
-.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown {
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown {
     border-radius: 0 !important;
     left: -16px !important;
 }
 
-.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul {
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown ul {
     padding: 0 !important;
 }
 
-.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li {
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown ul li {
     font-size: 14px;
     background: #1789fa;
     color: #ffffff;
@@ -1078,11 +1078,11 @@ button.close {
     transition: all 0.25s ease-in;
 }
 
-.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li:last-child {
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown ul li:last-child {
     border-bottom: 0;
 }
 
-.exam-progress.quest-progress>.exam-progress-inner #zoom-controls #zoom-dropdown ul li:hover {
+.exam-progress> .exam-progress-inner #zoom-controls #zoom-dropdown ul li:hover {
     background: #005d93;
 }
 
@@ -6698,6 +6698,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .quest-progress .Review-mode {
     font-size: 22px;
     color: #ffff;
+    padding: 0 40px 0 0;
 }
 
 .exam-progress.quest-progress>.exam-progress-inner {
