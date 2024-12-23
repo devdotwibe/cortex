@@ -8742,7 +8742,7 @@ nav.navbar.top-barhide {
         top: 0;
     } */
 
-    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+    .exam-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
         font-size: 20px !important;
     }
 
