@@ -8157,7 +8157,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-progress>.exam-progress-inner #zoom-controls {
-        top: 10px !important;
+        top: 12px !important;
     }
 
 }
@@ -9158,7 +9158,7 @@ nav.navbar.top-barhide {
     }
 
     .exam-progress.quest-progress>.exam-progress-inner #zoom-controls {
-        top: 13px !important;
+        top: 9px !important;
     }
 }
 
