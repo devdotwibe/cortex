@@ -1056,6 +1056,7 @@ button.close {
     left: inherit !important;
     right: 18px !important;
     top: 46px !important;
+
     position: absolute !important;
 }
 
@@ -8161,6 +8162,7 @@ nav.navbar.top-barhide {
 
     .exam-progress>.exam-progress-inner #zoom-controls {
         top: 24px !important;
+
     }
 
 }
@@ -8748,6 +8750,10 @@ nav.navbar.top-barhide {
 
     .exam-progress>.exam-progress-inner #zoom-controls {
         top: 18px !important;
+    }
+
+    .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+        font-size: 20px !important;
     }
 
 }
