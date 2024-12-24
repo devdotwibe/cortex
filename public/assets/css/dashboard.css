@@ -1055,7 +1055,8 @@ button.close {
 .exam-progress> .exam-progress-inner #zoom-controls {
     left: inherit !important;
     right: 18px !important;
-    top: 31px !important;
+    top: 46px !important;
+
     position: absolute !important;
 }
 
@@ -8160,7 +8161,8 @@ nav.navbar.top-barhide {
     }
 
     .exam-progress>.exam-progress-inner #zoom-controls {
-        top: 12px !important;
+        top: 24px !important;
+
     }
 
 }
@@ -8741,6 +8743,14 @@ nav.navbar.top-barhide {
     /* .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         top: 0;
     } */
+
+    .exam-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
+        font-size: 20px !important;
+    }
+
+    .exam-progress>.exam-progress-inner #zoom-controls {
+        top: 18px !important;
+    }
 
     .exam-progress.quest-progress>.exam-progress-inner #zoom-controls .fa-search-plus {
         font-size: 20px !important;

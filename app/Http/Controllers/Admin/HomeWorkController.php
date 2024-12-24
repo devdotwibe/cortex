@@ -415,16 +415,32 @@ class HomeWorkController extends Controller
             HomeWorkQuestion::whereIn('id', $selectBoxValues)
             ->update(['admin_id' => $admin->id]);
 
-            $homeWorkQuestions = HomeWorkQuestion::whereIn('id', $selectBoxValues)->get();
+            $homeworks =  HomeWorkQuestion::whereIn('id', $selectBoxValues)->orderBy('order_no','asc')->get();
 
-            foreach($homeWorkQuestions as $homeWorkQuestion)
+            $firstwork = $homeworks->first();
+        
+            HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
+
+            $all_home_work = HomeWorkQuestion::where('category_id', $firstwork->category_id)->where('sub_category_id', $firstwork->sub_category_id)->get();
+
+            foreach( $all_home_work  as $item)
             {
-                HomeWorkQuestion::where('order_no','>',$homeWorkQuestion->order_no)
-                ->where('home_work_id', $homeWorkQuestion->home_work_id)
-                ->decrement('order_no');
+                $question_count = HomeWorkQuestion::where('order_no','<',$item->order_no)->where('home_work_id', $item->home_work_id)->count();
+
+                if(!empty($question_count))
+                {
+                    $item->order_no = $question_count+1; 
+                }
+                else
+                {
+                    $item->order_no =1; 
+                }
+
+                $item->save();
+
             }
 
-            HomeWorkQuestion::whereIn('id', $selectBoxValues)->delete();  
+            
             
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);

@@ -12,6 +12,7 @@ use App\Models\Setname;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class QuestionBankController extends Controller
@@ -278,19 +279,40 @@ class QuestionBankController extends Controller
             //     Question::whereIn('id', values: $request->input('selectbox', []))->delete();
             // }
 
-            $questions = Question::whereIn('id', values: $request->input('selectbox', []))->get();
+            $admin = Auth::guard('admin')->user();                                
+            Question::whereIn('id', $request->input('selectbox', []))
+                    ->update(['admin_id' => $admin->id]); 
+                    
+            $questions =  Question::whereIn('id',$request->input('selectbox', []))->orderBy('order_no','asc')->get();
 
-            foreach($questions as $question)
-            {
-                Question::where('order_no','>',$question->order_no)
-                ->where('category_id', $question->category_id)
-                ->where('sub_category_id', $question->sub_category_id)
-                ->where('sub_category_set', $question->sub_category_set)
-                ->where('exam_id', $question->exam_id)
-                ->decrement('order_no');
-            }
+            $firstquestion = $questions->first();
 
             Question::whereIn('id', values: $request->input('selectbox', []))->delete();
+
+            $all_questions = Question::where('category_id', $firstquestion->category_id)->where('sub_category_id', $firstquestion->sub_category_id)
+            ->where('sub_category_set', $firstquestion->sub_category_set)
+            ->where('exam_id', $firstquestion->exam_id)
+            ->get();
+
+            foreach( $all_questions  as $item)
+            {
+                $question_count = Question::where('order_no','<',$item->order_no)->where('category_id', $item->category_id)
+                ->where('sub_category_id', $item->sub_category_id)
+                ->where('sub_category_set', $item->sub_category_set)
+                ->where('exam_id', $item->exam_id)->count();
+
+                if(!empty($question_count))
+                {
+                    $item->order_no = $question_count+1; 
+                }
+                else
+                {
+                    $item->order_no =1; 
+                }
+
+                $item->save();
+
+            } 
 
             if ($request->ajax()) {
                 return response()->json(["success" => "Questions deleted successfully"]);

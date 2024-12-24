@@ -289,12 +289,13 @@
         <a @if(auth('admin')->check() &&!(auth('web')->user()->is_free_access) && (optional(auth('web')->user()->subscription())->status ?? "") !== "subscribed") data-bs-toggle="modal" data-bs-target="#adminsubModal"  @else href="{{ route('pricing.index') }}#our-plans" @endif > 
           
 
-            <span class="side-icon" >
-                <img src="{{asset("assets/images/iconshover/shop-hover.svg")}}" alt="Dashboard">
-            </span>
-            <span class="active-icon">
-                <img src="{{asset("assets/images/icons/shop.svg")}}" alt="Dashboard" title="Shop" data-title="Shop" class="titledisplay">
-            </span>
+         <span class="side-icon" >
+             <img src="{{asset("assets/images/iconshover/shop-hover.svg")}}" alt="Dashboard">
+         </span>
+         <span class="active-icon">
+             <img src="{{asset("assets/images/icons/shop.svg")}}" alt="Dashboard" title="Shop" data-title="Shop" class="titledisplay">
+         </span>
+
          <span class="menutext">
          Shop
          </span>

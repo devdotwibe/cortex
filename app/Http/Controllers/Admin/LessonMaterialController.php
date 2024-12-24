@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessFile;
 use App\Models\LessonMaterial;
 use App\Models\SubLessonMaterial;
 use App\Trait\ResourceController;
@@ -80,7 +81,7 @@ class LessonMaterialController extends Controller
         $request->validate([
 
             "pdf_name" => "required",
-            "pdf_file" => "required",
+            "pdf_file" => ["required",'file','max:30720'],
 
         ]);
 
@@ -108,6 +109,11 @@ class LessonMaterialController extends Controller
         $sub_lesson->lesson_material_id = $request->lesson_material_id;
 
         $sub_lesson->save();
+
+        $filepath = Storage::disk('private')->path($imageName);
+
+        // ProcessFile::dispatch($filepath);
+
 
         return response()->json(['success' => 'Lesson Materials Details Added Successfully']);
 
