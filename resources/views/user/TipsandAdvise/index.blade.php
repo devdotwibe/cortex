@@ -8,7 +8,7 @@
             <div class="back-btn" id="back-btn" style="display: none">
                 <a onclick="pagetoggle()"><img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt=""></a>
             </div>
-            <h2>Tips and Advices1</h2>
+            <h2>Tips and Advices</h2>
         </div>
     </div>
 </section>
