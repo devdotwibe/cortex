@@ -295,6 +295,7 @@
          <span class="active-icon">
              <img src="{{asset("assets/images/icons/shop.svg")}}" alt="Dashboard" title="Shop" data-title="Shop" class="titledisplay">
          </span>
+
          <span class="menutext">
          Shop
          </span>

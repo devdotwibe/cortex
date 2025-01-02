@@ -186,7 +186,12 @@
                             .pagebreak { page-break-after: always; } 
                         }
                         body { margin: 0; }
-                        img{ width:100%!important; } 
+                        img{ width: 100% !important; /* Fit horizontally */
+                            height: auto;
+                            display: block; } 
+                        section {
+                            overflow: hidden;
+                        }
                     </style>
                 </head>
                 <body>
@@ -194,6 +199,7 @@
                 </body>
                 </html>
             `;
+            console.log(windowContent)
             const doc = printFrame.contentWindow || printFrame.contentDocument;
             doc.document.open();
             doc.document.write(windowContent);
