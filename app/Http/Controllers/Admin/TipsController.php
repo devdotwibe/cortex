@@ -110,13 +110,12 @@ class TipsController extends Controller
 
     public function subtitle(Request $request){
         $data=$request->validate([
-            "exam_id"=>['required'],
             "category_id"=>['required'],
             "title"=>['required'],
         ]);
 
         dd($request);
-        
+
         $icon=$request->icon;
         if(!empty($icon)){
             $data['icon']=$icon=="delete"?"":$icon;
