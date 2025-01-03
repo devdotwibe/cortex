@@ -181,8 +181,8 @@
                     form.reset()
                     $('#category-content-subtitle-'+res.category_id).text(res.title)
                     $('#category-content-subtitle-edit-'+res.category_id).data('subtitle',res.title)
-                    $('#category-content-subtitle-edit-'+res.category_id).data('icon',res.icon)
-                    $('#category-content-icon-'+res.category_id).attr('src',res.icon)
+                    $('#category-content-subtitle-edit-'+res.category_id).data('icon',res.tip_icon)
+                    $('#category-content-icon-'+res.category_id).attr('src',res.tip_icon)
                     $('#question-bank-subtitle').modal('hide')
                     showToast('Subtitle has been successfully updated', 'success');
                 },'json').fail(function(){
