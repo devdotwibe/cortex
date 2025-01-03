@@ -126,8 +126,6 @@ class TipsController extends Controller
         }
         $categorytitle= Category::find($request->category_id);
 
-        Exam::where();
-
         if(empty($categorytitle)){
             $categorytitle=Category::store($data);
         }else{
