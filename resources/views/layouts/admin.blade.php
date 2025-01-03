@@ -105,7 +105,7 @@
         <button class="btn btn-close-toggle"><span>Close</span></button>
     </div>
 
-    <aside class="side_bar">
+    <aside class="side_bar slider-btn">
 
         <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{ asset('assets/images/menu-arrow.svg') }}"
                 alt="slider"></button>
@@ -594,8 +594,6 @@
 
             const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
-            console.log('add side bar initialize');
-            
             // Apply the class based on stored state
             if (!isCollapsed) {
                 $('.side_bar').removeClass('slider-btn');
