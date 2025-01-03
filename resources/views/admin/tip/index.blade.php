@@ -31,7 +31,7 @@
                                     <h5>
                                         <span id="category-content-subtitle-3"> Topic {{$k+1}} </span> 
                                         <i id="category-content-subtitle-edit-3" onclick="editsubtitle(event,this)" data-title="{{$item->name}}" data-icon="{{$item->tipIcon($item->id,asset("assets/images/User-red.png"))}}"  data-subtitle="{{$item->name}}" data-category="{{$item->id}}">
-                                            <img src="{{$item->tipIcon($item->id,asset("assets/images/User-red.png"))}}" width="15" alt=""> 
+                                            <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""> 
                                          </i>
                                     </h5>
 
