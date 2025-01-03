@@ -22,6 +22,15 @@ class Category extends Model
         'tip_icon'
     ];
 
+    public function tipIcon($id,$defaultIcon){
+        $icon=optional($this->where("id",$id)->first())->tip_icon;
+        if(!empty($icon)){
+            return url("d0/$icon");
+        }else{
+            return $defaultIcon;
+        } 
+    }
+
     public function subcategories()
     {
         return $this->hasMany(SubCategory::class,'category_id','id')->orderBy('created_at', 'asc');

@@ -6,6 +6,7 @@ use App\Models\Tips;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Exam;
 use App\Models\SubCategory;
 use App\Trait\ResourceController;
 use Yajra\DataTables\Facades\DataTables;
@@ -124,6 +125,8 @@ class TipsController extends Controller
             $data['name']=$request->title;
         }
         $categorytitle= Category::find($request->category_id);
+
+        Exam::where();
 
         if(empty($categorytitle)){
             $categorytitle=Category::store($data);
