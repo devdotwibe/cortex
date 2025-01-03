@@ -187,7 +187,7 @@
                             <div class="col-md-12">
                                 <div class="note-row" >
                                     <div class="note-title">
-                                        <span>${v.title}</span>
+                                        <span>${v.title != null ? v.title : ""}</span>
                                     </div>
                                     <div class="note-container">
                                         <div id="note-${lesseonId}">
@@ -207,7 +207,7 @@
                             <div class="col-md-12">
                                 <div class="note-row" >
                                     <div class="note-title">
-                                        <span>${v.title}</span>
+                                         <span>${v.title != null ? v.title : ""}</span>
                                     </div>
                                     <div class="note-container">
                                         <div id="note-${lesseonId}">
@@ -236,7 +236,7 @@
                             <div class="col-md-12">
                                 <div class="note-row" >
                                     <div class="note-title">
-                                        <span>${v.title}</span>
+                                        <span>${v.title != null ? v.title : ""}</span>
                                     </div>
                                     <div class="mcq-container">
                                         <div id="mcq-${lesseonId}">
@@ -391,7 +391,7 @@
                             <div class="col-md-12">
                                 <div class="note-row" >
                                     <div class="note-title">
-                                        <span>${v.title}</span>
+                                         <span>${v.title != null ? v.title : ""}</span>
                                     </div>
                                     <div class="note-container">
                                         <div id="note-${lesseonId}">
