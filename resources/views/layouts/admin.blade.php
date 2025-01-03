@@ -594,16 +594,18 @@
 
             const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
+            console.log('add side bar initialize');
+            
             // Apply the class based on stored state
             if (!isCollapsed) {
                 $('.side_bar').removeClass('slider-btn');
 
-                console.log('remove side bar initialize');
-                
                 $('.titledisplay').removeAttr('title');
+
             } else {
               
-                
+                console.log('add side bar initialize');
+
                 $('.side_bar').addClass('slider-btn');
                 
                 
@@ -629,8 +631,6 @@
         // Call the initialize function on page load
         $(function() {
 
-            console.log('remove side bar initialize');
-            
             initializeSidebar();
         });
     </script>
