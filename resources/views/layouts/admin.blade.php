@@ -597,6 +597,8 @@
             // Apply the class based on stored state
             if (!isCollapsed) {
                 $('.side_bar').removeClass('slider-btn');
+
+                console.log('remove side bar initialize');
                 
                 $('.titledisplay').removeAttr('title');
             } else {
