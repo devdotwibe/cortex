@@ -64,7 +64,7 @@
                 <form action="{{route('admin.question-bank.subtitle')}}"  id="question-bank-subtitle-form" method="post">
                     @csrf
                     <input type="hidden" name="category_id" id="question-bank-category-id" value="">
-                    <input type="hidden" name="exam_id" value="{{$exam->id}}">
+                    <input type="hidden" name="exam_id" value="">
                      <div class="form-group">
                         <div class="form-data">
                             <div class="forms-inputs mb-4">
@@ -101,7 +101,7 @@
     <script>
 
          function editsubtitle(event,element){
-            
+
             event.preventDefault()
             $('#question-bank-subtitleLablel').text($(element).data('title'))
             $('#question-bank-category-title').val($(element).data('subtitle')).removeClass('is-invalid')
