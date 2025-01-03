@@ -23,7 +23,7 @@
 
                             <div class="category">
                                 <div class="category-image">
-                                    <img src="{{$item->tipIcon($item->id,asset("assets/images/User-red.png"))}}">
+                                    <img src="{{$item->tipIcon($item->id,asset("assets/images/User-red.png"))}}" id="category-content-icon-{{$item->id}}">
                                 </div>
 
                                 <div class="category-content">
