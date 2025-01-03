@@ -18,7 +18,8 @@ class Category extends Model
         'slug',
         'name',
         'visible_status',
-        'time_of_exam'
+        'time_of_exam',
+        'tip_icon'
     ];
 
     public function subcategories()
