@@ -24,7 +24,7 @@
                             <div class="category">
                                 <a href="{{ route('tipsandadvise.tip_show', $item->id) }}">
                                     <div class="category-image">
-                                        <img src="{{ asset('assets/images/User-red.png') }}">
+                                        <img src="{{$item->tipIcon($item->id,asset("assets/images/User-red.png"))}}">
                                     </div>
                                     <div class="category-content">
                                         <h5><span id="category-content-subtitle-{{ $k + 1 }}"> Topic {{ $k + 1 }} </span></h5>
