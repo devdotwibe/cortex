@@ -177,7 +177,7 @@
                 e.preventDefault();
                 var form=this;
                 $('#question-bank-category-title').removeClass('is-invalid')
-                $.post('{{route('admin.question-bank.subtitle')}}',$(form).serialize(),function(res){
+                $.post('{{route('admin.tip.subtitle')}}',$(form).serialize(),function(res){
                     form.reset()
                     $('#category-content-subtitle-'+res.category_id).text(res.title)
                     $('#category-content-subtitle-edit-'+res.category_id).data('subtitle',res.title)
