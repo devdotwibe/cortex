@@ -50,6 +50,8 @@
     </div>
 </section>
 
+@endsection
+
 @push('modals')
 
 <div class="modal fade" id="question-bank-subtitle" tabindex="-1" role="dialog" aria-labelledby="question-bank-subtitleLabel" aria-hidden="true">
