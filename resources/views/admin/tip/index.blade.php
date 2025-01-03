@@ -30,11 +30,11 @@
 
                                     <h5>
                                         <span id="category-content-subtitle-3"> Topic {{$k+1}} </span> 
-                                        <i id="category-content-subtitle-edit-3" onclick="editsubtitle(event,this)" data-title="{{$item->name}}" data-icon="{{$exam->examIcon($item->id,asset("assets/images/User-red.png"))}}"  data-subtitle="Topic {{$k+1}}" data-category="{{$item->id}}">
+                                        <i id="category-content-subtitle-edit-3" onclick="editsubtitle(event,this)" data-title="{{$item->name}}" data-icon="{{$item->examIcon($item->id,asset("assets/images/User-red.png"))}}"  data-subtitle="Topic {{$k+1}}" data-category="{{$item->id}}">
                                             <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""> 
                                          </i>
                                     </h5>
-                                    
+
                                     <h3>{{$item->name}}</h3>
                                 </div>
 
