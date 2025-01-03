@@ -552,6 +552,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
                 Route::post('/{tip}/store', [TipsController::class, 'store'])->name('store');
                 Route::get('/{tip}/edit', [TipsController::class, 'edit'])->name('edit'); // Ensure this route is defined
 
+                Route::post('/subtitle', [TipsController::class, 'subtitle'])->name('subtitle');
+
                 Route::get('/{tip}/edit_subfaq', [TipsController::class, 'edit_subfaq'])->name('edit_subfaq');
                 Route::post('update/{tip}', [TipsController::class, 'update'])->name('update'); // Update route
 

@@ -63,7 +63,7 @@
                 <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('admin.question-bank.subtitle')}}"  id="question-bank-subtitle-form" method="post">
+                <form action="{{route('admin.tip.subtitle')}}"  id="question-bank-subtitle-form" method="post">
                     @csrf
                     <input type="hidden" name="category_id" id="question-bank-category-id" value="">
                     <input type="hidden" name="exam_id" value="">
