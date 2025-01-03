@@ -628,6 +628,9 @@
 
         // Call the initialize function on page load
         $(function() {
+
+            console.log('remove side bar initialize');
+            
             initializeSidebar();
         });
     </script>
