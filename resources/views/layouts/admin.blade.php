@@ -105,7 +105,7 @@
         <button class="btn btn-close-toggle"><span>Close</span></button>
     </div>
 
-    <aside class="side_bar slider-btn">
+    <aside class="side_bar">
 
         <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{ asset('assets/images/menu-arrow.svg') }}"
                 alt="slider"></button>
@@ -597,13 +597,11 @@
             // Apply the class based on stored state
             if (!isCollapsed) {
                 $('.side_bar').removeClass('slider-btn');
-
+                
                 $('.titledisplay').removeAttr('title');
-
             } else {
               
-                console.log('add side bar initialize');
-
+                
                 $('.side_bar').addClass('slider-btn');
                 
                 
@@ -628,7 +626,6 @@
 
         // Call the initialize function on page load
         $(function() {
-
             initializeSidebar();
         });
     </script>
