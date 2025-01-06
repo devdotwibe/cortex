@@ -448,7 +448,7 @@
                                     <div class="accordion-row @if ($k == 0) active @endif">
 
                                         <h5 class="accordion-faq" data-target="accordion-content1-{{$k}}" > {{ $subitem->question }}</h5>
-                                        <div class="accordion-content1  accordion-content1-{{$k}} @if ($k == 0) active @endif ">
+                                        <div class="accordion-content1 @if ($k == 0) active @endif" id="accordion-content1-{{$k}}">
                                             <p>{{ $subitem->answer }}</p>
                                         </div>
                                     </div>
