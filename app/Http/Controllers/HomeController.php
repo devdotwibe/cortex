@@ -73,8 +73,6 @@ class HomeController extends Controller
     public function login(Request $request){
         if(Auth::guard('web')->check()){
 
-            session()->put('sidebarCollapsed','true');
-
             return redirect('/dashboard');
         }
         if(Auth::guard('admin')->check()){
@@ -92,6 +90,9 @@ class HomeController extends Controller
         {
             RateLimiter::clear($this->throttleKey($request));
             $request->session()->regenerate();
+
+            session()->put('sidebarCollapsed','true');
+            
             return redirect()->intended('/dashboard');
         }
         if (Auth::guard('admin')->attempt($credentials))
