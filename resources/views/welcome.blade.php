@@ -447,8 +447,8 @@
                                 @foreach ($item->faqs as $k=> $subitem)
                                     <div class="accordion-row @if ($k == 0) active @endif">
 
-                                        <h5 class="accordion-faq" data-target="ques-{{$k}}" > {{ $subitem->question }}</h5>
-                                        <div class="accordion-content1">
+                                        <h5 class="accordion-faq" data-target="accordion-content1-{{$k}}" > {{ $subitem->question }}</h5>
+                                        <div class="accordion-content1  accordion-content1-{{$k}} @if ($k == 0) active @endif ">
                                             <p>{{ $subitem->answer }}</p>
                                         </div>
                                     </div>
