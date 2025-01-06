@@ -181,7 +181,7 @@ section{width: 100%; float: left;}
 .faq-wrapp .accordion .accordion-row { width: 100%;}
 .faq-wrapp .accordion h5 {  font-size: 18px; font-weight: 500; padding: 20px; border: 1px solid #D0D0D0; border-radius: 10px; margin: 0 0 20px; position: relative; cursor: pointer;}
 .faq-wrapp .accordion h5:after{content: ""; position: absolute; background: #FBAE1E url(../images/rightarrow.svg) no-repeat 62% / 100%; width: 24px; height: 24px; background-size: 8px; border-radius: 50%; top: 50%; transform: translateY(-50%); right: 20px; transition: all .25s ease-in-out;}
-.faq-wrapp .accordion .accordion-content1 { padding: 0 20px 20px; width: 100%; display: block;}
+.faq-wrapp .accordion .accordion-content1 { padding: 0 20px 20px; width: 100%; display: block; height: 0; opacity: 0;}
 .faq-wrapp .accordion .active h5:after {  transform: translateY(-50%) rotate(90deg);}
 .faq-wrapp .accordion .active .accordion-content1 {animation: 1s visibleText; height: inherit; opacity: 1;}
 
