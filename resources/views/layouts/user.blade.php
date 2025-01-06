@@ -525,13 +525,22 @@ if (!allowedTypes.includes(file.type)) {
             $('.side_bar').toggleClass('slider-btn');
 
             const isCollapsed = $('.side_bar').hasClass('slider-btn');
+
+            if(isCollapsed)
+            {
+                const collapsed = true;
+            }else
+            {
+                const collapsed = false;
+
+            }
             const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
 
                     $.ajax({
                     url : "{{route('menustatus')}}",
                     type : 'POST',
                     data: {
-                        isCollapsed: isCollapsed,
+                        collapsed: collapsed,
                     },
                     processData: false,
                     contentType: false,
