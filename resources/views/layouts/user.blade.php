@@ -530,7 +530,7 @@ if (!allowedTypes.includes(file.type)) {
 
             if(isCollapsed)
             {
-                var collapsed = 'true';
+                 collapsed = 'true';
             }
 
             const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
