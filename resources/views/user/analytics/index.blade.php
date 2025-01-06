@@ -289,7 +289,7 @@
                         </div>
                     `)  
 
-                    $.each(res.data,function(k,v){
+                    $.each(res.data.category,function(k,v){
 
                         $('#topic-test-result-category-'+lesseonId).append(`
 
@@ -297,7 +297,7 @@
                                 <div class="exam-overview"> 
                                     <div class="exam-overview-content">
                                         <div class="overview-title text-center">
-                                            <h3>${v.category.name}</h3>
+                                            <h3>${v.name}</h3>
                                                 
                                         </div>
                                         <div class="overview-graph">
