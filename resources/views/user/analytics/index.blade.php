@@ -122,7 +122,7 @@
     if(examId) {
         const url = `{{url()->current()}}?exam_id=${examId}`;
         const type =null;
-        loadexamgrapg(url,type);
+        loadexamgrapg(url);
     }
 }
         function toggleshow(v){
@@ -132,11 +132,11 @@
             $(`.analytic-item.active,#${v}`).slideToggle().toggleClass('active');
 
             if(v=="mock-exam-result"){
-                loadexamgrapg("{{url()->current()}}?type='mock-exam-result','mock-exam-result'")
+                loadexamgrapg("{{url()->current()}}?type='mock-exam-result'")
             }
 
             if(v=="topic-test-result"){
-                loadexamgrapg("{{url()->current()}}?type='topic-test-result','topic-test-result'")
+                loadexamgrapg("{{url()->current()}}?type='topic-test-result'")
             }
             
         }
@@ -188,11 +188,13 @@
         }
         async function loadexamgrapg(url,type){
 
-            if(type ==null)
-            {
-                type = 'mock-exam-result';
-            }
+            
              await $.get(url,function(res){ 
+
+                if(res.type ==null)
+                {
+                    type = 'mock-exam-result';
+                }
                 const lesseonId=generateRandomId(10); 
                 let nextbtn = '';
                 let prevbtn = '';
