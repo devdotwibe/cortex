@@ -528,7 +528,7 @@ if (!allowedTypes.includes(file.type)) {
             const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
 
                     $.ajax({
-                    url : "{{route('user.menustatus')}}",
+                    url : "{{route('menustatus')}}",
                     type : 'POST',
                     isCollapsed : isCollapsed,
                     processData: false,
@@ -547,7 +547,7 @@ if (!allowedTypes.includes(file.type)) {
                             $('.titledisplay').each(function () {
                             
                             var title = $(this).data('title');
-                            
+
                             $(this).attr('title', title);
 
                             });
