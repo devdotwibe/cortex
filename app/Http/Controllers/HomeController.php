@@ -62,7 +62,9 @@ class HomeController extends Controller
 
         $collapsed = $request->input('collapsed'); 
         
-        session(['sidebarCollapsed' => $collapsed === 'true']);
+        // session(['sidebarCollapsed' => $collapsed === 'true']);
+
+        session(['sidebarCollapsed' => false]);
         return response()->json([
             'status' => 'success',
             'collapsed' => $collapsed,
