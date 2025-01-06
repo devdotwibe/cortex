@@ -59,7 +59,7 @@ class HomeController extends Controller
     public function menustatus(Request $request)
     {
 
-        dd($request);
+        dd('dfdsf');
     }
 
     public function login(Request $request){
