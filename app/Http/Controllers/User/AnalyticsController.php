@@ -17,19 +17,34 @@ class AnalyticsController extends Controller
          *  @var User
          */
         $user=Auth::user(); 
-        // $category = Category::all();  
+        $category = Category::all();
+        
 
-        $exam=Exam::where("name",'question-bank')->first();
-        if(empty($exam)){
-            $exam=Exam::store([
+        $topic_exam = Exam::where("name", 'topic-test')->first();
+        if (empty($topic_exam)) {
+            $topic_exam = Exam::store([
+                "title" => "Topic Test",
+                "name" => "topic-test",
+            ]);
+            $topic_exam = Exam::find($topic_exam->id);
+        }
+    
+        $category_topic = Category::where(function ($qry) use ($topic_exam) {
+            $qry->whereIn("id", Question::where('exam_id', $topic_exam->id)->select('category_id'));
+        })->get();
+
+
+        $question_bank_exam=Exam::where("name",'question-bank')->first();
+        if(empty($question_bank_exam)){
+            $question_bank_exam=Exam::store([
                 "title"=>"Question Bank",
                 "name"=>"question-bank",
             ]);
-            $exam=Exam::find( $exam->id );
+            $question_bank_exam=Exam::find( $question_bank_exam->id );
         }
 
-        $category=Category::whereHas('subcategories',function($qry)use($exam){
-            $qry->whereIn("id",Question::where('exam_id',$exam->id)->select('sub_category_id'));
+        $category_question_bank=Category::whereHas('subcategories',function($qry)use($question_bank_exam){
+            $qry->whereIn("id",Question::where('exam_id',$question_bank_exam->id)->select('sub_category_id'));
             $qry->whereHas('setname', function ($setnameQuery) {
                 $setnameQuery->where(function ($query) {
                     $query->where('time_of_exam', '!=', '00:00')
@@ -38,84 +53,41 @@ class AnalyticsController extends Controller
             });
         })->get();
 
+        
         $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions')->get();
 
         if($request->ajax()){
-
-            $type = $request->type;
-            if($request->type =='mock-exam-result' || empty($request->type))
-            {
-                $page=$request->page??1;
-                $data = Exam::where('name',"full-mock-exam")->whereHas('questions')->get()->skip($page-1)->take(1)->first();
-                $categorydata=[];
-                foreach ($category as $cat) {
-                    $categorydata[]=[
-                        'title'=>ucfirst($cat->name),
-                        'max'=> $data->categoryCount($cat->id),
-                        'avg'=>$data->getExamAvg($cat->id),
-                        'mark'=>$data->getExamMark($user->id,$cat->id),
-                    ];
-                }
-                $next = null;
-                $prev = null;
-                if(Exam::where('name',"full-mock-exam")->count()>$page){
-                    $next=route('analytics.index',["page"=> $page+1]);
-                }
-                if($page>1){
-                    $prev=route('analytics.index',["page"=> $page-1]);
-                }
-
-                return [
-                    'data'=>[
-                        'title'=>ucfirst($data->title),
-                        'max'=> $data->categoryCount(),
-                        'avg'=>$data->getExamAvg(),
-                        'mark'=>$data->getExamMark($user->id),
-                        'category'=>$categorydata
-                    ],
-                    "next"=>$next,
-                    "prev"=>$prev,
-                    'type'=>$type
-                ];
-
-            }
-            else
-            {
-                $exam = Exam::where("name", 'topic-test')->first();
-                if (empty($exam)) {
-                    $exam = Exam::store([
-                        "title" => "Topic Test",
-                        "name" => "topic-test",
-                    ]);
-                    $exam = Exam::find($exam->id);
-                }
-            
-                $category = Category::where(function ($qry) use ($exam) {
-                    $qry->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'));
-                })->get();
-
-                $categorydata=[];
-                // foreach ($category as $cat) {
-                //     $categorydata[]=[
-                //         'title'=>ucfirst($cat->name),
-                //         'max'=> $data->categoryCount($cat->id),
-                //         'avg'=>$data->getExamAvg($cat->id),
-                //         'mark'=>$data->getExamMark($user->id,$cat->id),
-                //     ];
-                // }
-                return [
-                    'data'=>[
-                        'category'=>$category, 
-                        'max'=> '',
-                        'avg'=>'',
-                        'mark'=>'', 
-                    ],
-                    'type'=>$type
+            $page=$request->page??1;
+            $data = Exam::where('name',"full-mock-exam")->whereHas('questions')->get()->skip($page-1)->take(1)->first();
+            $categorydata=[];
+            foreach ($category as $cat) {
+                $categorydata[]=[
+                    'title'=>ucfirst($cat->name),
+                    'max'=> $data->categoryCount($cat->id),
+                    'avg'=>$data->getExamAvg($cat->id),
+                    'mark'=>$data->getExamMark($user->id,$cat->id),
                 ];
             }
-
-           
+            $next = null;
+            $prev = null;
+            if(Exam::where('name',"full-mock-exam")->count()>$page){
+                $next=route('analytics.index',["page"=> $page+1]);
+            }
+            if($page>1){
+                $prev=route('analytics.index',["page"=> $page-1]);
+            }
+            return [
+                'data'=>[
+                    'title'=>ucfirst($data->title),
+                    'max'=> $data->categoryCount(),
+                    'avg'=>$data->getExamAvg(),
+                    'mark'=>$data->getExamMark($user->id),
+                    'category'=>$categorydata
+                ],
+                "next"=>$next,
+                "prev"=>$prev,
+            ];
         }
-        return view('user.analytics.index',compact('category','mockExams'));   
+        return view('user.analytics.index',compact('question_bank_exam','category_topic','mockExams'));   
     }
 }
