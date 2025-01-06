@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="analytic-list">
-                        <div class="analytic-item active" id="question-bank-result" style="display: block">
+                        <div class="analytic-item active" id="question-bank-result-main" style="display: block">
                             <div class="row">
                                 @foreach ($category as $item)
                                 <div class="col-md-6">
@@ -62,7 +62,7 @@
                             </div> 
                         </div>
   
-                        <div class="analytic-item" id="question-bank-result" style="display: none">
+                        <div class="analytic-item" id="question-bank-result" style="display: block">
                             <div class="row">
                                 @foreach ($category as $item)
                                 <div class="col-md-6">
