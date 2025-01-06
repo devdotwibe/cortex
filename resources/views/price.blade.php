@@ -563,8 +563,9 @@
                 $('#tabs2-message-area').html('');
                 $('.invalid-feedback').text('');
                 $('.form-control').removeClass('is-invalid');
-                <span class="error" id="coupon_error1" style="display: none;">Please Provide Coupon code</span>
-                
+          
+                $('#coupon_error1').hide();
+
                 var coupen = $('#tabs2-coupon').val();
                 if (coupen) {
                     $.get('{{ route('coupon-verify') }}', {
