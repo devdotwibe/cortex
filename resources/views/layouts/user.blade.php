@@ -33,7 +33,7 @@
 </head>
 
 @php
-    $sidebarCollapsed = session('sidebarCollapsed','true');
+    $sidebarCollapsed = session('sidebarCollapsed');
 @endphp
 
 <body class="sliderbody">
@@ -101,7 +101,7 @@
                         
                         Thinking Skills NSW
 
-                        @if($sidebarCollapsed)
+                        @if($sidebarCollapsed =='true')
                         <p>The sidebar is expanded.</p>
                         @else
                         <p>The sidebar is collapsed.</p>
