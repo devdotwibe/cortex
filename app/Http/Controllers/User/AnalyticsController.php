@@ -17,7 +17,27 @@ class AnalyticsController extends Controller
          *  @var User
          */
         $user=Auth::user(); 
-        $category = Category::all();  
+        // $category = Category::all();  
+
+        $exam=Exam::where("name",'question-bank')->first();
+        if(empty($exam)){
+            $exam=Exam::store([
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
+            ]);
+            $exam=Exam::find( $exam->id );
+        }
+
+        $category=Category::whereHas('subcategories',function($qry)use($exam){
+            $qry->whereIn("id",Question::where('exam_id',$exam->id)->select('sub_category_id'));
+            $qry->whereHas('setname', function ($setnameQuery) {
+                $setnameQuery->where(function ($query) {
+                    $query->where('time_of_exam', '!=', '00:00')
+                          ->where('time_of_exam', '!=', '00 : 00');
+                });
+            });
+        })->get();
+
         $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions')->get();
 
         if($request->ajax()){
