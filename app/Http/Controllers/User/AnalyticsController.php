@@ -61,7 +61,7 @@ class AnalyticsController extends Controller
             else
             {
             
-                $category = Category::whereHas('question')->get();
+                $category = Category::with('question')->whereHas('question')->get();
 
                 $categorydata=[];
                 // foreach ($category as $cat) {
