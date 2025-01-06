@@ -338,12 +338,12 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker .ui-datepicker-next {
 	right: 2px;
 }
-.ui-datepicker .ui-datepicker-prev-hover {
+/* .ui-datepicker .ui-datepicker-prev-hover {
 	left: 1px;
 }
 .ui-datepicker .ui-datepicker-next-hover {
 	right: 1px;
-}
+} */
 .ui-datepicker .ui-datepicker-prev span,
 .ui-datepicker .ui-datepicker-next span {
 	display: block;
