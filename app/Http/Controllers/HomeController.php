@@ -73,7 +73,7 @@ class HomeController extends Controller
     public function login(Request $request){
         if(Auth::guard('web')->check()){
 
-            session()->put('sidebarCollapsed','true');
+            session()->put('sidebarCollapsed','false');
 
             return redirect('/dashboard');
         }
