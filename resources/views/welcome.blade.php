@@ -646,20 +646,25 @@
 
             faqhead.forEach(header => {
                 header.addEventListener('click', function() {
-               
                     const targetQues = this.getAttribute('data-target');
+                    const parent = this.parentElement;
 
                     console.log(targetQues);
 
-                    document.querySelectorAll('.accordion-row').forEach(item => item.classList
-                        .remove('active'));
+                  
+                    const isActive = parent.classList.contains('active');
+                    
+                  
+                    document.querySelectorAll('.accordion-row').forEach(item => item.classList.remove('active'));
+                    document.querySelectorAll('.accordion-content1').forEach(item => item.classList.remove('active'));
 
-                    document.querySelectorAll('.accordion-content1').forEach(item => item.classList
-                    .remove('active'));
-
-                    this.parentElement.classList.add('active');
-
-                    document.getElementById(targetQues).classList.add('active');
+                    if (!isActive) {
+                        parent.classList.add('active');
+                        document.getElementById(targetQues).classList.add('active');
+                    } else {
+                        parent.classList.remove('active');
+                        document.getElementById(targetQues).classList.remove('active');
+                    }
                 });
             });
 
