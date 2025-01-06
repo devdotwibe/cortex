@@ -4498,9 +4498,12 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     background-size: 12px;
     background-position-x: 95%;
     border-radius: 10px;
+    cursor: pointer;
 }
 
-
+.header_nav .header_wrapp .header_content select.form-control option {
+    cursor: pointer;
+}
 
 .admin_section .table-outer table thead tr th {
     background: #1989F8;
