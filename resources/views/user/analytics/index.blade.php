@@ -233,7 +233,7 @@
                             <div class="exam-overview"> 
                                 <div class="exam-overview-content">
                                     <div class="overview-title text-center">
-                                        <h3>${v.title} test</h3>
+                                        <h3>${v.title}</h3>
                                     </div>
                                     <div class="overview-graph">
                                         <div class="overview-graph-body">
