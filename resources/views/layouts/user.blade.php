@@ -539,7 +539,8 @@ if (!allowedTypes.includes(file.type)) {
                     url : "{{route('menustatus')}}",
                     type : 'POST',
                     data: {
-                      
+                        _token: "{{ csrf_token() }}",
+                        collapsed: collapsed,
                     },
                     processData: false,
                     contentType: false,
