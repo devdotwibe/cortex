@@ -663,7 +663,7 @@
 
                 if ( $('#add_coupon_yes').is(':checked') && ($('#tabs2-coupon').val() != "" ) || !$('#add_coupon_yes').is(':checked')) {
 
-                    var coupen = $('#tabs2-combo-coupon').val();
+                    var coupen = $('#tabs2-coupon').val();
 
                     var success=false;
 
