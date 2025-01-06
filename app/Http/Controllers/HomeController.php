@@ -60,26 +60,13 @@ class HomeController extends Controller
     public function menustatus(Request $request)
     {
 
-        try {
-            // Get the collapsed status from the request
-            $collapsed = $request->input('collapsed'); 
-    
-            // Perform necessary logic based on the collapsed status
-            // Example: Store it in the session
-            session(['sidebarCollapsed' => $collapsed === 'true']);
-    
-            return response()->json([
-                'status' => 'success',
-                'collapsed' => $collapsed,
-            ]);
-            
-        } catch (Exception $e) {
-            // If an exception occurs, return a detailed error message
-            return response()->json([
-                'status' => 'error',
-                'message' => 'An error occurred: ' . $e->getMessage(),
-            ], 500);
-        }
+        $collapsed = $request->input('collapsed'); 
+        
+        session(['sidebarCollapsed' => $collapsed === 'true']);
+        return response()->json([
+            'status' => 'success',
+            'collapsed' => $collapsed,
+        ]);
     }
 
     public function login(Request $request){
