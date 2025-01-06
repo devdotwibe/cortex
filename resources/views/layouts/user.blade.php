@@ -74,9 +74,9 @@
         </a>
     </div>
 
-    <aside class="side_bar">
+    <aside class="side_bar @if($sidebarCollapsed =='true')  slider-btn @endif">
 
-        <button class="btn  @if($sidebarCollapsed =='true')  slider-btn @endif" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
+        <button class="btn  btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
 
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
