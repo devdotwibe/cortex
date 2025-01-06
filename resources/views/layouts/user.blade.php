@@ -33,7 +33,7 @@
 </head>
 
 @php
-    $sidebarCollapsed = session('sidebarCollapsed',true);
+    $sidebarCollapsed = session('sidebarCollapsed',false);
 @endphp
 
 <body class="sliderbody">
