@@ -61,10 +61,8 @@ class HomeController extends Controller
     {
 
         $collapsed = $request->input('collapsed'); 
-        
-        // session(['sidebarCollapsed' => $collapsed === 'true']);
-      
-        Session::put('sidebarCollapsed','true');
+    
+        Session::put('sidebarCollapsed',$collapsed);
 
         return response()->json([
             'status' => 'success',
@@ -74,6 +72,9 @@ class HomeController extends Controller
 
     public function login(Request $request){
         if(Auth::guard('web')->check()){
+
+            session()->put('sidebarCollapsed','true');
+
             return redirect('/dashboard');
         }
         if(Auth::guard('admin')->check()){
