@@ -591,7 +591,7 @@
                 }
                 else
                 {
-                    $('#tabs2-error-coupon-message').addClass('is-invalid')
+                    $('#tabs2-coupon').addClass('is-invalid')
                     // $('#coupon_error1').show();
                 }
             })
@@ -629,7 +629,7 @@
                 }
                 else
                 {
-                    $('#tabs2-error-combo-coupon-message').addClass('is-invalid')
+                    $('#tabs2-combo-coupon').addClass('is-invalid')
                     // $('#coupon_error').show();
                 }
             })
