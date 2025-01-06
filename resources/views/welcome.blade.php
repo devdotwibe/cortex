@@ -653,6 +653,10 @@
 
                     document.querySelectorAll('.accordion-row').forEach(item => item.classList
                         .remove('active'));
+
+                    document.querySelectorAll('.accordion-content1').forEach(item => item.classList
+                    .remove('active'));
+
                     this.parentElement.classList.add('active');
 
                     document.getElementById(targetQues).classList.add('active');
