@@ -591,7 +591,8 @@
                 }
                 else
                 {
-                    $('#coupon_error1').show();
+                    $('#tabs2-error-coupon-message').addClass('is-invalid')
+                    // $('#coupon_error1').show();
                 }
             })
             $('#tabs2-combo-coupon-verify-button').click(function(e) {
@@ -628,7 +629,8 @@
                 }
                 else
                 {
-                    $('#coupon_error').show();
+                    $('#tabs2-error-combo-coupon-message').addClass('is-invalid')
+                    // $('#coupon_error').show();
                 }
             })
             $('#tabs2-mail-verify-button').click(function(e) {
