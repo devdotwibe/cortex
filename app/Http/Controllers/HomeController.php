@@ -65,11 +65,7 @@ class HomeController extends Controller
         // session(['sidebarCollapsed' => $collapsed === 'true']);
       
         Session::put('sidebarCollapsed',false);
-
-        $session_test = Session::get('sidebarCollapsed');
-
-        dd($session_test);
-
+        
         return response()->json([
             'status' => 'success',
             'collapsed' => $collapsed,
