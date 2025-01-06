@@ -667,6 +667,11 @@
 
                     var success=false;
 
+                    if(!$('#add_coupon_yes').is(':checked'))
+                    {
+                        success=true;
+                    }
+
                         if (coupen) {
                             $.get('{{ route('coupon-verify') }}', {
                                 type: "combo",
