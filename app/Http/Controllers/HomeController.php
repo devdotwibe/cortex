@@ -92,13 +92,14 @@ class HomeController extends Controller
             $request->session()->regenerate();
 
             session()->put('sidebarCollapsed','true');
-            
+
             return redirect()->intended('/dashboard');
         }
         if (Auth::guard('admin')->attempt($credentials))
         {
             RateLimiter::clear($this->throttleKey($request));
             $request->session()->regenerate();
+            session()->put('sidebarCollapsed','true');
             return redirect()->intended('/admin/dashboard');
         }
         RateLimiter::hit($this->throttleKey($request));

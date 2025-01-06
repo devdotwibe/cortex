@@ -100,13 +100,6 @@
                     <span class="side-label menutext">
                         
                         Thinking Skills NSW
-
-                        @if($sidebarCollapsed =='true')
-                        <p>The sidebar is expanded.</p>
-                        @else
-                        <p>The sidebar is collapsed.</p>
-                        @endif
-
                     </span>
                     <span class="side-trail">
                         @php
