@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
+use App\Models\Question;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,43 @@ class AnalyticsController extends Controller
          *  @var User
          */
         $user=Auth::user(); 
-        $category = Category::all();  
+        $category = Category::all();
+        
+
+        $topic_exam = Exam::where("name", 'topic-test')->first();
+        if (empty($topic_exam)) {
+            $topic_exam = Exam::store([
+                "title" => "Topic Test",
+                "name" => "topic-test",
+            ]);
+            $topic_exam = Exam::find($topic_exam->id);
+        }
+    
+        $category_topic = Category::where(function ($qry) use ($topic_exam) {
+            $qry->whereIn("id", Question::where('exam_id', $topic_exam->id)->select('category_id'));
+        })->get();
+
+
+        $question_bank_exam=Exam::where("name",'question-bank')->first();
+        if(empty($question_bank_exam)){
+            $question_bank_exam=Exam::store([
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
+            ]);
+            $question_bank_exam=Exam::find( $question_bank_exam->id );
+        }
+
+        $category_question_bank=Category::whereHas('subcategories',function($qry)use($question_bank_exam){
+            $qry->whereIn("id",Question::where('exam_id',$question_bank_exam->id)->select('sub_category_id'));
+            $qry->whereHas('setname', function ($setnameQuery) {
+                $setnameQuery->where(function ($query) {
+                    $query->where('time_of_exam', '!=', '00:00')
+                          ->where('time_of_exam', '!=', '00 : 00');
+                });
+            });
+        })->get();
+
+        
         $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions')->get();
 
         if($request->ajax()){
@@ -51,6 +88,6 @@ class AnalyticsController extends Controller
                 "prev"=>$prev,
             ];
         }
-        return view('user.analytics.index',compact('category','mockExams'));   
+        return view('user.analytics.index',compact('category_question_bank','category_topic','mockExams'));   
     }
 }
