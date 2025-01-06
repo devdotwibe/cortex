@@ -102,9 +102,9 @@
                         Thinking Skills NSW
 
                         @if($sidebarCollapsed)
-                        <p>The sidebar is collapsed.</p>
-                        @else
                         <p>The sidebar is expanded.</p>
+                        @else
+                        <p>The sidebar is collapsed.</p>
                         @endif
 
                     </span>
