@@ -21,6 +21,7 @@ class AnalyticsController extends Controller
 
         if($request->ajax()){
 
+            $type = $request->type;
             if($request->type =='mock-exam-result' || empty($request->type))
             {
                 $page=$request->page??1;
@@ -53,6 +54,7 @@ class AnalyticsController extends Controller
                     ],
                     "next"=>$next,
                     "prev"=>$prev,
+                    'type'=>$type
                 ];
 
             }
@@ -72,8 +74,12 @@ class AnalyticsController extends Controller
                 // }
                 return [
                     'data'=>[
-                        'category'=>$category
+                        'category'=>$category, 
+                        'max'=> '',
+                        'avg'=>'',
+                        'mark'=>'', 
                     ],
+                    'type'=>$type
                 ];
             }
 
