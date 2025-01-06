@@ -76,7 +76,7 @@
 
     <aside class="side_bar">
 
-        <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
+        <button class="btn  @if($sidebarCollapsed =='true') btn-slider @endif" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
 
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
@@ -571,7 +571,7 @@ if (!allowedTypes.includes(file.type)) {
 
                 function initializeSidebar() {
 
-                const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                const isCollapsed = @if($sidebarCollapsed =='true') true @else false @endif; 
 
                 const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
@@ -595,7 +595,7 @@ if (!allowedTypes.includes(file.type)) {
                         });
                         }
 
-                if (isCollapsed1) {
+                if (isCollapsed) {
                     $('.sliderbody').addClass('slider-active');
                 } else {
                     $('.sliderbody').removeClass('slider-active');
