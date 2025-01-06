@@ -526,7 +526,7 @@ if (!allowedTypes.includes(file.type)) {
 
             const isCollapsed = $('.side_bar').hasClass('slider-btn');
 
-            var  collapsed = 'false';
+            let collapsed = 'false';
 
             if(isCollapsed)
             {
