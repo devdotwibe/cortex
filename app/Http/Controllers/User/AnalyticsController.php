@@ -88,6 +88,6 @@ class AnalyticsController extends Controller
                 "prev"=>$prev,
             ];
         }
-        return view('user.analytics.index',compact('question_bank_exam','category_topic','mockExams'));   
+        return view('user.analytics.index',compact('category_question_bank','category_topic','mockExams'));   
     }
 }
