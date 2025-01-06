@@ -687,7 +687,7 @@
                                 }
                             }, 'json').fail(function(xhr) {
 
-                                $('#tabs2-message-area').text('Please Provide valid coupon code').show();
+                                $('#tabs2-message-area').text('Please Provide valid coupon code and click apply button').show();
                             })
                         }
 
