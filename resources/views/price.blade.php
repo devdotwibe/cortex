@@ -358,7 +358,7 @@
                                             placeholder="Enter Coupon Code" class="form-control" />
                                         <span class="error" id="coupon_error" style="display: none;">Please Provide Coupon code</span>
                                         <button class="btn btn-outline-secondary" type="button"
-                                            id="tabs2-combo-coupon-verify-button">Apply</button>
+                                            id="tabs2-combo-coupon-verify-button">Apply 1</button>
                                         <div class="invalid-feedback" id="tabs2-error-combo-coupon-message"></div>
                                     </div>
                                 </div>
