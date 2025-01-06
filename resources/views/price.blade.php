@@ -663,22 +663,55 @@
 
                 if ( $('#add_coupon_yes').is(':checked') && ($('#tabs2-coupon').val() != "" ) || !$('#add_coupon_yes').is(':checked')) {
 
-                    $('#tabs2-message-area').html('')
-                    $('.invalid-feedback').text('')
-                    $('.form-control').removeClass('is-invalid')
-                    $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $(
-                        '#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
-                        $('#tabs2-cortext-subscription-payment-form').submit()
-                    }, 'json').fail(function(xhr) {
-                        $.each(xhr.responseJSON.errors, function(k, v) {
-                            $('#tabs2-error-' + k + '-message').text(v[0])
-                            $('#tabs2-' + k).addClass('is-invalid')
+                    var coupen = $('#tabs2-combo-coupon').val();
+
+                    var success=false;
+
+                        if (coupen) {
+                            $.get('{{ route('coupon-verify') }}', {
+                                type: "combo",
+                                coupon: coupen,
+                                subscription: $('#subscription-combo').val()
+                            }, function(res) {
+                                if (res.message) {
+                                    $('#tabs2-combo-message-area').html(`
+                                        <div class="alert alert-info" role="alert">
+                                            ${res.message}
+                                        </div>                        
+                                    `)
+                                }
+                                if (res.pay) {
+
+                                    success=true;
+                                    
+                                }
+                            }, 'json').fail(function(xhr) {
+
+                                $('#tabs2-message-area').text('Please Provide Coupon code and click apply button').show();
+                            })
+                        }
+
+                    if(success)
+                    {
+                        $('#tabs2-message-area').html('')
+                        $('.invalid-feedback').text('')
+                        $('.form-control').removeClass('is-invalid')
+                        $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $(
+                            '#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
+                            $('#tabs2-cortext-subscription-payment-form').submit()
+                        }, 'json').fail(function(xhr) {
+                            $.each(xhr.responseJSON.errors, function(k, v) {
+                                $('#tabs2-error-' + k + '-message').text(v[0])
+                                $('#tabs2-' + k).addClass('is-invalid')
+                            });
                         });
-                    });
+
+                    }    
+                   
                 } 
                 else {
 
-                    $('#tabs2-message-area').text('Please Provide Coupon code').show();
+                    $('#tabs2-message-area').text('Please Provide Coupon code and click apply button').show();
                 }
                
             })
