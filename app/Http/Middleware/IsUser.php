@@ -17,7 +17,7 @@ class IsUser
     {
         $request->session()->put('is.logined.as','user');
 
-        session()->put('sidebarCollapsed','true');
+        session()->put('sidebarCollapsed','false');
 
         return $next($request);
     }
