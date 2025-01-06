@@ -519,11 +519,6 @@ if (!allowedTypes.includes(file.type)) {
 
     function ChangeMenu() {
 
-        
-            $('.sliderbody').toggleClass('slider-active');
-
-            $('.side_bar').toggleClass('slider-btn');
-
             const isCollapsed = $('.side_bar').hasClass('slider-btn');
 
             let collapsed = 'false';
@@ -543,8 +538,10 @@ if (!allowedTypes.includes(file.type)) {
                         collapsed: collapsed,
                     },
                     success: function(response) {
-                      
-                    console.log(response);
+            
+                    $('.sliderbody').toggleClass('slider-active');
+
+                    $('.side_bar').toggleClass('slider-btn');
 
                     if (isCollapsed) {
                     
