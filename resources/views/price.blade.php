@@ -290,7 +290,7 @@
 @push('modals')
 
     @auth('web')
-        <div class="modal fade" id="tabs2-cortext-subscription-payment-modal" tabindex="-1" data-bs-backdrop="static"
+        <div class="modal" id="tabs2-cortext-subscription-payment-modal" tabindex="-1" data-bs-backdrop="static"
             data-bs-keyboard="false" role="dialog" aria-labelledby="tabs2-cortext-subscription-paymentLabel"
             aria-hidden="true">
             <div class="modal-dialog">
