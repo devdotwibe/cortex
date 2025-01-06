@@ -20,36 +20,64 @@ class AnalyticsController extends Controller
         $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions')->get();
 
         if($request->ajax()){
-            $page=$request->page??1;
-            $data = Exam::where('name',"full-mock-exam")->whereHas('questions')->get()->skip($page-1)->take(1)->first();
-            $categorydata=[];
-            foreach ($category as $cat) {
-                $categorydata[]=[
-                    'title'=>ucfirst($cat->name),
-                    'max'=> $data->categoryCount($cat->id),
-                    'avg'=>$data->getExamAvg($cat->id),
-                    'mark'=>$data->getExamMark($user->id,$cat->id),
+
+            if($request->type =='mock-exam-result' || empty($request->type))
+            {
+                $page=$request->page??1;
+                $data = Exam::where('name',"full-mock-exam")->whereHas('questions')->get()->skip($page-1)->take(1)->first();
+                $categorydata=[];
+                foreach ($category as $cat) {
+                    $categorydata[]=[
+                        'title'=>ucfirst($cat->name),
+                        'max'=> $data->categoryCount($cat->id),
+                        'avg'=>$data->getExamAvg($cat->id),
+                        'mark'=>$data->getExamMark($user->id,$cat->id),
+                    ];
+                }
+                $next = null;
+                $prev = null;
+                if(Exam::where('name',"full-mock-exam")->count()>$page){
+                    $next=route('analytics.index',["page"=> $page+1]);
+                }
+                if($page>1){
+                    $prev=route('analytics.index',["page"=> $page-1]);
+                }
+
+                return [
+                    'data'=>[
+                        'title'=>ucfirst($data->title),
+                        'max'=> $data->categoryCount(),
+                        'avg'=>$data->getExamAvg(),
+                        'mark'=>$data->getExamMark($user->id),
+                        'category'=>$categorydata
+                    ],
+                    "next"=>$next,
+                    "prev"=>$prev,
+                ];
+
+            }
+            else
+            {
+            
+                $category = Category::whereHas('question')->get();
+
+                $categorydata=[];
+                // foreach ($category as $cat) {
+                //     $categorydata[]=[
+                //         'title'=>ucfirst($cat->name),
+                //         'max'=> $data->categoryCount($cat->id),
+                //         'avg'=>$data->getExamAvg($cat->id),
+                //         'mark'=>$data->getExamMark($user->id,$cat->id),
+                //     ];
+                // }
+                return [
+                    'data'=>[
+                        'category'=>$category
+                    ],
                 ];
             }
-            $next = null;
-            $prev = null;
-            if(Exam::where('name',"full-mock-exam")->count()>$page){
-                $next=route('analytics.index',["page"=> $page+1]);
-            }
-            if($page>1){
-                $prev=route('analytics.index',["page"=> $page-1]);
-            }
-            return [
-                'data'=>[
-                    'title'=>ucfirst($data->title),
-                    'max'=> $data->categoryCount(),
-                    'avg'=>$data->getExamAvg(),
-                    'mark'=>$data->getExamMark($user->id),
-                    'category'=>$categorydata
-                ],
-                "next"=>$next,
-                "prev"=>$prev,
-            ];
+
+           
         }
         return view('user.analytics.index',compact('category','mockExams'));   
     }
