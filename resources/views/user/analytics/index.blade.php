@@ -28,14 +28,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="analytic-list">
-                        <div class="analytic-item active" id="topic-test-result" style="display: block">
+                        <div class="analytic-item active" id="question-bank-result" style="display: block">
                             <div class="row">
                                 @foreach ($category as $item)
                                 <div class="col-md-6">
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} 11</h3>
+                                                <h3>{{ucfirst($item->name)}} </h3>
                                                    
                                             </div>
                                             <div class="overview-graph">
@@ -51,6 +51,12 @@
                                 @endforeach
                             </div>
                         </div>
+
+                        <div class="analytic-item active" id="topic-test-result" style="display: none">
+
+                            
+                        </div>
+
                         <div class="analytic-item" id="mock-exam-result" style="display: none">
                             <div class="analytic-exam" id="analytic-exam"> 
                             </div> 
@@ -63,7 +69,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} 12</h3>
+                                                <h3>{{ucfirst($item->name)}}</h3>
                                             </div>
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
@@ -85,7 +91,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} 13</h3>
+                                                <h3>{{ucfirst($item->name)}}</h3>
                                             </div>
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
@@ -115,7 +121,8 @@
         function loadSelectedExam(examId) {
     if(examId) {
         const url = `{{url()->current()}}?exam_id=${examId}`;
-        loadexamgrapg(url);
+        const type =null;
+        loadexamgrapg(url,type);
     }
 }
         function toggleshow(v){
@@ -123,8 +130,13 @@
         }
         function togglegrapg(v){
             $(`.analytic-item.active,#${v}`).slideToggle().toggleClass('active');
+
             if(v=="mock-exam-result"){
-                loadexamgrapg("{{url()->current()}}")
+                loadexamgrapg("{{url()->current()}}?type='mock-exam-result','mock-exam-result'")
+            }
+
+            if(v=="topic-test-result"){
+                loadexamgrapg("{{url()->current()}}?type='topic-test-result','topic-test-result'")
             }
             
         }
@@ -174,7 +186,12 @@
                 },
             });
         }
-        async function loadexamgrapg(url){
+        async function loadexamgrapg(url,type){
+
+            if(type ==null)
+            {
+                type = 'mock-exam-result';
+            }
              await $.get(url,function(res){ 
                 const lesseonId=generateRandomId(10); 
                 let nextbtn = '';
@@ -185,77 +202,116 @@
                 if(res.prev){
                     prevbtn = `<a class="prev-btn"  onclick="loadexamgrapg('${res.prev}')"><img src="{{asset('assets/images/chevron-arrow-prev-solid .svg')}}" alt="prev" ></a>`;
                 }
-                $('#analytic-exam').html(`
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="analytic-exam-item" id="analytic-exam-item-${lesseonId}">
-                                <div class="exam-overview" > 
-                                    <div class="exam-overview-content">
-                                        <div class="overview-title text-center">
-                                            <div class="overview-left">${prevbtn}</div>
-                                            <div class="overview-center" onclick="toggleshow('#analytic-exam-item-${lesseonId}-dropdown')" ><h3>${res.data.title||''} </h3></div>
-                                            <div class="overview-right">${nextbtn}</div>
-                                        </div>
-                                        <div class="overview-title text-center" style="display:none" id="analytic-exam-item-${lesseonId}-dropdown" >
-                                            <div class="overview-dropdown">
-                                                <div class="list-group">
-                                                    @foreach($mockExams as $k=> $item)
-                                                    <div class="list-item"> 
-                                                        <a onclick="loadexamgrapg('{{route('analytics.index',["page"=>$k+1])}}')">{{$item->title}}</a>
+
+                if(type =='mock-exam-result')
+                {
+
+                    $('#analytic-exam').html(`
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="analytic-exam-item" id="analytic-exam-item-${lesseonId}">
+                                    <div class="exam-overview" > 
+                                        <div class="exam-overview-content">
+                                            <div class="overview-title text-center">
+                                                <div class="overview-left">${prevbtn}</div>
+                                                <div class="overview-center" onclick="toggleshow('#analytic-exam-item-${lesseonId}-dropdown')" ><h3>${res.data.title||''} </h3></div>
+                                                <div class="overview-right">${nextbtn}</div>
+                                            </div>
+                                            <div class="overview-title text-center" style="display:none" id="analytic-exam-item-${lesseonId}-dropdown" >
+                                                <div class="overview-dropdown">
+                                                    <div class="list-group">
+                                                        @foreach($mockExams as $k=> $item)
+                                                        <div class="list-item"> 
+                                                            <a onclick="loadexamgrapg('{{route('analytics.index',["page"=>$k+1])}}')">{{$item->title}}</a>
+                                                        </div>
+                                                        @endforeach
                                                     </div>
-                                                    @endforeach
                                                 </div>
                                             </div>
+                                            <div class="overview-graph">
+                                                <div class="overview-graph-body">
+                                                    <div class="overview-graph-inner"> 
+                                                        <canvas id="mock-exam-chart-${lesseonId}" data-avg="${res.data.avg||0}" data-mrk="${res.data.mark||0}" data-max="${res.data.max||0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4"> 
+                                <div class="analytic-exam-sidebar" >
+                                    <div class="analytic-exam-category" id="analytic-exam-category-${lesseonId}">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)  
+                    $.each(res.data.category,function(k,v){
+                        $('#analytic-exam-category-'+lesseonId).append(`
+                            <div class="analytic-exam-category-item">
+                                <div class="exam-overview"> 
+                                    <div class="exam-overview-content">
+                                        <div class="overview-title text-center">
+                                            <h3>${v.title}</h3>
                                         </div>
                                         <div class="overview-graph">
                                             <div class="overview-graph-body">
                                                 <div class="overview-graph-inner"> 
-                                                    <canvas id="mock-exam-chart-${lesseonId}" data-avg="${res.data.avg||0}" data-mrk="${res.data.mark||0}" data-max="${res.data.max||0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
+                                                    <canvas id="mock-exam-chart-${lesseonId}-${k}" data-avg="${v.avg||0}" data-mrk="${v.mark||0}" data-max="${v.max||0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        `)
+                    })                
+                    $('.overview-graph-bar-mock-exam').each(function(k,v){  
+                        const avgmrk = $(this).data('avg')
+                        const mrk = $(this).data('mrk')
+                        const max = $(this).data('max')
+                        drowgraph(this,max,'Mark',[mrk,avgmrk])
+                        if(k==0){
+                            $('.analytic-exam-category').css('height',$(`.analytic-exam-item`).height())
+                        }
+                    }) 
+
+                }
+                else
+                {
+                    $('#topic-test-result').html(`
+                        <div class="row" id="topic-test-result-category-${lesseonId}">
+                            
                         </div>
-                        <div class="col-md-4"> 
-                            <div class="analytic-exam-sidebar" >
-                                <div class="analytic-exam-category" id="analytic-exam-category-${lesseonId}">
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `)  
-                $.each(res.data.category,function(k,v){
-                    $('#analytic-exam-category-'+lesseonId).append(`
-                        <div class="analytic-exam-category-item">
-                            <div class="exam-overview"> 
-                                <div class="exam-overview-content">
-                                    <div class="overview-title text-center">
-                                        <h3>${v.title} 14</h3>
-                                    </div>
-                                    <div class="overview-graph">
-                                        <div class="overview-graph-body">
-                                            <div class="overview-graph-inner"> 
-                                                <canvas id="mock-exam-chart-${lesseonId}-${k}" data-avg="${v.avg||0}" data-mrk="${v.mark||0}" data-max="${v.max||0}" class="overview-graph-bar overview-graph-bar-mock-exam" width="100%" ></canvas>
+                    `)  
+
+                    $.each(res.data.category,function(k,v){
+
+                        $('#topic-test-result-category-'+lesseonId).append(`
+
+                            <div class="col-md-6">
+                                <div class="exam-overview"> 
+                                    <div class="exam-overview-content">
+                                        <div class="overview-title text-center">
+                                            <h3>${v.title}</h3>
+                                                
+                                        </div>
+                                        <div class="overview-graph">
+                                            <div class="overview-graph-body">
+                                                <div class="overview-graph-inner"> 
+                                                    <canvas id="topic-test-chart-${lesseonId}-${k}" data-avg="${v.avg||0}" data-mrk="${v.mark||0}" data-max="${v.max||0}" class="overview-graph-bar overview-graph-bar-topic-test" width="100%" ></canvas>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    `)
-                })                
-                $('.overview-graph-bar-mock-exam').each(function(k,v){  
-                    const avgmrk = $(this).data('avg')
-                    const mrk = $(this).data('mrk')
-                    const max = $(this).data('max')
-                    drowgraph(this,max,'Mark',[mrk,avgmrk])
-                    if(k==0){
-                        $('.analytic-exam-category').css('height',$(`.analytic-exam-item`).height())
-                    }
-                }) 
+                        `)
+                    }) ;
+                }
+
              },'json')
              
         }
