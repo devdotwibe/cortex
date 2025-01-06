@@ -583,7 +583,7 @@ if (!allowedTypes.includes(file.type)) {
                         } else {
                         
                             
-                            // $('.side_bar').addClass('slider-btn');
+                            $('.side_bar').addClass('slider-btn');
                             
                             
                             $('.titledisplay').each(function () {
