@@ -32,6 +32,10 @@
 
 </head>
 
+@php
+    $sidebarCollapsed = session('sidebarCollapsed');
+@endphp
+
 <body class="sliderbody">
 
     <div class="loading-wrap" style="display: none">
@@ -70,9 +74,9 @@
         </a>
     </div>
 
-    <aside class="side_bar">
+    <aside class="side_bar @if($sidebarCollapsed =='true')  slider-btn @endif">
 
-        <button class="btn btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
+        <button class="btn  btn-slider" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
 
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
@@ -405,89 +409,6 @@
 
     @stack('before-script')
 
-
-    <script>
-        function ChangeMenu() {
-
-            
-            $('.sliderbody').toggleClass('slider-active');
-
-    $('.side_bar').toggleClass('slider-btn');
-    
-    // Get the current state and save it in localStorage
-    const isCollapsed = $('.side_bar').hasClass('slider-btn');
-    const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
-
-    if (isCollapsed) {
-              
-                
-              $('.titledisplay').removeAttr('title');
-          } else {
-            
-          
-              $('.titledisplay').each(function () {
-                  // Retrieve the data-title attribute value
-                  var title = $(this).data('title');
-
-                  // Set the title attribute with the value
-                  $(this).attr('title', title);
-           });
-          }
-    localStorage.setItem('sidebarCollapsed', isCollapsed);
-
-    localStorage.setItem('sidebarCollapsed1', isCollapsed1);
-}
-
-// Function to initialize sidebar state based on localStorage
-function initializeSidebar() {
-
-    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-
-    const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
-
-    // Apply the class based on stored state
-    if (!isCollapsed) {
-                $('.side_bar').removeClass('slider-btn');
-                
-                $('.titledisplay').removeAttr('title');
-            } else {
-              
-                
-                $('.side_bar').addClass('slider-btn');
-                
-                
-                $('.titledisplay').each(function () {
-                    // Retrieve the data-title attribute value
-                    var title = $(this).data('title');
-
-                    // Set the title attribute with the value
-                    $(this).attr('title', title);
-             });
-            }
-
-    if (isCollapsed1) {
-        $('.sliderbody').addClass('slider-active');
-    } else {
-        $('.sliderbody').removeClass('slider-active');
-    }
-}
-
-// Call the initialize function on page load
-$(function() {
-    initializeSidebar();
-});
-
-
-        $(function() {
-          
-            $('#showModalButton').click(function() {
-                $('#adminsubModal').modal('show'); // Show the modal using jQuery
-            });
-        });
-
-     </script>
-
-
     <script>
         $.ajaxSetup({
              headers: {
@@ -586,6 +507,107 @@ if (!allowedTypes.includes(file.type)) {
             });
         }
     </script>
+
+<script>
+
+    function ChangeMenu() {
+
+            const isCollapsed = $('.side_bar').hasClass('slider-btn');
+
+            var collapsed = 'true';
+
+            if(isCollapsed)
+            {
+                 collapsed = 'false';
+            }
+
+            const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
+
+                    $.ajax({
+                    url : "{{route('menustatus')}}",
+                    type : 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        collapsed: collapsed,
+                    },
+                    success: function(response) {
+            
+                    $('.sliderbody').toggleClass('slider-active');
+
+                    $('.side_bar').toggleClass('slider-btn');
+
+                    if (isCollapsed) {
+                    
+                        
+                        $('.titledisplay').removeAttr('title');
+                    } else {
+                        
+                            $('.titledisplay').each(function () {
+                            
+                            var title = $(this).data('title');
+
+                            $(this).attr('title', title);
+
+                            });
+                        }
+                    },
+
+                });
+
+                    // localStorage.setItem('sidebarCollapsed', isCollapsed);
+
+                    // localStorage.setItem('sidebarCollapsed1', isCollapsed1);
+            }
+
+                function initializeSidebar() {
+
+                const isCollapsed = @if($sidebarCollapsed =='true') true @else false @endif; 
+
+                const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
+
+                // Apply the class based on stored state
+                if (!isCollapsed) {
+                            $('.side_bar').removeClass('slider-btn');
+                            
+                            $('.titledisplay').removeAttr('title');
+                        } else {
+                        
+                            
+                            $('.side_bar').addClass('slider-btn');
+                            
+                            
+                            $('.titledisplay').each(function () {
+                                // Retrieve the data-title attribute value
+                                var title = $(this).data('title');
+
+                                // Set the title attribute with the value
+                                $(this).attr('title', title);
+                        });
+                        }
+
+                if (isCollapsed) {
+                    $('.sliderbody').addClass('slider-active');
+                } else {
+                    $('.sliderbody').removeClass('slider-active');
+                }
+                }
+
+                // Call the initialize function on page load
+                $(function() {
+                initializeSidebar();
+                });
+
+
+                    $(function() {
+                    
+                        $('#showModalButton').click(function() {
+                            $('#adminsubModal').modal('show'); // Show the modal using jQuery
+                        });
+                    });
+
+ </script>
+
+
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>

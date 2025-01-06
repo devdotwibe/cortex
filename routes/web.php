@@ -79,6 +79,9 @@ Route::middleware('guest:web,admin')->group(function () {
     Route::get('/password-change/{token}', [HomeController::class, 'resetpassword'])->name('password.reset');
     Route::post('/password-change/{token}', [HomeController::class, 'updatepassword']);
 });
+
+Route::post('/menustatus', [HomeController::class, 'menustatus'])->name('menustatus');
+
 Route::middleware(['auth', 'isUser'])->group(function () {
 
     Route::get('/verification/notice', [HomeController::class, 'verificationnotice'])->name('verification.notice');

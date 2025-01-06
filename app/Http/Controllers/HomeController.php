@@ -19,6 +19,7 @@ use App\Support\Helpers\OptionHelper;
 use App\Support\Plugin\Payment;
 use App\Trait\ResourceController;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
@@ -56,9 +57,22 @@ class HomeController extends Controller
 
 
     }
+    public function menustatus(Request $request)
+    {
+
+        $collapsed = $request->input('collapsed'); 
+    
+        Session::put('sidebarCollapsed',$collapsed);
+
+        return response()->json([
+            'status' => 'success',
+            'collapsed' => $collapsed,
+        ]);
+    }
 
     public function login(Request $request){
         if(Auth::guard('web')->check()){
+
             return redirect('/dashboard');
         }
         if(Auth::guard('admin')->check()){
@@ -76,12 +90,16 @@ class HomeController extends Controller
         {
             RateLimiter::clear($this->throttleKey($request));
             $request->session()->regenerate();
+
+            session()->put('sidebarCollapsed','true');
+
             return redirect()->intended('/dashboard');
         }
         if (Auth::guard('admin')->attempt($credentials))
         {
             RateLimiter::clear($this->throttleKey($request));
             $request->session()->regenerate();
+            session()->put('sidebarCollapsed','true');
             return redirect()->intended('/admin/dashboard');
         }
         RateLimiter::hit($this->throttleKey($request));
