@@ -76,7 +76,7 @@
 
     <aside class="side_bar">
 
-        <button class="btn  @if($sidebarCollapsed =='true') btn-slider @endif" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
+        <button class="btn  @if($sidebarCollapsed =='true')  btn-slider @endif" onclick="ChangeMenu()"><img src="{{asset("assets/images/menu-arrow.svg")}}" alt="slider"></button>
 
         <div class="side-nav-toggle">
             <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
@@ -583,7 +583,7 @@ if (!allowedTypes.includes(file.type)) {
                         } else {
                         
                             
-                            $('.side_bar').addClass('slider-btn');
+                            // $('.side_bar').addClass('slider-btn');
                             
                             
                             $('.titledisplay').each(function () {
