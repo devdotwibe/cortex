@@ -16,6 +16,9 @@ class IsUser
     public function handle(Request $request, Closure $next): Response
     {
         $request->session()->put('is.logined.as','user');
+
+        session(['sidebarCollapsed' => false]);
+
         return $next($request);
     }
 }

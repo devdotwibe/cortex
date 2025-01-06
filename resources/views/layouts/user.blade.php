@@ -32,6 +32,10 @@
 
 </head>
 
+@php
+    $sidebarCollapsed = session('sidebarCollapsed', true);
+@endphp
+
 <body class="sliderbody">
 
     <div class="loading-wrap" style="display: none">
@@ -96,6 +100,13 @@
                     <span class="side-label menutext">
                         
                         Thinking Skills NSW
+
+                        @if($sidebarCollapsed)
+                        <p>The sidebar is collapsed.</p>
+                        @else
+                        <p>The sidebar is expanded.</p>
+                        @endif
+
                     </span>
                     <span class="side-trail">
                         @php
