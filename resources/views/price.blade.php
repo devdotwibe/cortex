@@ -661,7 +661,7 @@
             $('#tabs2-cortext-subscription-payment-form-buttom').click(function(e) {
                 e.preventDefault();
 
-                if ( $('#add_coupon_yes').is(':checked') && ($('#tabs2-coupon').val() != "" ) || $('#add_coupon_no').is(':checked')) {
+                if ( $('#add_coupon_yes').is(':checked') && ($('#tabs2-coupon').val() != "" )) {
 
                     $('#tabs2-message-area').html('')
                     $('.invalid-feedback').text('')
