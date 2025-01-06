@@ -526,11 +526,11 @@ if (!allowedTypes.includes(file.type)) {
 
             const isCollapsed = $('.side_bar').hasClass('slider-btn');
 
-            let  collapsed = 'false';
+            var  collapsed = 'false';
 
             if(isCollapsed)
             {
-                const collapsed = 'true';
+                var collapsed = 'true';
             }
 
             const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
@@ -539,6 +539,7 @@ if (!allowedTypes.includes(file.type)) {
                     url : "{{route('menustatus')}}",
                     type : 'POST',
                     data: {
+                        _token: "{{ csrf_token() }}",
                         collapsed: collapsed,
                     },
                     processData: false,
