@@ -85,6 +85,9 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     Route::get('/verification/resend', [HomeController::class, 'verificationresend'])->name('verification.resend');
     Route::post('/verification/resend', [HomeController::class, 'verificationresend']);
 
+    Route::post('/menustatus', [HomeController::class, 'menustatus'])->name('menustatus');
+    
+
     Route::get('/subscription-payment/{payment_intent}/notice', [HomeController::class, 'subscriptionnotice'])->name('subscription-payment.notice');
 
     Route::post("/upload", [UploadController::class, 'uploadFile'])->name("upload");

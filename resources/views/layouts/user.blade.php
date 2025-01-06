@@ -416,89 +416,6 @@
 
     @stack('before-script')
 
-
-    <script>
-        function ChangeMenu() {
-
-            
-            $('.sliderbody').toggleClass('slider-active');
-
-    $('.side_bar').toggleClass('slider-btn');
-    
-    // Get the current state and save it in localStorage
-    const isCollapsed = $('.side_bar').hasClass('slider-btn');
-    const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
-
-    if (isCollapsed) {
-              
-                
-              $('.titledisplay').removeAttr('title');
-          } else {
-            
-          
-              $('.titledisplay').each(function () {
-                  // Retrieve the data-title attribute value
-                  var title = $(this).data('title');
-
-                  // Set the title attribute with the value
-                  $(this).attr('title', title);
-           });
-          }
-    localStorage.setItem('sidebarCollapsed', isCollapsed);
-
-    localStorage.setItem('sidebarCollapsed1', isCollapsed1);
-}
-
-// Function to initialize sidebar state based on localStorage
-function initializeSidebar() {
-
-    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-
-    const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
-
-    // Apply the class based on stored state
-    if (!isCollapsed) {
-                $('.side_bar').removeClass('slider-btn');
-                
-                $('.titledisplay').removeAttr('title');
-            } else {
-              
-                
-                $('.side_bar').addClass('slider-btn');
-                
-                
-                $('.titledisplay').each(function () {
-                    // Retrieve the data-title attribute value
-                    var title = $(this).data('title');
-
-                    // Set the title attribute with the value
-                    $(this).attr('title', title);
-             });
-            }
-
-    if (isCollapsed1) {
-        $('.sliderbody').addClass('slider-active');
-    } else {
-        $('.sliderbody').removeClass('slider-active');
-    }
-}
-
-// Call the initialize function on page load
-$(function() {
-    initializeSidebar();
-});
-
-
-        $(function() {
-          
-            $('#showModalButton').click(function() {
-                $('#adminsubModal').modal('show'); // Show the modal using jQuery
-            });
-        });
-
-     </script>
-
-
     <script>
         $.ajaxSetup({
              headers: {
@@ -597,6 +514,102 @@ if (!allowedTypes.includes(file.type)) {
             });
         }
     </script>
+
+<script>
+
+    function ChangeMenu() {
+
+        
+            $('.sliderbody').toggleClass('slider-active');
+
+            $('.side_bar').toggleClass('slider-btn');
+
+            const isCollapsed = $('.side_bar').hasClass('slider-btn');
+            const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
+
+                    $.ajax({
+                    url : "{{route('menustatus')}}",
+                    type : 'POST',
+                    isCollapsed : isCollapsed,
+                    processData: false,
+                    contentType: false,
+            
+                    success: function(response) {
+                      
+                    console.log(response);
+
+                    if (isCollapsed) {
+                    
+                        
+                        $('.titledisplay').removeAttr('title');
+                    } else {
+                        
+                            $('.titledisplay').each(function () {
+                            
+                            var title = $(this).data('title');
+
+                            $(this).attr('title', title);
+
+                            });
+                        }
+                    },
+
+                });
+
+                    // localStorage.setItem('sidebarCollapsed', isCollapsed);
+
+                    // localStorage.setItem('sidebarCollapsed1', isCollapsed1);
+            }
+
+                function initializeSidebar() {
+
+                const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+                const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
+
+                // Apply the class based on stored state
+                if (!isCollapsed) {
+                            $('.side_bar').removeClass('slider-btn');
+                            
+                            $('.titledisplay').removeAttr('title');
+                        } else {
+                        
+                            
+                            $('.side_bar').addClass('slider-btn');
+                            
+                            
+                            $('.titledisplay').each(function () {
+                                // Retrieve the data-title attribute value
+                                var title = $(this).data('title');
+
+                                // Set the title attribute with the value
+                                $(this).attr('title', title);
+                        });
+                        }
+
+                if (isCollapsed1) {
+                    $('.sliderbody').addClass('slider-active');
+                } else {
+                    $('.sliderbody').removeClass('slider-active');
+                }
+                }
+
+                // Call the initialize function on page load
+                $(function() {
+                initializeSidebar();
+                });
+
+
+                    $(function() {
+                    
+                        $('#showModalButton').click(function() {
+                            $('#adminsubModal').modal('show'); // Show the modal using jQuery
+                        });
+                    });
+
+ </script>
+
+
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>

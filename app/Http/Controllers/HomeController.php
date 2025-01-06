@@ -56,6 +56,11 @@ class HomeController extends Controller
 
 
     }
+    public function menustatus(Request $request)
+    {
+
+        dd('dfdsf');
+    }
 
     public function login(Request $request){
         if(Auth::guard('web')->check()){
