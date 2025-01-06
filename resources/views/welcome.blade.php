@@ -649,6 +649,8 @@
                
                     const targetQues = this.getAttribute('data-target');
 
+                    console.log(targetQues);
+
                     document.querySelectorAll('.accordion-row').forEach(item => item.classList
                         .remove('active'));
                     this.parentElement.classList.add('active');
