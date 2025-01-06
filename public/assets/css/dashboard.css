@@ -3677,6 +3677,13 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     height: 12px;
 }
 
+.invite-wrap .tab-content .float-end {width: 25px; position: relative; cursor: pointer;}
+.invite-wrap .tab-content .float-end span {width: 100%; display: block; transition: all 0.25s ease-in;}
+.invite-wrap .tab-content .float-end span.adminactive-icon {width: 100%; position: absolute; top: 0; opacity: 0; transition: all 0.25s ease-in;}
+.invite-wrap .tab-content .float-end span img {width: 100%; display: block;}
+.invite-wrap .tab-content .float-end:hover span.adminside-icon {opacity: 0;}
+.invite-wrap .tab-content .float-end:hover span.adminactive-icon {opacity: 1;}
+
 @media screen and (max-width:1399px) {
     .exam-container .question-bank-review .lesson #lesson-footer-pagination {
         padding: 15px 0;
