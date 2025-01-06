@@ -591,8 +591,9 @@
                 }
                 else
                 {
-                    $('#tabs2-coupon').addClass('is-invalid')
-                    // $('#coupon_error1').show();
+                    $('#tabs2-error-coupon-message').text('Please Provide Coupon code').show();
+
+                    $('#tabs2-coupon').addClass('is-invalid');
                 }
             })
             $('#tabs2-combo-coupon-verify-button').click(function(e) {
@@ -629,8 +630,8 @@
                 }
                 else
                 {
-                    $('#tabs2-combo-coupon').addClass('is-invalid')
-                    // $('#coupon_error').show();
+                    $('#tabs2-error-combo-coupon-message').text('Please Provide Coupon code').show();
+                    $('#tabs2-combo-coupon').addClass('is-invalid');
                 }
             })
             $('#tabs2-mail-verify-button').click(function(e) {
