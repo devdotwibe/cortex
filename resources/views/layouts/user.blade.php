@@ -526,13 +526,13 @@ if (!allowedTypes.includes(file.type)) {
 
             const isCollapsed = $('.side_bar').hasClass('slider-btn');
 
-            const collapsed = false;
+            const collapsed = 'false';
 
             if(isCollapsed)
             {
-                const collapsed = true;
+                const collapsed = 'true';
             }
-            
+
             const isCollapsed1 = $('.sliderbody').hasClass('slider-active');
 
                     $.ajax({
