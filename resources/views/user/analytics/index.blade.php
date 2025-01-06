@@ -35,7 +35,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} </h3>
+                                                <h3>{{ucfirst($item->name)}} 11</h3>
                                                    
                                             </div>
                                             <div class="overview-graph">
@@ -63,7 +63,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}}</h3>
+                                                <h3>{{ucfirst($item->name)}} 12</h3>
                                             </div>
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
@@ -85,7 +85,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}}</h3>
+                                                <h3>{{ucfirst($item->name)}} 13</h3>
                                             </div>
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
@@ -233,7 +233,7 @@
                             <div class="exam-overview"> 
                                 <div class="exam-overview-content">
                                     <div class="overview-title text-center">
-                                        <h3>${v.title}</h3>
+                                        <h3>${v.title} 14</h3>
                                     </div>
                                     <div class="overview-graph">
                                         <div class="overview-graph-body">
