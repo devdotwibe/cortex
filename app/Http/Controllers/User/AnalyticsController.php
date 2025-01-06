@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
+use App\Models\Question;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,8 +61,18 @@ class AnalyticsController extends Controller
             }
             else
             {
+                $exam = Exam::where("name", 'topic-test')->first();
+                if (empty($exam)) {
+                    $exam = Exam::store([
+                        "title" => "Topic Test",
+                        "name" => "topic-test",
+                    ]);
+                    $exam = Exam::find($exam->id);
+                }
             
-                $category = Category::with('question')->whereHas('question')->get();
+                $category = Category::where(function ($qry) use ($exam) {
+                    $qry->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'));
+                })->get();
 
                 $categorydata=[];
                 // foreach ($category as $cat) {
