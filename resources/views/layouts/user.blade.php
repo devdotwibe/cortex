@@ -542,9 +542,6 @@ if (!allowedTypes.includes(file.type)) {
                         _token: "{{ csrf_token() }}",
                         collapsed: collapsed,
                     },
-                    processData: false,
-                    contentType: false,
-            
                     success: function(response) {
                       
                     console.log(response);
