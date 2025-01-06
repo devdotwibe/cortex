@@ -406,7 +406,7 @@
                                         <div class="invalid-feedback" id="tabs2-error-coupon-message"></div>
                                     </div>
                                 </div>
-                                <div class="form-group" id="tabs2-message-area">
+                                <div class="form-group invalid-feedback" id="tabs2-message-area">
                                 </div>
                                 <div class="form-group mt-2">
                                     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
@@ -441,6 +441,7 @@
                     $('#coupon-field').show();
                 } else {
                     $('#coupon-field').hide();
+                    $('#tabs2-message-area').hide();
                 }
             });
             $('#coupon-field2').hide();
@@ -532,29 +533,82 @@
                 $('.invalid-feedback').text('')
                 $('.form-control').removeClass('is-invalid')
             });
+
             $('#tabs2-cortext-combo-subscription-payment-form-buttom').click(function(e) {
+
                 e.preventDefault();
-                $('#tabs2-combo-message-area').html('')
-                $('.invalid-feedback').text('')
-                $('.form-control').removeClass('is-invalid')
-                $.post($('#tabs2-cortext-combo-subscription-payment-form').attr('action'), $(
-                    '#tabs2-cortext-combo-subscription-payment-form').serialize(), function(res) {
-                    if ($('#tabs2-verify-mail').val() == "Y") {
-                        $('#tabs2-cortext-combo-subscription-payment-form').submit()
-                    } else {
-                        $('#tabs2-combo-message-area').html(`
-                            <div class="alert alert-danger" role="alert">
-                                Please confirm your inviting friend mail by click on "Confirm Email" button.
-                            </div>                        
-                        `)
+
+                if ( $('#add_coupon2_yes').is(':checked') && ($('#tabs2-combo-coupon').val() != "" ) || !$('#add_coupon2_no').is(':checked')) {
+
+                    var coupen = $('#tabs2-combo-coupon').val();
+
+                    var success=false;
+
+                    if(!$('#add_coupon2_yes').is(':checked'))
+                    {
+                        success=true;
                     }
-                }, 'json').fail(function(xhr) {
-                    $.each(xhr.responseJSON.errors, function(k, v) {
-                        $('#tabs2-error-combo-' + k + '-message').text(v[0])
-                        $('#tabs2-combo-' + k).addClass('is-invalid')
-                    });
-                });
+                        if (coupen) {
+
+                            $.get('{{ route('coupon-verify') }}', {
+                                type: "combo",
+                                coupon: coupen,
+                                subscription: $('#subscription-combo').val()
+                            }, function(res) {
+                                if (res.message) {
+                                    $('#tabs2-combo-message-area').html(`
+                                        <div class="alert alert-info" role="alert">
+                                            ${res.message}
+                                        </div>                        
+                                    `)
+                                }
+                                if (res.pay) {
+                                    $('#tabs2-cortext-combo-subscription-payment-form-buttom-price').text(res.pay)
+                                }
+                            }, 'json').fail(function(xhr) {
+
+                                $('#tabs2-combo-message-area').text('Please Provide valid coupon code and click apply button').show();
+
+                            })
+                        }
+
+                    if(success)
+                    {
+                            $('#tabs2-combo-message-area').html('')
+                            $('.invalid-feedback').text('')
+                            $('.form-control').removeClass('is-invalid')
+                            $.post($('#tabs2-cortext-combo-subscription-payment-form').attr('action'), $(
+                                '#tabs2-cortext-combo-subscription-payment-form').serialize(), function(res) {
+                                if ($('#tabs2-verify-mail').val() == "Y") {
+                                    $('#tabs2-cortext-combo-subscription-payment-form').submit()
+                                } else {
+                                    $('#tabs2-combo-message-area').html(`
+                                        <div class="alert alert-danger" role="alert">
+                                            Please confirm your inviting friend mail by click on "Confirm Email" button.
+                                        </div>                        
+                                    `)
+                                }
+                            }, 'json').fail(function(xhr) {
+                                $.each(xhr.responseJSON.errors, function(k, v) {
+                                    $('#tabs2-error-combo-' + k + '-message').text(v[0])
+                                    $('#tabs2-combo-' + k).addClass('is-invalid')
+                                });
+                            });
+
+                    }    
+
+                    } 
+                    else {
+
+                        $('#tabs2-combo-message-area').text('Please Provide Coupon code and click apply button').show();
+                    }
+                    
+              
+
+
             })
+
+
             $('#tabs2-combo-email').change(function() {
                 $('#tabs2-verify-mail').val('N')
             })
