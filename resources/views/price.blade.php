@@ -358,7 +358,7 @@
                                             placeholder="Enter Coupon Code" class="form-control" />
                                         <span class="error" id="coupon_error" style="display: none;">Please Provide Coupon code</span>
                                         <button class="btn btn-outline-secondary" type="button"
-                                            id="tabs2-combo-coupon-verify-button">Apply 1</button>
+                                            id="tabs2-combo-coupon-verify-button">Apply</button>
                                         <div class="invalid-feedback" id="tabs2-error-combo-coupon-message"></div>
                                     </div>
                                 </div>
@@ -400,6 +400,7 @@
                                     <div class="input-group ">
                                         <input type="text" name="coupon" id="tabs2-coupon"
                                             placeholder="Enter Coupon Code" class="form-control" />
+                                        <span class="error" id="coupon_error1" style="display: none;">Please Provide Coupon code</span>
                                         <button class="btn btn-outline-secondary" type="button"
                                             id="tabs2-coupon-verify-button">Apply</button>
                                         <div class="invalid-feedback" id="tabs2-error-coupon-message"></div>
@@ -559,9 +560,11 @@
             })
             $('#tabs2-coupon-verify-button').click(function(e) {
                 e.preventDefault();
-                $('#tabs2-message-area').html('')
-                $('.invalid-feedback').text('')
-                $('.form-control').removeClass('is-invalid')
+                $('#tabs2-message-area').html('');
+                $('.invalid-feedback').text('');
+                $('.form-control').removeClass('is-invalid');
+                <span class="error" id="coupon_error1" style="display: none;">Please Provide Coupon code</span>
+                
                 var coupen = $('#tabs2-coupon').val();
                 if (coupen) {
                     $.get('{{ route('coupon-verify') }}', {
@@ -584,6 +587,10 @@
                             $('#tabs2-' + k).addClass('is-invalid')
                         });
                     })
+                }
+                else
+                {
+                    $('#coupon_error1').show();
                 }
             })
             $('#tabs2-combo-coupon-verify-button').click(function(e) {
