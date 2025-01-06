@@ -168,10 +168,10 @@ section{width: 100%; float: left;}
 .faq-wrapp .accordion { width: 100%; float: left; margin: 0 0 30px;}
 .faq-wrapp .accordion .accordion-row { width: 100%;}
 .faq-wrapp .accordion h5 {  font-size: 18px; font-weight: 500; padding: 20px; border: 1px solid #D0D0D0; border-radius: 10px; margin: 0 0 20px; position: relative; cursor: pointer;}
-.faq-wrapp .accordion h5:after{content: ""; position: absolute; background: url(../images/right-arrow.svg) no-repeat center / 100%; width: 20px; height: 20px; top: 50%; transform: translateY(-50%); right: 20px; transition: all .25s ease-in-out;}
+.faq-wrapp .accordion h5:after{content: ""; position: absolute; background: url(../images/rightarrow.svg) no-repeat center / 100%; width: 20px; height: 20px; top: 50%; transform: translateY(-50%); right: 20px; transition: all .25s ease-in-out;}
 .faq-wrapp .accordion .accordion-content1 { padding: 0 20px 20px; width: 100%; display: none;}
 .faq-wrapp .accordion h5.active:after {  transform: translateY(-50%) rotate(90deg);}
-
+.faq-wrapp .accordion .active .accordion-content1 {display: block;}
 
 .learning-wrapp {padding: 50px 0 125px;}
 .learning-wrapp .learning-row { width: 100%;display: flex;  flex-wrap: wrap; justify-content: space-between;}
