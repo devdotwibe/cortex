@@ -37,7 +37,7 @@
         <div class="container">
             <div class="header-row">
                 <div class="brand-logo">
-                    <a href="{{route('home')}}">
+                    <a href="{{route('dashboard')}}">
                         <img src="{{ asset('app/images/logo.svg') }}" alt="">
                     </a>
                 </div>
