@@ -444,10 +444,11 @@
                                 </span> {{ $item->name }}</h4>
 
                             <div class="accordion">
-                                @foreach ($item->faqs as $subitem)
-                                    <div class="accordion-row">
-                                        <h5>{{ $subitem->question }}</h5>
-                                        <div class="accordion-content1">
+                                @foreach ($item->faqs as $k=> $subitem)
+                                    <div class="accordion-row @if ($k == 0) active @endif">
+
+                                        <h5 class="accordion-faq" data-target="accordion-content1-{{$k}}" > {{ $subitem->question }}</h5>
+                                        <div class="accordion-content1  accordion-content1-{{$k}} @if ($k == 0) active @endif ">
                                             <p>{{ $subitem->answer }}</p>
                                         </div>
                                     </div>
@@ -625,22 +626,41 @@
             const headers = document.querySelectorAll('.accordion-item-header');
             const images = document.querySelectorAll('.feature-img');
 
+            const faqhead = document.querySelectorAll('.accordion-faq'); 
+
+
             headers.forEach(header => {
                 header.addEventListener('click', function() {
-                    // Get target image ID
+        
                     const targetImgId = this.getAttribute('data-target');
 
-                    // Remove active class from all accordion items and images
                     document.querySelectorAll('.accordion-item').forEach(item => item.classList
                         .remove('active'));
                     document.querySelectorAll('.feature-img').forEach(img => img.classList.remove(
                         'active'));
 
-                    // Add active class to the clicked accordion item and corresponding image
                     this.parentElement.classList.add('active');
                     document.getElementById(targetImgId).classList.add('active');
                 });
             });
+
+            faqhead.forEach(header => {
+                header.addEventListener('click', function() {
+               
+                    const targetQues = this.getAttribute('data-target');
+
+                    document.querySelectorAll('.accordion-row').forEach(item => item.classList
+                        .remove('active'));
+                    this.parentElement.classList.add('active');
+
+                    document.getElementById(targetQues).classList.add('active');
+                });
+            });
+
+
+           
+
+
         });
     </script>
 
