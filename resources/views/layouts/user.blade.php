@@ -530,7 +530,9 @@ if (!allowedTypes.includes(file.type)) {
                     $.ajax({
                     url : "{{route('menustatus')}}",
                     type : 'POST',
-                    isCollapsed : isCollapsed,
+                    data: {
+                        isCollapsed: isCollapsed,
+                    },
                     processData: false,
                     contentType: false,
             
