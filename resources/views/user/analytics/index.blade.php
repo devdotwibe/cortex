@@ -58,7 +58,7 @@
   
                         <div class="analytic-item" id="question-bank-result" style="display: block">
                             <div class="row">
-                                @foreach ($question_bank_exam as $item)
+                                @foreach ($category_question_bank as $item)
                                 <div class="col-md-6">
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
