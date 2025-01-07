@@ -179,6 +179,8 @@
                          @page {
                             size: A5;
                             margin: 0;
+                            overflow: hidden;
+
                         }
                         @media print {
                             body { margin: 0; }                           
@@ -197,7 +199,6 @@
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            page-break-after: always; /* Page break after each section */
                         }   
                     </style>
                 </head>
