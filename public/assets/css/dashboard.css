@@ -8774,6 +8774,11 @@ nav.navbar.top-barhide {
         font-size: 20px !important;
     }
 
+    .pdfsection .lesson .print-bnt {
+        font-size: 16px;
+        padding: 8px 20px;
+    }
+
 }
 
 @media screen and (max-width:767px) {
@@ -9385,6 +9390,10 @@ nav.navbar.top-barhide {
         display: none;
     }
 
+    .pdfsection .lesson .print-bnt {
+        font-size: 15px;
+    }
+
 }
 
 
@@ -9823,6 +9832,11 @@ nav.navbar.top-barhide {
 
     .invite-wrap .forms-inputs {
         margin: 0 0 16px !important;
+    }
+
+    .pdfsection .lesson .print-bnt {
+        font-size: 14px;
+        padding: 6px 15px;
     }
 
 }
