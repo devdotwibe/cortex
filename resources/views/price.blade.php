@@ -735,10 +735,12 @@
 
                     var validated = $('#tabs2-coupon-valiated').val();
 
-                    console.log('insode payment button click');
+                    
 
                     if(!$('#add_coupon_yes').is(':checked'))
                     {
+                        console.log('insode payment button click');
+
                         $('#tabs2-message-area').html('')
                         $('.invalid-feedback').text('')
                         $('.form-control').removeClass('is-invalid')
