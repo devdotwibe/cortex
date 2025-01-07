@@ -715,13 +715,13 @@
             $('#tabs2-cortext-subscription-payment-form-buttom').click(function(e) {
                 e.preventDefault();
 
+                let  success=false;
+
                 if ( $('#add_coupon_yes').is(':checked') && ($('#tabs2-coupon').val() != "" ) || !$('#add_coupon_yes').is(':checked')) {
 
                     var coupen = $('#tabs2-coupon').val();
 
                     console.log('insode payment button click');
-
-                    const success=false;
 
                     if(!$('#add_coupon_yes').is(':checked'))
                     {
