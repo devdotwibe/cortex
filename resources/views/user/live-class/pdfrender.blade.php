@@ -5,7 +5,8 @@
         
         .lesson-body {
                 width: 100%;
-                padding: 10px;
+                padding-left: 150px;
+                padding-right: 150px;
                 background-color: #5f6368;
                 display: flex;
                 flex-direction: column;
