@@ -2898,7 +2898,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 }
 
 .modal.confirm-modal .modal-dialog {
-    max-width: 425px;
+    max-width: 485px;
     top: 42%;
     transform: translateY(-50%);
 }
@@ -7799,7 +7799,7 @@ nav.navbar.top-barhide {
 
 
 .modal .modal-content {
-    padding: 20px;
+    padding: 20px 40px;
 }
 
 .modal .modal-content .modal-header {
