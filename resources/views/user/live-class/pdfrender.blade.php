@@ -182,7 +182,7 @@
                         }
                         @media print {
                             body { margin: 0; }
-                            img{ width:100%!important; } 
+                            img{ width:100%!important;height: auto; display: block;} 
                             .pagebreak { page-break-after: always; } 
                         }
                         body {  margin:0;             
