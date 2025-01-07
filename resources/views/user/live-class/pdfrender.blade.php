@@ -165,7 +165,7 @@
             let htmlsection ="";
             $.each(imgdata,function(k,v){ 
                 htmlsection+=`
-                <section>
+                <section class="pdf-page">
                     <img src="${v.url}" alt="">
                 </section>
                 `
@@ -190,7 +190,7 @@
                         img{ width: 100% !important; /* Fit horizontally */
                             height: auto;
                             display: block; } 
-                        section {
+                        .pdf-page {
                             overflow: hidden;
                             width: 595px; /* A4 width in pixels */
                             height: 842px; /* A4 height in pixels */
@@ -200,8 +200,7 @@
                             align-items: center;
                             justify-content: center;
                             page-break-after: always; /* Page break after each section */
-                        }
-                            
+                        }   
                     </style>
                 </head>
                 <body>
