@@ -363,7 +363,7 @@
                                         <div class="invalid-feedback" id="tabs2-error-combo-coupon-message"></div>
                                     </div>
                                 </div>
-                                <div class="form-group" id="tabs2-combo-message-area">
+                                <div class="form-group error" id="tabs2-combo-message-area">
                                 </div>
                                 <div class="form-group mt-2">
                                     <input type="hidden" name="verify" value="N" id="tabs2-verify-mail">
@@ -408,7 +408,7 @@
                                         <div class="invalid-feedback" id="tabs2-error-coupon-message"></div>
                                     </div>
                                 </div>
-                                <div class="form-group invalid-feedback" id="tabs2-message-area">
+                                <div class="form-group error" id="tabs2-message-area">
                                 </div>
                                 <div class="form-group mt-2">
                                     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
