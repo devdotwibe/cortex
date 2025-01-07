@@ -380,18 +380,33 @@ class ExamQuestionController extends Controller
         $user=Auth::user();
         if($request->ajax()){
             if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
-                $lessons=SubCategory::where('category_id',$category->id)->get();
+                $lessons=SubCategory::where('category_id',$category->id)
+                                    ->whereHas('setname',function($qry)use($exam){
+                                        $qry->whereHas("questions",function($qry)use($exam){
+                                            $qry->where('exam_id',$exam->id);
+                                        });
+                                        $qry->where('time_of_exam', '!=', '00:00')
+                                        ->where('time_of_exam', '!=', '00 : 00');
+                                    })
+                                    ->get();
                 $lessencount=count($lessons);
                 $totalprogres=0;
                 foreach ($lessons as $lesson) {
-                    $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
+                    $sets=Setname::where('category_id',$category->id)
+                                    ->where('sub_category_id',$lesson->id)
+                                    ->whereHas("questions",function($qry)use($exam){
+                                        $qry->where('exam_id',$exam->id);
+                                    })
+                                    ->where('time_of_exam', '!=', '00:00')
+                                    ->where('time_of_exam', '!=', '00 : 00')
+                                    ->get();
                     $setcount=count($sets);
                     $catprogres=0;
                     foreach ($sets as $sitm) {
                         $catprogres+=$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id.'-set-'.$sitm->id,0);
                     }
                     $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id,$catprogres>0?($catprogres/$setcount):0);
-                    $totalprogres+=$catprogres;
+                    $totalprogres+=$catprogres/$setcount;
                 }
                 $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$lessencount);
             }
@@ -439,18 +454,32 @@ class ExamQuestionController extends Controller
         $user->setProgress("exam-review-".$review->id."-times",$request->input("times",'[]'));
         $user->setProgress("exam-review-".$review->id."-passed",$request->input("passed",'0'));
         $user->setProgress("exam-review-".$review->id."-time_of_exam",$setname->time_of_exam);
-        $lessons=SubCategory::where('category_id',$category->id)->get();
+        $lessons=SubCategory::where('category_id',$category->id)
+                            ->whereHas('setname',function($qry)use($exam){
+                                $qry->whereHas("questions",function($qry)use($exam){
+                                    $qry->where('exam_id',$exam->id);
+                                });
+                                $qry->where('time_of_exam', '!=', '00:00')
+                                ->where('time_of_exam', '!=', '00 : 00');
+                            })->get();
         $lessencount=count($lessons);
         $totalprogres=0;
         foreach ($lessons as $lesson) {
-            $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
+            $sets=Setname::where('category_id',$category->id)
+                        ->where('sub_category_id',$lesson->id)
+                        ->whereHas("questions",function($qry)use($exam){
+                            $qry->where('exam_id',$exam->id);
+                        })
+                        ->where('time_of_exam', '!=', '00:00')
+                        ->where('time_of_exam', '!=', '00 : 00')
+                        ->get();
             $setcount=count($sets);
             $catprogres=0;
             foreach ($sets as $sitm) {
                 $catprogres+=$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id.'-set-'.$sitm->id,0);
             }
             $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id,$catprogres>0?($catprogres/$setcount):0);
-            $totalprogres+=$catprogres;
+            $totalprogres+=$catprogres/$setcount;
         }
         $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$lessencount);
         if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
