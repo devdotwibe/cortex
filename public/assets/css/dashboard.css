@@ -791,6 +791,7 @@ button.close {
 
 .exam-container .container-wrap .lesson .lesson-body iframe {
     width: 100%;
+    float: left;
     display: block;
 }
 
