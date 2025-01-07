@@ -47,7 +47,7 @@
             let htmlsection ="";
             $.each(imgdata,function(k,v){ 
                 htmlsection+=`
-                <section class="pdf-page">
+                <section>
                     <img src="${v.url}" alt="">
                 </section>
                 `
@@ -72,14 +72,7 @@
                             height: auto;
                             display: block; } 
                         .pdf-page {
-                            overflow: hidden;
-                            width: 595px; /* A4 width in pixels */
-                            height: 842px; /* A4 height in pixels */
-                            margin: 10px auto; /* Centering the page */
-                            background-color: #fff; /* White background to simulate paper */
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
+                            
                         }   
                     </style>
                 </head>
