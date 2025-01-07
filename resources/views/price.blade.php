@@ -725,8 +725,21 @@
 
                     if(!$('#add_coupon_yes').is(':checked'))
                     {
-                        success=true;
+                        $('#tabs2-message-area').html('')
+                        $('.invalid-feedback').text('')
+                        $('.form-control').removeClass('is-invalid')
+                        $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $(
+                            '#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
+                            $('#tabs2-cortext-subscription-payment-form').submit()
+                        }, 'json').fail(function(xhr) {
+                            $.each(xhr.responseJSON.errors, function(k, v) {
+                                $('#tabs2-error-' + k + '-message').text(v[0])
+                                $('#tabs2-' + k).addClass('is-invalid')
+                            });
+                        });
                     }
+                    else
+                    {
 
                         if (coupen) {
                             $.get('{{ route('coupon-verify') }}', {
@@ -743,10 +756,19 @@
                                 }
                                 if (res.pay) {
 
-                                    success=true;
-
-                                    console.log('ajax payment button click');
-                                    
+                                        $('#tabs2-message-area').html('')
+                                        $('.invalid-feedback').text('')
+                                        $('.form-control').removeClass('is-invalid')
+                                        $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $(
+                                            '#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
+                                            $('#tabs2-cortext-subscription-payment-form').submit()
+                                        }, 'json').fail(function(xhr) {
+                                            $.each(xhr.responseJSON.errors, function(k, v) {
+                                                $('#tabs2-error-' + k + '-message').text(v[0])
+                                                $('#tabs2-' + k).addClass('is-invalid')
+                                            });
+                                        });
+               
                                 }
                                 else {
                                         $('#tabs2-message-area').text('Coupon validation failed, please check your code').show();
@@ -757,27 +779,9 @@
                                 $('#tabs2-message-area').text('Please Provide valid coupon code and click apply button').show();
                             })
                         }
-                        console.log(success,'successs');
+                        
+                    }
 
-                    if(success)
-                    {
-                        console.log('payment button click');
-
-                        $('#tabs2-message-area').html('')
-                        $('.invalid-feedback').text('')
-                        $('.form-control').removeClass('is-invalid')
-                        $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $(
-                            '#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
-                            $('#tabs2-cortext-subscription-payment-form').submit()
-                        }, 'json').fail(function(xhr) {
-                            $.each(xhr.responseJSON.errors, function(k, v) {
-                                $('#tabs2-error-' + k + '-message').text(v[0])
-                                $('#tabs2-' + k).addClass('is-invalid')
-                            });
-                        });
-
-                    }    
-                   
                 } 
                 else {
 
