@@ -748,11 +748,16 @@
                                     console.log('ajax payment button click');
                                     
                                 }
+                                else {
+                                        $('#tabs2-message-area').text('Coupon validation failed, please check your code').show();
+                                    }
+
                             }, 'json').fail(function(xhr) {
 
                                 $('#tabs2-message-area').text('Please Provide valid coupon code and click apply button').show();
                             })
                         }
+                        console.log(success,'successs');
 
                     if(success)
                     {
