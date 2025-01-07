@@ -165,7 +165,7 @@
             let htmlsection ="";
             $.each(imgdata,function(k,v){ 
                 htmlsection+=`
-                <section class="pdf-page">
+                <section >
                     <img src="${v.url}" alt="">
                 </section>
                 `
@@ -183,17 +183,15 @@
                         @media print {
                             body { margin: 0; }
                             img{ width:100%!important; } 
-                             .pdf-page { page-break-after: always; }
+                            .pagebreak { page-break-after: always; } 
                         }
                         body { margin: 0; }
-                        .pdf-page img {
-                            width: auto;
-                            max-width: 100%;
+                        img{ width: 100% !important; /* Fit horizontally */
                             height: auto;
-                            display: block;
-                            margin: auto;
+                            display: block; } 
+                        section {
+                            overflow: hidden;
                         }
-                        
                     </style>
                 </head>
                 <body>
@@ -201,6 +199,7 @@
                 </body>
                 </html>
             `;
+            console.log(windowContent)
             const doc = printFrame.contentWindow || printFrame.contentDocument;
             doc.document.open();
             doc.document.write(windowContent);
