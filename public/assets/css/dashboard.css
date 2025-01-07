@@ -789,6 +789,11 @@ button.close {
     padding: 0 30px;
 }
 
+.exam-container .container-wrap .lesson .lesson-body iframe {
+    width: 100%;
+    display: block;
+}
+
 .bartop-hide .exam-container.exam-video .container-wrap {
     min-height: calc(100vh - 59px);
 }
@@ -1747,6 +1752,8 @@ button.close {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    padding: 8px 24px;
+    font-size: 18px;
 }
 
 .pdfsection .lesson .print-bnt img {
