@@ -176,7 +176,10 @@
                 <head>
                     <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
                     <style>
-                        
+                         @page {
+                            size: A5;
+                            margin: 0;
+                        }
                         @media print {
                             body { margin: 0; }                           
                         }
