@@ -719,6 +719,8 @@
 
                     var coupen = $('#tabs2-coupon').val();
 
+                    console.log('insode payment button click');
+
                     var success=false;
 
                     if(!$('#add_coupon_yes').is(':checked'))
@@ -742,6 +744,8 @@
                                 if (res.pay) {
 
                                     success=true;
+
+                                    console.log('ajax payment button click');
                                     
                                 }
                             }, 'json').fail(function(xhr) {
@@ -753,7 +757,7 @@
                     if(success)
                     {
                         console.log('payment button click');
-                        
+
                         $('#tabs2-message-area').html('')
                         $('.invalid-feedback').text('')
                         $('.form-control').removeClass('is-invalid')
