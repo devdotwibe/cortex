@@ -178,9 +178,6 @@
                     <style>
                          @page {
                             size: A5;
-                            margin: 0;
-                            overflow: hidden;
-
                         }
                         @media print {
                             body { margin: 0; }                           
