@@ -401,6 +401,7 @@
                                         <input type="text" name="coupon" id="tabs2-coupon"
                                             placeholder="Enter Coupon Code" class="form-control" />
                                         <span class="error" id="coupon_error1" style="display: none;">Please Provide Coupon code</span>
+                                        <input type="hidden" name="tabs2-coupon-valiated" id="tabs2-coupon-valiated">
                                         <button class="btn btn-outline-secondary" type="button"
                                             id="tabs2-coupon-verify-button">Apply</button>
                                         <div class="invalid-feedback" id="tabs2-error-coupon-message"></div>
@@ -634,6 +635,9 @@
                             `)
                         }
                         if (res.pay) {
+
+                            $('#tabs2-coupon-valiated').val('validated');
+
                             $('#tabs2-cortext-subscription-payment-form-buttom-price').text(res.pay)
                         }
                     }, 'json').fail(function(xhr) {
@@ -721,6 +725,8 @@
 
                     var coupen = $('#tabs2-coupon').val();
 
+                    var validated = $('#tabs2-coupon-valiated').val();
+
                     console.log('insode payment button click');
 
                     if(!$('#add_coupon_yes').is(':checked'))
@@ -741,44 +747,28 @@
                     else
                     {
 
-                        if (coupen) {
-                            $.get('{{ route('coupon-verify') }}', {
-                                type: "combo",
-                                coupon: coupen,
-                                subscription: $('#subscription-combo').val()
-                            }, function(res) {
-                                if (res.message) {
-                                    $('#tabs2-combo-message-area').html(`
-                                        <div class="alert alert-info" role="alert">
-                                            ${res.message}
-                                        </div>                        
-                                    `)
-                                }
-                                if (res.pay) {
-
-                                        $('#tabs2-message-area').html('')
-                                        $('.invalid-feedback').text('')
-                                        $('.form-control').removeClass('is-invalid')
-                                        $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $(
-                                            '#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
-                                            $('#tabs2-cortext-subscription-payment-form').submit()
-                                        }, 'json').fail(function(xhr) {
-                                            $.each(xhr.responseJSON.errors, function(k, v) {
-                                                $('#tabs2-error-' + k + '-message').text(v[0])
-                                                $('#tabs2-' + k).addClass('is-invalid')
-                                            });
-                                        });
-               
-                                }
-                                else {
-                                        $('#tabs2-message-area').text('Coupon validation failed, please check your code').show();
-                                    }
-
+                        if (validated =='validated') {
+                        
+                            $('#tabs2-message-area').html('')
+                            $('.invalid-feedback').text('')
+                            $('.form-control').removeClass('is-invalid')
+                            $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $(
+                                '#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
+                                $('#tabs2-cortext-subscription-payment-form').submit()
                             }, 'json').fail(function(xhr) {
+                                $.each(xhr.responseJSON.errors, function(k, v) {
+                                    $('#tabs2-error-' + k + '-message').text(v[0])
+                                    $('#tabs2-' + k).addClass('is-invalid')
+                                });
+                            });
 
-                                $('#tabs2-message-area').text('Please Provide valid coupon code and click apply button').show();
-                            })
                         }
+                        else
+                        { 
+                            $('#tabs2-message-area').text('Please click apply button for validate coupon code').show();
+
+                        }
+
                         
                     }
 
