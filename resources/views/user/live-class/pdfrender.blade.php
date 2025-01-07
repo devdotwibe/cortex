@@ -156,58 +156,65 @@
         }
             */
 
-        $(function(){
-            // renderPdf()
-            // $.each(imgdata,function(k,v){ 
-            //     loadimage(k,v)
-            // })
-            $('#print-data').prop("disabled", true);
-            let htmlsection ="";
-            $.each(imgdata,function(k,v){ 
-                htmlsection+=`
-                <section >
-                    <img src="${v.url}" alt="">
-                </section>
-                `
-            })
-            const windowContent = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
-                    <style>
-                        @page {
-                            size: A4;
-                            margin: 0;
-                        }
-                        @media print {
-                            body { margin: 0; }
-                            img{ width:100%!important; } 
-                            .pagebreak { page-break-after: always; } 
-                        }
-                        body { margin: 0; }
-                        img{ width: 100% !important; /* Fit horizontally */
-                            height: auto;
-                            display: block; } 
-                        section {
-                            overflow: hidden;
-                        }
-                    </style>
-                </head>
-                <body>
-                    ${htmlsection}
-                </body>
-                </html>
-            `;
-            console.log(windowContent)
-            const doc = printFrame.contentWindow || printFrame.contentDocument;
-            doc.document.open();
-            doc.document.write(windowContent);
-            doc.document.close();
-            printFrame.onload = function() { 
-                $('#print-data').prop("disabled", false); 
-            };
-        })
+            $(function(){
+                // Assuming the PDF dimensions are provided or can be determined
+                const pdfWidth = 595; // Example width in pixels for A4 size at 72 DPI
+                const pdfHeight = 842; // Example height in pixels for A4 size at 72 DPI
+
+                // Scale iframe dimensions based on actual PDF size
+                const printFrame = document.getElementById("print-frame");
+                printFrame.width = pdfWidth;
+                printFrame.height = pdfHeight * imgdata.length;
+
+                let htmlSection = "";
+                imgdata.forEach((img, index) => {
+                    htmlSection += `
+                        <section>
+                            <img src="${img.url}" alt="">
+                        </section>
+                    `;
+                });
+
+                const windowContent = `
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
+                        <style>
+                            @page {
+                                size: A4; /* Adjust for your desired print size */
+                                margin: 0;
+                            }
+                            @media print {
+                                body {
+                                    margin: 0;
+                                }
+                                img {
+                                    width: 100%;
+                                    height: auto;
+                                }
+                                section {
+                                    page-break-after: always;
+                                }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        ${htmlSection}
+                    </body>
+                    </html>
+                `;
+
+                const doc = printFrame.contentWindow || printFrame.contentDocument;
+                doc.document.open();
+                doc.document.write(windowContent);
+                doc.document.close();
+
+                printFrame.onload = function() {
+                    $('#print-data').prop("disabled", false);
+                };
+            });
+
     </script>
 
 
