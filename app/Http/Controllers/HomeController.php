@@ -324,6 +324,8 @@ class HomeController extends Controller
         return redirect()->back();
     }
     public function verifypricing(Request $request,SubscriptionPlan $subscriptionPlan){
+
+        dd($request);
         $request->validate([ 
             "plan"=>['required'],
             "email"=>["required_if:plan,combo"]
