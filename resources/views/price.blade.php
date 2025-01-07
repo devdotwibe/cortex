@@ -721,7 +721,7 @@
 
                     console.log('insode payment button click');
 
-                    var success=false;
+                    let success=false;
 
                     if(!$('#add_coupon_yes').is(':checked'))
                     {
