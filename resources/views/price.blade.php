@@ -363,7 +363,7 @@
                                         <div class="invalid-feedback" id="tabs2-error-combo-coupon-message"></div>
                                     </div>
                                 </div>
-                                <div class="form-group" id="tabs2-combo-message-area">
+                                <div class="form-group error" id="tabs2-combo-message-area">
                                 </div>
                                 <div class="form-group mt-2">
                                     <input type="hidden" name="verify" value="N" id="tabs2-verify-mail">
@@ -408,7 +408,7 @@
                                         <div class="invalid-feedback" id="tabs2-error-coupon-message"></div>
                                     </div>
                                 </div>
-                                <div class="form-group invalid-feedback" id="tabs2-message-area">
+                                <div class="form-group error" id="tabs2-message-area">
                                 </div>
                                 <div class="form-group mt-2">
                                     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
@@ -441,9 +441,12 @@
             $('input[name="add_coupon"]').change(function() {
                 if ($('#add_coupon_yes').is(':checked')) {
                     $('#coupon-field').show();
+                   
                 } else {
+                    paymodel('{{ route('pricing.pay', $plan->slug) }}');
                     $('#coupon-field').hide();
-                    $('#tabs2-message-area').hide();
+                    // $('#tabs2-message-area').hide();
+                    $('$tabs2-coupon-valiated').val('');
                 }
             });
             $('#coupon-field2').hide();
@@ -452,6 +455,9 @@
                 if ($('#add_coupon2_yes').is(':checked')) {
                     $('#coupon-field2').show();
                 } else {
+
+                    paymodel('{{ route('pricing.pay', $plan->slug) }}');
+                    $('$tabs2-combo-coupon-valiated').val('');
                     $('#coupon-field2').hide();
                 }
             });
@@ -735,10 +741,12 @@
 
                     var validated = $('#tabs2-coupon-valiated').val();
 
-                    console.log('insode payment button click');
+                    
 
                     if(!$('#add_coupon_yes').is(':checked'))
                     {
+                        console.log('insode payment button click');
+
                         $('#tabs2-message-area').html('')
                         $('.invalid-feedback').text('')
                         $('.form-control').removeClass('is-invalid')
