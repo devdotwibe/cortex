@@ -752,6 +752,8 @@
 
                     if(success)
                     {
+                        console.log('payment button click');
+                        
                         $('#tabs2-message-area').html('')
                         $('.invalid-feedback').text('')
                         $('.form-control').removeClass('is-invalid')
