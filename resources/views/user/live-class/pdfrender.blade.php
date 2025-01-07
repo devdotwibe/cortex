@@ -176,15 +176,9 @@
                 <head>
                     <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
                     <style>
-                        @page {
-                            size: A4;
-                            margin: 0;
-                        }
+                        
                         @media print {
-                            body { margin: 0; }
-                            img{ width:100%!important; } 
-                            .pdf-page { page-break-after: always;  width: 595px; /* A4 width in pixels */
-                            height: 842px; /* A4 height in pixels */} 
+                            body { margin: 0; }                           
                         }
                         body {  margin:0;             
                                 background: #e0e0e0; }                       
