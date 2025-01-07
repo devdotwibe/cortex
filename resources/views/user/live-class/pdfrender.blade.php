@@ -1,6 +1,18 @@
 @extends('layouts.exam')
 @section('title', ucfirst($subLessonMaterial->pdf_name))
 @section('content')
+    <style>
+        
+        .lesson-body {
+                width: 100%;
+                padding: 10px;
+                background-color: #5f6368;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 25px;
+            }   
+    </style>
      <section class="exam-container pdfsection">
         <div class="container-wrap" id="question-answer-page">
             <div class="lesson">
@@ -59,21 +71,20 @@
                     <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
                     <style>
                         @page {
-                            size: A5;
+                            size: A4;
                             margin: 0;
                         }
                         @media print {
-                            body {  margin:0;     }        
-                            size: A5;
+                            body { margin: 0; }
+                            img{ width:100%!important; } 
                         }
-                        body {  margin:0;             
-                                background: #e0e0e0; }                       
+                        body { margin: 0; }
                         img{ width: 100% !important; /* Fit horizontally */
                             height: auto;
                             display: block; } 
-                        .pdf-page {
-                            
-                        }   
+                        section {
+                            margin:10px
+                        }  
                     </style>
                 </head>
                 <body>
