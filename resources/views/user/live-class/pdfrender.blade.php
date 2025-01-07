@@ -182,8 +182,8 @@
                         }
                         @media print {
                             body { margin: 0; }
-                            img{ width:100%!important;height: auto; display: block;} 
-                            .pdf-page { page-break-after: always;width:100%;height:auto } 
+                            img{ width:100%!important; } 
+                            .pdf-page { page-break-after: always; } 
                         }
                         body {  margin:0;             
                                 background: #e0e0e0; }                       
