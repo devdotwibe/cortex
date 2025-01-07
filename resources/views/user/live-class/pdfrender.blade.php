@@ -165,7 +165,7 @@
             let htmlsection ="";
             $.each(imgdata,function(k,v){ 
                 htmlsection+=`
-                <section >
+                <section>
                     <img src="${v.url}" alt="">
                 </section>
                 `
@@ -185,13 +185,23 @@
                             img{ width:100%!important; } 
                             .pagebreak { page-break-after: always; } 
                         }
-                        body { margin: 0; }
+                        body {  margin:0;             
+                                background: #e0e0e0; }                       
                         img{ width: 100% !important; /* Fit horizontally */
                             height: auto;
                             display: block; } 
                         section {
                             overflow: hidden;
+                            width: 595px; /* A4 width in pixels */
+                            height: 842px; /* A4 height in pixels */
+                            margin: 10px auto; /* Centering the page */
+                            background-color: #fff; /* White background to simulate paper */
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            page-break-after: always; /* Page break after each section */
                         }
+                            
                     </style>
                 </head>
                 <body>
@@ -199,7 +209,6 @@
                 </body>
                 </html>
             `;
-            console.log(windowContent)
             const doc = printFrame.contentWindow || printFrame.contentDocument;
             doc.document.open();
             doc.document.write(windowContent);
