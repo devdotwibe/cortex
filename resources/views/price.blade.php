@@ -401,7 +401,7 @@
                                         <input type="text" name="coupon" id="tabs2-coupon"
                                             placeholder="Enter Coupon Code" class="form-control" />
                                         <span class="error" id="coupon_error1" style="display: none;">Please Provide Coupon code</span>
-                                        <input name="tabs2-coupon-valiated" id="tabs2-coupon-valiated" >
+                                        <input type="hidden" name="tabs2-coupon-valiated" id="tabs2-coupon-valiated">
                                         <button class="btn btn-outline-secondary" type="button"
                                             id="tabs2-coupon-verify-button">Apply</button>
                                         <div class="invalid-feedback" id="tabs2-error-coupon-message"></div>
