@@ -1,6 +1,18 @@
 @extends('layouts.exam')
 @section('title', ucfirst($subLessonMaterial->pdf_name))
 @section('content')
+    <style>
+        
+        .lesson-body {
+                width: 100%;
+                padding: 10px;
+                background-color: #5f6368;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 25px;
+            }   
+    </style>
      <section class="exam-container pdfsection">
         <div class="container-wrap" id="question-answer-page">
             <div class="lesson">
@@ -47,7 +59,7 @@
             let htmlsection ="";
             $.each(imgdata,function(k,v){ 
                 htmlsection+=`
-                <section class="pdf-page">
+                <section>
                     <img src="${v.url}" alt="">
                 </section>
                 `
@@ -59,28 +71,20 @@
                     <title>{{ ucfirst($subLessonMaterial->pdf_name) }}</title>
                     <style>
                         @page {
-                            size: A5;
+                            size: A4;
                             margin: 0;
                         }
                         @media print {
-                            body {  margin:0;     }        
-                            size: A5;
+                            body { margin: 0; }
+                            img{ width:100%!important; } 
                         }
-                        body {  margin:0;             
-                                background: #e0e0e0; }                       
+                        body { margin: 0; }
                         img{ width: 100% !important; /* Fit horizontally */
                             height: auto;
                             display: block; } 
-                        .pdf-page {
-                            overflow: hidden;
-                            width: 595px; /* A4 width in pixels */
-                            height: 842px; /* A4 height in pixels */
-                            margin: 10px auto; /* Centering the page */
-                            background-color: #fff; /* White background to simulate paper */
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        }   
+                        section {
+                            margin:10px
+                        }  
                     </style>
                 </head>
                 <body>
