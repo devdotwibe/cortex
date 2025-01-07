@@ -446,6 +446,7 @@
                     paymodel('{{ route('pricing.pay', $plan->slug) }}');
                     $('#coupon-field').hide();
                     // $('#tabs2-message-area').hide();
+                    $('$tabs2-coupon').val('');
                     $('$tabs2-coupon-valiated').val('');
                 }
             });
@@ -458,6 +459,7 @@
 
                     paymodel('{{ route('pricing.pay', $plan->slug) }}');
                     $('$tabs2-combo-coupon-valiated').val('');
+                    $('$tabs2-combo-coupon').val('');
                     $('#coupon-field2').hide();
                 }
             });
