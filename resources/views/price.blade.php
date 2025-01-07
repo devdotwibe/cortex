@@ -445,7 +445,7 @@
                 } else {
                     paymodel('{{ route('pricing.pay', $plan->slug) }}');
                     $('#coupon-field').hide();
-                    $('#tabs2-message-area').hide();
+                    // $('#tabs2-message-area').hide();
                     $('$tabs2-coupon-valiated').val('');
                 }
             });
