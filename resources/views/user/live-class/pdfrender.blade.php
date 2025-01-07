@@ -180,7 +180,11 @@
                             size: A4;
                             margin: 0;
                         }
-                       
+                        @media print {
+                            body { margin: 0; }
+                            img{ width:120%!important;height: auto; display: block;} 
+                            .pagebreak { page-break-after: always; } 
+                        }
                         body {  margin:0;             
                                 background: #e0e0e0; }                       
                         img{ width: 100% !important; /* Fit horizontally */
