@@ -550,7 +550,7 @@
 
                 e.preventDefault();
 
-                if ( $('#add_coupon2_yes').is(':checked') && ($('#tabs2-combo-coupon').val() != "" ) || !$('#add_coupon2_no').is(':checked')) {
+                if ( $('#add_coupon2_yes').is(':checked') && ($('#tabs2-combo-coupon').val() != "" ) || !$('#add_coupon2_yes').is(':checked')) {
 
                         var coupen = $('#tabs2-combo-coupon').val();
 
