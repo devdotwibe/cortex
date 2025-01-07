@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="calendar-color-item">
                                     <span class="colorspan admindata"></span>
-                                    <span>Administration Date</span>
+                                    <span>Test date</span>
                                 </div>
                             </div> 
                         </div>
