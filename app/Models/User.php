@@ -152,11 +152,23 @@ class UserPasswrdResetNotification extends ResetPassword{
     * @param  mixed  $notifiable
     * @return \Illuminate\Notifications\Messages\MailMessage
     */
-   public function toMail($notifiable)
-   {
-        $url=$this->resetUrl($notifiable);
-        $name = $notifiable->first_name;
-        return (new MailMessage)->view('email.reset',compact('url', 'name'));
-    }
+//    public function toMail($notifiable)
+//    {
+//         $url=$this->resetUrl($notifiable);
+//         $name = $notifiable->first_name;
+//         return (new MailMessage)->view('email.reset',compact('url', 'name'));
+//     }
+
+
+public function toMail($notifiable)
+{
+    $url = $this->resetUrl($notifiable);
+    $name = $notifiable->first_name;
+    
+    return (new MailMessage)
+        ->subject('Reset your Cortex Online password')
+        ->view('email.reset', compact('url', 'name'));
+}
+
     
 }
