@@ -226,7 +226,8 @@
                 <h2>Need help? Have a question?</h2>
 
                 <div  class="btn-success"></div>
-                <div class="alert alert-success alert-dismissible fade"id="form-messages">
+
+                <div class="alert alert-success"id="form-messages" style="display:none;">
                    
                     Thank you for your message. We will get back to you soon.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -245,12 +246,12 @@
                             <input type="text" name="last_name" id="last_name" placeholder="Last Name">
                             <div class="error text-danger" id="last_name_error"></div>
                         </div>
-                        <div class="text-field">
+                        {{-- <div class="text-field">
                             <input type="text" name="phone_number" id="phone_number" placeholder="Phone Number" onkeypress="return isNumberKey(event)">
                             <div class="error text-danger" id="phone_number_error"></div>
-                        </div>
+                        </div> --}}
                         
-                        <div class="text-field">
+                        <div class="text-field email-field">
                             <input type="text" name="email" id="email" placeholder="Email">
                             <div class="error text-danger" id="email_error"></div>
                         </div>
@@ -280,7 +281,7 @@
 
                 // Clear previous error messages
                 $('.error').html(''); // Clear all error fields
-                $('#form-messages').removeClass('show');
+                $('#form-messages').hide();
 
                 const formData = $(this).serialize();
 
@@ -289,7 +290,7 @@
                     url: '{{ route("contact.submit") }}',
                     data: formData,
                     success: function(response) {
-                        $('#form-messages').addClass('show');
+                        $('#form-messages').show();
                         $('#contact_form').trigger('reset'); // Reset the form fields
                     },
                     error: function(response) {
@@ -298,7 +299,7 @@
 
                             $('#first_name_error').text(errors.first_name);
                             $('#last_name_error').text(errors.last_name);
-                            $('#phone_number_error').text(errors.phone_number);
+                            // $('#phone_number_error').text(errors.phone_number);
                             $('#email_error').text(errors.email);
                             $('#message_error').text(errors.message);
                     }
