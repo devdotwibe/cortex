@@ -13,8 +13,6 @@ Client want to contact you please see the details.
     <br>
     Email :  {{$data['email']}}
     <br>
-    Phone No :  {{$data['phone_number']}}
-    <br>
     Message Details :  {{$data['message']}}
     <br>
 

@@ -31,7 +31,7 @@ public function submit(Request $request)
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone_number' => 'required|numeric',
+            // 'phone_number' => 'required|numeric',
             'email' => 'required|email:rfc,dns',
             'message' => 'required|string',
         ]);
@@ -42,7 +42,7 @@ public function submit(Request $request)
 
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'phone_number' => $request->phone_number,
+            // 'phone_number' => $request->phone_number,
             'email' => $request->email,
             'message' => $request->message,
 
