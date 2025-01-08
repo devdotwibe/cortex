@@ -357,12 +357,13 @@
                                         <input type="text" name="coupon" id="tabs2-combo-coupon"
                                             placeholder="Enter Coupon Code" class="form-control" />
                                         <span class="error" id="coupon_error" style="display: none;">Please Provide Coupon code</span>
+                                        <input type="hidden" name="tabs2-combo-coupon-valiated" id="tabs2-combo-coupon-valiated">
                                         <button class="btn btn-outline-secondary" type="button"
                                             id="tabs2-combo-coupon-verify-button">Apply</button>
                                         <div class="invalid-feedback" id="tabs2-error-combo-coupon-message"></div>
                                     </div>
                                 </div>
-                                <div class="form-group" id="tabs2-combo-message-area">
+                                <div class="form-group error" id="tabs2-combo-message-area">
                                 </div>
                                 <div class="form-group mt-2">
                                     <input type="hidden" name="verify" value="N" id="tabs2-verify-mail">
@@ -401,12 +402,13 @@
                                         <input type="text" name="coupon" id="tabs2-coupon"
                                             placeholder="Enter Coupon Code" class="form-control" />
                                         <span class="error" id="coupon_error1" style="display: none;">Please Provide Coupon code</span>
+                                        <input type="hidden" name="tabs2-coupon-valiated" id="tabs2-coupon-valiated">
                                         <button class="btn btn-outline-secondary" type="button"
                                             id="tabs2-coupon-verify-button">Apply</button>
                                         <div class="invalid-feedback" id="tabs2-error-coupon-message"></div>
                                     </div>
                                 </div>
-                                <div class="form-group invalid-feedback" id="tabs2-message-area">
+                                <div class="form-group error" id="tabs2-message-area">
                                 </div>
                                 <div class="form-group mt-2">
                                     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
@@ -439,9 +441,13 @@
             $('input[name="add_coupon"]').change(function() {
                 if ($('#add_coupon_yes').is(':checked')) {
                     $('#coupon-field').show();
+                   
                 } else {
                     $('#coupon-field').hide();
-                    $('#tabs2-message-area').hide();
+                    $('#tabs2-message-area').html("");
+                    $('#tabs2-coupon').val('');
+                    $('#tabs2-coupon-valiated').val('');
+                    paymodel('{{ route('pricing.pay', $plan->slug) }}');
                 }
             });
             $('#coupon-field2').hide();
@@ -450,7 +456,13 @@
                 if ($('#add_coupon2_yes').is(':checked')) {
                     $('#coupon-field2').show();
                 } else {
+
+                    $('#tabs2-combo-coupon-valiated').val('');
+                    $('#tabs2-combo-coupon').val('');
                     $('#coupon-field2').hide();
+                    $('#tabs2-combo-message-area').html("");
+                    paymodel('{{ route('pricing.pay', $plan->slug) }}');
+                  
                 }
             });
             $('#contact_form').on('submit', function(event) {
@@ -538,42 +550,15 @@
 
                 e.preventDefault();
 
-                if ( $('#add_coupon2_yes').is(':checked') && ($('#tabs2-combo-coupon').val() != "" ) || !$('#add_coupon2_no').is(':checked')) {
+                if ( $('#add_coupon2_yes').is(':checked') && ($('#tabs2-combo-coupon').val() != "" ) || !$('#add_coupon2_yes').is(':checked')) {
 
-                    var coupen = $('#tabs2-combo-coupon').val();
+                        var coupen = $('#tabs2-combo-coupon').val();
 
-                    var success=false;
+                        var validated = $('#tabs2-combo-coupon-valiated').val();
 
-                    if(!$('#add_coupon2_yes').is(':checked'))
-                    {
-                        success=true;
-                    }
-                        if (coupen) {
+                        if(!$('#add_coupon2_yes').is(':checked'))
+                        {
 
-                            $.get('{{ route('coupon-verify') }}', {
-                                type: "combo",
-                                coupon: coupen,
-                                subscription: $('#subscription-combo').val()
-                            }, function(res) {
-                                if (res.message) {
-                                    $('#tabs2-combo-message-area').html(`
-                                        <div class="alert alert-info" role="alert">
-                                            ${res.message}
-                                        </div>                        
-                                    `)
-                                }
-                                if (res.pay) {
-                                    $('#tabs2-cortext-combo-subscription-payment-form-buttom-price').text(res.pay)
-                                }
-                            }, 'json').fail(function(xhr) {
-
-                                $('#tabs2-combo-message-area').text('Please Provide valid coupon code and click apply button').show();
-
-                            })
-                        }
-
-                    if(success)
-                    {
                             $('#tabs2-combo-message-area').html('')
                             $('.invalid-feedback').text('')
                             $('.form-control').removeClass('is-invalid')
@@ -595,7 +580,42 @@
                                 });
                             });
 
-                    }    
+                        }
+                        else
+                        {
+
+                            if (validated =='validated') {
+                            
+                               $('#tabs2-combo-message-area').html('')
+                                $('.invalid-feedback').text('')
+                                $('.form-control').removeClass('is-invalid')
+                                $.post($('#tabs2-cortext-combo-subscription-payment-form').attr('action'), $(
+                                    '#tabs2-cortext-combo-subscription-payment-form').serialize(), function(res) {
+                                    if ($('#tabs2-verify-mail').val() == "Y") {
+                                        $('#tabs2-cortext-combo-subscription-payment-form').submit()
+                                    } else {
+                                        $('#tabs2-combo-message-area').html(`
+                                            <div class="alert alert-danger" role="alert">
+                                                Please confirm your inviting friend mail by click on "Confirm Email" button.
+                                            </div>                        
+                                        `)
+                                    }
+                                }, 'json').fail(function(xhr) {
+                                    $.each(xhr.responseJSON.errors, function(k, v) {
+                                        $('#tabs2-error-combo-' + k + '-message').text(v[0])
+                                        $('#tabs2-combo-' + k).addClass('is-invalid')
+                                    });
+                                });
+
+                            }
+                            else
+                            { 
+                                $('#tabs2-combo-message-area').text('Please click apply button for validate coupon code').show();
+
+                            }
+
+                            
+                        }
 
                     } 
                     else {
@@ -603,9 +623,6 @@
                         $('#tabs2-combo-message-area').text('Please Provide Coupon code and click apply button').show();
                     }
                     
-              
-
-
             })
 
 
@@ -634,6 +651,9 @@
                             `)
                         }
                         if (res.pay) {
+
+                            $('#tabs2-coupon-valiated').val('validated');
+
                             $('#tabs2-cortext-subscription-payment-form-buttom-price').text(res.pay)
                         }
                     }, 'json').fail(function(xhr) {
@@ -673,6 +693,8 @@
                             `)
                         }
                         if (res.pay) {
+                            
+                            $('#tabs2-combo-coupon-valiated').val('validated');
                             $('#tabs2-cortext-combo-subscription-payment-form-buttom-price').text(res.pay)
                         }
                     }, 'json').fail(function(xhr) {
@@ -715,43 +737,20 @@
             $('#tabs2-cortext-subscription-payment-form-buttom').click(function(e) {
                 e.preventDefault();
 
+                let  success=false;
+
                 if ( $('#add_coupon_yes').is(':checked') && ($('#tabs2-coupon').val() != "" ) || !$('#add_coupon_yes').is(':checked')) {
 
                     var coupen = $('#tabs2-coupon').val();
 
-                    var success=false;
+                    var validated = $('#tabs2-coupon-valiated').val();
+
+                    
 
                     if(!$('#add_coupon_yes').is(':checked'))
                     {
-                        success=true;
-                    }
+                        console.log('insode payment button click');
 
-                        if (coupen) {
-                            $.get('{{ route('coupon-verify') }}', {
-                                type: "combo",
-                                coupon: coupen,
-                                subscription: $('#subscription-combo').val()
-                            }, function(res) {
-                                if (res.message) {
-                                    $('#tabs2-combo-message-area').html(`
-                                        <div class="alert alert-info" role="alert">
-                                            ${res.message}
-                                        </div>                        
-                                    `)
-                                }
-                                if (res.pay) {
-
-                                    success=true;
-                                    
-                                }
-                            }, 'json').fail(function(xhr) {
-
-                                $('#tabs2-message-area').text('Please Provide valid coupon code and click apply button').show();
-                            })
-                        }
-
-                    if(success)
-                    {
                         $('#tabs2-message-area').html('')
                         $('.invalid-feedback').text('')
                         $('.form-control').removeClass('is-invalid')
@@ -764,9 +763,35 @@
                                 $('#tabs2-' + k).addClass('is-invalid')
                             });
                         });
+                    }
+                    else
+                    {
 
-                    }    
-                   
+                        if (validated =='validated') {
+                        
+                            $('#tabs2-message-area').html('')
+                            $('.invalid-feedback').text('')
+                            $('.form-control').removeClass('is-invalid')
+                            $.post($('#tabs2-cortext-subscription-payment-form').attr("action"), $(
+                                '#tabs2-cortext-subscription-payment-form').serialize(), function(res) {
+                                $('#tabs2-cortext-subscription-payment-form').submit()
+                            }, 'json').fail(function(xhr) {
+                                $.each(xhr.responseJSON.errors, function(k, v) {
+                                    $('#tabs2-error-' + k + '-message').text(v[0])
+                                    $('#tabs2-' + k).addClass('is-invalid')
+                                });
+                            });
+
+                        }
+                        else
+                        { 
+                            $('#tabs2-message-area').text('Please click apply button for validate coupon code').show();
+
+                        }
+
+                        
+                    }
+
                 } 
                 else {
 

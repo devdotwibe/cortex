@@ -789,6 +789,28 @@ button.close {
     padding: 0 30px;
 }
 
+.pdfsection .lesson {
+    width: 100%;
+    display: block;
+    float: left;
+}
+
+.pdfsection .lesson .lesson-pdf-body {
+    width: 100%;
+    display: block; 
+    float: left; 
+    position: relative; 
+    height: calc(100vh - 170px);
+}
+
+.exam-container .container-wrap .lesson .lesson-body iframe {
+    width: 100%;
+    float: left;
+    display: block;
+    position: absolute;
+    height: 100%;
+}
+
 .bartop-hide .exam-container.exam-video .container-wrap {
     min-height: calc(100vh - 59px);
 }
@@ -1747,6 +1769,8 @@ button.close {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    padding: 8px 24px;
+    font-size: 18px;
 }
 
 .pdfsection .lesson .print-bnt img {
@@ -2874,7 +2898,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 }
 
 .modal.confirm-modal .modal-dialog {
-    max-width: 425px;
+    max-width: 485px;
     top: 42%;
     transform: translateY(-50%);
 }
@@ -7775,7 +7799,7 @@ nav.navbar.top-barhide {
 
 
 .modal .modal-content {
-    padding: 20px;
+    padding: 20px 40px;
 }
 
 .modal .modal-content .modal-header {
@@ -8766,6 +8790,11 @@ nav.navbar.top-barhide {
         font-size: 20px !important;
     }
 
+    .pdfsection .lesson .print-bnt {
+        font-size: 16px;
+        padding: 8px 20px;
+    }
+
 }
 
 @media screen and (max-width:767px) {
@@ -9377,6 +9406,10 @@ nav.navbar.top-barhide {
         display: none;
     }
 
+    .pdfsection .lesson .print-bnt {
+        font-size: 15px;
+    }
+
 }
 
 
@@ -9815,6 +9848,11 @@ nav.navbar.top-barhide {
 
     .invite-wrap .forms-inputs {
         margin: 0 0 16px !important;
+    }
+
+    .pdfsection .lesson .print-bnt {
+        font-size: 14px;
+        padding: 6px 15px;
     }
 
 }
