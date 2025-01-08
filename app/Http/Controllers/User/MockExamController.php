@@ -264,9 +264,15 @@ class MockExamController extends Controller
         $attemtcount=UserExamReview::where('exam_id',$userExamReview->exam_id)
                                     ->where('user_id',$user->id)
                                     ->count();
-        $category=Category::all();
-
-        $exam=Exam::where('id',$userExamReview->exam_id)->first();
+        // $category=Category::all();
+        $category = Category::whereHas('question', function ($query) use ($userExamReview){
+                                $query->whereHas('questionExam', function ($query)use ($userExamReview) {
+                                    $query->where('name', 'full-mock-exam')
+                                            ->where('id',$userExamReview->exam_id);
+                                });
+                            })->get();
+       
+        $exam=  Exam::where('id',$userExamReview->exam_id)->first();
 
        
 
