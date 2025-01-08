@@ -261,7 +261,7 @@ section{width: 100%; float: left;}
 .contact-wrapp .form-btn { width: 100%;}
 .contact-wrapp .form-btn .submit-btn {  width: 100%; background: #1989F8;  border: 1px solid #1989F8;  font-size: 20px;  color: #fff;  padding: 15px;  border-radius: 5px;  transition: all .25s ease-in-out;}
 .contact-wrapp .form-btn .submit-btn:hover { background: none; color: #1989F8;}
-
+.contact-wrapp .text-fields .text-field.email-field {width: 100%; margin: 0 0 4%;}
 
 footer { width: 100%; float: left;}
 .footer-wrapp { width: 100%;  padding: 50px 0;  background: #2F2F2F;}
