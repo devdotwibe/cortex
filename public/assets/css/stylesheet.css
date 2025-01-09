@@ -596,6 +596,12 @@ p.card-text { font-size: 18px;}
 
 }
 
+@media screen and (min-width:768px) {
+
+.header-wrapp .header-right.mob {display: none;}
+
+}
+
 @media screen and (max-width:767px) {
 .banner-wrapp h3.highlight { font-size: 18px; margin: 0 auto 20px;}
 .banner-wrapp .banner-col1 { width: 100%; text-align: center;}
@@ -675,6 +681,8 @@ p.card-text { font-size: 18px;}
 .courses-wrapp .courses-col1 .courses-col3 {width: 100%;}
 
 .price-wrapp .price-row2 .price-col1 {width: 100%; margin: 0 0 16px; padding-bottom: 100px;}
+
+.header-wrapp .header-right.mob {display: block;}
 
 }
 
