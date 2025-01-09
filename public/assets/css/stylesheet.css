@@ -600,13 +600,16 @@ p.card-text { font-size: 18px;}
 
 .header-wrapp .header-right.mob {display: block;}
 .header-wrapp .header-right .hamburger-icon {width: 32px; right: 3%; top: 50px; position: fixed; cursor: pointer; z-index: 9;}
-.header-wrapp .header-right .hamburger-icon span {width: 100%; position: relative; display: block; height: 4px; background: #fbae1e;}
+.header-wrapp .header-right .hamburger-icon span {width: 100%; position: relative; display: block; height: 4px; background: #fbae1e; transition: all 0.35s ease-out;}
 .header-wrapp .header-right .hamburger-icon span:before {content: ""; position: absolute; top: -6px; width: 100%; height: 4px; background: #fbae1e;}
 .header-wrapp .header-right .hamburger-icon span:after {content: ""; position: absolute; top: 7px; width: 100%; height: 4px; background: #fbae1e;}
-.header-wrapp .header-right.mob #menu {position: fixed; width: 100%; max-width: 325px; background: #ffffff; top: 0; right: 0; height: 100%; flex-wrap: wrap; align-items: center;}
+.header-wrapp .header-right.mob #menu {display: none; position: fixed; width: 100%; max-width: 325px; background: #ffffff; top: 0; right: 0; height: 100%; flex-wrap: wrap; align-items: center;}
 .header-wrapp .header-right.mob #menu ul {width: 100%; text-align: center; display: flex; flex-wrap: wrap; flex-direction: column;}
 .header-wrapp .header-right.mob #menu ul li {margin: 0 0 0; padding: 10px 6px;}
 .header-wrapp .header-right.mob #menu .header-btn {margin: 20px 0 0;}
+.header-wrapp .header-right .hamburger-icon.open span {transform: rotate(-45deg);}
+.header-wrapp .header-right .hamburger-icon.open span:after {opacity: 0;}
+.header-wrapp .header-right .hamburger-icon.open span:before {transform: rotate(88deg) translateX(6px);}
 
 }
 
