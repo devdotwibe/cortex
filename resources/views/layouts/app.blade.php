@@ -92,6 +92,29 @@
                     </ul>
 
                 </div>
+
+
+                <div class="header-right mob">
+
+                    <div class="hamburger-icon" onclick="toggleMenu()">
+                        <span></span>
+                    </div>
+                    <div class="menu" id="menu">
+                        <ul>
+                                    <li class="nav-link"><a href="https://www.cortexonline.com.au">Home</a></li>
+                                    <li class="nav-link"><a href="https://www.cortexonline.com.au/course">Course</a></li>
+                                    <li class="nav-link"><a href="https://www.cortexonline.com.au/pricing">Pricing</a></li>
+                                    <li class="nav-link"><a href="">Find a Tutor</a></li>
+                                                            <li class="nav-link signup-link"><a href="https://www.cortexonline.com.au/register">Sign Up</a></li>
+                                    <div class="header-btn">
+                                        <a href="https://www.cortexonline.com.au/login" class="header-btn1">Login</a>
+                                    </div>
+                                </ul>
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
     </header>
@@ -186,6 +209,13 @@
                 $('.loading-wrap').hide();
             },
         });
+
+        function toggleMenu() 
+        {
+            const menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+
     </script>
 
     @stack('scripts')
