@@ -518,6 +518,12 @@ p.card-text { font-size: 22px;}
 .card-icon-container p {font-size: 16px;}
 }
 
+@media screen and (min-width:992px) {
+
+  .header-wrapp .header-right.mob {display: none;}
+  
+  }
+
 @media screen and (max-width:991px){
 .header-wrapp .header-right { display: none;}
 .hamburger {display: block;   position: absolute;   width: 35px;   height: 35px;   right: 5%;    top: 45px; z-index: 9;}
@@ -594,11 +600,7 @@ p.card-text { font-size: 18px;}
 .price-wrapp .price-row2 .price-col1 .buy-btn {padding: 12px 28px; font-size: 18px;}
 .price-wrapp .price-row2 .price-col1 h6 span {font-size: 30px;}
 
-}
-
-@media screen and (min-width:768px) {
-
-.header-wrapp .header-right.mob {display: none;}
+.header-wrapp .header-right.mob {display: block;}
 
 }
 
@@ -681,8 +683,6 @@ p.card-text { font-size: 18px;}
 .courses-wrapp .courses-col1 .courses-col3 {width: 100%;}
 
 .price-wrapp .price-row2 .price-col1 {width: 100%; margin: 0 0 16px; padding-bottom: 100px;}
-
-.header-wrapp .header-right.mob {display: block;}
 
 }
 
