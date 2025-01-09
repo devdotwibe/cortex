@@ -92,6 +92,58 @@
                     </ul>
 
                 </div>
+
+
+                <div class="header-right mob">
+
+                    <div class="hamburger-icon" onclick="toggleMenu()">
+                        <span></span>
+                    </div>
+                    <div class="menu" id="menu">
+                        <ul>
+
+                            <li class="nav-link"><a href="{{ url('/') }}">Home</a></li>
+                            <li class="nav-link"><a href="{{ route('course.index') }}">Course</a></li>
+                            <li class="nav-link"><a href="{{ route('pricing.index') }}">Pricing</a></li>
+
+                            <li class="nav-link"><a href="">Find a Tutor</a></li>
+
+                            @if (session('is.logined.as') == 'user' && Auth::check())
+
+                                    <li class="nav-link dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{-- Welcome, {{ Auth::user()->name }} --}}
+                                            Welcome, {{ \Illuminate\Support\Str::before(Auth::user()->name, ' ') }}
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                            <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                            <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                                        </div>
+                                    </li>
+                                @elseif (session('is.logined.as') == 'admin')
+                                    <li class="nav-link dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Admin
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                                            <a class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a>
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="nav-link signup-link"><a href="{{ route('register') }}">Sign Up</a></li>
+                                    <div class="header-btn">
+                                        <a href="{{ route('login') }}" class="header-btn1">Login</a>
+                                    </div>
+                            @endif
+
+
+                        </ul>
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
     </header>
@@ -186,6 +238,21 @@
                 $('.loading-wrap').hide();
             },
         });
+
+        function toggleMenu() {
+            
+            const menu = document.getElementById('menu');
+            const hamburger = document.querySelector('.hamburger-icon');
+
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+
+            hamburger.classList.toggle('open');
+        }
+
     </script>
 
     @stack('scripts')
