@@ -667,7 +667,8 @@ p.card-text { font-size: 18px;}
 .learning-wrapp .learning-col2 { width: 100%; margin: 0 0 40px;}
 .faq-wrapp { padding: 50px 0;}
 .learning-wrapp .learning-row { flex-direction: column-reverse;}
-.footer-wrapp .footer-col1 img {  width: 300px;}
+.footer-wrapp .footer-col1 img {  width: 100%;}
+.footer-wrapp .footer-col1 .footer-brand {width: 280px; display: block; float: none; margin: 0 auto 16px;}
 
 .courses-wrapp .nav-tabs li.nav-item {width: 100%;}
 .courses-wrapp .courses-col1 .courses-col2 {width: 100%;}
@@ -721,5 +722,6 @@ p.card-text { font-size: 18px;}
 .footer-wrapp .footer-col3 { width: 100%;  margin: 0 0 20px;}
 .footer-wrapp .footer-col4 { width: 100%;}
 footer .footer-row1 p { font-size: 14px;}
+.footer-wrapp .footer-col1 .footer-brand {width: 220px; margin: 0 auto 28px;}
 
 }
