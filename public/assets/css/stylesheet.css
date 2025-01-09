@@ -675,8 +675,9 @@ p.card-text { font-size: 18px;}
 .features-wrapp .features-col2 { width: 100%;}
 .process-wrapp .process-row { flex-wrap: wrap;}
 .process-wrapp .process-col1 { width: 100%; margin: 0 0 40px; position: static;}
-.features-wrapp {  text-align: center;}
+.features-wrapp {  text-align: center; padding-top: 0;}
 .features-wrapp .accordion {text-align: left;}
+.features-wrapp1 {padding: 85px 0 20px;}
 .process-wrapp h2 span { display: inline;}
 .process-wrapp { text-align: center;}
 .sticky-cards {  align-items: center;}
@@ -684,7 +685,7 @@ p.card-text { font-size: 18px;}
 .features-wrapp1 .features-box:nth-child(2n) { margin-right: 0;}
 .learning-wrapp .learning-col1 { width: 100%;}
 .learning-wrapp .learning-col2 { width: 100%; margin: 0 0 40px;}
-.faq-wrapp { padding: 50px 0;}
+.faq-wrapp { padding: 20px 0 50px;}
 .learning-wrapp .learning-row { flex-direction: column-reverse;}
 .footer-wrapp .footer-col1 img {  width: 100%;}
 .footer-wrapp .footer-col1 .footer-brand {width: 280px; display: block; float: none; margin: 0 auto 16px;}
