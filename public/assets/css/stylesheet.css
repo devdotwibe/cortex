@@ -721,6 +721,9 @@ p.card-text { font-size: 18px;}
 .detail-wrapp .detail-col2 {width: 100%;}
 .detail-wrapp .detail-col2 .detail-img::after {right: 0;}
 
+.analysis-wrapp .analysis-col2 {width: 100%;}
+.analysis-wrapp .analysis-col1 {width: 100%; padding: 0;}
+
 }
 
 @media screen and (max-width:480px) {

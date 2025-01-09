@@ -230,7 +230,7 @@
                                             </div>
                                         </div>
                                         <div id="mcq-${lesseonId}-explanation"> 
-                                            <label> <strong> Correct Answer  <span id="mcq-${lesseonId}-correct"></span> </strong> </label>
+                                            <label> <strong> Correct Answer1  <span id="mcq-${lesseonId}-correct"></span> </strong> </label>
                                             ${v.explanation != null ? v.explanation : ""}
                                         </div>
                                     </div>
