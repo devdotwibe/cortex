@@ -239,10 +239,18 @@
             },
         });
 
-        function toggleMenu() 
-        {
+        function toggleMenu() {
+            
             const menu = document.getElementById('menu');
-            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+            const hamburger = document.querySelector('.hamburger-icon');
+
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+
+            hamburger.classList.toggle('open');
         }
 
     </script>
