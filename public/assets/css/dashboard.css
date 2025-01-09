@@ -9539,6 +9539,7 @@ nav.navbar.top-barhide {
     .lesson-pagination .button {
         width: 90px;
         font-size: 12px;
+        padding: 22px 6px;
     }
 
     .lesson-pagination .exam-right.exam-progress-inner-item .progress-main .bookmark {
@@ -9551,7 +9552,7 @@ nav.navbar.top-barhide {
 
     .lesson-pagination .left-btn img {
         width: 9px;
-        left: 13px;
+        left: 8px;
     }
 
     .lesson-pagination .right-btn img {
