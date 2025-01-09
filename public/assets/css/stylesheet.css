@@ -717,6 +717,10 @@ p.card-text { font-size: 18px;}
 .hamburger {top: 33px;}
 .overlay {top: 85px;}
 
+.detail-wrapp .detail-col1 {width: 100%; padding: 0;}
+.detail-wrapp .detail-col2 {width: 100%;}
+.detail-wrapp .detail-col2 .detail-img::after {right: 0;}
+
 }
 
 @media screen and (max-width:480px) {
