@@ -274,6 +274,7 @@ footer { width: 100%; float: left;}
 .footer-wrapp ul { width: auto;}
 .footer-wrapp ul li { display: block; margin: 0 0 10px; font-size: 16px; color: #ffff;}
 .footer-wrapp ul li a { color: #fff; display: block;}
+.footer-wrapp ul li a:hover {color: #FBAE1E;}
 .footer-wrapp p { font-size: 16px; color: #fff; margin: 0 0 18px;}
 .footer-wrapp p span { display: block;}
 .footer-wrapp p a { color: #fff;}
@@ -646,7 +647,8 @@ p.card-text { font-size: 18px;}
 .process-wrapp h3.highlight { font-size: 18px;}
 .faq-wrapp h2 { font-size: 32px;}
 .faq-wrapp h4 { font-size: 20px;}
-.faq-wrapp .accordion h5 { font-size: 16px;}
+.faq-wrapp .accordion h5 { font-size: 16px; padding-right: 40px;}
+.faq-wrapp .accordion h5:after {right: 13px;}
 .learning-wrapp h3.highlight {    font-size: 18px;}
 .learning-wrapp h2 { font-size: 32px;}
 .learning-wrapp p {    font-size: 16px;}
@@ -675,8 +677,9 @@ p.card-text { font-size: 18px;}
 .features-wrapp .features-col2 { width: 100%;}
 .process-wrapp .process-row { flex-wrap: wrap;}
 .process-wrapp .process-col1 { width: 100%; margin: 0 0 40px; position: static;}
-.features-wrapp {  text-align: center;}
+.features-wrapp {  text-align: center; padding-top: 0;}
 .features-wrapp .accordion {text-align: left;}
+.features-wrapp1 {padding: 85px 0 20px;}
 .process-wrapp h2 span { display: inline;}
 .process-wrapp { text-align: center;}
 .sticky-cards {  align-items: center;}
@@ -684,7 +687,7 @@ p.card-text { font-size: 18px;}
 .features-wrapp1 .features-box:nth-child(2n) { margin-right: 0;}
 .learning-wrapp .learning-col1 { width: 100%;}
 .learning-wrapp .learning-col2 { width: 100%; margin: 0 0 40px;}
-.faq-wrapp { padding: 50px 0;}
+.faq-wrapp { padding: 20px 0 50px;}
 .learning-wrapp .learning-row { flex-direction: column-reverse;}
 .footer-wrapp .footer-col1 img {  width: 100%;}
 .footer-wrapp .footer-col1 .footer-brand {width: 280px; display: block; float: none; margin: 0 auto 16px;}
@@ -694,6 +697,11 @@ p.card-text { font-size: 18px;}
 .courses-wrapp .courses-col1 .courses-col3 {width: 100%;}
 
 .price-wrapp .price-row2 .price-col1 {width: 100%; margin: 0 0 16px; padding-bottom: 100px;}
+
+.review-wrapp .review-col2 .slick-track {display: flex;flex-wrap: wrap;}
+.review-wrapp .review-col2 .slick-track .slick-slide {height: inherit;margin: 0 3px 0;}
+.review-wrapp .review-col2 .slick-track .slick-slide > div {height: 100%;}
+.review-wrapp .review-col2 .slick-track .slick-slide .review-box {height: 100%;}
 
 }
 
@@ -708,6 +716,10 @@ p.card-text { font-size: 18px;}
 .header-wrapp .brand-logo {width: 180px;}
 .hamburger {top: 33px;}
 .overlay {top: 85px;}
+
+.detail-wrapp .detail-col1 {width: 100%; padding: 0;}
+.detail-wrapp .detail-col2 {width: 100%;}
+.detail-wrapp .detail-col2 .detail-img::after {right: 0;}
 
 }
 
