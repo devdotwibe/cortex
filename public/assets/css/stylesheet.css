@@ -611,7 +611,8 @@ p.card-text { font-size: 18px;}
 .header-wrapp .header-right .hamburger-icon.open span {transform: rotate(-45deg);}
 .header-wrapp .header-right .hamburger-icon.open span:after {opacity: 0;}
 .header-wrapp .header-right .hamburger-icon.open span:before {transform: rotate(88deg) translateX(7px);}
-
+.header-wrapp .header-right.mob ul .nav-link {margin: 0;}
+.header-wrapp .header-right.mob #menu ul li .dropdown-menu {position: relative; text-align: center; margin: 10px 0 0;}
 }
 
 @media screen and (max-width:767px) {
