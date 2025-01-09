@@ -180,7 +180,7 @@
                         </ul>
                     </div>
                     <div class="footer-col4">
-                        <p><a href="">www.cortexacademy.com.au</a></p>
+                        <p><a href="www.cortexacademy.com.au">www.cortexacademy.com.au</a></p>
                         <p><a href="">St Hudson Street
                                 <span>Australia</span></a>
                         </p>
