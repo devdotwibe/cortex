@@ -30,7 +30,7 @@
     <div class="loading-wrap" style="display: none">
         <div class="loading-container">
             <div class="loading-image"><img src="{{ asset('assets/images/loader.svg') }}" alt=""></div>
-            <span>Plese wait...</span>
+            <span>Please wait...</span>
         </div>
     </div>
     <header class="header-wrapp">
