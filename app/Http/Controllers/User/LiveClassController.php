@@ -226,7 +226,7 @@ class LiveClassController extends Controller
         }
         elseif ($subLessonMaterial->status === 'failled') {
 
-            return response()->json(['message' => 'There was an error processing the file. Please try again.' ,'status' => 'failled']);
+            return response()->json(['message' => 'There was an error processing the file. Please try again.' ,'status' => 'failled','proces'=>$subLessonMaterial->status]);
         }
         elseif ($subLessonMaterial->status === 'completed') {
 
