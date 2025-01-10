@@ -212,7 +212,7 @@
     var requesttable = null;
     var timeslotlist=[ 
             {
-                text:"Saturday 9:30 - 11:30 a.m (Online)",
+                text:"Saturday 9:30 - 11:30 a.m (Onlinee)",
                 id:"Saturday 9:30 - 11:30 a.m (Online)"
             },
             {
