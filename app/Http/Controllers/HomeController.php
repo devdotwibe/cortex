@@ -324,8 +324,6 @@ class HomeController extends Controller
         return redirect()->back();
     }
     public function verifypricing(Request $request,SubscriptionPlan $subscriptionPlan){
-
-       
         $request->validate([ 
             "plan"=>['required'],
             "email"=>["required_if:plan,combo"]
@@ -410,8 +408,6 @@ class HomeController extends Controller
                 // $user->setProgress('cortext-subscription-payment-plan',$request->plan);
                 $user->setProgress('cortext-subscription-payment-email',$request->email);
                 // $user->setProgress('cortext-subscription-payment-year',$request->year);
-                dd($payment->url);
-
                 return redirect($payment->url);
             }
         } catch (\Throwable $th) {
