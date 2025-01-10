@@ -56,7 +56,11 @@ class ImageProcess implements ShouldQueue
             if ($returnCode !== 0 || empty($output)) {
                 $this->subLessonMaterial->status = 'failled'; 
                 $this->subLessonMaterial->save();
-                die("Error: Unable to determine the number of pages in the PDF.");
+
+                $errorMessage = "Error: Unable to determine the number of pages in the PDF. Output: " . implode("\n", $output) . " Return Code: $returnCode";
+
+                die($errorMessage); 
+                // die("Error: Unable to determine the number of pages in the PDF.");
             } 
             $count = (int) $output[0];  
             for ($page = 1; $page <= $count; $page++) {
