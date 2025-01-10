@@ -727,6 +727,11 @@ p.card-text { font-size: 18px;}
 
 }
 
+@media screen and (max-width:576px) {
+#tabs2-cortext-subscription-payment-modal .modal-dialog {width: 94%;}
+#tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content {padding: 50px 4%;}
+}
+
 @media screen and (max-width:480px) {
 .card-3 { width: 100%;}
 .banner-wrapp h1 { font-size: 40px;}
@@ -758,5 +763,7 @@ p.card-text { font-size: 18px;}
 .footer-wrapp .footer-col4 { width: 100%;}
 footer .footer-row1 p { font-size: 14px;}
 .footer-wrapp .footer-col1 .footer-brand {width: 220px; margin: 0 auto 28px;}
+
+#tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .tabs2 .form-group button.btn.btn-secondary, #tabs2-cortext-subscription-payment-modal .modal-dialog .modal-content .modal-body .tabs2 .form-group button.btn-dark {width: 128px; font-size: 14px; padding: 13px 10px;}
 
 }
