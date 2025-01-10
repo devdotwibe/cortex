@@ -86,7 +86,7 @@ class SubscriptionPaymentController extends Controller
             $price1=Payment::stripe()->prices->create([
                 'currency' => config('stripe.currency'),
                 'unit_amount' => intval($basic_amount*100),
-                'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($basic_amount*100)/100).' For '.ucfirst($title)],
+                'product_data' => ['name' => ' Amount :'.(intval($basic_amount*100)/100).' For '.ucfirst($title)],
                 'metadata'=>[
                     'modify_time'=>date('Y-m-d h:i a'),
                     'title'=>$title,
@@ -97,7 +97,7 @@ class SubscriptionPaymentController extends Controller
             $price2=Payment::stripe()->prices->create([
                 'currency' => config('stripe.currency'),
                 'unit_amount' => intval($combo_amount*100),
-                'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
+                'product_data' => ['name' => ' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
                 'metadata'=>[
                     'modify_time'=>date('Y-m-d h:i a'),
                     'title'=>$title, 
@@ -399,7 +399,7 @@ class SubscriptionPaymentController extends Controller
             $price1=Payment::stripe()->prices->create([
                 'currency' => config('stripe.currency'),
                 'unit_amount' => intval($basic_amount*100),
-                'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($basic_amount*100)/100).' For '.ucfirst($title)],
+                'product_data' => ['name' => ' Amount :'.(intval($basic_amount*100)/100).' For '.ucfirst($title)],
                 'metadata'=>[
                     'modify_time'=>date('Y-m-d h:i a'),
                     'title'=>$title,
@@ -410,7 +410,7 @@ class SubscriptionPaymentController extends Controller
             $price2=Payment::stripe()->prices->create([
                 'currency' => config('stripe.currency'),
                 'unit_amount' => intval($combo_amount*100*2),
-                'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
+                'product_data' => ['name' => ' Amount :'.(intval($combo_amount*100)/100).' For '.ucfirst($title)],
                 'metadata'=>[
                     'modify_time'=>date('Y-m-d h:i a'),
                     'title'=>$title, 

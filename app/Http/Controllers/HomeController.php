@@ -363,7 +363,7 @@ class HomeController extends Controller
                 $price=Payment::stripe()->prices->create([
                     'currency' => config('stripe.currency'),
                     'unit_amount' => intval($newprice*100),
-                    'product_data' => ['name' => config('app.name','Cortex').' Offer Amount :'.(intval($newprice*100)/100).' For '.($request->plan).' Plan'],
+                    'product_data' => ['name' => ' Offer Amount :'.(intval($newprice*100)/100).' For '.($request->plan).' Plan'],
                     'metadata'=>[
                         'modify_time'=>date('Y-m-d h:i a'),
                         'original_key'=>$oldkey,

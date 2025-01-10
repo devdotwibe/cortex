@@ -89,7 +89,7 @@ class PaymentController extends Controller
         $price=Payment::stripe()->prices->create([
             'currency' => config('stripe.currency'),
             'unit_amount' => intval($request->amount*100),
-            'product_data' => ['name' => config('app.name','Cortex').' Amount :'.(intval($request->amount*100)/100).' For '.ucfirst($request->name)],
+            'product_data' => ['name' => ' Amount :'.(intval($request->amount*100)/100).' For '.ucfirst($request->name)],
             'metadata'=>[
                 'modify_time'=>date('Y-m-d h:i a'),
                 'old_key'=>OptionHelper::getData($request->name,''),
