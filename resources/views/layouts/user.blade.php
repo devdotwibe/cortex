@@ -351,7 +351,7 @@
                 </div>
             @endif
             <div class="alert alert-warning" role="alert">
-                <p class="userverify">Before proceeding, please check your email for a verification link. If you did not receive the email</p>
+                <p class="userverify">Before proceeding, please check your email for a verification link. If you can't find it in your inbox, check your spam folder. If you still haven't received the email </p>
                 <a href="{{ route('verification.resend') }}" class="btn btn-link">{{ __('click here to request another') }}</a>
             </div>
         </div>
