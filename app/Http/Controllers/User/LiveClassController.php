@@ -195,6 +195,14 @@ class LiveClassController extends Controller
 
          
         //  $jobStatus = Cache::get("job_status_{$process->jobIdentifier}");
+        $falled_status ="";
+
+        if($subLessonMaterial->status =='failled')
+        {
+            $subLessonMaterial->status ="";
+
+            $falled_status ="trying agian";
+        }
 
          if ($subLessonMaterial->status !== 'completed' && $subLessonMaterial->status !== 'failled' || $subLessonMaterial->status === '') {
       
@@ -221,12 +229,12 @@ class LiveClassController extends Controller
                 dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
 
             }
-            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
+            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing','faiiled'=>$falled_status]);
 
         }
         elseif ($subLessonMaterial->status === 'failled') {
 
-            return response()->json(['message' => 'There was an error processing the file. Please try again.' ,'status' => 'failled','proces'=>$subLessonMaterial->status]);
+            return response()->json(['message' => 'There was an error processing the file. Please try again.' ,'status' => 'failled','proces'=>$subLessonMaterial->status,'faiiled'=>$falled_status]);
         }
         elseif ($subLessonMaterial->status === 'completed') {
 
