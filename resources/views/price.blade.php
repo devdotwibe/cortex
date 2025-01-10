@@ -43,6 +43,7 @@
             <div class="price-row2" id="our-plans">
 
                 @foreach ($subscriptionPlans as $plan)
+                    @if($plan->id != 8)
                     <div class="price-col1">
                         <ss style="display: none">@json($plan)</ss>
                         <div class="price-icon">
@@ -80,6 +81,7 @@
                             @endguest
                         @endif
                     </div>
+                    @endif
                 @endforeach
                 {{-- <div class="price-col1">
                     <div class="price-icon">
