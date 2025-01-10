@@ -65,7 +65,7 @@
                             <div class="price-detail">
                                 <h5>GROUP: <span class="amount">${{ $plan->combo_amount }}</span>/<span
                                         class="divident">Per Person</span></h5>
-                                <h5>INDIVIDUAL: <span>${{ $plan->basic_amount ?? 0 }}</span></h5>
+                                <h5>INDIVIDUAL: <span>${{ $plan->basic_amount ?? 0 }} {{$plan->id}}</span></h5>
                             </div>
                             @guest('admin')
                                 @auth('web')
