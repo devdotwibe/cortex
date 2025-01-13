@@ -17,7 +17,7 @@ class AnalyticsController extends Controller
          *  @var User
          */
         $user=Auth::user(); 
-        $category = Category::all();
+        // $category = Category::all();
         
 
         $topic_exam = Exam::where("name", 'topic-test')->first();
@@ -28,6 +28,17 @@ class AnalyticsController extends Controller
             ]);
             $topic_exam = Exam::find($topic_exam->id);
         }
+
+        $category = Category::with('questions')
+                ->whereHas('questions', function ($query) {
+                    $query->where('exam_id', function ($subquery) {
+                        $subquery->select('id') 
+                            ->from('exams')
+                            ->where('name', 'full-mock-exam');
+                    });
+                })
+        ->get();
+    
     
         $category_topic = Category::where(function ($qry) use ($topic_exam) {
             $qry->whereIn("id", Question::where('exam_id', $topic_exam->id)->select('category_id'));
@@ -54,17 +65,11 @@ class AnalyticsController extends Controller
         })->get();
 
         
-        $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions', function ($query) {
-
-            $query->whereNotNull('category_id');
-        })->get();
+        $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions')->get();
 
         if($request->ajax()){
             $page=$request->page??1;
-            $data = Exam::where('name',"full-mock-exam")->whereHas('questions', function ($query) {
-
-                $query->whereNotNull('category_id');
-            })->get()->skip($page-1)->take(1)->first();
+            $data = Exam::where('name',"full-mock-exam")->whereHas('questions')->get()->skip($page-1)->take(1)->first();
             $categorydata=[];
             foreach ($category as $cat) {
                 $categorydata[]=[
@@ -76,10 +81,7 @@ class AnalyticsController extends Controller
             }
             $next = null;
             $prev = null;
-            if(Exam::whereHas('questions', function ($query) {
-
-                $query->whereNotNull('category_id');
-            })->where('name',"full-mock-exam")->count()>$page){
+            if(Exam::where('name',"full-mock-exam")->count()>$page){
                 $next=route('analytics.index',["page"=> $page+1]);
             }
             if($page>1){
