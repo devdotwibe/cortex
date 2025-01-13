@@ -15,7 +15,7 @@ We received a request to reset your password. You can reset it by clicking the l
 </p>
 Regards,<br />
 
-Cortex
+The Cortex Online Team
 
 <br />
 
