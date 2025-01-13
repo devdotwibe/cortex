@@ -44,10 +44,8 @@
                                     @error('email')
                                     <div id="email-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
-
-                                    <div style="font-size: smaller;" >Note:We are currently facing issues with yahoo, outlook and hotmail and gmail is the preferred email address for accounts.</div>
-
                                 </div>
+                                <div class="mb-4" style="font-size: smaller;" >Note: We are currently facing issues with Yahoo, Outlook and Hotmail. Gmail is the preferred email address.</div>
 
                                 <div class="forms-inputs mb-4">
                                     <input autocomplete="off" name="schooling_year" type="text" placeholder="Enter your Current Grade" value="{{old('schooling_year')}}" class="form-control @error('schooling_year') is-invalid @enderror " >
