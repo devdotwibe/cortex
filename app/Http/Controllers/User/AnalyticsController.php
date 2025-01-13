@@ -20,16 +20,26 @@ class AnalyticsController extends Controller
         // $category = Category::all();
         
 
-        $topic_exam = Exam::where("name", 'topic-test')->first();
-        if (empty($topic_exam)) {
-            $topic_exam = Exam::store([
-                "title" => "Topic Test",
-                "name" => "topic-test",
-            ]);
-            $topic_exam = Exam::find($topic_exam->id);
-        }
+        // $topic_exam = Exam::where("name", 'topic-test')->first();
+        // if (empty($topic_exam)) {
+        //     $topic_exam = Exam::store([
+        //         "title" => "Topic Test",
+        //         "name" => "topic-test",
+        //     ]);
+        //     $topic_exam = Exam::find($topic_exam->id);
+        // }
 
         $category = Category::with('question')
+                ->whereHas('question', function ($query) {
+                    $query->whereIn('exam_id', function ($subquery) {
+                        $subquery->select('id') 
+                            ->from('exams')
+                            ->where('name', 'topic-test');
+                    });
+                })
+        ->get();
+
+        $category_topic = Category::with('question')
                 ->whereHas('question', function ($query) {
                     $query->whereIn('exam_id', function ($subquery) {
                         $subquery->select('id') 
@@ -40,9 +50,9 @@ class AnalyticsController extends Controller
         ->get();
     
     
-        $category_topic = Category::where(function ($qry) use ($topic_exam) {
-            $qry->whereIn("id", Question::where('exam_id', $topic_exam->id)->select('category_id'));
-        })->get();
+        // $category_topic = Category::where(function ($qry) use ($topic_exam) {
+        //     $qry->whereIn("id", Question::where('exam_id', $topic_exam->id)->select('category_id'));
+        // })->get();
 
 
         $question_bank_exam=Exam::where("name",'question-bank')->first();
