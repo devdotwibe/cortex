@@ -34,7 +34,7 @@
 
                     @session('status')
                     <div class="alert alert-success status">
-                        {{ session('status') }} if email not found in inbox , Please check your spam folder.
+                        {{ session('status') }} If the email is not found in your inbox, please check your spam folder.
                     </div>
                     @endsession
                     @session('mail-error')
