@@ -31,7 +31,7 @@ class AnalyticsController extends Controller
 
         $category = Category::with('question')
                 ->whereHas('question', function ($query) {
-                    $query->where('exam_id', function ($subquery) {
+                    $query->whereIn('exam_id', function ($subquery) {
                         $subquery->select('id') 
                             ->from('exams')
                             ->where('name', 'full-mock-exam');
