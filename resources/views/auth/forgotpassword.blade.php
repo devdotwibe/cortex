@@ -27,14 +27,14 @@
                     </div>
                     @enderror
                     @session('success')
-                    <div class="alert alert-success">
-                        {{ session('success') }} if email not found in inbox , Please check your spam folder.
+                    <div class="alert alert-success success">
+                        {{ session('success') }} 
                     </div>
                     @endsession
 
                     @session('status')
-                    <div class="alert alert-success">
-                        {{ session('status') }}
+                    <div class="alert alert-success status">
+                        {{ session('status') }} if email not found in inbox , Please check your spam folder.
                     </div>
                     @endsession
                     @session('mail-error')
