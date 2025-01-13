@@ -45,7 +45,7 @@
                                     <div id="email-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
 
-                                    <div>Note:We are currently facing issues with yahoo, outlook and hotmail and gmail is the preferred email address for accounts.</div>
+                                    <div style="font-size: smaller;" >Note:We are currently facing issues with yahoo, outlook and hotmail and gmail is the preferred email address for accounts.</div>
 
                                 </div>
 
