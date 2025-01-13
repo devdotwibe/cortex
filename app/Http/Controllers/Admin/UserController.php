@@ -63,6 +63,13 @@ class UserController extends Controller
                             <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.freeaccess', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->is_free_access ? "checked" : "") . '/>
                             <label class="form-check-label" for="free-toggle-' . $data->id . '">Free</label>
                         </div>';
+        })
+            ->addColumn('is_user_verfied', function ($data) {
+            return '<div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.is_user_verfied', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->email_verified_at ? "checked" : "") . '/>
+                        <label class="form-check-label" for="free-toggle-' . $data->id . '">Verified</label>
+                    </div>';
+
             })->addColumn('post_status', function ($data) {
                 return '<div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.comunity', $data->slug) . "'" . ')" role="switch" id="active-toggle-' . $data->id . '"  ' . ($data->post_status == "active" ? "checked" : "") . '/>
@@ -92,7 +99,7 @@ class UserController extends Controller
 
 
                 ';
-            })->buildTable(['post_status', 'is_free_access']);
+            })->buildTable(['post_status', 'is_free_access','is_user_verfied']);
         }
         $unverifyuser = User::whereNull('email_verified_at')->count();
         $verifyuser = User::whereNotNull('email_verified_at')->count();
@@ -194,6 +201,17 @@ class UserController extends Controller
             'success' => "Community status updated"
         ]);
     }
+
+    public function is_user_verfied(Request $request, User $user)
+    {
+        $user->update([
+            'email_verified_at' => $user->email_verified_at ? null : now()
+        ]);
+        return response()->json([
+            'success' => "Email status updated"
+        ]);
+    }
+
     public function termslist(Request $request, User $user)
     {
         $terms = [];

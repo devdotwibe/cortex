@@ -33,7 +33,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'schooling_year',
         'password',
         'post_status',
-        'is_free_access'
+        'is_free_access',
+        'email_verified_at'
     ];
 
     /**
