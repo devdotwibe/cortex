@@ -201,6 +201,17 @@ class UserController extends Controller
             'success' => "Community status updated"
         ]);
     }
+
+    public function is_user_verfied(Request $request, User $user)
+    {
+        $user->update([
+            'email_verified_at' => $user->email_verified_at ? null : now()
+        ]);
+        return response()->json([
+            'success' => "Email status updated"
+        ]);
+    }
+
     public function termslist(Request $request, User $user)
     {
         $terms = [];
