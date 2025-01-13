@@ -3,8 +3,7 @@
 
 Dear {{ ucfirst($name) }},
 
-
-
+<br>
 <br>
 Thank you for registering with our service. Please verify your email address by clicking the link below:
 
@@ -14,12 +13,18 @@ Thank you for registering with our service. Please verify your email address by 
         Verify Your Email Address
     </a>
 </p>
-<br>
 
-<br>
+<div style="text-align: left;">
+    <p>Problems or questions?</p>
+    <p>support@cortexacademy.com.au</p>
+    <p>Cortex Online . 7 Farnell Ave. Carlingford . Sydney. NSW. Australia</p>
+</div>
+
 Regards,<br />
 
-Cortex
+The Cortex Online Team
+
+<br />
 
 
 @endsection
