@@ -99,7 +99,7 @@ class UserController extends Controller
 
 
                 ';
-            })->buildTable(['post_status', 'is_free_access']);
+            })->buildTable(['post_status', 'is_free_access','is_user_verfied']);
         }
         $unverifyuser = User::whereNull('email_verified_at')->count();
         $verifyuser = User::whereNotNull('email_verified_at')->count();
