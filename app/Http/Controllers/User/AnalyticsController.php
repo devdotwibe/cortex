@@ -29,8 +29,8 @@ class AnalyticsController extends Controller
             $topic_exam = Exam::find($topic_exam->id);
         }
 
-        $category = Category::with('questions')
-                ->whereHas('questions', function ($query) {
+        $category = Category::with('question')
+                ->whereHas('question', function ($query) {
                     $query->where('exam_id', function ($subquery) {
                         $subquery->select('id') 
                             ->from('exams')
