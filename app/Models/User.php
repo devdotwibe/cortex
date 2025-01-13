@@ -168,7 +168,8 @@ public function toMail($notifiable)
     
     return (new MailMessage)
         ->subject('Reset your Cortex Online password')
-        ->view('email.reset', compact('url', 'name'));
+        ->view('email.reset', compact('url', 'name'))
+        ->salutation('The Cortex Online Team');
 }
 
     
