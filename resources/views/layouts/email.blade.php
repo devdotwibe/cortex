@@ -54,8 +54,8 @@
                   <tr>
                      <td style="background-color:#F8F8F8">&nbsp;</td>
                      <td style=" background-color:#F8F8F8; text-align:center">
-                        <span style="font-family: Helvetica,Arial,sans-serif!important; line-height:34px; font-size:18px;  color:#000; ">Problems or questions? </br>
-                         support@cortexacademy.com.au</br>
+                        <span style="font-family: Helvetica,Arial,sans-serif!important; line-height:34px; font-size:18px;  color:#000; ">Problems or questions? <br />
+                         support@cortexacademy.com.au<br />
                          Cortex Online . 7 Farnell Ave. Carlingford . Sydney. NSW. Australia
                      </td>
                       <td style="background-color:#F8F8F8">&nbsp;</td>
