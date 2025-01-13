@@ -14,7 +14,6 @@ We received a request to reset your password. You can reset it by clicking the l
     </a>
 </p>
 <br>
-<br>
 Regards,<br />
 
 Cortex
