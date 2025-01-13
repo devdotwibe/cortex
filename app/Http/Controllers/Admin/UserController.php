@@ -67,7 +67,7 @@ class UserController extends Controller
             ->addColumn('is_user_verfied', function ($data) {
             return '<div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.freeaccess', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->email_verified_at ? "checked" : "") . '/>
-                        <label class="form-check-label" for="free-toggle-' . $data->id . '">Free</label>
+                        <label class="form-check-label" for="free-toggle-' . $data->id . '">Verified</label>
                     </div>';
 
             })->addColumn('post_status', function ($data) {
