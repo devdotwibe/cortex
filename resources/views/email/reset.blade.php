@@ -13,7 +13,6 @@ We received a request to reset your password. You can reset it by clicking the l
         Reset Your Password
     </a>
 </p>
-<br>
 Regards,<br />
 
 Cortex
