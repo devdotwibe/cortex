@@ -44,6 +44,9 @@
                                     @error('email')
                                     <div id="email-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
+
+                                    <p>Note:We are currently facing issues with yahoo, outlook and hotmail and gmail is the preferred email address for accounts.</p>
+                                    
                                 </div>
 
                                 <div class="forms-inputs mb-4">
