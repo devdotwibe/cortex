@@ -54,11 +54,17 @@ class AnalyticsController extends Controller
         })->get();
 
         
-        $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions')->get();
+        $mockExams = Exam::where('name', "full-mock-exam")->whereHas('questions', function ($query) {
+
+            $query->whereNotNull('category_id');
+        })->get();
 
         if($request->ajax()){
             $page=$request->page??1;
-            $data = Exam::where('name',"full-mock-exam")->whereHas('questions')->get()->skip($page-1)->take(1)->first();
+            $data = Exam::where('name',"full-mock-exam")->whereHas('questions', function ($query) {
+
+                $query->whereNotNull('category_id');
+            })->get()->skip($page-1)->take(1)->first();
             $categorydata=[];
             foreach ($category as $cat) {
                 $categorydata[]=[
@@ -70,7 +76,10 @@ class AnalyticsController extends Controller
             }
             $next = null;
             $prev = null;
-            if(Exam::where('name',"full-mock-exam")->count()>$page){
+            if(Exam::whereHas('questions', function ($query) {
+
+                $query->whereNotNull('category_id');
+            })->where('name',"full-mock-exam")->count()>$page){
                 $next=route('analytics.index',["page"=> $page+1]);
             }
             if($page>1){
