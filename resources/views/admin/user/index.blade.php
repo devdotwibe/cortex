@@ -194,6 +194,7 @@
                     ["th"=>"Name","name"=>"name","data"=>"name"],
                     ["th"=>"Email","name"=>"email","data"=>"email"],
                     ["th"=>"Free Access","name"=>"is_free_access","data"=>"is_free_access"],
+                    ["th"=>"Email Verified","name"=>"email_verified_at","data"=>"email_verified_at"],
                     ["th"=>"Community","name"=>"post_status","data"=>"post_status"],
             ]' tableinit="usertableinit" beforeajax="usertablefilter" />
         </div>
