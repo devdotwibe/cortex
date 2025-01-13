@@ -28,7 +28,7 @@
                     @enderror
                     @session('success')
                     <div class="alert alert-success">
-                        {{ session('success') }}
+                        {{ session('success') }} if email not found in inbox , Please check your spam folder.
                     </div>
                     @endsession
 
