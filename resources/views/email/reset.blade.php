@@ -15,9 +15,13 @@ We received a request to reset your password. You can reset it by clicking the l
 </p>
 <br>
 <br>
-Regards,<br />
 
-Cortex
+<p> Problems or question ? </p>
+<br>
+<p>  support@cortexacademy.com.au</p>
+<br>
+<p>Cortex Online . 7 Farnell Ave. Carlingford . Sydney. NSW. Australia</p>
+
 
 
 @endsection
