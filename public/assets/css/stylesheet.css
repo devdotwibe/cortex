@@ -48,6 +48,18 @@ section{width: 100%; float: left;}
   }
 }
 
+@keyframes fixedUp {
+  0% {
+      top: inherit;
+      position: relative;
+  }
+
+  100% {
+      top: 0;
+      position: fixed;
+  }
+}
+
 /* ---------------------------------------- */
 
 .header-wrapp { width: 100%; float: left;  padding: 10px 0 10px; position: relative; z-index: 9;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
@@ -68,12 +80,12 @@ section{width: 100%; float: left;}
 .overlay { display: none;}
 .header-wrapp .header-right ul .dropdown:hover .dropdown-menu {display: block;}
 
-.sticky-box {position: relative; float: left; width: 100%; text-align: center; background: #fbae1e; padding: 10px 15px;}
+.sticky-box {float: left; width: 100%; text-align: center; background: #fbae1e; padding: 10px 15px; transition: all 0.4s ease-in;}
 .sticky-box p {font-size: 18px; line-height: normal; color: #ffffff;}
 .sticky-box p a {color: #000000;}
 .sticky-box p a:hover {color: #ffffff;}
 
-.sticky-box.fixed {position: fixed; left: 0; right: 0; top: 0; z-index: 9;}
+.sticky-box.fixed {position: fixed; left: 0; right: 0; z-index: 9; animation: 0.4s fixedUp;}
 
 .banner-wrapp {width: 100%; float: left; background: #E5F7FF; padding: 45px 0;}
 .banner-wrapp .banner-row { width: 100%;display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;}
@@ -621,7 +633,7 @@ p.card-text { font-size: 18px;}
 .header-wrapp .header-right .hamburger-icon.open span:before {transform: rotate(88deg) translateX(7px);}
 .header-wrapp .header-right.mob ul .nav-link {margin: 0;}
 .header-wrapp .header-right.mob #menu ul li .dropdown-menu {position: relative; text-align: center; margin: 10px 0 0;}
-.header-wrapp .sticky-box p {font-size: 13px;}
+.sticky-box p {font-size: 13px;}
 
 }
 
@@ -733,7 +745,7 @@ p.card-text { font-size: 18px;}
 .analysis-wrapp .analysis-col2 {width: 100%;}
 .analysis-wrapp .analysis-col1 {width: 100%; padding: 0;}
 
-.header-wrapp .sticky-box p {font-size: 10px;}
+.sticky-box p {font-size: 10px;}
 
 }
 
