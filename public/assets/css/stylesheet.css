@@ -80,12 +80,12 @@ section{width: 100%; float: left;}
 .overlay { display: none;}
 .header-wrapp .header-right ul .dropdown:hover .dropdown-menu {display: block;}
 
-.sticky-box {float: left; width: 100%; text-align: center; background: #fbae1e; padding: 10px 15px; transition: all 0.4s ease-in;}
+.sticky-box {float: left; width: 100%; text-align: center; background: #1989f8; padding: 10px 15px; transition: all 0.4s ease-in;}
 .sticky-box p {font-size: 18px; line-height: normal; color: #ffffff;}
-.sticky-box p a {color: #000000;}
+.sticky-box p a {color: #fbae1e;}
 .sticky-box p a:hover {color: #ffffff;}
 
-.sticky-box.fixed {position: fixed; left: 0; right: 0; z-index: 9; animation: 0.4s fixedUp;}
+/* .sticky-box.fixed {position: fixed; left: 0; right: 0; z-index: 9; animation: 0.4s fixedUp;} */
 
 .banner-wrapp {width: 100%; float: left; background: #E5F7FF; padding: 45px 0;}
 .banner-wrapp .banner-row { width: 100%;display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;}
