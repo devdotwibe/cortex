@@ -68,10 +68,12 @@ section{width: 100%; float: left;}
 .overlay { display: none;}
 .header-wrapp .header-right ul .dropdown:hover .dropdown-menu {display: block;}
 
-.sticky-box {position: relative; width: 100%; text-align: center; background: #fbae1e; padding: 10px 15px;}
+.sticky-box {position: relative; float: left; width: 100%; text-align: center; background: #fbae1e; padding: 10px 15px;}
 .sticky-box p {font-size: 18px; line-height: normal; color: #ffffff;}
 .sticky-box p a {color: #000000;}
 .sticky-box p a:hover {color: #ffffff;}
+
+.sticky-box.fixed {position: fixed; left: 0; right: 0; top: 0; z-index: 9;}
 
 .banner-wrapp {width: 100%; float: left; background: #E5F7FF; padding: 45px 0;}
 .banner-wrapp .banner-row { width: 100%;display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;}
@@ -605,7 +607,7 @@ p.card-text { font-size: 18px;}
 .price-wrapp .price-row2 .price-col1 h6 span {font-size: 30px;}
 
 .header-wrapp .header-right.mob {display: block;}
-.header-wrapp .header-right .hamburger-icon {width: 32px; right: 20px; top: 88px; position: fixed; cursor: pointer; z-index: 9;}
+.header-wrapp .header-right .hamburger-icon {width: 32px; right: 20px; top: 54px; position: fixed; cursor: pointer; z-index: 9;}
 .header-wrapp .header-right .hamburger-icon span {width: 100%; position: relative; display: block; height: 4px; background: #fbae1e; transition: all 0.35s ease-out;}
 .header-wrapp .header-right .hamburger-icon span:before {content: ""; position: absolute; top: -7px; width: 100%; height: 4px; background: #fbae1e;}
 .header-wrapp .header-right .hamburger-icon span:after {content: ""; position: absolute; top: 7px; width: 100%; height: 4px; background: #fbae1e;}
