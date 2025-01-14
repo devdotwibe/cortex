@@ -50,7 +50,7 @@ section{width: 100%; float: left;}
 
 /* ---------------------------------------- */
 
-.header-wrapp { width: 100%; float: left;  padding: 10px 0; position: relative; z-index: 9;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
+.header-wrapp { width: 100%; float: left;  padding: 50px 0 10px; position: relative; z-index: 9;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
 .header-wrapp .header-row {  width: 100%; display: flex;  flex-wrap: wrap; justify-content: space-between; align-items: center;}
 .header-wrapp .brand-logo { width: 231px;}
 .header-wrapp .brand-logo img { width: 100%; display: block;}
@@ -68,6 +68,10 @@ section{width: 100%; float: left;}
 .overlay { display: none;}
 .header-wrapp .header-right ul .dropdown:hover .dropdown-menu {display: block;}
 
+.header-wrapp .sticky-box {position: fixed; width: 100%; left: 0; right: 0; top: 0; text-align: center; background: #fbae1e; padding: 10px 0;}
+.header-wrapp .sticky-box p {font-size: 18px; line-height: normal; color: #ffffff;}
+.header-wrapp .sticky-box p a {color: #000000;}
+.header-wrapp .sticky-box p a:hover {color: #ffffff;}
 
 .banner-wrapp {width: 100%; float: left; background: #E5F7FF; padding: 45px 0;}
 .banner-wrapp .banner-row { width: 100%;display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;}
