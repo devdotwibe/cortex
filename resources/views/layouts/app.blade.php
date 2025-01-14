@@ -35,6 +35,7 @@
     </div>
     <header class="header-wrapp">
         <div class="container">
+
             <div class="header-row">
                 <div class="brand-logo">
                     <a href="{{ url('/') }}">
@@ -81,14 +82,6 @@
                         </div>
                     @endif
                     
-
-
-
-
-
-
-
-
                     </ul>
 
                 </div>
@@ -147,6 +140,15 @@
             </div>
         </div>
     </header>
+
+    <div class="sticky-box">
+        <p>
+            New: Cortex Online's platform is updated to simulate the latest Online Selective Test 
+            <a class="take-test" href="{{route('full-mock-exam.index')}}"> Take a free diagnostic test --> </a>
+        </p>
+
+    </div>
+
     @yield('content')
 
     <footer>
@@ -229,6 +231,23 @@
 
 
     <script>
+
+        $(function() {
+            
+            var stickyBox = $('.sticky-box'); 
+            
+            $(window).scroll(function() {
+
+                if ($(this).scrollTop() > 3) {
+                    
+                    stickyBox.addClass('fixed');
+                } else {
+                 
+                    stickyBox.removeClass('fixed');
+                }
+            });
+        });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
