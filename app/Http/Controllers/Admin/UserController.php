@@ -113,6 +113,8 @@ class UserController extends Controller
     }
     public function bulkaction(Request $request)
     {
+        dd($request);
+        
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
                 User::where('id', '>', 0)->delete();
