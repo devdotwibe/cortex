@@ -130,6 +130,8 @@ class UserController extends Controller
         {
             $users = $request->input('selectbox', []);
 
+            dd($request);
+            
             $selectedTimeSlot = json_decode($request->user_time_slot, true);
 
             foreach($users as $user)

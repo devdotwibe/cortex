@@ -249,7 +249,7 @@
             <div class="modal-body">
                 <form action=""  id="time_slote_form" method="post">
                     @csrf 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <div class="form-data">
                             <div class="forms-inputs mb-4">
                                 <label for="user-password">Select Time Slot</label>
@@ -267,12 +267,73 @@
                                         <option value='["Sunday 9:30 a.m. (F2F)"]'>Sunday 9:30 a.m. (F2F)</option>
                                         <option value='["Sunday 12 p.m. (F2F)"]'>Sunday 12 p.m. (F2F)</option>
                                         <option value='["Sunday 2:30 p.m. (F2F)"]'>Sunday 2:30 p.m. (F2F)</option>
-                                </select>       
+                                </select>  
+
                                 <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >The field is required</div>
                             </div>
                           
                         </div>                        
-                     </div>
+                     </div> --}}
+
+                        <div class="form-group">
+                            <div class="form-data">
+                                <div class="forms-inputs mb-4"> 
+                                    <label for="time_slot_action">Select your available timeslot (you can choose more than one) *</label>
+                                    <div class="check-group form-control ">
+                                                   
+                                        <input type="hidden" name="time_slot_action" id="time_slot_action" value="">
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-0" value="Monday 6:30 p.m. (Online)" >
+                                                <label for="check-group-timeslot-0">Monday 6:30 p.m. (Online)</label>
+                                            </div>                                                            
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-1" value="Wednesday 6:30 p.m. (Online)" >
+                                                <label for="check-group-timeslot-1">Wednesday 6:30 p.m. (Online)</label>
+                                            </div>                                                            
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-2" value="Thursday 6:30 p.m. (Online)" >
+                                                <label for="check-group-timeslot-2">Thursday 6:30 p.m. (Online)</label>
+                                            </div>                                                            
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-3" value="Saturday 9:30 a.m. (F2F)" >
+                                                <label for="check-group-timeslot-3">Saturday 9:30 a.m. (F2F)</label>
+                                            </div>  
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-4" value="Saturday 12 p.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Saturday 12 p.m. (F2F)</label>
+                                            </div> 
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-5" value="Saturday 2:30 p.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Saturday 2:30 p.m. (F2F)</label>
+                                            </div>  
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 9:30 a.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Sunday 9:30 a.m. (F2F)</label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 12 p.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Sunday 12 p.m. (F2F)</label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 2:30 p.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Sunday 2:30 p.m. (F2F)</label>
+                                            </div>
+
+                                    </div>                                                      
+                                </div>
+                            </div>
+                        </div>    
+                    
+
                     <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
                     <button type="button" onclick="SubmitTimeSolt()" class="btn btn-dark">Submit</button>
                 </form>
@@ -342,7 +403,13 @@
     
             formData.push({ name: 'time_slot_action', value: $('#time_slot_action').val() });
 
-             formData.push({ name: 'user_time_slot', value: $('#user_time_slot').val() });
+            var userTimeSlots = [];
+
+            $('input[name="user_time_slot[]"]:checked').each(function() {
+                userTimeSlots.push($(this).val());
+            });
+
+            formData.push({ name: 'user_time_slot', value: userTimeSlots });
 
             $.post($(element).attr('action'), formData, function(res) {
 
