@@ -79,7 +79,7 @@ class UserController extends Controller
                 return '
                    
 
-                  <a onclick="UpgradeUser('.$data->slug.')" target="_blank" rel="noreferrer" class="btn btn-icons upgrade_btn">
+                  <a onclick="UpgradeUser(\'' . $data->slug . '\')" target="_blank" rel="noreferrer" class="btn btn-icons upgrade_btn">
                     <span class="adminside-icon">
                         <img src="' . asset('assets/images/updgrade.png') . '" alt="Register List">
                     </span>

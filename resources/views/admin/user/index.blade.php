@@ -434,7 +434,7 @@
             console.log(slug);
 
             $('#user_id_slug').val(slug);
-            
+
             $('#user_time_slote-usertableinit').modal('show');
         }
 
