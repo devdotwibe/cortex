@@ -148,7 +148,7 @@
 
     <div class="sticky-box">
         <p>
-            New: Cortex Onlines platform is updated to simulate the latest Online Selective Test &nbsp; &nbsp; 
+            New: Cortex Online's platform is updated to simulate the latest Online Selective Test &nbsp; &nbsp; 
             <a class="take-test" href="{{route('full-mock-exam.index')}}"> Take a free diagnostic test &#x2192; </a>
         </p>
 
