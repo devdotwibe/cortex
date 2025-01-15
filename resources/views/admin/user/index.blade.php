@@ -253,7 +253,9 @@
                         <div class="form-data">
                             <div class="forms-inputs mb-4">
                                 <label for="user-password">Select Time Slot</label>
-                                <select name="user_time_slot" id="user_time_slot">
+                                
+                                <select name="user_time_slot" id="user_time_slot" class="form-control">
+
                                         <option value="Monday 6:30 p.m. (Online)">Monday 6:30 p.m. (Online)</option>
                                         <option value="Wednesday 6:30 p.m. (Online)">Wednesday 6:30 p.m. (Online)</option>
                                         <option value="Thursday 6:30 p.m. (Online)">Thursday 6:30 p.m. (Online)</option>
