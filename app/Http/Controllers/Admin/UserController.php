@@ -206,6 +206,12 @@ class UserController extends Controller
             return redirect()->route('admin.user.index')->with("success", "Users update success");
         }
     }
+
+    public function upgrade_user(Request $request)
+    {
+        dd($request);
+    }
+
     public function show(Request $request, User $user)
     {
 
