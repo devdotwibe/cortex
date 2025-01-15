@@ -135,7 +135,7 @@
             {
                 $('#time_slot_action').val('');
 
-                $('#submit_user_slot').attr('onclick','SubmitTimeSolt');
+                $('#submit_user_slot').attr('onclick','SubmitTimeSolt()');
 
                 $('#user_time_slote-{{ $tableinit }}').modal('show');
                 console.log('registeruser pop');

@@ -435,7 +435,7 @@
 
             $('#user_id_slug').val(slug);
 
-            $('#submit_user_slot').attr('onclick','UpgradeUserSubmit');
+            $('#submit_user_slot').attr('onclick','UpgradeUserSubmit()');
 
             $('#user_time_slote-usertableinit').modal('show');
         }
