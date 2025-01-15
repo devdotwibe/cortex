@@ -22,7 +22,7 @@
                             ["name"=>"full_name","label"=>"Student Full Name *","placeholder"=>"Student Full Name","type"=>"text","size"=>12],
                             ["name"=>"parent_name","label"=>"Parent Name *","placeholder"=>"Parent Name","type"=>"text","size"=>12],
                             ["name"=>"phone","label"=>"Phone Number *","placeholder"=>"Phone Number","type"=>"text","size"=>12],
-                            ["name"=>"timeslot","label"=>"Select your available timeslot (you can choose more than one) *","options"=>[["text"=>"Saturday 9:30 - 11:30 a.m (Online)","value"=>"Saturday 9:30 - 11:30 a.m (Online)"],["text"=>"Saturday 12 - 2 p.m","value"=>"Saturday 12 - 2 p.m"],["text"=>"Sunday 9:30 - 11:30 a.m","value"=>"Sunday 9:30 - 11:30 a.m"],["text"=>"Sunday 12 - 2 p.m","value"=>"Sunday 12 - 2 p.m"]],"type"=>"checkboxgroup","size"=>12],
+                            ["name"=>"timeslot","label"=>"Select your available timeslot (you can choose more than one) *","options"=>[["text"=>"Monday 6:30 p.m","value"=>"Monday 6:30 p.m"],["text"=>"Wednesday 6:30 p.m","value"=>"Wednesday 6:30 p.m"],["text"=>"Thursday 6:30 p.m","value"=>"Thursday 6:30 p.m"],["text"=>"Saturday 9:30 a.m","value"=>"Saturday 9:30 a.m"],["text"=>"Saturday 12 p.m","value"=>"Saturday 12 p.m"],["text"=>"Saturday 2:30 p.m","value"=>"Saturday 2:30 p.m"],["text"=>"Sunday 9:30 a.m","value"=>"Sunday 9:30 a.m"],["text"=>"Sunday 12 p.m","value"=>"Sunday 12 p.m"],["text"=>"Sunday 2:30 p.m","value"=>"Sunday 2:30 p.m"]],"type"=>"checkboxgroup","size"=>12],
                         ]' 
                         btnsubmit="Register"
                     ></x-general-form>

@@ -212,20 +212,40 @@
     var requesttable = null;
     var timeslotlist=[ 
             {
-                text:"Saturday 9:30 - 11:30 a.m (Online)",
-                id:"Saturday 9:30 - 11:30 a.m (Online)"
+                text:"Monday 6:30 p.m",
+                id:"Monday 6:30 p.m"
             },
             {
-                text:"Saturday 12 - 2 p.m",
-                id:"Saturday 12 - 2 p.m"
+                text:"Wednesday 6:30 p.m",
+                id:"Wednesday 6:30 p.m"
             },
             {
-                text:"Sunday 9:30 - 11:30 a.m",
-                id:"Sunday 9:30 - 11:30 a.m"
+                text:"Thursday 6:30 p.m",
+                id:"Thursday 6:30 p.m"
             },
             {
-                text:"Sunday 12 - 2 p.m",
-                id:"Sunday 12 - 2 p.m"
+                text:"Saturday 9:30 a.m",
+                id:"Saturday 9:30 a.m"
+            },
+            {
+                text:"Saturday 12 p.m",
+                id:"Saturday 12 p.m"
+            },
+            {
+                text:"Saturday 2:30 p.m",
+                id:"Saturday 2:30 p.m"
+            },
+            {
+                text:"Sunday 9:30 a.m",
+                id:"Sunday 9:30 a.m"
+            },
+            {
+                text:"Sunday 12 p.m",
+                id:"Sunday 12 p.m"
+            },
+            {
+                text:"Sunday 2:30 p.m",
+                id:"Sunday 2:30 p.m"
             },
     ]
     function requesttableinit(table) {
