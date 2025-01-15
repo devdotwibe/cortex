@@ -210,6 +210,31 @@ class UserController extends Controller
     public function upgrade_user(Request $request)
     {
         dd($request);
+
+        $real_user = User::find($user);
+
+        $private_class_exist = PrivateClass::where('user_id',$user)->first();
+
+        if(empty($private_class_exist))
+        {
+            $private_class = new PrivateClass; 
+
+            $private_class->email = $real_user->email;
+            $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
+            $private_class->parent_name = null;
+            $private_class->timeslot = $selectedTimeSlot;
+            $private_class->user_id = $user;
+            $private_class->status = 'approved';
+            $private_class->is_valid = true;
+
+            $private_class->save();
+        }
+
+        if ($request->ajax()) {
+            return response()->json(["success" => "User Registered success"]);
+        }
+        
+        return redirect()->route('admin.user.index')->with("success", "Users deleted success");
     }
 
     public function show(Request $request, User $user)
