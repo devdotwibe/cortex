@@ -133,7 +133,7 @@
             }
             else if(v === 'registeruser')
             {
-
+                $('#time_slot_action').val('');
                 $('#user_time_slote-{{ $tableinit }}').modal('show');
                 console.log('registeruser pop');
             

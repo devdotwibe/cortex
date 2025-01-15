@@ -254,6 +254,8 @@
                             <div class="forms-inputs mb-4">
                                 <label for="user-password">Select Time Slot</label>
                                 
+                                <input type="hidden" name="time_slot_action" id="time_slot_action" value="">
+
                                 <select name="user_time_slot" id="user_time_slot" class="form-control">
                                         <option value="">Select Time Slot</option>
                                         <option value="Monday 6:30 p.m. (Online)">Monday 6:30 p.m. (Online)</option>
@@ -334,8 +336,13 @@
                 showToast('Form not found!', 'danger');
                 return;
             }
+            $('#time_slot_action').val('user_register');
 
-            $.post($(element).attr('action'), $(element).serialize(), function(res) {
+            var formData = $(element).serializeArray();
+    
+            formData.push({ name: 'time_slot_action', value: $('#time_slot_action').val() });
+
+            $.post($(element).attr('action'), formData, function(res) {
 
                     showToast(res.success ?? 'User Registered Successfully', 'success');
 
