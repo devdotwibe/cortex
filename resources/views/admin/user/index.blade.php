@@ -196,7 +196,7 @@
                     ["th"=>"Free Access","name"=>"is_free_access","data"=>"is_free_access"],
                     ["th"=>"Email Verification","name"=>"is_user_verfied","data"=>"is_user_verfied"],
                     ["th"=>"Community","name"=>"post_status","data"=>"post_status"],
-            ]' tableinit="usertableinit" beforeajax="usertablefilter" />
+            ]' tableinit="usertableinit" beforeajax="usertablefilter" tableid="usertable" />
         </div>
     </div>
 </section>
@@ -266,12 +266,12 @@
                                         <option value="Sunday 12 p.m. (F2F)">Sunday 12 p.m. (F2F)</option>
                                         <option value="Sunday 2:30 p.m. (F2F)">Sunday 2:30 p.m. (F2F)</option>
                                 </select>       
-                                <div class="invalid-feedback password-reset-error" id="error-password-field" >The field is required</div>
+                                <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >The field is required</div>
                             </div>
                           
                         </div>                        
                      </div>
-                    <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                    <button type="button" onclick="SubmitTimeSolt()" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
                     <button type="submit" class="btn btn-dark">Submit</button>
                 </form>
             </div>
@@ -316,6 +316,38 @@
             $('.password-reset-error').text("")
             $('#password-reset-modal').modal('show')
         } 
+        function SubmitTimeSolt()
+        {
+            var timeslot = $('#user_time_slot').val();
+
+            $('#error-user_time_slot-field').hide();
+
+            if(timeslot =="")
+            {
+                $('#error-user_time_slot-field').show();
+            }
+
+            var element = $('#table-usertable-bulk-action-form');
+
+            if ($(element).length === 0) {
+                showToast('Form not found!', 'danger');
+                return;
+            }
+
+            $.post($(element).attr('action'), $(element).serialize(), function(res) {
+
+                    showToast(res.success ?? 'User Registered Successfully', 'success');
+
+                    $('#table-usertable').DataTable().ajax.reload();
+                    $('.other-actions').hide();
+                    // location.reload();
+                   
+            }, 'json').fail(function() {
+                showToast('User Not Registered', 'danger');
+            })
+
+        }
+
         $(function(){
             $('#user-password-reset-form').submit(function(e){
                 e.preventDefault();
