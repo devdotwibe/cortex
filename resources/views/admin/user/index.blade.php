@@ -440,8 +440,8 @@
             $('#user_time_slote-usertableinit').modal('show');
         }
 
-        function UpgradeUserSubmit()
-        {
+        function UpgradeUserSubmit() {
+
             var userTimeSlots = [];
 
             $('input[name="user_time_slot[]"]:checked').each(function() {
@@ -450,14 +450,13 @@
 
             $('#error-user_time_slot-field').hide();
 
-            if(userTimeSlots.length !=0 )
-            {
+            if (userTimeSlots.length === 0) {
                 $('#error-user_time_slot-field').show();
                 return false;
             }
 
-            $.post({{route('admin.user.upgrade_user')}}, userTimeSlots, function(res) {
-
+            $.post("{{ route('admin.user.upgrade_user') }}", { user_time_slot: userTimeSlots }, function(res) {
+     
                 showToast(res.success ?? 'User Registered Successfully', 'success');
 
                 $('#user_time_slote-usertableinit').modal('hide');
@@ -466,11 +465,11 @@
                 $('.other-actions').hide();
                 location.reload();
 
-                }, 'json').fail(function() {
+            }, 'json').fail(function() {
                 showToast('User Not Registered', 'danger');
-            })
-
+            });
         }
+
 
        
 
