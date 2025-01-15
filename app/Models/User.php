@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Auth\Notifications\ResetPassword;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasFactory, Notifiable,ResourceModel,Billable;
 
@@ -117,9 +117,17 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-    public function sendEmailVerificationNotification()
+    // public function sendEmailVerificationNotification()
+    // {
+    //     $this->notify(new UserEmailVerifyNotification);
+    // }
+
+    protected static function booted()
     {
-        $this->notify(new UserEmailVerifyNotification);
+        static::creating(function ($user) {
+            
+            $user->email_verified_at = Carbon::now();
+        });
     }
 
     public function sendPasswordResetNotification($token)
