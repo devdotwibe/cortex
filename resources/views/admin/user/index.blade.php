@@ -444,6 +444,8 @@
 
             var userTimeSlots = [];
 
+            var slug =  $('#user_id_slug').val();
+
             $('input[name="user_time_slot[]"]:checked').each(function() {
                 userTimeSlots.push($(this).val());
             });
@@ -455,7 +457,7 @@
                 return false;
             }
 
-            $.post("{{ route('admin.user.upgrade_user') }}", { user_time_slot: userTimeSlots }, function(res) {
+            $.post("{{ route('admin.user.upgrade_user') }}", { user_time_slot: userTimeSlots,slug:slug }, function(res) {
      
                 showToast(res.success ?? 'User Registered Successfully', 'success');
 
