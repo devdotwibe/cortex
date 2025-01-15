@@ -45,6 +45,14 @@
                                     <div id="email-error" class="error invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
+
+                                <div class="forms-inputs mb-4">
+                                    <input autocomplete="off" name="re_email" type="text" placeholder="Re-Enter your email" value="{{old('re_email')}}" class="form-control @error('re_email') is-invalid @enderror " >
+                                    @error('re_email')
+                                    <div id="re_email-error" class="error invalid-feedback">{{$message}}</div>
+                                    @enderror
+                                </div>
+
                                 <div class="mb-4" style="font-size: smaller;" >Note: We are currently facing issues with Yahoo, Outlook and Hotmail. Gmail is the preferred email address.</div>
 
                                 <div class="forms-inputs mb-4">

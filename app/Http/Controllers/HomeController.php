@@ -117,6 +117,7 @@ class HomeController extends Controller
             "first_name"=>["required",'string','min:3','max:250'],
             "last_name"=>["required",'string', 'max:250'],
             "email"=>["required",'email:rfc,dns','unique:users','unique:admins','max:250'],
+            "re_email" => ["required","same:re_email"],
             "schooling_year"=>["required",'string','max:250'],
             "password"=>["required",'string','min:6','max:250'],
             "re_password" => ["required","same:password"]
