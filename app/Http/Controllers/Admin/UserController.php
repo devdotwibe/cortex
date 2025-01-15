@@ -132,8 +132,6 @@ class UserController extends Controller
 
             $selectedTimeSlot = explode(',',$request->user_time_slot);
 
-            dd($selectedTimeSlot);
-
             foreach($users as $user)
             {
                 $real_user = User::find($user);
