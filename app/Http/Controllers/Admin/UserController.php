@@ -113,8 +113,6 @@ class UserController extends Controller
     }
     public function bulkaction(Request $request)
     {
-        dd($request);
-
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
 
@@ -130,7 +128,17 @@ class UserController extends Controller
         } 
         elseif(!empty($request->user_register))
         {
+            $private_class = new PrivateClass; 
 
+            $private_class->email = 
+
+            $private_class->full_name = 
+
+            $private_class->parent_name = null;
+            $private_class->timeslot = null;
+            $private_class->user_id = null;
+
+            $private_class->save();
 
             if ($request->ajax()) {
                 return response()->json(["success" => "User Registered success"]);

@@ -340,7 +340,8 @@
 
             var formData = $(element).serializeArray();
     
-            formData.push({ name: 'time_slot_action', value: $('#time_slot_action').val() });
+            formData.push({ name: 'time_slot_action', value: $('#time_slot_action').val() 
+                            ,name: 'user_time_slot', value: $('#user_time_slot').val() });
 
             $.post($(element).attr('action'), formData, function(res) {
 
