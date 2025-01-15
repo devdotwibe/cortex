@@ -213,8 +213,6 @@ class UserController extends Controller
 
         $selectedTimeSlot = $request->user_time_slot;
 
-        dd($selectedTimeSlot);
-
         $private_class_exist = PrivateClass::where('user_id',$real_user->id)->first();
 
         if(empty($private_class_exist))
@@ -225,7 +223,7 @@ class UserController extends Controller
             $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
             $private_class->parent_name = null;
             $private_class->timeslot = $selectedTimeSlot;
-            $private_class->user_id = $user;
+            $private_class->user_id = $real_user->id;
             $private_class->status = 'approved';
             $private_class->is_valid = true;
 
