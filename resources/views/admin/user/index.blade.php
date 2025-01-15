@@ -325,6 +325,7 @@
             if(timeslot =="")
             {
                 $('#error-user_time_slot-field').show();
+                return false;
             }
 
             var element = $('#table-usertable-bulk-action-form');
