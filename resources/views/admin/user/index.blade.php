@@ -339,7 +339,7 @@
                     
 
                     <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                    <button type="button" onclick="SubmitTimeSolt()" class="btn btn-dark">Submit</button>
+                    <button type="button" id="submit_user_slot" onclick="SubmitTimeSolt()" class="btn btn-dark">Submit</button>
                 </form>
             </div>
 
@@ -435,7 +435,27 @@
 
             $('#user_id_slug').val(slug);
 
+            $('#submit_user_slot').attr('onclick','UpgradeUserSubmit');
+
             $('#user_time_slote-usertableinit').modal('show');
+        }
+
+        function UpgradeUserSubmit()
+        {
+            var userTimeSlots = [];
+
+            $('input[name="user_time_slot[]"]:checked').each(function() {
+                userTimeSlots.push($(this).val());
+            });
+
+            $('#error-user_time_slot-field').hide();
+
+            if(userTimeSlots.length !=0 )
+            {
+                $('#error-user_time_slot-field').show();
+                return false;
+            }
+
         }
 
         $(function(){
