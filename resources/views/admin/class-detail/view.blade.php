@@ -80,40 +80,40 @@
                                     <label for="timeslote">Time Slot</label> 
                                     <div class="check-group form-control @error('timeslote') is-invalid  @enderror">
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Monday 6:30 p.m"  >
-                                            <label for="check-group-timeslote-1">Monday 6:30 p.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Monday 6:30 p.m. (Online)"  >
+                                            <label for="check-group-timeslote-1">Monday 6:30 p.m. (Online)</label>
                                         </div> 
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Wednesday 6:30 p.m"  >
-                                            <label for="check-group-timeslote-1">Wednesday 6:30 p.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Wednesday 6:30 p.m. (Online)"  >
+                                            <label for="check-group-timeslote-1">Wednesday 6:30 p.m. (Online)</label>
                                         </div> 
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Thursday 6:30 p.m"  >
-                                            <label for="check-group-timeslote-1">Thursday 6:30 p.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Thursday 6:30 p.m. (Online)"  >
+                                            <label for="check-group-timeslote-1">Thursday 6:30 p.m. (Online)</label>
                                         </div> 
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 9:30 a.m"  >
-                                            <label for="check-group-timeslote-1">Saturday 9:30 a.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 9:30 a.m. (F2F)"  >
+                                            <label for="check-group-timeslote-1">Saturday 9:30 a.m. (F2F)</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 12 p.m"  >
-                                            <label for="check-group-timeslote-1">Saturday 12 p.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 12 p.m. (F2F)"  >
+                                            <label for="check-group-timeslote-1">Saturday 12 p.m. (F2F)</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 2:30 p.m"  >
-                                            <label for="check-group-timeslote-1">Saturday 2:30 p.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 2:30 p.m. (F2F)"  >
+                                            <label for="check-group-timeslote-1">Saturday 2:30 p.m. (F2F)</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 9:30 a.m"  >
-                                            <label for="check-group-timeslote-1">Sunday 9:30 a.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 9:30 a.m. (F2F)"  >
+                                            <label for="check-group-timeslote-1">Sunday 9:30 a.m. (F2F)</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 12 p.m"  >
-                                            <label for="check-group-timeslote-1">Sunday 12 p.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 12 p.m. (F2F)"  >
+                                            <label for="check-group-timeslote-1">Sunday 12 p.m. (F2F)</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 2:30 p.m"  >
-                                            <label for="check-group-timeslote-1">Sunday 2:30 p.m</label>
+                                            <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 2:30 p.m. (F2F)"  >
+                                            <label for="check-group-timeslote-1">Sunday 2:30 p.m. (F2F)</label>
                                         </div>
 
                                     </div>

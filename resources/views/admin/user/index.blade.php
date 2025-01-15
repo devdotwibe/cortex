@@ -253,7 +253,17 @@
                         <div class="form-data">
                             <div class="forms-inputs mb-4">
                                 <label for="user-password">Select Time Slot</label>
-                                <input type="password" name="password" id="user-password" value="" class="form-control password-reset-field" placeholder="Password" aria-placeholder="Password" >        
+                                <select name="user_time_slot" id="user_time_slot">
+                                        <option value="Monday 6:30 p.m. (Online)">Monday 6:30 p.m. (Online)</option>
+                                        <option value="Wednesday 6:30 p.m. (Online)">Wednesday 6:30 p.m. (Online)</option>
+                                        <option value="Thursday 6:30 p.m. (Online)">Thursday 6:30 p.m. (Online)</option>
+                                        <option value="Saturday 9:30 a.m. (F2F)">Saturday 9:30 a.m. (F2F)</option>
+                                        <option value="Saturday 12 p.m. (F2F)">Saturday 12 p.m. (F2F)</option>
+                                        <option value="Saturday 2:30 p.m. (F2F)">Saturday 2:30 p.m. (F2F)</option>
+                                        <option value="Sunday 9:30 a.m. (F2F)">Sunday 9:30 a.m. (F2F)</option>
+                                        <option value="Sunday 12 p.m. (F2F)">Sunday 12 p.m. (F2F)</option>
+                                        <option value="Sunday 2:30 p.m. (F2F)">Sunday 2:30 p.m. (F2F)</option>
+                                </select>       
                                 <div class="invalid-feedback password-reset-error" id="error-password-field" >The field is required</div>
                             </div>
                           

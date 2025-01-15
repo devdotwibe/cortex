@@ -212,40 +212,40 @@
     var requesttable = null;
     var timeslotlist=[ 
             {
-                text:"Monday 6:30 p.m",
-                id:"Monday 6:30 p.m"
+                text:"Monday 6:30 p.m. (Online)",
+                id:"Monday 6:30 p.m. (Online)"
             },
             {
-                text:"Wednesday 6:30 p.m",
-                id:"Wednesday 6:30 p.m"
+                text:"Wednesday 6:30 p.m. (Online)",
+                id:"Wednesday 6:30 p.m. (Online)"
             },
             {
-                text:"Thursday 6:30 p.m",
-                id:"Thursday 6:30 p.m"
+                text:"Thursday 6:30 p.m. (Online)",
+                id:"Thursday 6:30 p.m. (Online)"
             },
             {
-                text:"Saturday 9:30 a.m",
-                id:"Saturday 9:30 a.m"
+                text:"Saturday 9:30 a.m. (F2F)",
+                id:"Saturday 9:30 a.m. (F2F)"
             },
             {
-                text:"Saturday 12 p.m",
-                id:"Saturday 12 p.m"
+                text:"Saturday 12 p.m. (F2F)",
+                id:"Saturday 12 p.m. (F2F)"
             },
             {
-                text:"Saturday 2:30 p.m",
-                id:"Saturday 2:30 p.m"
+                text:"Saturday 2:30 p.m. (F2F)",
+                id:"Saturday 2:30 p.m. (F2F)"
             },
             {
-                text:"Sunday 9:30 a.m",
-                id:"Sunday 9:30 a.m"
+                text:"Sunday 9:30 a.m. (F2F)",
+                id:"Sunday 9:30 a.m. (F2F)"
             },
             {
-                text:"Sunday 12 p.m",
-                id:"Sunday 12 p.m"
+                text:"Sunday 12 p.m. (F2F)",
+                id:"Sunday 12 p.m. (F2F)"
             },
             {
-                text:"Sunday 2:30 p.m",
-                id:"Sunday 2:30 p.m"
+                text:"Sunday 2:30 p.m. (F2F)",
+                id:"Sunday 2:30 p.m. (F2F)"
             },
     ]
     function requesttableinit(table) {
