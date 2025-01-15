@@ -122,7 +122,7 @@
                     $(`#table-{{ $tableid }}-bulk-action-form`).submit()
                 }
             } 
-            if else(v === 'updateaction')
+            else if(v === 'updateaction')
              {
                 $('#deleteaction{{ $tableid }}').val('')
                 if (await showConfirm({
@@ -131,7 +131,7 @@
                     $(`#table-{{ $tableid }}-bulk-action-form`).submit()
                 }
             }
-            if else(v === 'registeruser')
+            else if(v === 'registeruser')
             {
 
                 $('#user_time_slote-{{ $tableinit }}').modal('show');
