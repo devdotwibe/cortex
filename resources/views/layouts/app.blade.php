@@ -166,7 +166,7 @@
                     </div>
                     <div class="footer-col2">
 
-                         <h3>Can you add 'Need Support?'</h3>
+                         <h3>Need Support?</h3>
                         <ul>
                             <li><a href="mailto:Contact support@cortexacademy.com.au">Contact support@cortexacademy.com.au</a></li>
                         </ul> 
