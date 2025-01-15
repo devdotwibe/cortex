@@ -130,7 +130,7 @@ class UserController extends Controller
         {
             $users = $request->input('selectbox', []);
 
-            $selectedTimeSlot = implode(',',$request->user_time_slot);
+            $selectedTimeSlot = explode(',',$request->user_time_slot);
 
             dd($selectedTimeSlot);
 
