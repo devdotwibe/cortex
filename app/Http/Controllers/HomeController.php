@@ -121,6 +121,10 @@ class HomeController extends Controller
             "schooling_year"=>["required",'string','max:250'],
             "password"=>["required",'string','min:6','max:250'],
             "re_password" => ["required","same:password"]
+        ],
+        [
+            're_email.same' => 'The Re-enter email field must match the email address.',
+            're_email.required' => 'The Re-enter email field is required.',
         ]);
 
         $userdata['name'] = $request->first_name . ' ' . $request->last_name;

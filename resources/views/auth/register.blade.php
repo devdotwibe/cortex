@@ -127,6 +127,10 @@
                 //     }
                 // }
 	        },
+            re_email: {
+                required: true,
+                equalTo: '[name="email"]'  
+            },
             re_password: {
                 required: true,
                 minlength: 6,
@@ -153,6 +157,10 @@
                 required: "Please confirm your password",
                 minlength: "Your password must be at least 6 characters long",
                 equalTo: "Passwords do not match"   
+            }, 
+            re_email: {
+                required: "Please confirm your Email",
+                equalTo: "Emails do not match"   
             },  
 	        email: {
 	            required: "Please enter your email",
