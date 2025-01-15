@@ -283,6 +283,8 @@
                                                    
                                         <input type="hidden" name="time_slot_action" id="time_slot_action" value="">
 
+                                        <input type="hidden" name="user_id_slug" id="user_id_slug" value="">
+
                                             <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-0" value="Monday 6:30 p.m. (Online)" >
                                                 <label for="check-group-timeslot-0">Monday 6:30 p.m. (Online)</label>
@@ -327,6 +329,8 @@
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 2:30 p.m. (F2F)" >
                                                 <label for="check-group-timeslot-4">Sunday 2:30 p.m. (F2F)</label>
                                             </div>
+
+                                            <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >Atleast one is field is required</div>
 
                                     </div>                                                      
                                 </div>
@@ -381,11 +385,15 @@
         } 
         function SubmitTimeSolt()
         {
-            var timeslot = $('#user_time_slot').val();
+            var userTimeSlots = [];
+
+            $('input[name="user_time_slot[]"]:checked').each(function() {
+                userTimeSlots.push($(this).val());
+            });
 
             $('#error-user_time_slot-field').hide();
 
-            if(timeslot =="")
+            if(userTimeSlots.length !=0 )
             {
                 $('#error-user_time_slot-field').show();
                 return false;
@@ -403,12 +411,6 @@
     
             formData.push({ name: 'time_slot_action', value: $('#time_slot_action').val() });
 
-            var userTimeSlots = [];
-
-            $('input[name="user_time_slot[]"]:checked').each(function() {
-                userTimeSlots.push($(this).val());
-            });
-
             formData.push({ name: 'user_time_slot', value: userTimeSlots });
 
             $.post($(element).attr('action'), formData, function(res) {
@@ -425,6 +427,15 @@
                 showToast('User Not Registered', 'danger');
             })
 
+        }
+
+        function UpgradeUser(slug)
+        {
+            console.log(slug);
+
+            $('#user_id_slug').val(slug);
+            
+            $('#user_time_slote-usertableinit').modal('show');
         }
 
         $(function(){
