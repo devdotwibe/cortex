@@ -135,6 +135,7 @@
             {
 
                 $('#user_time_slote-{{ $tableinit }}').modal('show');
+                console.log('registeruser pop');
             
             }
             return false;
