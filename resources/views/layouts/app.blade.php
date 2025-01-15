@@ -165,13 +165,13 @@
                         </div>
                     </div>
                     <div class="footer-col2">
-                        {{-- <h3>Courses</h3>
-                        {{-- <ul>
-                            <li><a href="">Diagnostic Exam</a></li>
-                            <li><a href="">Critical Reasoning</a></li>
-                            <li><a href="">Exam Preparation</a></li>
-                        </ul> --}} 
+
+                         <h3>Can you add 'Need Support?'</h3>
+                        <ul>
+                            <li><a href="mailto:Contact support@cortexacademy.com.au">Contact support@cortexacademy.com.au</a></li>
+                        </ul> 
                     </div>
+
                     <div class="footer-col3">
                         <h3>Information</h3>
                         <ul>
