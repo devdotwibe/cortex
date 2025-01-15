@@ -50,7 +50,7 @@
                                     <div class="form-group">
 
                                         <button class="btn btn-dark" type="button"
-                                            onclick="return updateaction{{ $tableid }}('updateaction')">Register User</button>
+                                            onclick="return updateaction{{ $tableid }}('registeruser')">Register User</button>
 
                                         <button class="btn btn-warning" type="button"
                                             onclick="return updateaction{{ $tableid }}('updateaction')">Submit</button>
@@ -121,13 +121,21 @@
                     })) {
                     $(`#table-{{ $tableid }}-bulk-action-form`).submit()
                 }
-            } else {
+            } 
+            if else(v === 'updateaction')
+             {
                 $('#deleteaction{{ $tableid }}').val('')
                 if (await showConfirm({
                         title: "Are you sure you want to take action on these records?"
                     })) {
                     $(`#table-{{ $tableid }}-bulk-action-form`).submit()
                 }
+            }
+            if else(v === 'registeruser')
+            {
+
+                $('#user_time_slote-{{ $tableinit }}').modal('show');
+            
             }
             return false;
         }

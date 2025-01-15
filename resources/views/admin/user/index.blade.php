@@ -236,6 +236,38 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="user_time_slote-usertableinit" tabindex="-1" role="dialog" aria-labelledby="password-resetLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="password-resetLablel">Resgister User</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action=""  id="time_slote_form" method="post">
+                    @csrf 
+                    <div class="form-group">
+                        <div class="form-data">
+                            <div class="forms-inputs mb-4">
+                                <label for="user-password">Select Time Slot</label>
+                                <input type="password" name="password" id="user-password" value="" class="form-control password-reset-field" placeholder="Password" aria-placeholder="Password" >        
+                                <div class="invalid-feedback password-reset-error" id="error-password-field" >The field is required</div>
+                            </div>
+                          
+                        </div>                        
+                     </div>
+                    <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @endpush
 @push('footer-script')
 
