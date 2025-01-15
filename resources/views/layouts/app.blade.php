@@ -168,7 +168,7 @@
 
                          <h3>Need Support?</h3>
                         <ul>
-                            <li><a href="mailto:Contact support@cortexacademy.com.au">Contact support@cortexacademy.com.au</a></li>
+                            <li>Contact <a href="mailto:support@cortexacademy.com.au">support@cortexacademy.com.au</a></li>
                         </ul> 
                     </div>
 
