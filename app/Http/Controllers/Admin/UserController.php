@@ -128,6 +128,11 @@ class UserController extends Controller
         } 
         elseif(!empty($request->user_register))
         {
+
+            $users = $request->input('selectbox', []);
+
+            dd($users);
+
             $private_class = new PrivateClass; 
 
             $private_class->email = 
