@@ -272,7 +272,7 @@
                         </div>                        
                      </div>
                     <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                    <button type="button" onclick="SubmitTimeSolt(this)" class="btn btn-dark">Submit</button>
+                    <button type="button" onclick="SubmitTimeSolt()" class="btn btn-dark">Submit</button>
                 </form>
             </div>
 
@@ -316,10 +316,8 @@
             $('.password-reset-error').text("")
             $('#password-reset-modal').modal('show')
         } 
-        function SubmitTimeSolt(e)
+        function SubmitTimeSolt()
         {
-            e.preventDefault();
-
             var timeslot = $('#user_time_slot').val();
 
             $('#error-user_time_slot-field').hide();
