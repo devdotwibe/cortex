@@ -255,7 +255,7 @@
                                 <label for="user-password">Select Time Slot</label>
                                 
                                 <select name="user_time_slot" id="user_time_slot" class="form-control">
-
+                                        <option value="">Select Time Slot</option>
                                         <option value="Monday 6:30 p.m. (Online)">Monday 6:30 p.m. (Online)</option>
                                         <option value="Wednesday 6:30 p.m. (Online)">Wednesday 6:30 p.m. (Online)</option>
                                         <option value="Thursday 6:30 p.m. (Online)">Thursday 6:30 p.m. (Online)</option>
@@ -271,8 +271,8 @@
                           
                         </div>                        
                      </div>
-                    <button type="button" onclick="SubmitTimeSolt(this)" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-dark">Submit</button>
+                    <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                    <button type="button" onclick="SubmitTimeSolt(this)" class="btn btn-dark">Submit</button>
                 </form>
             </div>
 
