@@ -160,7 +160,7 @@
             }, 
             re_email: {
                 required: "Please confirm your Email",
-                equalTo: "The Re-enter email field must match the email address."   
+                equalTo: "The re-enter email field must match the email address."   
             },  
 	        email: {
 	            required: "Please enter your email",
