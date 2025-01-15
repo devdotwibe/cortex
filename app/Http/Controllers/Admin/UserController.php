@@ -114,10 +114,12 @@ class UserController extends Controller
     public function bulkaction(Request $request)
     {
         dd($request);
-        
+
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                User::where('id', '>', 0)->delete();
+
+                User::whereIn('id', $request->input('select_all_values', []))->delete();
+
             } else {
                 User::whereIn('id', $request->input('selectbox', []))->delete();
             }
@@ -125,7 +127,18 @@ class UserController extends Controller
                 return response()->json(["success" => "Users deleted success"]);
             }
             return redirect()->route('admin.user.index')->with("success", "Users deleted success");
-        } else {
+        } 
+        elseif(!empty($request->user_register))
+        {
+
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "User Registered success"]);
+            }
+
+            return redirect()->route('admin.user.index')->with("success", "Users deleted success");
+        }
+        else {
             $request->validate([
                 "bulkaction" => ['required']
             ]);
