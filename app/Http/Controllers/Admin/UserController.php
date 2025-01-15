@@ -126,7 +126,7 @@ class UserController extends Controller
             }
             return redirect()->route('admin.user.index')->with("success", "Users deleted success");
         } 
-        elseif(!empty($request->user_register))
+        elseif(!empty($request->time_slot_action))
         {
 
             $users = $request->input('selectbox', []);
