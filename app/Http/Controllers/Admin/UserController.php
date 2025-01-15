@@ -209,11 +209,13 @@ class UserController extends Controller
 
     public function upgrade_user(Request $request)
     {
-        dd($request);
+        $real_user = User::findSlug($request->slug);
 
-        $real_user = User::find($user);
+        $selectedTimeSlot = $request->user_time_slot;
 
-        $private_class_exist = PrivateClass::where('user_id',$user)->first();
+        dd($selectedTimeSlot);
+
+        $private_class_exist = PrivateClass::where('user_id',$real_user->id)->first();
 
         if(empty($private_class_exist))
         {
@@ -229,11 +231,10 @@ class UserController extends Controller
 
             $private_class->save();
         }
-
         if ($request->ajax()) {
             return response()->json(["success" => "User Registered success"]);
         }
-        
+
         return redirect()->route('admin.user.index')->with("success", "Users deleted success");
     }
 
