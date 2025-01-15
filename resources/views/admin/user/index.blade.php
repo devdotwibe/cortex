@@ -440,37 +440,7 @@
             $('#user_time_slote-usertableinit').modal('show');
         }
 
-        function UpgradeUserSubmit()
-        {
-            var userTimeSlots = [];
-
-            $('input[name="user_time_slot[]"]:checked').each(function() {
-                userTimeSlots.push($(this).val());
-            });
-
-            $('#error-user_time_slot-field').hide();
-
-            if(userTimeSlots.length !=0 )
-            {
-                $('#error-user_time_slot-field').show();
-                return false;
-            }
-
-            $.post({{route('admin.user.upgrade_user')}}, userTimeSlots, function(res) {
-
-                showToast(res.success ?? 'User Registered Successfully', 'success');
-
-                $('#user_time_slote-usertableinit').modal('hide');
-
-                $('#table-usertable').DataTable().ajax.reload();
-                $('.other-actions').hide();
-                location.reload();
-
-                }, 'json').fail(function() {
-                showToast('User Not Registered', 'danger');
-            })
-
-        }
+       
 
         $(function(){
             $('#user-password-reset-form').submit(function(e){
