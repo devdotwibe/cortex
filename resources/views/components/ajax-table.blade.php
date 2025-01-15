@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="form-group">
 
-                                        <button class="btn btn-warning" type="button"
+                                        <button class="btn btn-dark" type="button"
                                             onclick="return updateaction{{ $tableid }}('updateaction')">Register User</button>
 
                                         <button class="btn btn-warning" type="button"
