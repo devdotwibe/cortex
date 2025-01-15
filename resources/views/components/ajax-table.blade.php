@@ -48,6 +48,10 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+
+                                        <button class="btn btn-warning" type="button"
+                                            onclick="return updateaction{{ $tableid }}('updateaction')">Register User</button>
+
                                         <button class="btn btn-warning" type="button"
                                             onclick="return updateaction{{ $tableid }}('updateaction')">Submit</button>
                                         <button class="btn btn-danger" type="button"
