@@ -130,6 +130,8 @@ class UserController extends Controller
         {
             $users = $request->input('selectbox', []);
 
+            $selectedTimeSlot = json_decode($request->user_time_slot, true);
+
             foreach($users as $user)
             {
                 $real_user = User::find($user);
@@ -143,7 +145,7 @@ class UserController extends Controller
                     $private_class->email = $real_user->email;
                     $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
                     $private_class->parent_name = null;
-                    $private_class->timeslot = $request->user_time_slot;
+                    $private_class->timeslot = $selectedTimeSlot;
                     $private_class->user_id = $user;
                     $private_class->status = 'approved';
                     $private_class->is_valid = true;
