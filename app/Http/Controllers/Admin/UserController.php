@@ -78,6 +78,17 @@ class UserController extends Controller
             })->addAction(function ($data) {
                 return '
                    
+
+                  <a onclick="UpgradeUser('.$data->slug.')" target="_blank" rel="noreferrer" class="btn btn-icons upgrade_btn">
+                    <span class="adminside-icon">
+                        <img src="' . asset('assets/images/updgrade.png') . '" alt="Register List">
+                    </span>
+                    <span class="adminactive-icon">
+                        <img src="' . asset('assets/images/updgrade.png') . '" alt="Register Active" title="Register List">
+                    </span>
+                </a>
+
+
                             <a href="' . route('admin.user.spectate', $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                     <span class="adminside-icon">
                         <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
