@@ -80,6 +80,8 @@ class LiveClassController extends Controller
         return view('user.live-class.privateform',compact('user','live_class')); 
     }
     public function privateclassformsubmit(Request  $request){ 
+        
+        dd($request);
         $data=$request->validate([
             'email'=>['required','email:rfc,dns','unique:private_classes','max:250'],
             'full_name'=>['required','string','max:255'],
