@@ -348,9 +348,11 @@
 
                     showToast(res.success ?? 'User Registered Successfully', 'success');
 
+                    $('#user_time_slote-usertableinit').modal('show');
+
                     $('#table-usertable').DataTable().ajax.reload();
                     $('.other-actions').hide();
-                    // location.reload();
+                    location.reload();
                    
             }, 'json').fail(function() {
                 showToast('User Not Registered', 'danger');
