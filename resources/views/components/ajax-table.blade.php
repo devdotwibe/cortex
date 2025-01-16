@@ -141,7 +141,7 @@
 
                 var userexist = false;
 
-                $('#table-{{ $tableid }} .selectbox').each(function() {
+                $('#table-{{ $tableid }} .selectbox:checked').each(function() {
 
                     if ($('.selectbox').hasClass('registered')) {
                         userexist = true;
