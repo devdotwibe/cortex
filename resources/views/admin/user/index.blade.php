@@ -250,32 +250,7 @@
             <div class="modal-body">
                 <form action=""  id="time_slote_form" method="post">
                     @csrf 
-                    {{-- <div class="form-group">
-                        <div class="form-data">
-                            <div class="forms-inputs mb-4">
-                                <label for="user-password">Select Time Slot</label>
-                                
-                                <input type="hidden" name="time_slot_action" id="time_slot_action" value="">
-
-                                <select name="user_time_slot" id="user_time_slot" class="form-control">
-                                        <option value="">Select Time Slot</option>
-                                        <option value='["Monday 6:30 p.m. (Online)"]'>Monday 6:30 p.m. (Online)</option>
-                                        <option value='["Wednesday 6:30 p.m. (Online)"]'>Wednesday 6:30 p.m. (Online)</option>
-                                        <option value='["Thursday 6:30 p.m. (Online)"]'>Thursday 6:30 p.m. (Online)</option>
-                                        <option value='["Saturday 9:30 a.m. (F2F)"]'>Saturday 9:30 a.m. (F2F)</option>
-                                        <option value='["Saturday 12 p.m. (F2F)"]'>Saturday 12 p.m. (F2F)</option>
-                                        <option value='["Saturday 2:30 p.m. (F2F)"]'>Saturday 2:30 p.m. (F2F)</option>
-                                        <option value='["Sunday 9:30 a.m. (F2F)"]'>Sunday 9:30 a.m. (F2F)</option>
-                                        <option value='["Sunday 12 p.m. (F2F)"]'>Sunday 12 p.m. (F2F)</option>
-                                        <option value='["Sunday 2:30 p.m. (F2F)"]'>Sunday 2:30 p.m. (F2F)</option>
-                                </select>  
-
-                                <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >The field is required</div>
-                            </div>
-                          
-                        </div>                        
-                     </div> --}}
-
+                  
                         <div class="form-group">
                             <div class="form-data">
                                 <div class="forms-inputs mb-4"> 
@@ -333,6 +308,7 @@
 
                                             <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >Atleast one is field is required</div>
 
+                                            <div class="note-text" id="note_text" style="display:none;">Some users are already registered.</div>
                                     </div>                                                      
                                 </div>
                             </div>
