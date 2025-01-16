@@ -182,15 +182,19 @@ trait ResourceController
             $privateclass =PrivateClass::where('user_id',$data->id)->first();
             $register_user ="";
 
+            $inlinestyle ="";
+
             if(!empty($privateclass))
             {
                 $register_user ="registered";
+
+                $inlinestyle = "style='border-color: green !important; background-color: green !important;'";
             }
 
             return ' 
 
             <div class="form-check selectbox-box">
-                <input type="checkbox"  class="selectbox form-check-box '.$register_user.'" name="selectbox[]" value="'.($data->id).'" '.(request('select_all','no')=="yes"?"checked":"").'> 
+                <input type="checkbox"  class="selectbox form-check-box '.$register_user.'" '.$inlinestyle.' name="selectbox[]" value="'.($data->id).'" '.(request('select_all','no')=="yes"?"checked":"").'> 
             </div>
                 
             ';
