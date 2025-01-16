@@ -143,11 +143,11 @@
 
                 $('#table-{{ $tableid }} .selectbox').each(function() {
 
-                    if ($(this).hasClass('registered')) {
+                    if ($('.selectbox').hasClass('registered')) {
                         userexist = true;
                     }
                 });
-                
+
                 if(userexist)
                 {
                     $('#note_text').show();
