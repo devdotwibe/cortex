@@ -53,6 +53,12 @@ class UserController extends Controller
                             $qry->whereIn('id', PrivateClass::where('status', '!=', 'rejected')->select('user_id'));
                         });
                         break;
+                    case 'non-student-users':
+                        $this->where(function ($qry) {
+                            $qry->doesntHave('privateClass');
+                        });
+                        break;
+                        
 
                     default:
                         break;

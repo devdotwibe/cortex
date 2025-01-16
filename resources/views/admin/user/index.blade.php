@@ -14,6 +14,7 @@
                     <option value="free-users">Free users</option>
                     <option value="paid-users">Paid users</option>
                     <option value="student-users">Student users</option>
+                    <option value="non-student-users">None Student users</option>
                 </select>
             </div>
         </div>
