@@ -141,12 +141,13 @@
 
                 var userexist = false;
 
-                $('#table-{{ $tableid }} .selectbox:checked').each(function() {
-
-                    if ($('.selectbox').hasClass('registered')) {
-                        userexist = true;
-                    }
-                });
+                if ($('#table-{{ $tableid }} .selectbox:checked').length > 1) {
+                    $('#table-{{ $tableid }} .selectbox:checked').each(function() {
+                        if ($(this).hasClass('registered')) {
+                            userexist = true;
+                        }
+                    });
+                }
 
                 if(userexist)
                 {
