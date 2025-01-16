@@ -137,6 +137,22 @@
 
                 $('#submit_user_slot').attr('onclick','SubmitTimeSolt()');
 
+                $('#note_text').hide();
+
+                var userexist = false;
+
+                $('#table-{{ $tableid }} .selectbox').each(function() {
+
+                    if ($(this).hasClass('registered')) {
+                        userexist = true;
+                    }
+                });
+                
+                if(userexist)
+                {
+                    $('#note_text').show();
+                }
+         
                 $('#user_time_slote-{{ $tableinit }}').modal('show');
                 console.log('registeruser pop');
             
