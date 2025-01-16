@@ -308,7 +308,7 @@
 
                                             <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >Atleast one is field is required</div>
 
-                                            <div class="note-text" id="note_text" style="display:none;">Some users are already registered.</div>
+                                            <div class="note-text" id="note_text alert alert-warning" style="display:none;">Some users are already registered.</div>
                                     </div>                                                      
                                 </div>
                             </div>
