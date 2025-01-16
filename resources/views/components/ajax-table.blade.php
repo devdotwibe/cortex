@@ -48,6 +48,10 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+
+                                        <button class="btn btn-dark" type="button"
+                                            onclick="return updateaction{{ $tableid }}('registeruser')">Register User</button>
+
                                         <button class="btn btn-warning" type="button"
                                             onclick="return updateaction{{ $tableid }}('updateaction')">Submit</button>
                                         <button class="btn btn-danger" type="button"
@@ -117,13 +121,42 @@
                     })) {
                     $(`#table-{{ $tableid }}-bulk-action-form`).submit()
                 }
-            } else {
+            } 
+            else if(v === 'updateaction')
+             {
                 $('#deleteaction{{ $tableid }}').val('')
                 if (await showConfirm({
                         title: "Are you sure you want to take action on these records?"
                     })) {
                     $(`#table-{{ $tableid }}-bulk-action-form`).submit()
                 }
+            }
+            else if(v === 'registeruser')
+            {
+                $('#time_slot_action').val('');
+
+                $('#submit_user_slot').attr('onclick','SubmitTimeSolt()');
+
+                $('#note_text').hide();
+
+                var userexist = false;
+
+                if ($('#table-{{ $tableid }} .selectbox:checked').length > 1) {
+                    $('#table-{{ $tableid }} .selectbox:checked').each(function() {
+                        if ($(this).hasClass('registered')) {
+                            userexist = true;
+                        }
+                    });
+                }
+
+                if(userexist)
+                {
+                    $('#note_text').show();
+                }
+         
+                $('#user_time_slote-{{ $tableinit }}').modal('show');
+                console.log('registeruser pop');
+            
             }
             return false;
         }

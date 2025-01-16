@@ -177,6 +177,7 @@
                         </ul> 
                     </div>
 
+
                     <div class="footer-col3">
                         <h3>Information</h3>
                         <ul>

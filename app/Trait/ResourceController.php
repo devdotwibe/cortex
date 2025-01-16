@@ -2,6 +2,7 @@
 
 namespace App\Trait;
 
+use App\Models\PrivateClass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request; 
 use Yajra\DataTables\Facades\DataTables;
@@ -177,14 +178,28 @@ trait ResourceController
         
         $table=DataTables::of($query);
         $table->addColumn('selectbox',function($data){
+
+            $privateclass =PrivateClass::where('user_id',$data->id)->first();
+            $register_user ="";
+
+            $inlinestyle ="";
+
+            if(!empty($privateclass))
+            {
+                $register_user ="registered";
+
+                $inlinestyle = "style='border-color: green !important;'";
+            }
+
             return ' 
 
             <div class="form-check selectbox-box">
-                <input type="checkbox"  class="selectbox form-check-box" name="selectbox[]" value="'.($data->id).'" '.(request('select_all','no')=="yes"?"checked":"").'> 
+                <input type="checkbox"  class="selectbox form-check-box '.$register_user.'" '.$inlinestyle.' name="selectbox[]" value="'.($data->id).'" '.(request('select_all','no')=="yes"?"checked":"").'> 
             </div>
                 
             ';
-        })->addColumn('date',function($data){
+        })
+        ->addColumn('date',function($data){
             return $data->created_at->format('Y-m-d');
         })
         ->addColumn('updated_at',function($data){

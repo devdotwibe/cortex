@@ -14,6 +14,7 @@
                     <option value="free-users">Free users</option>
                     <option value="paid-users">Paid users</option>
                     <option value="student-users">Student users</option>
+                    <option value="non-student-users">None Student users</option>
                 </select>
             </div>
         </div>
@@ -196,7 +197,7 @@
                     ["th"=>"Free Access","name"=>"is_free_access","data"=>"is_free_access"],
                     ["th"=>"Email Verification","name"=>"is_user_verfied","data"=>"is_user_verfied"],
                     ["th"=>"Community","name"=>"post_status","data"=>"post_status"],
-            ]' tableinit="usertableinit" beforeajax="usertablefilter" />
+            ]' tableinit="usertableinit" beforeajax="usertablefilter" tableid="usertable" />
         </div>
     </div>
 </section>
@@ -236,6 +237,93 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="user_time_slote-usertableinit" tabindex="-1" role="dialog" aria-labelledby="password-resetLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="password-resetLablel">Resgister User</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action=""  id="time_slote_form" method="post">
+                    @csrf 
+                  
+                        <div class="form-group">
+                            <div class="form-data">
+                                <div class="forms-inputs mb-4"> 
+                                    <label for="time_slot_action">Select your available timeslot (you can choose more than one) *</label>
+                                    <div class="check-group form-control ">
+                                                   
+                                        <input type="hidden" name="time_slot_action" id="time_slot_action" value="">
+
+                                        <input type="hidden" name="user_id_slug" id="user_id_slug" value="">
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-0" value="Monday 6:30 p.m. (Online)" >
+                                                <label for="check-group-timeslot-0">Monday 6:30 p.m. (Online)</label>
+                                            </div>                                                            
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-1" value="Wednesday 6:30 p.m. (Online)" >
+                                                <label for="check-group-timeslot-1">Wednesday 6:30 p.m. (Online)</label>
+                                            </div>                                                            
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-2" value="Thursday 6:30 p.m. (Online)" >
+                                                <label for="check-group-timeslot-2">Thursday 6:30 p.m. (Online)</label>
+                                            </div>                                                            
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-3" value="Saturday 9:30 a.m. (F2F)" >
+                                                <label for="check-group-timeslot-3">Saturday 9:30 a.m. (F2F)</label>
+                                            </div>  
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-4" value="Saturday 12 p.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Saturday 12 p.m. (F2F)</label>
+                                            </div> 
+                                            
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-5" value="Saturday 2:30 p.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Saturday 2:30 p.m. (F2F)</label>
+                                            </div>  
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 9:30 a.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Sunday 9:30 a.m. (F2F)</label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 12 p.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Sunday 12 p.m. (F2F)</label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 2:30 p.m. (F2F)" >
+                                                <label for="check-group-timeslot-4">Sunday 2:30 p.m. (F2F)</label>
+                                            </div>
+
+                                            <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >Atleast one is field is required</div>
+
+                                            <div class="note-text alert alert-warning" id="note_text" style="display:none;">Some users are already registered.</div>
+                                    </div>                                                      
+                                </div>
+                            </div>
+                        </div>    
+                    
+
+                    <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                    <button type="button" id="submit_user_slot" onclick="SubmitTimeSolt()" class="btn btn-dark">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @endpush
 @push('footer-script')
 
@@ -272,6 +360,98 @@
             $('.password-reset-error').text("")
             $('#password-reset-modal').modal('show')
         } 
+        function SubmitTimeSolt()
+        {
+            var userTimeSlots = [];
+
+            $('input[name="user_time_slot[]"]:checked').each(function() {
+                userTimeSlots.push($(this).val());
+            });
+
+            $('#error-user_time_slot-field').hide();
+
+            if(userTimeSlots.length ===0 )
+            {
+                $('#error-user_time_slot-field').show();
+                return false;
+            }
+
+            var element = $('#table-usertable-bulk-action-form');
+
+            if ($(element).length === 0) {
+                showToast('Form not found!', 'danger');
+                return;
+            }
+            $('#time_slot_action').val('user_register');
+
+            var formData = $(element).serializeArray();
+    
+            formData.push({ name: 'time_slot_action', value: $('#time_slot_action').val() });
+
+            formData.push({ name: 'user_time_slot', value: userTimeSlots });
+
+            $.post($(element).attr('action'), formData, function(res) {
+
+                    showToast(res.success ?? 'User Registered Successfully', 'success');
+
+                    $('#user_time_slote-usertableinit').modal('hide');
+
+                    $('#table-usertable').DataTable().ajax.reload();
+                    $('.other-actions').hide();
+                    location.reload();
+                   
+            }, 'json').fail(function() {
+                showToast('User Not Registered', 'danger');
+            })
+
+        }
+
+        function UpgradeUser(slug)
+        {
+            console.log(slug);
+
+            $('#user_id_slug').val(slug);
+
+            $('#submit_user_slot').attr('onclick','UpgradeUserSubmit()');
+
+            $('#user_time_slote-usertableinit').modal('show');
+        }
+
+        function UpgradeUserSubmit() {
+
+            var userTimeSlots = [];
+
+            var slug =  $('#user_id_slug').val();
+
+            $('input[name="user_time_slot[]"]:checked').each(function() {
+                userTimeSlots.push($(this).val());
+            });
+
+            $('#error-user_time_slot-field').hide();
+
+            if (userTimeSlots.length === 0) {
+                $('#error-user_time_slot-field').show();
+                return false;
+            }
+
+            $.post("{{ route('admin.user.upgrade_user') }}", { user_time_slot: userTimeSlots,slug:slug }, function(res) {
+     
+                showToast(res.success ?? 'User Registered Successfully', 'success');
+
+                $('#user_time_slote-usertableinit').modal('hide');
+
+                $('#table-usertable').DataTable().ajax.reload();
+                $('.other-actions').hide();
+                location.reload();
+
+            }, 'json').fail(function() {
+                showToast('User Not Registered', 'danger');
+            });
+        }
+
+
+       
+
         $(function(){
             $('#user-password-reset-form').submit(function(e){
                 e.preventDefault();

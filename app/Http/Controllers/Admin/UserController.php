@@ -53,6 +53,12 @@ class UserController extends Controller
                             $qry->whereIn('id', PrivateClass::where('status', '!=', 'rejected')->select('user_id'));
                         });
                         break;
+                    case 'non-student-users':
+                        $this->where(function ($qry) {
+                            $qry->doesntHave('privateClass');
+                        });
+                        break;
+                        
 
                     default:
                         break;
@@ -76,29 +82,46 @@ class UserController extends Controller
                             <label class="form-check-label" for="active-toggle-' . $data->id . '">Active</label>
                         </div>';
             })->addAction(function ($data) {
-                return '
+
+                $privateclass =PrivateClass::where('user_id',$data->id)->first();
+
+                $action ="";
+                
+                if(empty($privateclass))
+                {
+                    $action .='
+                                <a onclick="UpgradeUser(\'' . $data->slug . '\')" target="_blank" rel="noreferrer" class="btn btn-icons upgrade_btn">
+                                    <span class="adminside-icon">
+                                        <img src="' . asset('assets/images/updgrade.png') . '" alt="Register List">
+                                    </span>
+                                    <span class="adminactive-icon">
+                                        <img src="' . asset('assets/images/updgrade.png') . '" alt="Register Active" title="Register List">
+                                    </span>
+                                </a> ';
+
+                }
+
+                $action .= '
+                                <a href="' . route('admin.user.spectate', $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
+                                    <span class="adminside-icon">
+                                        <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
+                                    </span>
+                                    <span class="adminactive-icon">
+                                        <img src="' . asset('assets/images/iconshover/mdi_incognito-yellow.svg') . '" alt="Spectate Active" title="Spectate">
+                                    </span>
+                                </a>
+
+                                <a onclick="resetpassword(' . "'" . route('admin.user.resetpassword', $data->slug) . "'" . ')" class="btn btn-icons reset_btn">
+                                    <span class="adminside-icon">
+                                        <img src="' . asset('assets/images/icons/material-symbols_lock-outline.svg') . '" alt="Reset Password">
+                                    </span>
+                                    <span class="adminactive-icon">
+                                        <img src="' . asset('assets/images/iconshover/material-symbols_lock-yellow.svg') . '" alt="Reset Password Active" title="Reset Password">
+                                    </span>
+                                </a> ';
+
+                return $action;
                    
-                            <a href="' . route('admin.user.spectate', $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
-                    <span class="adminside-icon">
-                        <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
-                    </span>
-                    <span class="adminactive-icon">
-                        <img src="' . asset('assets/images/iconshover/mdi_incognito-yellow.svg') . '" alt="Spectate Active" title="Spectate">
-                    </span>
-                </a>
-
-
-                    <a onclick="resetpassword(' . "'" . route('admin.user.resetpassword', $data->slug) . "'" . ')" class="btn btn-icons reset_btn">
-    <span class="adminside-icon">
-        <img src="' . asset('assets/images/icons/material-symbols_lock-outline.svg') . '" alt="Reset Password">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset('assets/images/iconshover/material-symbols_lock-yellow.svg') . '" alt="Reset Password Active" title="Reset Password">
-    </span>
-</a>
-
-
-                ';
             })->buildTable(['post_status', 'is_free_access','is_user_verfied']);
         }
         $unverifyuser = User::whereNull('email_verified_at')->count();
@@ -115,7 +138,9 @@ class UserController extends Controller
     {
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
-                User::where('id', '>', 0)->delete();
+
+                User::whereIn('id', $request->input('select_all_values', []))->delete();
+
             } else {
                 User::whereIn('id', $request->input('selectbox', []))->delete();
             }
@@ -123,7 +148,42 @@ class UserController extends Controller
                 return response()->json(["success" => "Users deleted success"]);
             }
             return redirect()->route('admin.user.index')->with("success", "Users deleted success");
-        } else {
+        } 
+        elseif(!empty($request->time_slot_action))
+        {
+            $users = $request->input('selectbox', []);
+
+            $selectedTimeSlot = explode(',',$request->user_time_slot);
+
+            foreach($users as $user)
+            {
+                $real_user = User::find($user);
+
+                $private_class_exist = PrivateClass::where('user_id',$user)->first();
+
+                if(empty($private_class_exist))
+                {
+                    $private_class = new PrivateClass; 
+
+                    $private_class->email = $real_user->email;
+                    $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
+                    $private_class->parent_name = null;
+                    $private_class->timeslot = $selectedTimeSlot;
+                    $private_class->user_id = $user;
+                    $private_class->status = 'approved';
+                    $private_class->is_valid = true;
+        
+                    $private_class->save();
+                }
+            }
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "User Registered success"]);
+            }
+
+            return redirect()->route('admin.user.index')->with("success", "Users deleted success");
+        }
+        else {
             $request->validate([
                 "bulkaction" => ['required']
             ]);
@@ -158,6 +218,36 @@ class UserController extends Controller
             return redirect()->route('admin.user.index')->with("success", "Users update success");
         }
     }
+
+    public function upgrade_user(Request $request)
+    {
+        $real_user = User::findSlug($request->slug);
+
+        $selectedTimeSlot = $request->user_time_slot;
+
+        $private_class_exist = PrivateClass::where('user_id',$real_user->id)->first();
+
+        if(empty($private_class_exist))
+        {
+            $private_class = new PrivateClass; 
+
+            $private_class->email = $real_user->email;
+            $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
+            $private_class->parent_name = null;
+            $private_class->timeslot = $selectedTimeSlot;
+            $private_class->user_id = $real_user->id;
+            $private_class->status = 'approved';
+            $private_class->is_valid = true;
+
+            $private_class->save();
+        }
+        if ($request->ajax()) {
+            return response()->json(["success" => "User Registered success"]);
+        }
+
+        return redirect()->route('admin.user.index')->with("success", "Users deleted success");
+    }
+
     public function show(Request $request, User $user)
     {
 
