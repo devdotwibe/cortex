@@ -188,7 +188,7 @@ trait ResourceController
             {
                 $register_user ="registered";
 
-                $inlinestyle = "style='border-color: green !important; background-color: green !important;'";
+                $inlinestyle = "style='border-color: green !important;'";
             }
 
             return ' 
