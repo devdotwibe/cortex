@@ -184,7 +184,7 @@ trait ResourceController
 
             if(!empty($privateclass))
             {
-                $register_user ="none_register";
+                $register_user ="registered";
             }
 
             return ' 
