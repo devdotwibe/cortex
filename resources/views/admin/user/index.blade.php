@@ -393,7 +393,7 @@
 
             $('#error-user_time_slot-field').hide();
 
-            if(userTimeSlots.length !=0 )
+            if(userTimeSlots.length ===0 )
             {
                 $('#error-user_time_slot-field').show();
                 return false;
