@@ -82,40 +82,46 @@ class UserController extends Controller
                             <label class="form-check-label" for="active-toggle-' . $data->id . '">Active</label>
                         </div>';
             })->addAction(function ($data) {
-                return '
+
+                $privateclass =PrivateClass::where('user_id',$data->id)->first();
+
+                $action ="";
+                
+                if(empty($privateclass))
+                {
+                    $action .='
+                                <a onclick="UpgradeUser(\'' . $data->slug . '\')" target="_blank" rel="noreferrer" class="btn btn-icons upgrade_btn">
+                                    <span class="adminside-icon">
+                                        <img src="' . asset('assets/images/updgrade.png') . '" alt="Register List">
+                                    </span>
+                                    <span class="adminactive-icon">
+                                        <img src="' . asset('assets/images/updgrade.png') . '" alt="Register Active" title="Register List">
+                                    </span>
+                                </a> ';
+
+                }
+
+                $action .= '
+                                <a href="' . route('admin.user.spectate', $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
+                                    <span class="adminside-icon">
+                                        <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
+                                    </span>
+                                    <span class="adminactive-icon">
+                                        <img src="' . asset('assets/images/iconshover/mdi_incognito-yellow.svg') . '" alt="Spectate Active" title="Spectate">
+                                    </span>
+                                </a>
+
+                                <a onclick="resetpassword(' . "'" . route('admin.user.resetpassword', $data->slug) . "'" . ')" class="btn btn-icons reset_btn">
+                                    <span class="adminside-icon">
+                                        <img src="' . asset('assets/images/icons/material-symbols_lock-outline.svg') . '" alt="Reset Password">
+                                    </span>
+                                    <span class="adminactive-icon">
+                                        <img src="' . asset('assets/images/iconshover/material-symbols_lock-yellow.svg') . '" alt="Reset Password Active" title="Reset Password">
+                                    </span>
+                                </a> ';
+
+                return $action;
                    
-
-                  <a onclick="UpgradeUser(\'' . $data->slug . '\')" target="_blank" rel="noreferrer" class="btn btn-icons upgrade_btn">
-                    <span class="adminside-icon">
-                        <img src="' . asset('assets/images/updgrade.png') . '" alt="Register List">
-                    </span>
-                    <span class="adminactive-icon">
-                        <img src="' . asset('assets/images/updgrade.png') . '" alt="Register Active" title="Register List">
-                    </span>
-                </a>
-
-
-                            <a href="' . route('admin.user.spectate', $data->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
-                    <span class="adminside-icon">
-                        <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
-                    </span>
-                    <span class="adminactive-icon">
-                        <img src="' . asset('assets/images/iconshover/mdi_incognito-yellow.svg') . '" alt="Spectate Active" title="Spectate">
-                    </span>
-                </a>
-
-
-                    <a onclick="resetpassword(' . "'" . route('admin.user.resetpassword', $data->slug) . "'" . ')" class="btn btn-icons reset_btn">
-    <span class="adminside-icon">
-        <img src="' . asset('assets/images/icons/material-symbols_lock-outline.svg') . '" alt="Reset Password">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset('assets/images/iconshover/material-symbols_lock-yellow.svg') . '" alt="Reset Password Active" title="Reset Password">
-    </span>
-</a>
-
-
-                ';
             })->buildTable(['post_status', 'is_free_access','is_user_verfied']);
         }
         $unverifyuser = User::whereNull('email_verified_at')->count();
