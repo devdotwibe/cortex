@@ -19,7 +19,7 @@
     
     <meta name="title" content="Cortex Online: Selective Test Preparation - Thinking Skills">
     <meta name="keywords" content="Cortex Online">
-    <meta name="description" content="Cortex Online has video lessons that teach the theory for different Thinking Skills topics, a question bank with over 1500 questions for practice, and an exam simulator to help students with trial test preparation.">
+    <meta name="description" content="Cortex Online is a Thinking Skills platform designed to help you prepare for the Selective Test. We have over video lessons, a question bank and a trial test simulator. Try a free diagnostic exam today!.">
 
     <link rel="shortcut icon" href="{{ asset("assets/images/favicon.png") }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
