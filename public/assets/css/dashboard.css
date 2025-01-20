@@ -5037,6 +5037,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     color: #000000;
     font-size: 16px;
     padding: 9px 20px;
+    margin: 8px 0 0;
 }
 
 .admin_section .table-outer table tfoot tr td button.btn.btn-warning:hover {
@@ -6295,9 +6296,9 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 }
 
 .admin_section button.btn.btn-dark {
-    margin: 6px 0 0;
-    padding: 12px 25px;
-    border-radius: 10px;
+    margin: 0 0 0;
+    padding: 9px 25px;
+    border-radius: 7px;
 }
 
 .payment-wrap .tab-content .tab-pane .card .card-body .pricesection1 {
@@ -6886,9 +6887,9 @@ nav.navbar.header-class {
     position: relative;
     line-height: normal;
     border: none;
-    width: 35px;
-    height: 35px;
-    margin: 0 5px 0 0;
+    width: 22px;
+    height: 26px;
+    margin: 0 3px 0 0;
 }
 
 .table-outer table tbody tr td .btn-icons .adminside-icon {
