@@ -44,10 +44,10 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-// Route::get('/db-seed', function () {
-//     Artisan::call('db:seed');
-//     dd(Artisan::output());
-// });
+Route::get('/db-seed', function () {
+    Artisan::call('db:seed');
+    dd(Artisan::output());
+});
 
 Route::get('/', [HomeController::class, 'index']);
 
