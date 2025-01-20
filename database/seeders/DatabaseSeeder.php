@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         DB::table('admins')->insert([
             'name' => 'Admin',
             'email' => 'admin@cortex.com',
-            'password' =>  Hash::make("C0rte*@2118"),
+            'password' =>  Hash::make("C0rte*"),
             'role' => 'master',
         ]);
 
