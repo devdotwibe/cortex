@@ -27,9 +27,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/slick-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slider.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/stylesheet.css') }}">
-    <!-- Start of Async ProveSource Code -->
-
-    <script src="https://cdn.provesrc.com/provesrc.js"></script>
 
     <script>
     !function(o,i){window.provesrc&&window.console&&console.error&&console.error("ProveSource is included twice in this page.")
