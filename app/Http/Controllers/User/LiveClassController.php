@@ -84,7 +84,7 @@ class LiveClassController extends Controller
             'email'=>['required','email:rfc,dns','unique:private_classes','max:250'],
             'full_name'=>['required','string','max:255'],
             'parent_name'=>['required','string','max:255'],
-            'phone'=>['required'],
+            // 'phone'=>['required'],
             'timeslot'=>['required','array','min:1']
         ]);
         /**
