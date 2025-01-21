@@ -212,40 +212,40 @@
     var requesttable = null;
     var timeslotlist=[ 
             {
-                text:"Monday 6:30 p.m. (Online)",
-                id:"Monday 6:30 p.m. (Online)"
+                text:"Monday 6:30 p.m. (Online) - Year 6",
+                id:"Monday 6:30 p.m. (Online) - Year 6"
             },
             {
-                text:"Wednesday 6:30 p.m. (Online)",
-                id:"Wednesday 6:30 p.m. (Online)"
+                text:"Wednesday 6:30 p.m. (Online) - Year 5",
+                id:"Wednesday 6:30 p.m. (Online) - Year 5"
             },
             {
-                text:"Thursday 6:30 p.m. (Online)",
-                id:"Thursday 6:30 p.m. (Online)"
+                text:"Thursday 6:30 p.m. (Online) - Year 6",
+                id:"Thursday 6:30 p.m. (Online) - Year 6"
             },
             {
-                text:"Saturday 9:30 a.m. (F2F)",
-                id:"Saturday 9:30 a.m. (F2F)"
+                text:"Saturday 9:30 a.m. (F2F) - Year 5",
+                id:"Saturday 9:30 a.m. (F2F) - Year 5"
             },
             {
-                text:"Saturday 12 p.m. (F2F)",
-                id:"Saturday 12 p.m. (F2F)"
+                text:"Saturday 12 p.m. (F2F) - Year 5",
+                id:"Saturday 12 p.m. (F2F) - Year 5"
             },
             {
-                text:"Saturday 2:30 p.m. (F2F)",
-                id:"Saturday 2:30 p.m. (F2F)"
+                text:"Saturday 2:30 p.m. (F2F) - Year 6",
+                id:"Saturday 2:30 p.m. (F2F) - Year 6"
             },
             {
-                text:"Sunday 9:30 a.m. (F2F)",
-                id:"Sunday 9:30 a.m. (F2F)"
+                text:"Sunday 9:30 a.m. (F2F) - Year 5",
+                id:"Sunday 9:30 a.m. (F2F) - Year 5"
             },
             {
-                text:"Sunday 12 p.m. (F2F)",
-                id:"Sunday 12 p.m. (F2F)"
+                text:"Sunday 12 p.m. (F2F) - Year 5",
+                id:"Sunday 12 p.m. (F2F) - Year 5"
             },
             {
-                text:"Sunday 2:30 p.m. (F2F)",
-                id:"Sunday 2:30 p.m. (F2F)"
+                text:"Sunday 2:30 p.m. (F2F) - Year 6",
+                id:"Sunday 2:30 p.m. (F2F) - Year 6"
             },
     ]
     function requesttableinit(table) {

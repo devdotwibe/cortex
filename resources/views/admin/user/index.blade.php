@@ -262,48 +262,48 @@
                                         <input type="hidden" name="user_id_slug" id="user_id_slug" value="">
 
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-0" value="Monday 6:30 p.m. (Online)" >
-                                                <label for="check-group-timeslot-0">Monday 6:30 p.m. (Online)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-0" value="Monday 6:30 p.m. (Online) - Year 6" >
+                                                <label for="check-group-timeslot-0">Monday 6:30 p.m. (Online) - Year 6</label>
                                             </div>                                                            
                                             
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-1" value="Wednesday 6:30 p.m. (Online)" >
-                                                <label for="check-group-timeslot-1">Wednesday 6:30 p.m. (Online)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-1" value="Wednesday 6:30 p.m. (Online) - Year 5" >
+                                                <label for="check-group-timeslot-1">Wednesday 6:30 p.m. (Online) - Year 5</label>
                                             </div>                                                            
                                             
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-2" value="Thursday 6:30 p.m. (Online)" >
-                                                <label for="check-group-timeslot-2">Thursday 6:30 p.m. (Online)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-2" value="Thursday 6:30 p.m. (Online) - Year 6" >
+                                                <label for="check-group-timeslot-2">Thursday 6:30 p.m. (Online) - Year 6</label>
                                             </div>                                                            
                                             
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-3" value="Saturday 9:30 a.m. (F2F)" >
-                                                <label for="check-group-timeslot-3">Saturday 9:30 a.m. (F2F)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-3" value="Saturday 9:30 a.m. (F2F) - Year 5" >
+                                                <label for="check-group-timeslot-3">Saturday 9:30 a.m. (F2F) - Year 5</label>
                                             </div>  
                                             
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-4" value="Saturday 12 p.m. (F2F)" >
-                                                <label for="check-group-timeslot-4">Saturday 12 p.m. (F2F)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-4" value="Saturday 12 p.m. (F2F) - Year 5" >
+                                                <label for="check-group-timeslot-4">Saturday 12 p.m. (F2F) - Year 5</label>
                                             </div> 
                                             
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-5" value="Saturday 2:30 p.m. (F2F)" >
-                                                <label for="check-group-timeslot-4">Saturday 2:30 p.m. (F2F)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-5" value="Saturday 2:30 p.m. (F2F) - Year 6" >
+                                                <label for="check-group-timeslot-4">Saturday 2:30 p.m. (F2F) - Year 6</label>
                                             </div>  
 
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 9:30 a.m. (F2F)" >
-                                                <label for="check-group-timeslot-4">Sunday 9:30 a.m. (F2F)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 9:30 a.m. (F2F) - Year 5" >
+                                                <label for="check-group-timeslot-4">Sunday 9:30 a.m. (F2F) - Year 5</label>
                                             </div>
 
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 12 p.m. (F2F)" >
-                                                <label for="check-group-timeslot-4">Sunday 12 p.m. (F2F)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 12 p.m. (F2F) - Year 5" >
+                                                <label for="check-group-timeslot-4">Sunday 12 p.m. (F2F) - Year 5</label>
                                             </div>
 
                                             <div class="form-check">
-                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 2:30 p.m. (F2F)" >
-                                                <label for="check-group-timeslot-4">Sunday 2:30 p.m. (F2F)</label>
+                                                <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 2:30 p.m. (F2F) - Year 6" >
+                                                <label for="check-group-timeslot-4">Sunday 2:30 p.m. (F2F) - Year 6</label>
                                             </div>
 
                                             <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >Atleast one is field is required</div>
