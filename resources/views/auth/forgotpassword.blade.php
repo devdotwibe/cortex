@@ -7,7 +7,7 @@
 <section class="login-wrapp">
     <div class="login-head">
         <div class="logo">
-            <a href="">
+            <a href="{{ url('/') }}">
                 <img src="{{asset('assets/images/logo1.svg')}}" alt="">
             </a>
         </div>
