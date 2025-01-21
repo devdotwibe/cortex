@@ -35,6 +35,18 @@
         var r=i.createElement("script");r.type="text/javascript",r.async=!0,r["ch"+"ar"+"set"]="UTF-8",r.src="https://cdn.provesrc.com/provesrc.js";var e=i.getElementsByTagName("script")[0];e.parentNode.insertBefore(r,e)}(window,document);
     </script><!-- End of Async ProveSource Code -->
 
+    <style>
+        .popup {
+            position: fixed; /* Fixes the position relative to the viewport */
+            bottom: 20px; /* Adjusts the distance from the bottom */
+            left: 20px; /* Adjusts the distance from the left */
+            z-index: 1000; /* Ensures it appears above other elements */
+            width: auto; /* Set width as needed */
+            max-width: 300px; /* Optional: limit width for better appearance */
+        }
+
+    </style>
+
 
 </head>
 
@@ -228,6 +240,10 @@
             </div>
         </div>
 
+        <div class="popup bubble-body mx-auto no-text-select">
+            <!-- Popup content here -->
+        </div>
+        
         
     </footer>
 
