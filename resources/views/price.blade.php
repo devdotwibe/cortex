@@ -71,12 +71,12 @@
                             @guest('admin')
                                 @auth('web')
                                     @if ((optional(auth('web')->user()->subscription())->status ?? '') !== 'subscribed')
-                                        <a class="buy-btn" onclick="paymodel('{{ route('pricing.pay', $plan->slug) }}')">Pay</a>
+                                        <a class="buy-btn" onclick="paymodel('{{ route('pricing.pay', $plan->slug) }}')">Buy</a>
                                     @elseif((optional(auth('web')->user()->subscription())->subscription_plan_id ?? '') == $plan->id)
                                         <a class="buy-btn">Subscribed</a>
                                     @endif
                                 @else
-                                    <a href="{{ route('login') }}" class="buy-btn">Pay</a>
+                                    <a href="{{ route('login') }}" class="buy-btn">Buy</a>
                                 @endauth
                             @endguest
                         @endif
