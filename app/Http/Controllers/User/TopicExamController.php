@@ -464,7 +464,7 @@ class TopicExamController extends Controller
                 return round($data->progress,2) . "%";
             })
             ->addColumn('date', function ($data) {
-                return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
+                return Carbon::parse($data->created_at)->format('d-m-Y h:i a');
             }) 
             ->addColumn('action', function ($data) use($userExamReview){
                 return '<a type="button" href="' . route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $data->slug]) . '" class="btn btn-warning btn-sm">Review</a>';
@@ -517,7 +517,7 @@ class TopicExamController extends Controller
                 return 0;
             })
             ->addColumn('date', function ($data) {
-                return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
+                return Carbon::parse($data->created_at)->format('d-m-Y h:i a');
             })
             ->addColumn('retries',function($data){
                 if(ExamRetryReview::where('user_exam_review_id', UserExamReview::findSlug($data->slug)->id)->count()>0){
