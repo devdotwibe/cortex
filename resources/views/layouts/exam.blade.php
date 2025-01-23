@@ -18,7 +18,7 @@
 
     @stack('meta')
 
-    <link rel="shortcut icon" href="{{ asset("assets/images/favicon.png") }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset("assets/images/favicon1.png") }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset("assets/css/datatables.min.css") }}" > 
