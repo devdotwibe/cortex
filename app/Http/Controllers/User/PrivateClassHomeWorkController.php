@@ -257,7 +257,7 @@ class PrivateClassHomeWorkController extends Controller
                 }
             })
             ->addColumn('date', function ($data) {
-                return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
+                return Carbon::parse($data->created_at)->format('d-m-Y h:i a');
             })
             ->addColumn('action', function ($data) {
                 return '<a type="button" href="' . route('home-work.preview', $data->slug) . '" class="btn btn-warning btn-sm">Review</a>';

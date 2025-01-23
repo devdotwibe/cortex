@@ -378,7 +378,7 @@ class LearnTopicController extends Controller
                 })->count();
             $data[] = [
                 'slug' => $row->slug,
-                'date' => Carbon::parse($row->created_at)->format('Y-m-d h:i a'),
+                'date' => Carbon::parse($row->created_at)->format('d-m-Y h:i a'),
                 'progress' => round($row->progress, 2),
                 'url' => route('learn.preview', $row->slug),
                 'questions' => $questions
