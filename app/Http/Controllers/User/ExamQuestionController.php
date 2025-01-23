@@ -565,7 +565,7 @@ class ExamQuestionController extends Controller
                 return ucfirst($user->progress("exam-review-".(optional(UserExamReview::findSlug($data->slug))->id??"")."-timed"));
             })
             ->addColumn('date',function($data){
-                return Carbon::parse($data->created_at)->format('Y-m-d h:i a');
+                return Carbon::parse($data->created_at)->format('d-m-Y h:i a');
             })
             ->addColumn('action',function($data){
                 return '<a type="button" href="'.route('question-bank.set.complete',$data->slug).'" class="btn btn-warning btn-sm">Review</a>';
