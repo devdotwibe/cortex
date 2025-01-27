@@ -128,7 +128,7 @@ class LiveClassController extends Controller
             return abort(404);
         }
         $live_class =  LiveClassPage::first();  
-        // $sloteterms=[];
+        $sloteterms=[];
 
         $sloteterms_items = [ 
             [
