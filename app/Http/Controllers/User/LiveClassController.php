@@ -132,10 +132,12 @@ class LiveClassController extends Controller
         foreach($user->privateClass->timeslot??[] as $s){
             $sloteterms[]=[
                 'slot'=>$s,
-                'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->whereJsonContains('timeslot',$s)->get()
+                'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->get()
             ];
         }
-         
+
+        // ->whereJsonContains('timeslot',$s) private class terms
+        
         return view('user.live-class.class-detail-term',compact('user','live_class','classDetail','sloteterms')); 
     }
 
