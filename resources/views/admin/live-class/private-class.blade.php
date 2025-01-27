@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="category-content">
                                     {{-- <h5><span >  </span> <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5> --}}
-                                    <h3>Home work submission</h3>
+                                    <h3>Homework submission</h3>
                                 </div>
                                 <div class="category-action">
 
@@ -382,7 +382,7 @@
             } else if (term == 'lesson_material') {
                 $('#add_term_name').text('Lesson Material');
             } else if (term == 'home_work') {
-                $('#add_term_name').text('Home Work Submission');
+                $('#add_term_name').text('HomeWork Submission');
             } else if (term == 'lesson_recording') {
                 $('#add_term_name').text('Lesson Recording');
             } else {
@@ -428,7 +428,7 @@
             {
                 loadlessonmaterial('{{route('admin.term.lesson_material')}}');
             }
-            else if(term == 'Home Work Submission')
+            else if(term == 'HomeWork Submission')
             {
                 loadhomework('{{route('admin.term.home_work')}}');
             }
