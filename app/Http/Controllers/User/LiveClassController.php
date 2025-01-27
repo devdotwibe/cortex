@@ -175,11 +175,12 @@ class LiveClassController extends Controller
                 ->exists();
         });
 
-        dd($sloteclass_terms);
-        
         foreach($sloteclass_terms as $s){
+
+            dd($s['id']);
+            
             $sloteterms[]=[
-                'slot'=>$s,
+                'slot'=>$s['id'],
                 'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->get()
             ];
         }
