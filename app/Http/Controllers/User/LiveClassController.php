@@ -128,11 +128,57 @@ class LiveClassController extends Controller
             return abort(404);
         }
         $live_class =  LiveClassPage::first();  
-        $sloteterms=[];
-        foreach($user->privateClass->timeslot??[] as $s){
+        // $sloteterms=[];
+
+        $sloteterms_items = [ 
+            [
+                'text' => "Monday 6:30 p.m. (Online) - Year 6",
+                'id' => "Monday 6:30 p.m. (Online) - Year 6"
+            ],
+            [
+                'text' => "Wednesday 6:30 p.m. (Online) - Year 5",
+                'id' => "Wednesday 6:30 p.m. (Online) - Year 5"
+            ],
+            [
+                'text' => "Thursday 6:30 p.m. (Online) - Year 6",
+                'id' => "Thursday 6:30 p.m. (Online) - Year 6"
+            ],
+            [
+                'text' => "Saturday 9:30 a.m. (F2F) - Year 5",
+                'id' => "Saturday 9:30 a.m. (F2F) - Year 5"
+            ],
+            [
+                'text' => "Saturday 12 p.m. (F2F) - Year 5",
+                'id' => "Saturday 12 p.m. (F2F) - Year 5"
+            ],
+            [
+                'text' => "Saturday 2:30 p.m. (F2F) - Year 6",
+                'id' => "Saturday 2:30 p.m. (F2F) - Year 6"
+            ],
+            [
+                'text' => "Sunday 9:30 a.m. (F2F) - Year 5",
+                'id' => "Sunday 9:30 a.m. (F2F) - Year 5"
+            ],
+            [
+                'text' => "Sunday 12 p.m. (F2F) - Year 5",
+                'id' => "Sunday 12 p.m. (F2F) - Year 5"
+            ],
+            [
+                'text' => "Sunday 2:30 p.m. (F2F) - Year 6",
+                'id' => "Sunday 2:30 p.m. (F2F) - Year 6"
+            ]
+        ];
+        
+        $sloteclass_terms = array_filter($sloteterms_items, function ($item) use ($classDetail) {
+            return SubClassDetail::whereJsonContains('timeslot', $item['id'])
+                ->where('class_detail_id', $classDetail->id)
+                ->exists();
+        });
+
+        foreach($sloteclass_terms as $s){
             $sloteterms[]=[
-                'slot'=>$s,
-                'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->get()
+                'slot'=>$s['id'],
+                'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->whereJsonContains('timeslot',$s['id'])->get()
             ];
         }
 
