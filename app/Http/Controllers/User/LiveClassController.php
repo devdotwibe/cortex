@@ -176,12 +176,9 @@ class LiveClassController extends Controller
         });
 
         foreach($sloteclass_terms as $s){
-
-            dd($s['id']);
-            
             $sloteterms[]=[
                 'slot'=>$s['id'],
-                'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->get()
+                'list'=>SubClassDetail::where('class_detail_id',$classDetail->id)->whereJsonContains('timeslot',$s['id'])->get()
             ];
         }
 
