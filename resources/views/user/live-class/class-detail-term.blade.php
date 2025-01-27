@@ -22,33 +22,38 @@
                 <div class="card mb-3">
                     <div class="card-body"> 
                         <div class="class-term-list">
-                            @foreach ($sloteterms as  $k=>$item)
-                            <div class="class-term" >
-                                <div class="class-term-label">
-                                    <span>{{$item['slot']}} </span>  
-                                </div>
-                                <div class="class-term-content">
-                                    <div class="zoom-list">
-                                        @foreach ($item['list'] as $slot)
-                                            <div class="zoom-item">
-                                                <div class="zoom-id">
-                                                    <span class="zoom-label">Meeting ID </span>
-                                                    <span class="zoom-content"> : {{$slot->meeting_id}}</span>
-                                                </div>
-                                                <div class="zoom-code">
-                                                    <span class="zoom-label">Passcode</span>
-                                                    <span class="zoom-content"> : {{$slot->passcode}}</span>
-                                                </div>
-                                                <div class="zoom-link">
-                                                    <span class="zoom-label">Zoom Link </span>
-                                                    <span class="zoom-content"> : <a href="{{$slot->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$slot->zoom_link}}</a></span>
-                                                </div>
-                                            </div>
-                                        @endforeach
+                            
+                            @if(!empty($sloteterms) && count($sloteterms) > 0)
+
+                                @foreach ($sloteterms as  $k=>$item)
+                                <div class="class-term" >
+                                    <div class="class-term-label">
+                                        <span>{{$item['slot']}} </span>  
                                     </div>
-                                </div>
-                            </div>           
-                            @endforeach
+                                    <div class="class-term-content">
+                                        <div class="zoom-list">
+                                            @foreach ($item['list'] as $slot)
+                                                <div class="zoom-item">
+                                                    <div class="zoom-id">
+                                                        <span class="zoom-label">Meeting ID </span>
+                                                        <span class="zoom-content"> : {{$slot->meeting_id}}</span>
+                                                    </div>
+                                                    <div class="zoom-code">
+                                                        <span class="zoom-label">Passcode</span>
+                                                        <span class="zoom-content"> : {{$slot->passcode}}</span>
+                                                    </div>
+                                                    <div class="zoom-link">
+                                                        <span class="zoom-label">Zoom Link </span>
+                                                        <span class="zoom-content"> : <a href="{{$slot->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$slot->zoom_link}}</a></span>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>           
+                                @endforeach
+
+                            @endif
                             {{-- <div >
                                 <div class="class-term-label">
                                     <span>Time Slot </span>  
