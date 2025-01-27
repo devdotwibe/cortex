@@ -11,8 +11,8 @@
                 </a>
             </div>
             {{-- <h2>Term {{$classDetail->getIdx()+1}} : Class Details </h2> --}}
-                <h2>{{$classDetail->term_name}} test : Class Details </h2>
-
+                <h2>{{$classDetail->term_name}} : Class Details </h2>
+                
         </div>
     </div>
 </section>
