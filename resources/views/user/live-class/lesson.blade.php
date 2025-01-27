@@ -10,7 +10,10 @@
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                 </a>
             </div>
-            <h2>Term {{$lessonMaterial->getIdx()+1}} :Lesson Details </h2>
+
+            {{-- <h2>Term {{$lessonMaterial->getIdx()+1}} :Lesson Details </h2> --}}
+            <h2>{{$classDetail->term_name}} : Lesson Details </h2>
+
         </div>
     </div>
 </section>
