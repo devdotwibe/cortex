@@ -117,10 +117,10 @@ class User extends Authenticatable
     }
 
 
-    public function sendEmailVerificationNotification()
-    {
-        $this->notify(new UserEmailVerifyNotification);
-    }
+    // public function sendEmailVerificationNotification()
+    // {
+    //     $this->notify(new UserEmailVerifyNotification);
+    // }
 
     
     protected static function booted()
