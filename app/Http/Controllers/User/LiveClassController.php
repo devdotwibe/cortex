@@ -227,7 +227,7 @@ class LiveClassController extends Controller
         $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
         File::ensureDirectoryExists($cachepath);
 
-        if(!File::ensureDirectoryExists($cachepath))
+        if(File::ensureDirectoryExists($filepath))
         {
             return response()->json(['message' => 'exist']);
         }
