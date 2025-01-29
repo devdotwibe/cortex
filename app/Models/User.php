@@ -122,7 +122,6 @@ class User extends Authenticatable
     //     $this->notify(new UserEmailVerifyNotification);
     // }
 
-    
     protected static function booted()
     {
         static::creating(function ($user) {
