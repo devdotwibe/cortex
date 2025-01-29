@@ -278,7 +278,7 @@ class LiveClassController extends Controller
         }
         elseif ($subLessonMaterial->status === 'completed') {
 
-            // $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
+            $imgdata=json_decode(file_get_contents("$cachepath/render.map.json"),true); 
 
             if (request()->ajax())
             {
