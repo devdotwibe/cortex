@@ -172,6 +172,8 @@ class LessonMaterialController extends Controller
             Storage::disk('private')->put("{$avathar}", $file);
 
             $sub_lesson->pdf_file = $imageName;
+
+            $sub_lesson->status = '';
         
         }
 
