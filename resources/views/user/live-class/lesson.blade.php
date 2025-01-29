@@ -12,7 +12,7 @@
             </div>
 
             {{-- <h2>Term {{$lessonMaterial->getIdx()+1}} :Lesson Details </h2> --}}
-            <h2>{{$lessonMaterial->term_name}} : Lesson Details </h2>
+            <h2>{{$lessonMaterial->term_name}} : Lesson Material </h2>
 
         </div>
     </div>
