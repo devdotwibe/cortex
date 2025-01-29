@@ -225,11 +225,11 @@ class LiveClassController extends Controller
         $filepath=Storage::disk('private')->path($subLessonMaterial->pdf_file);
         File::ensureDirectoryExists($cachepath);
 
-        if(!File::ensureDirectoryExists($cachepath) && $subLessonMaterial->status !== 'processing')
-        {
-            $subLessonMaterial->status="";
-            $subLessonMaterial->save();
-        }
+        // if(!File::ensureDirectoryExists($cachepath) && $subLessonMaterial->status !== 'processing')
+        // {
+        //     $subLessonMaterial->status="";
+        //     $subLessonMaterial->save();
+        // }
 
         // if(!File::exists("$cachepath/render.map.json")){
         //     $pdfmap=ImageHelper::convertPdfToImage($filepath,$cachepath);
