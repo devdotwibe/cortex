@@ -622,9 +622,12 @@ class LiveClassController extends Controller
             $terms[$name]=0; 
         }
         $privateClass=  PrivateClass::where('id','>',0);
-        if($request->input('select_all','no')!="yes"){
+
+        // if($request->input('select_all','no')!="yes"){
+
             $privateClass->whereIn('id',$request->input('selectbox',[]));
-        }
+        // }
+
         $users=User::whereIn("id",$privateClass->select('user_id'))->get();
         return ["termsList"=>$terms,"userList"=>$users];
     }
