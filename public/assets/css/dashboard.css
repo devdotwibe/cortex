@@ -383,8 +383,24 @@ main {
     margin: 0 0 0 12px;
 }
 
-.content_section .row .card-body a {
+/* .content_section .row .card-body a {
     cursor: pointer;
+} */
+
+.category .category-title {
+    transition: all 0.25s ease-in;
+}
+
+.category .category-title a {
+    transition: all 0.25s ease-in;
+}
+
+.category .category-title:hover {
+    background: #b8eec6;
+}
+
+.category .category-title:hover a {
+    color: #000000;
 }
 
 nav.navbar .dropdown .nav-link.dropdown-toggle {
