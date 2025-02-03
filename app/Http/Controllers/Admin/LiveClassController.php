@@ -628,7 +628,7 @@ class LiveClassController extends Controller
             $privateClass->whereIn('id',$request->input('selectbox',[]));
         // }
 
-        $users=User::whereIn("id",$privateClass->select('user_id'))->get();
+        $users=User::with('privateClass')->whereIn("id",$privateClass->select('user_id'))->get();
         return ["termsList"=>$terms,"userList"=>$users];
     }
 
