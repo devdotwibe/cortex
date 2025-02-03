@@ -455,7 +455,10 @@
             var selectedbox=[];
             $('.selectbox:checked').each(function(k,v){
                 selectedbox.push(this.value)
-            })
+            });
+
+            console.log(selectedbox);
+
             $.post("{{route('admin.live-class.request.bulkupdate')}}",{
                 select_all:$('[name="select_all"]').is(":checked")?"yes":"no",
                 selectbox:selectedbox
