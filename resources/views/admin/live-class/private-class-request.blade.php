@@ -493,7 +493,7 @@
                 $.each(res.userList,function(k,v){  
                     $('#multi-user-list').append(`
                         <div class="list-group-item">
-                            <span>${v.full_name.full_name}</span>
+                            <span>${v.name}</span>
                             <input type="hidden" name="user[]" value="${v.id}">
                         </div>
                     `)
