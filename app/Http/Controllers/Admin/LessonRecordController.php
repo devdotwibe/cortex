@@ -72,7 +72,9 @@ class LessonRecordController extends Controller
         $redirect=$request->redirect??route('admin.lesson-record.show',$lessonRecording->slug);
         return redirect($redirect)->with("success","Video has been successfully created");
     }
-    public function update(Request $request,LessonRecording $lessonRecording, RecordVideo $recordVideo){ 
+    public function update(Request $request,LessonRecording $lessonRecording, RecordVideo $recordVideo){
+        
+        dd($request);
         $data=$request->validate([
             'title'=>['required'],
             'source_video'=>['required'],
