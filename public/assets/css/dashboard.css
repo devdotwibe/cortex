@@ -341,6 +341,22 @@ main {
     margin: 14px 0 2px;
 }
 
+.category .category-content h4 {
+    color: #000000;
+}
+
+.category .category-content + .category-link h4 {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 0 0;
+}
+
+.category .category-link {
+    width: 100%;
+    display: block;
+}
+
 .tips-class .category a {
     width: 100%;
     display: flex;
