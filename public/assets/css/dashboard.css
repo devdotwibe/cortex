@@ -4557,6 +4557,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .content_section .card {
     border: none;
     border-radius: 10px;
+    height: calc(100% - 1rem) !important;
 }
 
 
