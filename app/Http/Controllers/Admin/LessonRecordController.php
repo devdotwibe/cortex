@@ -25,8 +25,6 @@ class LessonRecordController extends Controller
 
                  
                 })
-
-            
         
                 ->addAction(function($data)use($lessonRecording){
                     return '
