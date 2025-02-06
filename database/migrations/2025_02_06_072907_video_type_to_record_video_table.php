@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('record_video', function (Blueprint $table) {
+        Schema::table('record_videos', function (Blueprint $table) {
             $table->string('video_type')->nullable();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('record_video', function (Blueprint $table) {
+        Schema::table('record_videos', function (Blueprint $table) {
             $table->dropColumn('video_type');
         });
     }
