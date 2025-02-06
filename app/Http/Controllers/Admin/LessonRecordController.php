@@ -63,6 +63,8 @@ class LessonRecordController extends Controller
         return view('admin.lesson-record.edit',compact('lessonRecording','recordVideo'));
     }    
     public function store(Request $request,LessonRecording $lessonRecording){ 
+        
+        dd($request);
         $data=$request->validate([
             'title'=>['required'],
             'source_video'=>['required'],
@@ -72,9 +74,7 @@ class LessonRecordController extends Controller
         $redirect=$request->redirect??route('admin.lesson-record.show',$lessonRecording->slug);
         return redirect($redirect)->with("success","Video has been successfully created");
     }
-    public function update(Request $request,LessonRecording $lessonRecording, RecordVideo $recordVideo){
-        
-        dd($request);
+    public function update(Request $request,LessonRecording $lessonRecording, RecordVideo $recordVideo){ 
         $data=$request->validate([
             'title'=>['required'],
             'source_video'=>['required'],
