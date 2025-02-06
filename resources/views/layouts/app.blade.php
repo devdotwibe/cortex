@@ -13,12 +13,16 @@
         @hasSection('title') 
             @yield('title')
         @else
-            {{ config('app.name') }}
+
+            Cortex Online: Selective Test Preparation - Thinking Skills
+
+            {{-- {{ config('app.name') }} --}}
+            
         @endif
     </title>
     
     <meta name="title" content="Cortex Online: Selective Test Preparation - Thinking Skills">
-    <meta name="keywords" content="Cortex Online">
+    <meta name="keywords" content="Cortex Online: Selective Test Preparation - Thinking Skills">
     <meta name="description" content="Australia's most successful Thinking Skills platform. Sign up for a free exam and start training for the NSW Selective School Test today!">
 
     <link rel="shortcut icon" href="{{ asset("assets/images/favicon1.png") }}" type="image/x-icon">
