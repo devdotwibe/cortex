@@ -64,10 +64,10 @@ class LessonRecordController extends Controller
     }    
     public function store(Request $request,LessonRecording $lessonRecording){ 
         
-        dd($request);
         $data=$request->validate([
             'title'=>['required'],
             'source_video'=>['required'],
+            'video_type'=>['required'],
         ]);
         $data['lesson_recording_id']=$lessonRecording->id;
         RecordVideo::store($data);
@@ -78,6 +78,7 @@ class LessonRecordController extends Controller
         $data=$request->validate([
             'title'=>['required'],
             'source_video'=>['required'],
+            'video_type'=>['required'],
         ]); 
         $recordVideo->update($data);
         $redirect=$request->redirect??route('admin.lesson-record.show',$lessonRecording->slug);

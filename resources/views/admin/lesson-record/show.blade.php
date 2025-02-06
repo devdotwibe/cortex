@@ -30,6 +30,7 @@
             <x-ajax-table :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
                 ["th"=>"Title","name"=>"title","data"=>"title"], 
+                ["th"=>"Video Type","name"=>"video_type","data"=>"video_type"], 
                 ["th" => "Visible", "name" => "visible_status", "data" => "visibility"],
             ]' 
             tableinit="questiontableinit" />

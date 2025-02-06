@@ -19,6 +19,7 @@ class RecordVideo extends Model
         'visible_status',
         'source_type',
         'source_video',
-        'lesson_recording_id'
+        'lesson_recording_id',
+        'video_type'
     ];
 }
