@@ -18,18 +18,26 @@ class LessonRecordController extends Controller
         self::$defaultActions=['']; 
         if($request->ajax()){
             return $this->where('lesson_recording_id',$lessonRecording->id) 
+
+                ->addColumn('video_type',function($data){
+                    
+                    $video_type = $data->video_typo == 'zoom' ? 'Zoom' : 'Video / Youtube';
+                    
+                    return $video_type;
+                })
+        
                 ->addAction(function($data)use($lessonRecording){
                     return '
                     
 
                       <a href="'.route("admin.lesson-record.edit",["lesson_recording"=>$lessonRecording->slug,"record_video"=>$data->slug]).'" class="btn btn-icons edit_btn">
-    <span class="adminside-icon">
-      <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
-    </span>
-    <span class="adminactive-icon">
-        <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
-    </span>
-</a>
+                        <span class="adminside-icon">
+                        <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
+                        </span>
+                        <span class="adminactive-icon">
+                            <img src="' . asset("assets/images/iconshover/iconamoon_edit-yellow.svg") . '" alt="Edit Active" title="Edit">
+                        </span>
+                    </a>
 
 
                      
