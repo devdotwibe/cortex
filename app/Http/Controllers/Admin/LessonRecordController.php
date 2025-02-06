@@ -21,9 +21,9 @@ class LessonRecordController extends Controller
 
                 ->addColumn('video_type',function($data){
                     
-                    return $data->video_typo == 'zoom' ? 'Zoom' : 'Video / Youtube';
+                    return $data->video_type == 'zoom' ? 'Zoom' : 'Video / Youtube';
 
-                    return $video_type;
+                 
                 })
 
             
