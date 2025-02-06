@@ -22,17 +22,35 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <div class="card-body"> 
-                        <a  onclick="loadvideowrap('{{$item->source_video}}','{{$item->title}}')">
 
-                            <div class="category">
-                                <div class="category-content"> 
-                                    <h4>{{$item->title}}</h4> 
+                        @if($item->video_type !='zoom')
+
+                            <a  onclick="loadvideowrap('{{$item->source_video}}','{{$item->title}}')">
+
+                                <div class="category">
+                                    <div class="category-content"> 
+                                        <h4>{{$item->title}}</h4> 
+                                    </div>
+                                    <div class="category-image">
+                                        <img src="{{ asset('assets/images/video-clip.png') }}">
+                                    </div> 
                                 </div>
-                                <div class="category-image">
-                                    <img src="{{ asset('assets/images/video-clip.png') }}">
-                                </div> 
-                            </div>
-                        </a>
+                            </a>
+                        @else
+
+                            <a  href="{{ $item->source_video }}" target="_blank">
+
+                                <div class="category">
+                                    <div class="category-content"> 
+                                        <h4>{{$item->title}}</h4> 
+                                    </div>
+                                    <div class="category-image">
+                                        <img src="{{ asset('assets/images/video-clip.png') }}">
+                                    </div> 
+                                </div>
+                            </a>
+
+                        @endif
                     </div>
                 </div>
             </div>                
