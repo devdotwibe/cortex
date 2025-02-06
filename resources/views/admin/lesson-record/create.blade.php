@@ -30,7 +30,7 @@
                 ["name"=>"redirect", "value"=>route("admin.lesson-record.show",$lessonRecording->slug),"type"=>"hidden"],
  
                 ["name"=>"title","label"=>"Title","size"=>6,"type"=>"text"],  
-                ["name"=>"source_video","label"=>"Video - ( Vimeo ID or Link ,Youtube ID or Link )","placeholder"=>"Video","size"=>6,"type"=>"text"], 
+                ["name"=>"source_video","label"=>"Video - ( Vimeo ID or Link ,Youtube ID or Zoom Link )","placeholder"=>"Video","size"=>6,"type"=>"text"], 
                 ["name"=>"video_type","label"=>"Video Type","placeholder"=>"Select Video Type","type"=>"select","size"=>4,"options"=>[["value"=>"vimeo_youtube","text"=>"Vimeo /Youtube"],["value"=>"zoom","text"=>"Zoom"]]], 
             ]' 
         />  
