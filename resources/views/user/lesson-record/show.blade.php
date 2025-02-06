@@ -49,9 +49,6 @@
                                         <h4>{{$item->source_video}}</h4> 
                                     </div>
 
-                                    <div class="category-image">
-                                        <img src="{{ asset('assets/images/video-clip.png') }}">
-                                    </div> 
                                 </div>
                             </a>
 
