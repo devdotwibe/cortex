@@ -47,7 +47,7 @@
 
                                     <div class="category-link"> 
 
-                                        <h4>Zoom Link</h4> 
+                                        <h4>Zoom Link :</h4> 
 
                                         <h4>{{$item->source_video}}</h4> 
                                     </div>
