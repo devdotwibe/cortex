@@ -9468,6 +9468,10 @@ nav.navbar.top-barhide {
         font-size: 15px;
     }
 
+    .content_section .card {
+        height: inherit !important;
+    }
+
 }
 
 
