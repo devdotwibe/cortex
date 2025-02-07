@@ -45,12 +45,16 @@
                                         <h4>{{$item->title}}</h4> 
                                     </div>
 
-                                    <div class="category-link"> 
+                                    <div class="category-image">
+                                        <img src="{{ asset('assets/images/video-clip.png') }}">
+                                    </div> 
+
+                                    {{-- <div class="category-link"> 
 
                                         <h4>Zoom Link :</h4> 
 
                                         <h4>{{$item->source_video}}</h4> 
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </a>
