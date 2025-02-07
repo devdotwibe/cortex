@@ -101,12 +101,18 @@
     </nav>
 
 
+    <div class="sidebar-menu">
+        <a href="" class="sidebar-toggle">
+            <span class="line"></span>
+        </a>
+    </div>
     {{-- <div class="side-nav-toggle">
         <button class="btn btn-close-toggle"><img src="{{asset("assets/images/close.svg")}}" alt="close"></button>
     </div> --}}
     <div class="side-nav-toggle">
         <button class="btn btn-close-toggle"><span>Close</span></button>
     </div>
+    
 
     <aside class="side_bar @if($sidebarCollapsed =='true')  slider-btn @endif">
 
