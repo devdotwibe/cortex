@@ -4564,6 +4564,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .content_section .row {
     margin: 0;
+    align-items: start;
 }
 .content_section.dashboarduser .card {
     height: auto !important;
@@ -9473,6 +9474,10 @@ nav.navbar.top-barhide {
 
     .pdfsection .lesson .print-bnt {
         font-size: 15px;
+    }
+
+    .content_section .card {
+        height: inherit !important;
     }
 
 }
