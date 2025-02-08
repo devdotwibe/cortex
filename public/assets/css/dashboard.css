@@ -4565,7 +4565,15 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 .content_section .row {
     margin: 0;
 }
+.content_section.dashboarduser .card {
+    height: auto !important;
+    width: 100%;
+}
 
+.content_section.dashboarduser .col-md-6 {
+    display: flex;
+    flex-wrap: wrap;
+}
 .content_section .card {
     border: none;
     border-radius: 10px;
