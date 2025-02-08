@@ -4564,7 +4564,6 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .content_section .row {
     margin: 0;
-    align-items: start;
 }
 .content_section.dashboarduser .card {
     height: auto !important;
