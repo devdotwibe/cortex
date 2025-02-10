@@ -468,7 +468,7 @@
             user_slug: $('#user_access_id').val()
         };
 
-        let url = "{{ route('admin.user.freeaccess', ':user') }}".replace(':user', data.user_slug);
+        let url = "{{ route('admin.user.freeaccess') }}";
 
         $.ajax({
             url: url,
