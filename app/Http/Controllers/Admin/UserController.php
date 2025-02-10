@@ -357,9 +357,9 @@ class UserController extends Controller
     {
         dd($request);
         
-        $user->update([
-            'is_free_access' => $user->is_free_access ? false : true
-        ]);
+        // $user->update([
+        //     'is_free_access' => $user->is_free_access ? false : true
+        // ]);
         return response()->json([
             'success' => "Free User status updated"
         ]);
