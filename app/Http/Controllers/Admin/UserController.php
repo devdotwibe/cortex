@@ -355,9 +355,12 @@ class UserController extends Controller
     }
     public function freeaccess(Request $request)
     {
+        dd($request);
         $user_slug = $request->user_slug;
 
         $user = User::findSlug($user_slug);
+
+        $user_access = $request;
         
         $user->update([
             'is_free_access' => $user->is_free_access ? false : true
