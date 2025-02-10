@@ -94,8 +94,8 @@ class UserController extends Controller
 
                 if (!empty($data->free_access_terms)) {
 
-                    $user_access = explode(',', $data->free_access_terms);
-                    
+                    $user_access = implode(',', $data->free_access_terms);
+
                 } else {
                     $user_access = [];
                 }
