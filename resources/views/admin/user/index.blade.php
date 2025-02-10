@@ -461,7 +461,7 @@
             user_slug:$('#user_access_id').val()
         };
 
-        let url = "{{ route('admin.user.freeaccess', ':slug') }}".replace(':slug', data.user_slug);
+        let url = "{{ route('admin.user.freeaccess', $page_name) }}".replace(':slug', data.user_slug);
 
         // url="{{ route('admin.user.freeaccess') }}";
 
