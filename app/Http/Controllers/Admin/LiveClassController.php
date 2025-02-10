@@ -594,7 +594,9 @@ class LiveClassController extends Controller
     public function bulkaction(Request $request){
 
         if($request->input('select_all','no')=="yes"){
-            PrivateClass::where('id','>',0)->delete();
+
+            PrivateClass::whereIn('id',$request->input('selectbox',[]))->delete();
+            // PrivateClass::where('id','>',0)->delete();
         }else{
             PrivateClass::whereIn('id',$request->input('selectbox',[]))->delete();
         }
