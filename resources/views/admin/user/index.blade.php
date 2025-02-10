@@ -359,7 +359,8 @@
     }
         function usertablefilter(d){
             d = d || {}; 
-            d.usertype=$('#user-filter').val()
+            d.usertype=$('#user-filter').val();
+            d.termname=$('#term-list').val();
             
             return d;
         }
