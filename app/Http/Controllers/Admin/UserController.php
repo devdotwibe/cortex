@@ -82,12 +82,30 @@ class UserController extends Controller
                 
             }
 
-            return $this->addColumn('is_free_access', function ($data) {
-                return '<div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.freeaccess', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->is_free_access ? "checked" : "") . '/>
-                            <label class="form-check-label" for="free-toggle-' . $data->id . '">Free</label>
-                        </div>';
-        })
+        //     return $this->addColumn('is_free_access', function ($data) {
+        //         return '<div class="form-check form-switch">
+        //                     <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.freeaccess', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->is_free_access ? "checked" : "") . '/>
+        //                     <label class="form-check-label" for="free-toggle-' . $data->id . '">Free</label>
+        //                 </div>';
+        // })
+
+               return $this->addColumn('is_free_access', function ($data) {
+
+
+                return '  <a onclick="UserAccess(\'' . $data->slug . '\')" target="_blank" rel="noreferrer" class="btn btn-icons">
+                            <span class="adminside-icon">
+                                <img src="' . asset('assets/images/updgrade.png') . '" alt="User Access">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset('assets/images/updgrade.png') . '" alt="User Access" title="User Access">
+                            </span>
+                        </a> ';
+
+                })
+
+        
+
+
             ->addColumn('is_user_verfied', function ($data) {
             return '<div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.is_user_verfied', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->email_verified_at ? "checked" : "") . '/>

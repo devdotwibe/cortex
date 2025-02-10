@@ -217,7 +217,142 @@
 </section>
 @endsection
 @push('modals')
-    
+   
+
+
+<div class="modal fade" id="free_access_modal" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user-termLablel">User Free Access</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <form  class="form" id="admin_permission_form" data-save="create" data-action="" data-createurl="" >
+                    @csrf                
+                    <div class="row"> 
+
+                       <div class="col-md-12" >
+
+                            <table class="table table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>Permissions</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-table-body">
+
+                                    <tr>
+                                        <td>Users</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="users" class="form-check-input" name="users" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Learn</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="learn" class="form-check-input" name="learn" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Options</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="options" class="form-check-input" name="options" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Question Bank</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="question_bank" class="form-check-input" name="question_bank" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Topic Exam</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="topic_exam" class="form-check-input" name="topic_exam" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>Full Mock Exam</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="full_mock_exam" class="form-check-input" name="full_mock_exam" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Live Teaching</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="live_teaching" class="form-check-input" name="live_teaching" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Community</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="community" class="form-check-input" name="community" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>pages</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="AddPermission(this)" data-name="pages" class="form-check-input" name="pages" value="Y" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                       </div>
+
+                       <input type="hidden" id="user_access_id" name="user_access_id" >
+
+                    </div> 
+                </form>
+
+              
+            </div> 
+        </div>
+    </div>
+</div>
+
+
+
 <div class="modal fade" id="password-reset-modal" tabindex="-1" role="dialog" aria-labelledby="password-resetLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -357,6 +492,15 @@
             usertable.ajax.reload()
         }
     }
+
+    function UserAccess(slug)
+    {
+        $('#user_access_id').val(slug);
+        
+        $('#free_access_modal').modal('show');
+    }
+
+
         function usertablefilter(d){
             d = d || {}; 
             d.usertype=$('#user-filter').val();
