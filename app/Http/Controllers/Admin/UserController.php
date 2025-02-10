@@ -355,7 +355,6 @@ class UserController extends Controller
     }
     public function freeaccess(Request $request, User $user)
     {
-        dd($request);
         
         $user->update([
             'is_free_access' => $user->is_free_access ? false : true
