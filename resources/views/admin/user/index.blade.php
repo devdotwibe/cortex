@@ -444,11 +444,16 @@
         }
     }
 
-    function UserAccess(slug)
+    function UserAccess(slug,element)
     {
         $('#user_access_id').val(slug);
 
         $('#free_access_modal').modal('show');
+
+        var access = $(element).data('access');
+
+        console.log(access);
+
     }
 
     function UpdateUserAccess()
