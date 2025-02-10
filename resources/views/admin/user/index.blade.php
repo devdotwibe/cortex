@@ -272,7 +272,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input user_accesss" name="learn_2" value="{{ $item->id }}" id="learn_{{ $item->id }}" role="switch" >
+                                                    <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input user_accesss" name="learn_2" value="{{ $item->id }}" id="data_{{ $item->id }}" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -286,7 +286,7 @@
                                         <td>
                                             <div class="form-check form-switch">
 
-                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="options" class="form-check-input user_accesss" name="question_bank" id="question_bank" value="question_bank" role="switch" >
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="options" class="form-check-input user_accesss" name="question_bank" id="data_question_bank" value="question_bank" role="switch" >
                                             </div>
                                         </td>
                                     </tr>
@@ -296,7 +296,7 @@
                                         <td>
                                             <div class="form-check form-switch">
 
-                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="question_bank" class="form-check-input user_accesss" name="exam" id="exam_simulator" value="exam_simulator" role="switch" >
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="question_bank" class="form-check-input user_accesss" name="exam" id="data_exam_simulator" value="exam_simulator" role="switch" >
                                             </div>
                                         </td>
                                     </tr>
@@ -474,7 +474,7 @@
             var accessArray = access.split(',');
 
             $.each(accessArray, function(index, value) {
-                $('#' + value).prop('checked', true);
+                $('#data_' + value).prop('checked', true);
             });
         }
 
