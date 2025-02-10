@@ -497,13 +497,13 @@
             
             return d;
         }
-        // function changeactivestatus(url){
-        //     $.get(url,function(res){
-        //         if (usertable != null) {
-        //             usertable.ajax.reload()
-        //         }
-        //     })
-        // }
+        function changeactivestatus(url){
+            $.get(url,function(res){
+                if (usertable != null) {
+                    usertable.ajax.reload()
+                }
+            })
+        }
         $('#user-filter').change(function(){
             if (usertable != null) {
                 usertable.ajax.reload()
