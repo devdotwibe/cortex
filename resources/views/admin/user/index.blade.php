@@ -453,18 +453,25 @@
 
     function UpdateUserAccess()
     {
-        // let data = {
-        //     learn1: $('#learn_1').prop("checked"),
-        //     learn2: $('#learn_2').prop("checked"),
-        //     question_bank: $('#question_bank').prop("checked"),
-        //     exam_simulator: $('#exam_simulator').prop("checked")
-        // };
+        var user_access = [];
+
+        var accessTypes = [
+            { id: 'learn_1', name: 'learn1' },
+            { id: 'learn_2', name: 'learn2' },
+            { id: 'question_bank', name: 'question_bank' },
+            { id: 'exam_simulator', name: 'exam_simulator' }
+        ];
+
+        accessTypes.forEach(function(access) {
+            var isChecked = $('#' + access.id).prop("checked");
+            user_access.push({
+                name: access.name,
+                value: isChecked ? $('#' + access.id).val() : null
+            });
+        });
 
         let data = {
-            learn1: $('#learn_1').prop("checked") ? $('#learn_1').val() : null,
-            learn2: $('#learn_2').prop("checked") ? $('#learn_2').val() : null,
-            question_bank: $('#question_bank').prop("checked") ? $('#question_bank').val() : null,
-            exam_simulator: $('#exam_simulator').prop("checked") ? $('#exam_simulator').val() : null,
+            user_access: user_access,
             user_slug: $('#user_access_id').val()
         };
 
@@ -481,10 +488,6 @@
                     usertable.ajax.reload();
                 }
             },
-            error: function(xhr) {
-                console.error("Error:", xhr.responseJSON ? xhr.responseJSON.message : "Unknown error");
-                alert("Failed to update user access. Please try again.");
-            }
         });
 
     }
