@@ -64,6 +64,23 @@ class UserController extends Controller
                         break;
                 }
             }
+
+            if(!empty($request->termname)){
+                $termname= $request->termname;
+
+                $this->where(function($qry)use($termname){
+
+                    $qry->whereIn('user_id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->select('user_id'))
+
+
+                    ->orWhereIn('user_id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
+                    -> orWhereIn('user_id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
+                    -> orWhereIn('user_id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
+               ;
+                });
+                
+            }
+
             return $this->addColumn('is_free_access', function ($data) {
                 return '<div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.freeaccess', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->is_free_access ? "checked" : "") . '/>
