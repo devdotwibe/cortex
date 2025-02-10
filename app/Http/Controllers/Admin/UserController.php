@@ -35,6 +35,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+
+            dd($request);
             if (!empty($request->usertype)) {
                 switch ($request->usertype) {
                     case 'free-users':
@@ -169,7 +171,7 @@ class UserController extends Controller
         $terms = [];
 
         $terms1 = ClassDetail::get();
-        $terms2 = LessonMaterial::get();
+        $terms2 = LessonMarequestterial::get();
         $terms3 = HomeWork::get();
         $terms4 = LessonRecording::get();
         
