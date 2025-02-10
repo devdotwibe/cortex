@@ -452,10 +452,10 @@
 
         var access = $(element).data('access');
 
-        $.each(access,function(i,v)
-        {
-            $('#'+v).prop('checked',true);
-        });
+        // $.each(access,function(i,v)
+        // {
+        //     $('#'+v).prop('checked',true);
+        // });
 
         console.log(access);
 
