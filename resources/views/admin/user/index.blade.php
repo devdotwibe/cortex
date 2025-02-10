@@ -272,7 +272,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
 
-                                                    <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input" name="learn_2" value="{{ $item->id }}" id="learn_{{ $item->id }}" role="switch" >
+                                                    <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input user_accesss" name="learn_2" value="{{ $item->id }}" id="learn_{{ $item->id }}" role="switch" >
                                                 </div>
                                             </td>
                                         </tr>
@@ -286,7 +286,7 @@
                                         <td>
                                             <div class="form-check form-switch">
 
-                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="options" class="form-check-input" name="question_bank" id="question_bank" value="question_bank" role="switch" >
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="options" class="form-check-input user_accesss" name="question_bank" id="question_bank" value="question_bank" role="switch" >
                                             </div>
                                         </td>
                                     </tr>
@@ -296,7 +296,7 @@
                                         <td>
                                             <div class="form-check form-switch">
 
-                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="question_bank" class="form-check-input" name="exam" id="exam_simulator" value="exam_simulator" role="switch" >
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="question_bank" class="form-check-input user_accesss" name="exam" id="exam_simulator" value="exam_simulator" role="switch" >
                                             </div>
                                         </td>
                                     </tr>
@@ -482,24 +482,35 @@
 
     }
 
-    function UpdateUserAccess()
+    function UpdateUserAccess(element)
     {
+        // var user_access = [];
+
+        // var accessTypes = [
+        //     { id: 'learn_1', name: 'learn1' },
+        //     { id: 'learn_2', name: 'learn2' },
+        //     { id: 'question_bank', name: 'question_bank' },
+        //     { id: 'exam_simulator', name: 'exam_simulator' }
+        // ];
+
         var user_access = [];
 
-        var accessTypes = [
-            { id: 'learn_1', name: 'learn1' },
-            { id: 'learn_2', name: 'learn2' },
-            { id: 'question_bank', name: 'question_bank' },
-            { id: 'exam_simulator', name: 'exam_simulator' }
-        ];
-
-        accessTypes.forEach(function(access) {
-            var isChecked = $('#' + access.id).prop("checked");
-            user_access.push({
-                name: access.name,
-                value: isChecked ? $('#' + access.id).val() : null
-            });
+        $.each($('.user_accesss'), function(i, v) {
+          
+            if ($(this).prop("checked")) {
+                user_access.push({
+                    value: $(this).val()
+                });
+            }
         });
+
+        // accessTypes.forEach(function(access) {
+        //     var isChecked = $('#' + access.id).prop("checked");
+        //     user_access.push({
+        //         name: access.name,
+        //         value: isChecked ? $('#' + access.id).val() : null
+        //     });
+        // });
 
         let data = {
             user_access: user_access,
