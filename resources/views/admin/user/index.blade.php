@@ -461,6 +461,8 @@
             user_slug: $('#user_access_id').val()
         };
 
+        console.log('test');
+        
         let url = "{{ route('admin.user.freeaccess') }}";
 
         $.ajax({
