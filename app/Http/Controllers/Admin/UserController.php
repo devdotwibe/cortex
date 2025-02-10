@@ -359,9 +359,17 @@ class UserController extends Controller
 
         $user = User::findSlug($user_slug);
 
-        $user_access = implode(',',$request->user_access);
+        $user_access = $request->user_access;
 
-        dd($user_access);
+        $values = array_column($user_access, 'value');
+
+        $filtered_values = array_filter($values, function($value) {
+            return !is_null($value);
+        });
+
+        $user_access_string = implode(',', $filtered_values);
+
+        dd($user_access_string);
         
         $user->update([
             'is_free_access' => $user->is_free_access ? false : true
