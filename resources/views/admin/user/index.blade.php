@@ -452,10 +452,14 @@
 
         var access = $(element).data('access');
 
-        // $.each(access,function(i,v)
-        // {
-        //     $('#'+v).prop('checked',true);
-        // });
+        if (access) {
+          
+            var accessArray = access.split(',');
+
+            $.each(accessArray, function(index, value) {
+                $('#' + value).prop('checked', true);
+            });
+        }
 
         console.log(access);
 

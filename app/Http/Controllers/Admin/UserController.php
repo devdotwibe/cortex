@@ -92,16 +92,7 @@ class UserController extends Controller
                return $this->addColumn('is_free_access', function ($data) {
 
 
-                if (!empty($data->free_access_terms)) {
-
-                    $user_access = implode(',', $data->free_access_terms);
-
-                } else {
-                    $user_access = [];
-                }
-                
-
-                return '  <a onclick="UserAccess(\'' . $data->slug . '\',this)" data-access="'.$user_access.'" target="_blank" rel="noreferrer" class="btn btn-icons">
+                return '  <a onclick="UserAccess(\'' . $data->slug . '\',this)" data-access="'.$data->free_access_terms.'" target="_blank" rel="noreferrer" class="btn btn-icons">
                             <span class="adminside-icon">
                                 <img src="' . asset('assets/images/updgrade.png') . '" alt="User Access">
                             </span>
