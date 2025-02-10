@@ -453,20 +453,40 @@
 
     function UpdateUserAccess()
     {
+        // let data = {
+        //     learn1: $('#learn_1').prop("checked"),
+        //     learn2: $('#learn_2').prop("checked"),
+        //     question_bank: $('#question_bank').prop("checked"),
+        //     exam_simulator: $('#exam_simulator').prop("checked")
+        // };
+
         let data = {
-            learn1: $('#learn_1').prop("checked"),
-            learn2: $('#learn_2').prop("checked"),
-            question_bank: $('#question_bank').prop("checked"),
-            exam_simulator: $('#exam_simulator').prop("checked")
+            learn1: $('#learn_1').prop("checked") ? $('#learn_1').val() : null,
+            learn2: $('#learn_2').prop("checked") ? $('#learn_2').val() : null,
+            question_bank: $('#question_bank').prop("checked") ? $('#question_bank').val() : null,
+            exam_simulator: $('#exam_simulator').prop("checked") ? $('#exam_simulator').val() : null,
+            user_slug: $('#user_access_id').val()
         };
 
-        url="route('admin.user.freeaccess')";
+        let url = "{{ route('admin.user.freeaccess', ':user') }}".replace(':user', data.user_slug);
 
-        $.get(url,data,function(res){
-            if (usertable != null) {
-                usertable.ajax.reload();
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: data,
+            dataType: "json",
+            success: function(response) {
+                console.log("Success:", response);
+                if (usertable !== null) {
+                    usertable.ajax.reload();
+                }
+            },
+            error: function(xhr) {
+                console.error("Error:", xhr.responseJSON ? xhr.responseJSON.message : "Unknown error");
+                alert("Failed to update user access. Please try again.");
             }
         });
+
     }
 
 
