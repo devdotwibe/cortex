@@ -465,10 +465,12 @@
 
         // url="{{ route('admin.user.freeaccess') }}";
 
-        $.get(url,data,function(res){
-            if (usertable != null) {
-                usertable.ajax.reload();
-            }
+        $.get(url, data, function(res) {
+        if (usertable != null) {
+            usertable.ajax.reload();
+        }
+        }).fail(function(xhr) {
+            console.error("Error:", xhr.responseJSON ? xhr.responseJSON.message : "Unknown error");
         });
     }
 
