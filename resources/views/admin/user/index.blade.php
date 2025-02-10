@@ -31,7 +31,7 @@
                 @endif
             </div>
         </div>
-        
+
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{ route('admin.subscriber.index') }}" class="nav_link btn">Subscriber</a></li>
@@ -350,6 +350,13 @@
         function usertableinit(table) {
             usertable = table
         }
+        function termchange()
+    {
+        if (usertable != null) {
+            
+            usertable.ajax.reload()
+        }
+    }
         function usertablefilter(d){
             d = d || {}; 
             d.usertype=$('#user-filter').val()
