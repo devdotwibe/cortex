@@ -458,7 +458,7 @@
             learn2: $('#learn_2').prop("checked") ? $('#learn_2').val() : null,
             question_bank: $('#question_bank').prop("checked") ? $('#question_bank').val() : null,
             exam_simulator: $('#exam_simulator').prop("checked") ? $('#exam_simulator').val() : null,
-            user_slug:$('#user_access_id').val();
+            user_slug:$('#user_access_id').val()
         };
 
         url="{{ route('admin.user.freeaccess') }}";
