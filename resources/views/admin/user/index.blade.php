@@ -461,7 +461,9 @@
             user_slug:$('#user_access_id').val()
         };
 
-        url="{{ route('admin.user.freeaccess') }}";
+        let url = "{{ route('admin.user.freeaccess', ':slug') }}".replace(':slug', data.user_slug);
+
+        // url="{{ route('admin.user.freeaccess') }}";
 
         $.get(url,data,function(res){
             if (usertable != null) {
