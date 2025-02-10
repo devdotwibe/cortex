@@ -128,7 +128,42 @@ class UserController extends Controller
         $verifyuser = User::whereNotNull('email_verified_at')->count();
         $freeuser = User::where('is_free_access', true)->count();
         $paiduser = User::whereIn('id', UserProgress::where('name', "cortext-subscription-payment")->where('value', 'paid')->select('user_id'))->count();
-        return view("admin.user.index", compact('unverifyuser', 'verifyuser', 'paiduser', 'freeuser'));
+
+
+        $terms = [];
+
+        $terms1 = ClassDetail::get();
+        $terms2 = LessonMaterial::get();
+        $terms3 = HomeWork::get();
+        $terms4 = LessonRecording::get();
+        
+        foreach ($terms1 as $item) {
+            $terms[] = $item->term_name;
+        }
+        foreach ($terms2 as $item) {
+            if (!in_array($item->term_name, $terms)) { 
+                $terms[] = $item->term_name;
+            }
+        }
+        
+        foreach ($terms3 as $item) {
+            if (!in_array($item->term_name, $terms)) {
+                $terms[] = $item->term_name;
+            }
+        }
+        
+        foreach ($terms4 as $item) {
+            if (!in_array($item->term_name, $terms)) {
+                $terms[] = $item->term_name;
+            }
+        }
+
+        $page_name = "Registered Users";
+
+        $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
+
+
+        return view("admin.user.index", compact('page_name','unverifyuser','terms', 'verifyuser', 'paiduser', 'freeuser'));
     }
     public function create(Request $request)
     {
