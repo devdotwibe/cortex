@@ -353,17 +353,17 @@ class UserController extends Controller
             'success' => "Community status updated"
         ]);
     }
-    // public function freeaccess(Request $request, User $user)
-    // {
-    //     // dd($request);
+    public function freeaccess(Request $request)
+    {
+        // dd($request);
         
-    //     // $user->update([
-    //     //     'is_free_access' => $user->is_free_access ? false : true
-    //     // ]);
-    //     return response()->json([
-    //         'success' => "Free User status updated"
-    //     ]);
-    // }
+        // $user->update([
+        //     'is_free_access' => $user->is_free_access ? false : true
+        // ]);
+        return response()->json([
+            'success' => "Free User status updated"
+        ]);
+    }
 
     public function is_user_verfied(Request $request, User $user)
     {
