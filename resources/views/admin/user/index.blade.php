@@ -245,7 +245,7 @@
                                 <tbody id="admin-table-body">
 
                                     <tr>
-                                        <td>Users</td>
+                                        <td>Learn 1 (Critical Reasoning,Logical Reasoning )</td>
                                         <td>
                                             <div class="form-check form-switch">
 
@@ -255,7 +255,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Learn</td>
+                                        <td>Learn 2 (Abstract Reasoning ,Numerical Reasoning modules )</td>
                                         <td>
                                             <div class="form-check form-switch">
 
@@ -265,7 +265,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Options</td>
+                                        <td>Question bank</td>
                                         <td>
                                             <div class="form-check form-switch">
 
@@ -275,7 +275,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Question Bank</td>
+                                        <td>Exam simulator</td>
                                         <td>
                                             <div class="form-check form-switch">
 
@@ -284,56 +284,7 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td>Topic Exam</td>
-                                        <td>
-                                            <div class="form-check form-switch">
-
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="topic_exam" class="form-check-input" name="topic_exam" value="Y" role="switch" >
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                     <tr>
-                                        <td>Full Mock Exam</td>
-                                        <td>
-                                            <div class="form-check form-switch">
-
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="full_mock_exam" class="form-check-input" name="full_mock_exam" value="Y" role="switch" >
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Live Teaching</td>
-                                        <td>
-                                            <div class="form-check form-switch">
-
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="live_teaching" class="form-check-input" name="live_teaching" value="Y" role="switch" >
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Community</td>
-                                        <td>
-                                            <div class="form-check form-switch">
-
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="community" class="form-check-input" name="community" value="Y" role="switch" >
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>pages</td>
-                                        <td>
-                                            <div class="form-check form-switch">
-
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="pages" class="form-check-input" name="pages" value="Y" role="switch" >
-                                            </div>
-                                        </td>
-                                    </tr>
-
+                                   
                                 </tbody>
 
                             </table>
@@ -496,7 +447,7 @@
     function UserAccess(slug)
     {
         $('#user_access_id').val(slug);
-        
+
         $('#free_access_modal').modal('show');
     }
 
