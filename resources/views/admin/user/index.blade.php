@@ -453,19 +453,19 @@
 
     function UpdateUserAccess()
     {
-        let data = {
-            learn1: $('#learn_1').prop("checked") ? $('#learn_1').val() : null,
-            learn2: $('#learn_2').prop("checked") ? $('#learn_2').val() : null,
-            question_bank: $('#question_bank').prop("checked") ? $('#question_bank').val() : null,
-            exam_simulator: $('#exam_simulator').prop("checked") ? $('#exam_simulator').val() : null,
-            user_slug:$('#user_access_id').val()
-        };
+        // let data = {
+        //     learn1: $('#learn_1').prop("checked") ? $('#learn_1').val() : null,
+        //     learn2: $('#learn_2').prop("checked") ? $('#learn_2').val() : null,
+        //     question_bank: $('#question_bank').prop("checked") ? $('#question_bank').val() : null,
+        //     exam_simulator: $('#exam_simulator').prop("checked") ? $('#exam_simulator').val() : null,
+        //     user_slug:$('#user_access_id').val()
+        // };
 
-        let url = "{{ route('admin.user.freeaccess', ':user') }}".replace(':user', data.user_slug);
+        // let url = "{{ route('admin.user.freeaccess', ':user') }}".replace(':user', data.user_slug);
 
-        // url="{{ route('admin.user.freeaccess') }}";
+        url="{{ route('admin.user.freeaccess') }}";
 
-        $.get(url, data, function(res) {
+        $.get(url,function(res) {
         if (usertable != null) {
             usertable.ajax.reload();
         }
