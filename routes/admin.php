@@ -84,7 +84,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('/user/{user}/comunity', [UserController::class, 'usercomunity'])->name('user.comunity');
             Route::get('/user/freeaccess', [UserController::class, 'freeaccess'])->name('user.freeaccess');
 
-            Route::get('/user/userfree', [UserController::class, 'userfree'])->name('user.userfree');
+            Route::post('/user/userfree', [UserController::class, 'userfree'])->name('user.userfree');
 
             Route::get('/user/{user}/is_user_verfied', [UserController::class, 'is_user_verfied'])->name('user.is_user_verfied');
             Route::get('/user/{user}/termslist', [UserController::class, 'termslist'])->name('user.termslist');
