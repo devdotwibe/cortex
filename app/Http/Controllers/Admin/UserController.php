@@ -12,6 +12,7 @@ use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\ClassDetail;
 use App\Models\HomeWork;
+use App\Models\Learn;
 use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\PaymentTransation;
@@ -198,8 +199,15 @@ class UserController extends Controller
 
         $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
+        $category = Category::where('id', '>', 0)
+        ->whereHas('subcategories', function ($qry) {
+            $qry->whereIn('id', Learn::select('sub_category_id'));
+        })
+        ->get();
+    
 
-        return view("admin.user.index", compact('page_name','unverifyuser','terms', 'verifyuser', 'paiduser', 'freeuser'));
+
+        return view("admin.user.index", compact('category','page_name','unverifyuser','terms', 'verifyuser', 'paiduser', 'freeuser'));
     }
     public function create(Request $request)
     {

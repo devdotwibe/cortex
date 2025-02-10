@@ -244,7 +244,7 @@
                                 </thead>
                                 <tbody id="admin-table-body">
 
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Learn 1 (Critical Reasoning,Logical Reasoning )</td>
                                         <td>
                                             <div class="form-check form-switch">
@@ -262,7 +262,24 @@
                                                 <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input" name="learn_2" value="learn_2" id="learn_2" role="switch" >
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> --}}
+
+
+                                    @foreach($category as $item) 
+
+                                        <tr>
+                                            <td>Learn {{ $item->name }}</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input" name="learn_2" value="{{ $item->id }}" id="learn_{{ $item->id }}" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    @endforeach
+
+                                    
 
                                     <tr>
                                         <td>Question bank</td>
