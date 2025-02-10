@@ -357,6 +357,18 @@ main {
     display: block;
 }
 
+.card-body a {
+    cursor: pointer;
+}
+
+.card-body a:hover .category-image img {
+    transform: scale(1.05);
+}
+
+.card-body a .category-image img {
+    transition: all 0.25s ease-in;
+}
+
 .tips-class .category a {
     width: 100%;
     display: flex;
@@ -4552,6 +4564,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
 
 .content_section .row {
     margin: 0;
+    align-items: start;
 }
 
 .content_section .card {
@@ -9453,6 +9466,10 @@ nav.navbar.top-barhide {
 
     .pdfsection .lesson .print-bnt {
         font-size: 15px;
+    }
+
+    .content_section .card {
+        height: inherit !important;
     }
 
 }
