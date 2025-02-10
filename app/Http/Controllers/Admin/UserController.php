@@ -359,7 +359,7 @@ class UserController extends Controller
             'is_free_access' => $user->is_free_access ? false : true
         ]);
         return response()->json([
-            'success' => "Community status updated"
+            'success' => "Free User status updated"
         ]);
     }
 

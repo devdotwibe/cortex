@@ -249,7 +249,7 @@
                                         <td>
                                             <div class="form-check form-switch">
 
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="users" class="form-check-input" name="users" value="Y" role="switch" >
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="users" class="form-check-input" name="learn_1" value="learn_1" id="learn_1" role="switch" >
                                             </div>
                                         </td>
                                     </tr>
@@ -259,7 +259,7 @@
                                         <td>
                                             <div class="form-check form-switch">
 
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="learn" class="form-check-input" name="learn" value="Y" role="switch" >
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input" name="learn_2" value="learn_2" id="learn_2" role="switch" >
                                             </div>
                                         </td>
                                     </tr>
@@ -269,7 +269,7 @@
                                         <td>
                                             <div class="form-check form-switch">
 
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="options" class="form-check-input" name="options" value="Y" role="switch" >
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="options" class="form-check-input" name="question_bank" id="question_bank" value="question_bank" role="switch" >
                                             </div>
                                         </td>
                                     </tr>
@@ -279,7 +279,7 @@
                                         <td>
                                             <div class="form-check form-switch">
 
-                                                <input type="checkbox" onchange="AddPermission(this)" data-name="question_bank" class="form-check-input" name="question_bank" value="Y" role="switch" >
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="question_bank" class="form-check-input" name="exam" id="exam_simulator" value="exam_simulator" role="switch" >
                                             </div>
                                         </td>
                                     </tr>
@@ -451,6 +451,24 @@
         $('#free_access_modal').modal('show');
     }
 
+    function UpdateUserAccess()
+    {
+        let data = {
+            learn1: $('#learn_1').prop("checked"),
+            learn2: $('#learn_2').prop("checked"),
+            question_bank: $('#question_bank').prop("checked"),
+            exam_simulator: $('#exam_simulator').prop("checked")
+        };
+
+        url="route('admin.user.freeaccess')";
+
+        $.get(url,data,function(res){
+            if (usertable != null) {
+                usertable.ajax.reload();
+            }
+        });
+    }
+
 
         function usertablefilter(d){
             d = d || {}; 
@@ -459,13 +477,13 @@
             
             return d;
         }
-        function changeactivestatus(url){
-            $.get(url,function(res){
-                if (usertable != null) {
-                    usertable.ajax.reload()
-                }
-            })
-        }
+        // function changeactivestatus(url){
+        //     $.get(url,function(res){
+        //         if (usertable != null) {
+        //             usertable.ajax.reload()
+        //         }
+        //     })
+        // }
         $('#user-filter').change(function(){
             if (usertable != null) {
                 usertable.ajax.reload()
