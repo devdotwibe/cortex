@@ -369,11 +369,20 @@ class UserController extends Controller
 
         $user_access_string = implode(',', $filtered_values);
 
-        dd($user_access_string);
+        $access= false;
+        if (!empty($filtered_values)) {
+
+            $access= true;
+        }
         
-        $user->update([
-            'is_free_access' => $user->is_free_access ? false : true
-        ]);
+        $user->is_free_access = $access;
+        $user->free_access_terms = $user_access_string;
+
+        $user->save();
+
+        // $user->update([
+        //     'is_free_access' => $user->is_free_access ? false : true
+        // ]);
         return response()->json([
             'success' => "Free User status updated"
         ]);
