@@ -28,7 +28,7 @@ class SubscriptionCheck
          */
         $user = Auth::user();
         if($user->subscriptionExpire()){
-            
+
             return $next($request);
         }
 
@@ -41,6 +41,9 @@ class SubscriptionCheck
         }
         
         if (in_array('learn', $opt)) {
+
+            return redirect(route('pricing.index')."#subscription")->with('error', 'Please Subscribe the plan.')->with('subscribe', 'Please Subscribe the plan.');
+            
             $category = $request->route('category');
             if (!empty($category) && in_array($category->id, explode(',', $user->free_access_terms))) {
                 if (Category::where('id', '<', $category->id)->whereIn("id", Learn::select('category_id'))->count() == 0) {
