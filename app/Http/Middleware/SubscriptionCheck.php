@@ -62,28 +62,36 @@ class SubscriptionCheck
             }
         }
         if (in_array('question-bank', $opt)) {
+
             $category = $request->route('category');
-            if (!empty($category) && in_array('question_bank', explode(',', $user->free_access_terms))) {
-                $exam = Exam::where("name", 'question-bank')->first();
-                if (empty($exam)) {
-                    $exam = Exam::store([
-                        "title" => "Question Bank",
-                        "name" => "question-bank",
-                    ]);
-                    $exam = Exam::find($exam->id);
-                }
+
+            $exam = Exam::where("name", 'question-bank')->first();
+            if (empty($exam)) {
+                $exam = Exam::store([
+                    "title" => "Question Bank",
+                    "name" => "question-bank",
+                ]);
+                $exam = Exam::find($exam->id);
+            }
+
+            if (!empty($category) && in_array('question_bank', explode(',', $user->free_access_terms)) || Category::where('id', '<', $category->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'))->count() == 0) {
+             
                 // if (Category::where('id', '<', $category->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'))->count() == 0) {
-                //     $setname = $request->route('setname');
-                //     if (!empty($setname)) {
-                //         if (Setname::where('id', '<', $setname->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('sub_category_set'))->count() == 0) {
-                //             return $next($request);
-                //         }
-                //     } else {
-                //         return $next($request);
-                //     }
+
+                    $setname = $request->route('setname');
+                    if (!empty($setname)) {
+
+                        if (Setname::where('id', '<', $setname->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('sub_category_set'))->count() == 0) {
+                            return $next($request);
+                        }
+                    } else {
+                        
+                        return $next($request);
+                    }
+
                 // }
 
-                return $next($request);
+                // return $next($request);
             }
 
         }
