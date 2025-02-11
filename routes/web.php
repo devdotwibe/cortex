@@ -189,6 +189,9 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
             Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
             
+            Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
+            Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
+            
         });
 
 
@@ -264,9 +267,6 @@ Route::middleware(['auth', 'subscription'])->group(function () {
         Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
         //         Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
 
-
-        Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
-        Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
 
         Route::middleware('hasPrivateClass')->group(function () {
           
