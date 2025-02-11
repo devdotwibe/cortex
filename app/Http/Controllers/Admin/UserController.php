@@ -215,8 +215,7 @@ class UserController extends Controller
     }
     public function bulkaction(Request $request)
     {
-        dd($request->user_access_action);
-        
+      
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
 
@@ -266,7 +265,8 @@ class UserController extends Controller
         }
         elseif(!empty($request->user_access_action))
         {
-
+            dd($request->user_access_action);
+            
             $users = $request->input('selectbox', []);
 
             $user_access = $request->user_access;
