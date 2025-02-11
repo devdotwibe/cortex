@@ -389,8 +389,6 @@ class UserController extends Controller
         $user->is_free_access = $access;
         $user->free_access_terms = $user_access_string;
 
-        dd($access);
-
         $user->save();
 
         // $user->update([
