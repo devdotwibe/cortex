@@ -383,11 +383,9 @@ class UserController extends Controller
 
             $user_access_string = implode(',', $values);
 
-            dd($user_access_string);
             $access= true;
         }
-        dd($user_access_string);
-        
+   
         $user->is_free_access = $access;
         $user->free_access_terms = $user_access_string;
 
