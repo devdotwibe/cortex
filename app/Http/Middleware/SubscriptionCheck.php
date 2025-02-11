@@ -45,8 +45,6 @@ class SubscriptionCheck
            
             if (!empty($category) && in_array($category->id, explode(',', $user->free_access_terms))) {
 
-                dd($category);
-                
                 if (Category::where('id', '<', $category->id)->whereIn("id", Learn::select('category_id'))->count() == 0) {
                     $subcategory = $request->route('sub_category');
                     if (!empty($subcategory)) {
