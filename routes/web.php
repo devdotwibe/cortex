@@ -30,10 +30,10 @@ use Illuminate\Support\Facades\Route;
  * Development
  */
 
-// Route::get('/rollback', function () {
-//     Artisan::call('migrate:rollback');
-//     dd(Artisan::output());
-// });
+Route::get('/rollback', function () {
+    Artisan::call('migrate:rollback');
+    dd(Artisan::output());
+});
 
 Route::get('/migrate', function () {
     Artisan::call('migrate');
