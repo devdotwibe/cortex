@@ -558,19 +558,20 @@
           
             var accessArray = access.split(',');
 
-            if (accessArray.length === 1) {
-                  
-                console.log('one');
-
-                    $('#data_' + accessArray[0]).prop('checked', true);
-
-            } else {
+            if (typeof access === 'string' && access.includes(',')) {
                 
                 console.log('many');
 
                 $.each(accessArray, function(index, value) {
                     $('#data_' + value).prop('checked', true);
                 });
+             
+            } else {
+                
+                console.log('one');
+
+                $('#data_' + accessArray[0]).prop('checked', true);
+
             }
         }
 
