@@ -708,8 +708,8 @@
     
 
             var formData = $(element).serializeArray();
-
-            formData.push({ user_access: user_access });
+    
+            formData.push({ name: 'user_access', value:user_access });
 
             $.post($(element).attr('action'), formData, function(res) {
 
