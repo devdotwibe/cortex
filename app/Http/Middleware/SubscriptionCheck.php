@@ -97,18 +97,15 @@ class SubscriptionCheck
         }
         if (in_array('topic-test', $opt)) {
             $category = $request->route('category');
-
-            $exam = Exam::where("name", 'topic-test')->first();
-            if (empty($exam)) {
-                $exam = Exam::store([
-                    "title" => "Topic Test",
-                    "name" => "topic-test",
-                ]);
-                $exam = Exam::find($exam->id);
-            }
-
-            if (!empty($category) && in_array('exam_simulator', explode(',', $user->free_access_terms)) || Category::where('id', '<', $category->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'))->count() == 0) {
-               
+            if (!empty($category) && in_array('exam_simulator', explode(',', $user->free_access_terms))) {
+                $exam = Exam::where("name", 'topic-test')->first();
+                if (empty($exam)) {
+                    $exam = Exam::store([
+                        "title" => "Topic Test",
+                        "name" => "topic-test",
+                    ]);
+                    $exam = Exam::find($exam->id);
+                }
                 // if (Category::where('id', '<', $category->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('category_id'))->count() == 0) {
                 //     return $next($request);
                 // }
@@ -119,7 +116,7 @@ class SubscriptionCheck
 
         if (in_array('full-mock-exam', $opt)) {
             $exam = $request->route('exam');
-            if (!empty($exam) && in_array('exam_simulator', explode(',', $user->free_access_terms))) {
+            if (!empty($exam) && in_array('exam_simulator', explode(',', $user->free_access_terms)) || Exam::where('id', '<', $exam->id)->where("name", 'full-mock-exam')->whereIn("id", Question::select('exam_id'))->count() == 0) {
                 
                 // if (Exam::where('id', '<', $exam->id)->where("name", 'full-mock-exam')->whereIn("id", Question::select('exam_id'))->count() == 0) {
                 //     return $next($request);
