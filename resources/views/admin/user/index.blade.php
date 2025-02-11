@@ -709,6 +709,8 @@
 
             var formData = $(element).serializeArray();
     
+            formData.push({ name: 'user_access_action', value:'user_access_action' });
+
             formData.push({ name: 'user_access', value:user_access });
 
             $.post($(element).attr('action'), formData, function(res) {

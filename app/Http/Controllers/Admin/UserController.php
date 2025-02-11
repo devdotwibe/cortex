@@ -216,7 +216,7 @@ class UserController extends Controller
     public function bulkaction(Request $request)
     {
         dd($request);
-        
+
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
 
@@ -264,8 +264,26 @@ class UserController extends Controller
 
             return redirect()->route('admin.user.index')->with("success", "Users deleted success");
         }
-        elseif(!empty($request->user_access))
+        elseif(!empty($request->user_access_action))
         {
+
+            $users = $request->input('selectbox', []);
+
+            $user_access = $request->user_access;
+
+            foreach($users as $user)
+            {
+                $real_user = User::find($user);
+
+                $real_user->free_access_terms = $user_access;
+              
+                $real_user->save();
+                dd($user_access);
+            }
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "User Access success"]);
+            }
 
         }
         else {
