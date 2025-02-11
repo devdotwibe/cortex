@@ -35,10 +35,10 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-Route::get('/migrate', function () {
-    Artisan::call('migrate');
-    dd(Artisan::output());
-});
+// Route::get('/migrate', function () {
+//     Artisan::call('migrate');
+//     dd(Artisan::output());
+// });
 // Route::get('/fresh', function () {
 //     Artisan::call('migrate:fresh');
 //     dd(Artisan::output());
