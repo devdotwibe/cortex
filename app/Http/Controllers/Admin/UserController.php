@@ -371,11 +371,12 @@ class UserController extends Controller
 
         $values = array_column($user_access, 'value');
 
-        $filtered_values = array_filter($values, function($value) {
-            return !is_null($value);
-        });
+        // $filtered_values = array_filter($values, function($value) {
+        //     return !is_null($value);
+        // });
+        dd($values);
 
-        $user_access_string = implode(',', $filtered_values);
+        $user_access_string = implode(',', $values);
 
         $access= false;
         if (!empty($filtered_values)) {
