@@ -215,6 +215,8 @@ class UserController extends Controller
     }
     public function bulkaction(Request $request)
     {
+        dd($request->user_access_action);
+        
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
 
