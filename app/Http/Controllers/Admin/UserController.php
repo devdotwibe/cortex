@@ -369,22 +369,24 @@ class UserController extends Controller
 
         $user_access = $request->user_access;
 
-        $values = array_column($user_access, 'value');
-
-        $filtered_values = array_filter($values, function($value) {
-            return !is_null($value);
-        });
-
-
-        $user_access_string = implode(',', $values);
-
-        dd($user_access_string);
+        $user_access_string ="";
 
         $access= false;
-        if (!empty($filtered_values)) {
 
+        if(!empty($user_access))
+        {
+            $values = array_column($user_access, 'value');
+
+            $filtered_values = array_filter($values, function($value) {
+                return !is_null($value);
+            });
+
+            $user_access_string = implode(',', $values);
+
+            dd($user_access_string);
             $access= true;
         }
+        dd($user_access_string);
         
         $user->is_free_access = $access;
         $user->free_access_terms = $user_access_string;
