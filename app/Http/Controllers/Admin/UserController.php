@@ -215,6 +215,8 @@ class UserController extends Controller
     }
     public function bulkaction(Request $request)
     {
+        dd($request);
+        
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
 
@@ -261,6 +263,10 @@ class UserController extends Controller
             }
 
             return redirect()->route('admin.user.index')->with("success", "Users deleted success");
+        }
+        elseif(!empty($request->user_access))
+        {
+
         }
         else {
             $request->validate([

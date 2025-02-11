@@ -320,7 +320,6 @@
 </div>
 
 
-
 <div class="modal fade" id="password-reset-modal" tabindex="-1" role="dialog" aria-labelledby="password-resetLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -354,6 +353,92 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="user_access-usertableinit" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user-termLablel">User Free Access</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <form  class="form" id="bulk_user_permisson" data-save="create" data-action="" data-createurl="" >
+                    @csrf                
+                    <div class="row"> 
+
+                       <div class="col-md-12" >
+
+                            <table class="table table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>Permissions</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-table-body">
+
+                                    @foreach($category as $item) 
+
+                                        <tr>
+                                            <td>Learn {{ $item->name }}</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox"data-name="learn" class="form-check-input user_accesss" name="user_access[]" value="{{ $item->id }}" id="bulk_{{ $item->id }}" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    @endforeach
+
+                                    
+
+                                    <tr>
+                                        <td>Question bank</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" data-name="options" class="form-check-input user_accesss" name="user_access[]" id="bulk_question_bank" value="question_bank" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Exam simulator</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox"  data-name="question_bank" class="form-check-input user_accesss" name="user_access[]" id="bulk_exam_simulator" value="exam_simulator" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                   
+                                </tbody>
+
+                            </table>
+
+                       </div>
+
+                    
+                    </div> 
+
+
+                    <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                    <button type="button" id="submit_user_access_bulk" onclick="BulkUserAccess()" class="btn btn-dark">Submit</button>
+
+
+                </form>
+
+              
+            </div> 
+        </div>
+    </div>
+</div>
+
 
 
 <div class="modal fade" id="user_time_slote-usertableinit" tabindex="-1" role="dialog" aria-labelledby="password-resetLabel" aria-hidden="true">
@@ -602,6 +687,42 @@
                    
             }, 'json').fail(function() {
                 showToast('User Not Registered', 'danger');
+            })
+
+        }
+
+        function BulkUserAccess()
+        {
+            var user_access = [];
+
+            $('input[name="user_access[]"]:checked').each(function() {
+                user_access.push($(this).val());
+            })
+    
+            var element = $('#table-usertable-bulk-action-form');
+
+            if ($(element).length === 0) {
+                showToast('Form not found!', 'danger');
+                return;
+            }
+    
+
+            var formData = $(element).serializeArray();
+
+            formData.push({ user_access: user_access });
+
+            $.post($(element).attr('action'), formData, function(res) {
+
+                    showToast(res.success ?? 'User Access Successfully', 'success');
+
+                    $('#user_access-usertableinit').modal('hide');
+
+                    $('#table-usertable').DataTable().ajax.reload();
+                    $('.other-actions').hide();
+                    location.reload();
+                   
+            }, 'json').fail(function() {
+                showToast('User Access Not Updated', 'danger');
             })
 
         }
