@@ -558,9 +558,16 @@
           
             var accessArray = access.split(',');
 
-            $.each(accessArray, function(index, value) {
-                $('#data_' + value).prop('checked', true);
-            });
+            if (accessArray.length === 1) {
+                  
+                    $('#data_' + accessArray[0]).prop('checked', true);
+
+            } else {
+                
+                $.each(accessArray, function(index, value) {
+                    $('#data_' + value).prop('checked', true);
+                });
+            }
         }
 
         console.log(access);
