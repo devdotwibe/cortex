@@ -55,6 +55,10 @@ class SubscriptionCheck
                         if (SubCategory::where('id', '<', $subcategory->id)->where('category_id', $category->id)->whereIn("id", Learn::select('sub_category_id'))->count() == 0) {
                             return $next($request);
                         }
+                        elseif(in_array($category->id, explode(',', $user->free_access_terms)))
+                        {
+                            return $next($request);
+                        }
                     } else {
                         return $next($request);
                     }
@@ -84,6 +88,11 @@ class SubscriptionCheck
                         if (Setname::where('id', '<', $setname->id)->where('category_id',$category->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('sub_category_set'))->count() == 0) {
                             return $next($request);
                         }
+                        elseif(in_array('question_bank', explode(',', $user->free_access_terms)))
+                        {
+                            return $next($request);
+                        }
+
                     } else {
 
                         return $next($request);
