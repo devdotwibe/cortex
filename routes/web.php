@@ -267,7 +267,7 @@ Route::middleware(['auth', 'subscription'])->group(function () {
         Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
 
         Route::middleware('hasPrivateClass')->group(function () {
-            Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
+          
             Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
             Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
 
@@ -296,7 +296,7 @@ Route::middleware(['auth', 'subscription'])->group(function () {
 });
 
 
-
+Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
 
 Route::get('/course', [UserCourseController::class, 'index'])->name('course.index');
 Route::post('/contact-submit', [UserCourseController::class, 'submit'])->name('contact.submit');
