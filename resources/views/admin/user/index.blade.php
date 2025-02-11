@@ -570,7 +570,7 @@
                 
                 console.log('one');
 
-                $('#data_' + accessArray[0]).prop('checked', true);
+                $('#data_' + access).prop('checked', true);
 
             }
         }
