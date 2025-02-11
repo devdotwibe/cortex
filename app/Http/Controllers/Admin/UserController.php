@@ -95,7 +95,7 @@ class UserController extends Controller
 
                 return '  <a onclick="UserAccess(\'' . $data->slug . '\',this)" data-access="'.$data->free_access_terms.'" target="_blank" rel="noreferrer" class="btn btn-icons">
                             <span class="adminside-icon">
-                                <img src="' . asset('assets/images/user_access.png') . '" alt="User Access">
+                                <img src="' . asset('assets/images/user_acces.png') . '" alt="User Access">
                             </span>
                             <span class="adminactive-icon">
                                 <img src="' . asset('assets/images/user_access_hover.png') . '" alt="User Access" title="User Access">
