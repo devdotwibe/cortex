@@ -265,8 +265,6 @@ class UserController extends Controller
         }
         elseif(!empty($request->user_access_action))
         {
-            dd($request->user_access_action);
-            
             $users = $request->input('selectbox', []);
 
             $user_access = $request->user_access;
