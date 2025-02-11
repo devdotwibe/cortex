@@ -27,7 +27,7 @@
                                     <h3>{{$item->name}}</h3>
                                     </div>
                                     <div class="action-button">
-                                        @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed") 
+                                        @if (($user->is_free_access && && in_array('exam_simulator', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed") 
                                             @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
                                             
                                             @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 
