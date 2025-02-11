@@ -595,9 +595,20 @@ class LiveClassController extends Controller
 
         if($request->input('select_all','no')=="yes"){
 
+            $user_ids = PrivateClass::whereIn('id',$request->input('selectbox',[]))->pluck('user_id')->toArray();
+
+            dd($user_ids);
+            
+            TermAccess::whereIn('user_id',$user_ids)->delete();
+
             PrivateClass::whereIn('id',$request->input('selectbox',[]))->delete();
             // PrivateClass::where('id','>',0)->delete();
         }else{
+
+            $user_ids = PrivateClass::whereIn('id',$request->input('selectbox',[]))->pluck('user_id')->toArray();
+
+            TermAccess::whereIn('user_id',$user_ids)->delete();
+
             PrivateClass::whereIn('id',$request->input('selectbox',[]))->delete();
         }
         if($request->ajax()){
