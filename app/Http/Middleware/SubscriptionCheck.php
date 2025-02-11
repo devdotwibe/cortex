@@ -27,7 +27,7 @@ class SubscriptionCheck
          * @var User
          */
         $user = Auth::user();
-        if(isset($user->is_free_access) ){
+        if($user->subscriptionExpire()){
             return redirect(route('pricing.index')."#subscription")->with('error', 'Please Subscribe the plan.')->with('subscribe', 'Please Subscribe the plan.');
             return $next($request);
         }
