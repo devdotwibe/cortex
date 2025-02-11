@@ -41,7 +41,7 @@ class SubscriptionCheck
         
         if (in_array('learn', $opt)) {
             $category = $request->route('category');
-            if (!empty($category)) {
+            if (!empty($category) && in_array($category->id, explode(',', $user->free_access_terms))) {
                 if (Category::where('id', '<', $category->id)->whereIn("id", Learn::select('category_id'))->count() == 0) {
                     $subcategory = $request->route('sub_category');
                     if (!empty($subcategory)) {
@@ -57,7 +57,7 @@ class SubscriptionCheck
         }
         if (in_array('question-bank', $opt)) {
             $category = $request->route('category');
-            if (!empty($category)) {
+            if (!empty($category) && in_array('question_bank', explode(',', $user->free_access_terms))) {
                 $exam = Exam::where("name", 'question-bank')->first();
                 if (empty($exam)) {
                     $exam = Exam::store([
@@ -81,7 +81,7 @@ class SubscriptionCheck
         }
         if (in_array('topic-test', $opt)) {
             $category = $request->route('category');
-            if (!empty($category)) {
+            if (!empty($category) && in_array('exam_simulator', explode(',', $user->free_access_terms))) {
                 $exam = Exam::where("name", 'topic-test')->first();
                 if (empty($exam)) {
                     $exam = Exam::store([
@@ -98,7 +98,7 @@ class SubscriptionCheck
 
         if (in_array('full-mock-exam', $opt)) {
             $exam = $request->route('exam');
-            if (!empty($exam)) {
+            if (!empty($exam) && in_array('exam_simulator', explode(',', $user->free_access_terms))) {
                 if (Exam::where('id', '<', $exam->id)->where("name", 'full-mock-exam')->whereIn("id", Question::select('exam_id'))->count() == 0) {
                     return $next($request);
                 }
