@@ -54,9 +54,6 @@ class SubscriptionCheck
                     }
                 }
             }
-
-            return redirect(route('pricing.index')."#subscription")->with('error', 'Please Subscribe the plan.')->with('subscribe', 'Please Subscribe the plan.');
-
         }
         if (in_array('question-bank', $opt)) {
             $category = $request->route('category');
