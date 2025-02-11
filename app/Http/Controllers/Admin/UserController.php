@@ -276,7 +276,6 @@ class UserController extends Controller
                 $real_user->free_access_terms = $user_access;
               
                 $real_user->save();
-                dd($user_access);
             }
 
             if ($request->ajax()) {
