@@ -50,7 +50,7 @@ class SubscriptionCheck
                     $subcategory = $request->route('sub_category');
 
                     if (!empty($subcategory)) {
-                        dd(SubCategory::where('id', '<', $subcategory->id)->whereIn("id", Learn::select('sub_category_id'))->count() == 0);
+                        dd(SubCategory::where('id', '<', $subcategory->id)->whereIn("id", Learn::select('sub_category_id'))->count());
                         if (SubCategory::where('id', '<', $subcategory->id)->whereIn("id", Learn::select('sub_category_id'))->count() == 0) {
                             return $next($request);
                         }
