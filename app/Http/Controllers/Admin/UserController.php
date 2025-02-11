@@ -12,6 +12,7 @@ use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\ClassDetail;
 use App\Models\HomeWork;
+use App\Models\Learn;
 use App\Models\LessonMaterial;
 use App\Models\LessonRecording;
 use App\Models\PaymentTransation;
@@ -64,12 +65,48 @@ class UserController extends Controller
                         break;
                 }
             }
-            return $this->addColumn('is_free_access', function ($data) {
-                return '<div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.freeaccess', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->is_free_access ? "checked" : "") . '/>
-                            <label class="form-check-label" for="free-toggle-' . $data->id . '">Free</label>
-                        </div>';
-        })
+
+            if(!empty($request->termname)){
+
+                $termname= $request->termname;
+
+                $this->where(function($qry)use($termname){
+
+                    $qry->whereIn('id',TermAccess::where('type','home-work')->where('term_id',HomeWork::where('term_name',$termname)->select('id'))->select('user_id'))
+
+
+                    ->orWhereIn('id',TermAccess::where('type','class-detail')->where('term_id',ClassDetail::where('term_name',$termname)->select('id'))->select('user_id'))
+                    -> orWhereIn('id',TermAccess::where('type','lesson-material')->where('term_id',LessonMaterial::where('term_name',$termname)->select('id'))->select('user_id'))
+                    -> orWhereIn('id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
+               ;
+                });
+                
+            }
+
+        //     return $this->addColumn('is_free_access', function ($data) {
+        //         return '<div class="form-check form-switch">
+        //                     <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.freeaccess', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->is_free_access ? "checked" : "") . '/>
+        //                     <label class="form-check-label" for="free-toggle-' . $data->id . '">Free</label>
+        //                 </div>';
+        // })
+
+               return $this->addColumn('is_free_access', function ($data) {
+
+
+                return '  <a onclick="UserAccess(\'' . $data->slug . '\',this)" data-access="'.$data->free_access_terms.'" target="_blank" rel="noreferrer" class="btn btn-icons">
+                            <span class="adminside-icon">
+                                <img src="' . asset('assets/images/new_lock.png') . '" alt="User Access">
+                            </span>
+                            <span class="adminactive-icon">
+                                <img src="' . asset('assets/images/new_lock_hover.png') . '" alt="User Access" title="User Access">
+                            </span>
+                        </a> ';
+
+                })
+
+        
+
+
             ->addColumn('is_user_verfied', function ($data) {
             return '<div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" onchange="changeactivestatus(' . "'" . route('admin.user.is_user_verfied', $data->slug) . "'" . ')" role="switch" id="free-toggle-' . $data->id . '"  ' . ($data->email_verified_at ? "checked" : "") . '/>
@@ -128,7 +165,49 @@ class UserController extends Controller
         $verifyuser = User::whereNotNull('email_verified_at')->count();
         $freeuser = User::where('is_free_access', true)->count();
         $paiduser = User::whereIn('id', UserProgress::where('name', "cortext-subscription-payment")->where('value', 'paid')->select('user_id'))->count();
-        return view("admin.user.index", compact('unverifyuser', 'verifyuser', 'paiduser', 'freeuser'));
+
+
+        $terms = [];
+
+        $terms1 = ClassDetail::get();
+        $terms2 = LessonMaterial::get();
+        $terms3 = HomeWork::get();
+        $terms4 = LessonRecording::get();
+        
+        foreach ($terms1 as $item) {
+            $terms[] = $item->term_name;
+        }
+        foreach ($terms2 as $item) {
+            if (!in_array($item->term_name, $terms)) { 
+                $terms[] = $item->term_name;
+            }
+        }
+        
+        foreach ($terms3 as $item) {
+            if (!in_array($item->term_name, $terms)) {
+                $terms[] = $item->term_name;
+            }
+        }
+        
+        foreach ($terms4 as $item) {
+            if (!in_array($item->term_name, $terms)) {
+                $terms[] = $item->term_name;
+            }
+        }
+
+        $page_name = "Registered Users";
+
+        $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
+
+        $category = Category::where('id', '>', 0)
+        ->whereHas('subcategories', function ($qry) {
+            $qry->whereIn('id', Learn::select('sub_category_id'));
+        })
+        ->get();
+    
+
+
+        return view("admin.user.index", compact('category','page_name','unverifyuser','terms', 'verifyuser', 'paiduser', 'freeuser'));
     }
     public function create(Request $request)
     {
@@ -136,6 +215,7 @@ class UserController extends Controller
     }
     public function bulkaction(Request $request)
     {
+      
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
 
@@ -182,6 +262,26 @@ class UserController extends Controller
             }
 
             return redirect()->route('admin.user.index')->with("success", "Users deleted success");
+        }
+        elseif(!empty($request->user_access_action))
+        {
+            $users = $request->input('selectbox', []);
+
+            $user_access = $request->user_access;
+
+            foreach($users as $user)
+            {
+                $real_user = User::find($user);
+
+                $real_user->free_access_terms = $user_access;
+              
+                $real_user->save();
+            }
+
+            if ($request->ajax()) {
+                return response()->json(["success" => "User Access success"]);
+            }
+
         }
         else {
             $request->validate([
@@ -282,13 +382,41 @@ class UserController extends Controller
             'success' => "Community status updated"
         ]);
     }
-    public function freeaccess(Request $request, User $user)
+    public function freeaccess(Request $request)
     {
-        $user->update([
-            'is_free_access' => $user->is_free_access ? false : true
-        ]);
+        $user_slug = $request->user_slug;
+
+        $user = User::findSlug($user_slug);
+
+        $user_access = $request->user_access;
+
+        $user_access_string ="";
+
+        $access= false;
+
+        if(!empty($user_access))
+        {
+            $values = array_column($user_access, 'value');
+
+            $filtered_values = array_filter($values, function($value) {
+                return !is_null($value);
+            });
+
+            $user_access_string = implode(',', $values);
+
+            $access= true;
+        }
+   
+        $user->is_free_access = $access;
+        $user->free_access_terms = $user_access_string;
+
+        $user->save();
+
+        // $user->update([
+        //     'is_free_access' => $user->is_free_access ? false : true
+        // ]);
         return response()->json([
-            'success' => "Community status updated"
+            'success' => "Free User status updated"
         ]);
     }
 

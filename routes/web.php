@@ -187,6 +187,11 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/{live}/workshop', [LiveClassController::class, 'workshop'])->name('workshop');
             // Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
             Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
+            Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
+            
+            Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
+            Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
+            
         });
 
 
@@ -217,10 +222,10 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
         Route::prefix('tipsandadvice')->name('tipsandadvise.')->group(function () {
 
-            Route::middleware('subscription:tipsandadvice')->get('/', [TipsAndAdviceController::class, 'index'])->name('index');
+            Route::/*middleware('subscription:tipsandadvice')->*/get('/', [TipsAndAdviceController::class, 'index'])->name('index');
 
-            Route::middleware('subscription:tipsandadvice')->resource('/post', TipsAndAdviceController::class);
-            Route::middleware('subscription:tipsandadvice')->get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
+            Route::/*middleware('subscription:tipsandadvice')->*/resource('/post', TipsAndAdviceController::class);
+            Route::/*middleware('subscription:tipsandadvice')->*/get('/tips-show/{id}', [TipsAndAdviceController::class, 'tip_show'])->name('tip_show');
         });
     });
 
@@ -263,11 +268,8 @@ Route::middleware(['auth', 'subscription'])->group(function () {
         //         Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
 
 
-        Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
-        Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
-
         Route::middleware('hasPrivateClass')->group(function () {
-            Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
+          
             Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
             Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
 
@@ -294,8 +296,6 @@ Route::middleware(['auth', 'subscription'])->group(function () {
         });
     });
 });
-
-
 
 
 Route::get('/course', [UserCourseController::class, 'index'])->name('course.index');

@@ -10,10 +10,10 @@
 </section>
 <section class="content_section learn-section">
     <div class="container">
-        <div class="row">
+        <div class="row {{ $user->free_access_terms }}">
             @foreach ($categorys as $k => $item)
             <div class="col-md-6">
-                @if ($user->is_free_access||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
+                @if (($user->is_free_access && in_array($item->id, explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0)
                 <a href="{{ route('learn.show', $item->slug) }}">
                 @else
                     {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}

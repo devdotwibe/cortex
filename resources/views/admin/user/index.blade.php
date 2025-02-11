@@ -18,6 +18,20 @@
                 </select>
             </div>
         </div>
+
+        <div class="header_content">
+            <div class="form-group">
+                @if($page_name!='Pending Users')
+                <select id="term-list" class="select2 form-control" data-allow-clear="true" onchange="termchange()">
+                    <option value="">Select Term</option> 
+                    @foreach($terms  as $term)
+                        <option value="{{ $term }}">{{ $term }}</option>
+                    @endforeach
+                </select>
+                @endif
+            </div>
+        </div>
+
         <div class="header_right">
             <ul class="nav_bar">
                 <li class="nav_item"><a href="{{ route('admin.subscriber.index') }}" class="nav_link btn">Subscriber</a></li>
@@ -203,7 +217,109 @@
 </section>
 @endsection
 @push('modals')
-    
+   
+
+
+<div class="modal fade" id="free_access_modal" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user-termLablel">User Free Access</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <form  class="form" id="admin_permission_form" data-save="create" data-action="" data-createurl="" >
+                    @csrf                
+                    <div class="row"> 
+
+                       <div class="col-md-12" >
+
+                            <table class="table table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>Permissions</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-table-body">
+
+                                    {{-- <tr>
+                                        <td>Learn 1 (Critical Reasoning,Logical Reasoning )</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="users" class="form-check-input" name="learn_1" value="learn_1" id="learn_1" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Learn 2 (Abstract Reasoning ,Numerical Reasoning modules )</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input" name="learn_2" value="learn_2" id="learn_2" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr> --}}
+
+
+                                    @foreach($category as $item) 
+
+                                        <tr>
+                                            <td>Learn {{ $item->name }}</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="learn" class="form-check-input user_accesss" name="learn_2" value="{{ $item->id }}" id="data_{{ $item->id }}" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    @endforeach
+
+                                    
+
+                                    <tr>
+                                        <td>Question bank</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="options" class="form-check-input user_accesss" name="question_bank" id="data_question_bank" value="question_bank" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Exam simulator</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" onchange="UpdateUserAccess(this)" data-name="question_bank" class="form-check-input user_accesss" name="exam" id="data_exam_simulator" value="exam_simulator" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                   
+                                </tbody>
+
+                            </table>
+
+                       </div>
+
+                       <input type="hidden" id="user_access_id" name="user_access_id" >
+
+                    </div> 
+                </form>
+
+              
+            </div> 
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="password-reset-modal" tabindex="-1" role="dialog" aria-labelledby="password-resetLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -237,6 +353,92 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="user_access-usertableinit" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user-termLablel">User Free Access</h5>
+                <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 
+                <form  class="form" id="bulk_user_permisson" data-save="create" data-action="" data-createurl="" >
+                    @csrf                
+                    <div class="row"> 
+
+                       <div class="col-md-12" >
+
+                            <table class="table table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>Permissions</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-table-body">
+
+                                    @foreach($category as $item) 
+
+                                        <tr>
+                                            <td>Learn {{ $item->name }}</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox"data-name="learn" class="form-check-input user_accesss" name="user_access[]" value="{{ $item->id }}" id="bulk_{{ $item->id }}" role="switch" >
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    @endforeach
+
+                                    
+
+                                    <tr>
+                                        <td>Question bank</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox" data-name="options" class="form-check-input user_accesss" name="user_access[]" id="bulk_question_bank" value="question_bank" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Exam simulator</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+
+                                                <input type="checkbox"  data-name="question_bank" class="form-check-input user_accesss" name="user_access[]" id="bulk_exam_simulator" value="exam_simulator" role="switch" >
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                   
+                                </tbody>
+
+                            </table>
+
+                       </div>
+
+                    
+                    </div> 
+
+
+                    <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
+                    <button type="button" id="submit_user_access_bulk" onclick="BulkUserAccess()" class="btn btn-dark">Submit</button>
+
+
+                </form>
+
+              
+            </div> 
+        </div>
+    </div>
+</div>
+
 
 
 <div class="modal fade" id="user_time_slote-usertableinit" tabindex="-1" role="dialog" aria-labelledby="password-resetLabel" aria-hidden="true">
@@ -336,9 +538,103 @@
         function usertableinit(table) {
             usertable = table
         }
+        function termchange()
+    {
+        if (usertable != null) {
+            
+            usertable.ajax.reload()
+        }
+    }
+
+    function UserAccess(slug,element)
+    {
+        $('#user_access_id').val(slug);
+
+        $('#free_access_modal').modal('show');
+
+        var access = $(element).data('access');
+
+        if (access) {
+          
+            if (typeof access === 'string' && access.includes(',')) {
+                
+                console.log('many');
+                var accessArray = access.split(',');
+
+                $.each(accessArray, function(index, value) {
+                    $('#data_' + value).prop('checked', true);
+                });
+             
+            } else {
+                
+                console.log('one');
+
+              $('#data_' + access).prop('checked', true);
+
+            }
+        }
+
+        console.log(access);
+
+    }
+
+    function UpdateUserAccess(element)
+    {
+        // var user_access = [];
+
+        // var accessTypes = [
+        //     { id: 'learn_1', name: 'learn1' },
+        //     { id: 'learn_2', name: 'learn2' },
+        //     { id: 'question_bank', name: 'question_bank' },
+        //     { id: 'exam_simulator', name: 'exam_simulator' }
+        // ];
+
+        var user_access = [];
+
+        $.each($('.user_accesss'), function(i, v) {
+          
+            if ($(this).prop("checked")) {
+                user_access.push({
+                    value: $(this).val()
+                });
+            }
+        });
+
+        // accessTypes.forEach(function(access) {
+        //     var isChecked = $('#' + access.id).prop("checked");
+        //     user_access.push({
+        //         name: access.name,
+        //         value: isChecked ? $('#' + access.id).val() : null
+        //     });
+        // });
+
+        let data = {
+            user_access: user_access,
+            user_slug: $('#user_access_id').val()
+        };
+
+        let url = "{{ route('admin.user.freeaccess') }}";
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: data,
+            dataType: "json",
+            success: function(response) {
+                console.log("Success:", response);
+                if (usertable !== null) {
+                    usertable.ajax.reload();
+                }
+            },
+        });
+
+    }
+
+
         function usertablefilter(d){
             d = d || {}; 
-            d.usertype=$('#user-filter').val()
+            d.usertype=$('#user-filter').val();
+            d.termname=$('#term-list').val();
             
             return d;
         }
@@ -402,6 +698,44 @@
                    
             }, 'json').fail(function() {
                 showToast('User Not Registered', 'danger');
+            })
+
+        }
+
+        function BulkUserAccess()
+        {
+            var user_access = [];
+
+            $('input[name="user_access[]"]:checked').each(function() {
+                user_access.push($(this).val());
+            })
+    
+            var element = $('#table-usertable-bulk-action-form');
+
+            if ($(element).length === 0) {
+                showToast('Form not found!', 'danger');
+                return;
+            }
+    
+
+            var formData = $(element).serializeArray();
+    
+            formData.push({ name: 'user_access_action', value:'user_access_action' });
+
+            formData.push({ name: 'user_access', value:user_access });
+
+            $.post($(element).attr('action'), formData, function(res) {
+
+                    showToast(res.success ?? 'User Access Successfully', 'success');
+
+                    $('#user_access-usertableinit').modal('hide');
+
+                    $('#table-usertable').DataTable().ajax.reload();
+                    $('.other-actions').hide();
+                    location.reload();
+                   
+            }, 'json').fail(function() {
+                showToast('User Access Not Updated', 'danger');
             })
 
         }

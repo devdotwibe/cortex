@@ -58,6 +58,10 @@
                                             onclick="return updateaction{{ $tableid }}('deleteaction')">
                                             Delete All
                                         </button>
+
+                                        <button class="btn btn-success" type="button"
+                                        onclick="return updateaction{{ $tableid }}('user_access')">User Access</button>
+
                                     </div>
                                 </div>
                             @else
@@ -157,6 +161,11 @@
                 $('#user_time_slote-{{ $tableinit }}').modal('show');
                 console.log('registeruser pop');
             
+            }
+            else if(v === 'user_access')
+            {
+                $('#user_access-{{ $tableinit }}').modal('show');
+
             }
             return false;
         }

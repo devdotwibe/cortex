@@ -583,6 +583,9 @@ class LiveClassController extends Controller
         return redirect()->back()->with('success','Request has been successfully rejected');
     }
     public function private_class_request_destroy(Request $request,PrivateClass $privateClass){
+
+        TermAccess::where('user_id', $privateClass->user_id)->delete();
+
         $privateClass->delete();
 
         if($request->ajax()){
@@ -594,9 +597,13 @@ class LiveClassController extends Controller
     public function bulkaction(Request $request){
 
         if($request->input('select_all','no')=="yes"){
-            PrivateClass::whereIn('id',$request->input('selectbox',[]))->delete();
-            // PrivateClass::where('id','>',0)->delete();
+            PrivateClass::where('id','>',0)->delete();
         }else{
+
+            $user_ids = PrivateClass::whereIn('id',$request->input('selectbox',[]))->pluck('user_id')->toArray();
+
+            TermAccess::whereIn('user_id',$user_ids)->delete();
+
             PrivateClass::whereIn('id',$request->input('selectbox',[]))->delete();
         }
         if($request->ajax()){
