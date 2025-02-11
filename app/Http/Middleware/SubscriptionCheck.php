@@ -81,11 +81,11 @@ class SubscriptionCheck
                     $setname = $request->route('setname');
                     if (!empty($setname)) {
 
-                        if (Setname::where('id', '<', $setname->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('sub_category_set'))->count() == 0) {
+                        if (Setname::where('id', '<', $setname->id)->where('category_id',$category->id)->whereIn("id", Question::where('exam_id', $exam->id)->select('sub_category_set'))->count() == 0) {
                             return $next($request);
                         }
                     } else {
-                        
+
                         return $next($request);
                     }
 
