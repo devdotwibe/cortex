@@ -13,7 +13,7 @@
         <div class="row">
             @foreach ($categorys as $k=> $item)
             <div class="col-md-6">
-                @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed") 
+                @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0) 
                 <a href="{{route('question-bank.show',$item->slug)}}">
                 @else
                 {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}
