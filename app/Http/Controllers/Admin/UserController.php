@@ -274,6 +274,15 @@ class UserController extends Controller
                 $real_user = User::find($user);
 
                 $real_user->free_access_terms = $user_access;
+
+                $access= false;
+
+                if(!empty($user_access))
+                {
+                    $access= true;
+                }
+                
+                $real_user->is_free_access = $access;
               
                 $real_user->save();
             }
