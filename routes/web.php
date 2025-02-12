@@ -258,7 +258,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
 
-Route::middleware(['auth', 'subscription'])->group(function () {
+// Route::middleware(['auth', 'subscription'])->group(function () {
 
     Route::prefix('live-class')->name('live-class.')->group(function () {
         //         Route::get('/', [LiveClassController::class, 'index'])->name('index');
@@ -295,7 +295,7 @@ Route::middleware(['auth', 'subscription'])->group(function () {
             Route::get('/{lesson_recording}', [LessonRecordVideoController::class, 'show'])->name('show');
         });
     });
-});
+// });
 
 
 Route::get('/course', [UserCourseController::class, 'index'])->name('course.index');
