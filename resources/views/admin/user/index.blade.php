@@ -224,7 +224,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="user_access_label">User Free Access</h5>
+                <h5 class="modal-title" id="user-termLablel">User Free Access</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body"> 
@@ -553,8 +553,6 @@
         $('#free_access_modal').modal('show');
 
         var access = $(element).data('access');
-
-        $('#user_access_label').text(access);
 
         if (access) {
           
