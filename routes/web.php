@@ -253,9 +253,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
         Route::get('/lesson-record/{lesson_recording}', [UserTermController::class, 'show'])->name('show');
     });
-});
-
-
 
 
 // Route::middleware(['auth', 'subscription'])->group(function () {
@@ -296,6 +293,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
         });
     });
 // });
+
+});
 
 
 Route::get('/course', [UserCourseController::class, 'index'])->name('course.index');
