@@ -19,7 +19,6 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
 { 
@@ -28,9 +27,6 @@ class MainController extends Controller
         /**
          * @var User
          */
-
-        Session::flash('showPopup', true);
-
         $user=Auth::user();
         if($request->ajax()){
             $responceData=[];
