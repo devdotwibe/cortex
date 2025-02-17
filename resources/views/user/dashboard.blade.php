@@ -5,46 +5,6 @@
 	background-color: #FFFFFF;
 }
 </style>
-
-@if(session('showPopup'))
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <h3>Welcome back!</h3>
-            <p>Your credentials are saved for next time.</p>
-            <button onclick="closePopup()">Close</button>
-        </div>
-    </div>
-
-    <script>
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
-
-    <style>
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .popup-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-    </style>
-@endif
-
-
-
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
