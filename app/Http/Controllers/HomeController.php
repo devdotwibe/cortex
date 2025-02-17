@@ -93,6 +93,16 @@ class HomeController extends Controller
 
             session()->put('sidebarCollapsed','true');
 
+            $remember = $request->has('remember'); 
+
+            if (Auth::attempt([
+                'email' => $request->email,
+                'password' => $request->password
+            ], $remember)) {
+               
+                return redirect()->intended('/dashboard');
+            }
+
             return redirect()->intended('/dashboard');
         }
         if (Auth::guard('admin')->attempt($credentials))
