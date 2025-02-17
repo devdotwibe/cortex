@@ -26,7 +26,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\RateLimiter;
@@ -72,24 +71,10 @@ class HomeController extends Controller
     }
 
     public function login(Request $request){
-
         if(Auth::guard('web')->check()){
 
             return redirect('/dashboard');
         }
-
-        if (Cookie::has('username') && Cookie::has('password')) {
-            $username = Cookie::get('username');
-            $password = Cookie::get('password');
-
-            dd($username);
-
-            if (Auth::attempt(['email' => $username, 'password' => bcrypt($password)])) {
-     
-                return redirect()->intended('/dashboard');
-            }
-        }
-        
         if(Auth::guard('admin')->check()){
             return redirect('/admin/dashboard');
         }
@@ -107,14 +92,6 @@ class HomeController extends Controller
             $request->session()->regenerate();
 
             session()->put('sidebarCollapsed','true');
-
-            if ($request->has('remember')) {
-
-                // Session::flash('showPopup', true);
-                dd($request->email);
-                setcookie('username', $request->email, time() + (86400 * 30), "/");
-                setcookie('password', bcrypt($request->password), time() + (86400 * 30), "/");
-            }
 
             return redirect()->intended('/dashboard');
         }
