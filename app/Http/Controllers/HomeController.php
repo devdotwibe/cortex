@@ -82,6 +82,8 @@ class HomeController extends Controller
             $username = Cookie::get('username');
             $password = Cookie::get('password');
 
+            dd($username);
+
             if (Auth::attempt(['email' => $username, 'password' => bcrypt($password)])) {
      
                 return redirect()->intended('/dashboard');
