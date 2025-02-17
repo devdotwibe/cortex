@@ -93,6 +93,14 @@ class HomeController extends Controller
 
             session()->put('sidebarCollapsed','true');
 
+            if ($request->has('remember')) {
+
+                Session::flash('showPopup', true);
+           
+                setcookie('username', $request->email, time() + (86400 * 30), "/");
+                setcookie('password', bcrypt($request->password), time() + (86400 * 30), "/");
+            }
+
             return redirect()->intended('/dashboard');
         }
         if (Auth::guard('admin')->attempt($credentials))
