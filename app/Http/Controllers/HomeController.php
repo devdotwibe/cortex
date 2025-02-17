@@ -84,7 +84,7 @@ class HomeController extends Controller
 
             if (Auth::attempt(['email' => $username, 'password' => bcrypt($password)])) {
      
-                return redirect()->intended();
+                return redirect()->intended('/dashboard');
             }
         }
         
