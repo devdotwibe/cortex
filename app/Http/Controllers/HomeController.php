@@ -95,7 +95,7 @@ class HomeController extends Controller
 
             if ($request->has('remember')) {
 
-                Session::flash('showPopup', true);
+                // Session::flash('showPopup', true);
            
                 setcookie('username', $request->email, time() + (86400 * 30), "/");
                 setcookie('password', bcrypt($request->password), time() + (86400 * 30), "/");
