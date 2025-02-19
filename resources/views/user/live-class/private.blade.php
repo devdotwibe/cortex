@@ -21,27 +21,6 @@
                     {!! $live_class->private_class??""!!}
                 </div>
 
-
-
-                <div class="timetable-wrapp">
-                    <p><strong>Timetable</strong></p>
-                    @foreach ($timetables as $timetable)
-                    <div class="timetable-row">
-                        <p>
-                            {{ $timetable->day }} 
-                            <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
-                        </p>
-                        <div class="user-icons">
-                            @for ($i = 0; $i < $timetable['count']; $i++)
-                                <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
-                            @endfor
-                            @for ($i = $timetable['count']; $i < 10; $i++)  <!-- Assuming a maximum of 10 users -->
-                                <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
-                            @endfor
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
                 <div class="workshop-action"> 
                     @if (empty($user->privateClass))
                   {{-- @guest('admin')  
@@ -65,6 +44,28 @@
                     <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
                     @endif 
                 </div>
+
+
+                <div class="timetable-wrapp">
+                    <p><strong>Timetable</strong></p>
+                    @foreach ($timetables as $timetable)
+                    <div class="timetable-row">
+                        <p>
+                            {{ $timetable->day }} 
+                            <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                        </p>
+                        <div class="user-icons">
+                            @for ($i = 0; $i < $timetable['count']; $i++)
+                                <span class="user-icon"><img src="{{ asset('assets/images/fa6-solid_user.svg') }}" alt=""></span>
+                            @endfor
+                            @for ($i = $timetable['count']; $i < 10; $i++)  <!-- Assuming a maximum of 10 users -->
+                                <span class="user-icon"><img src="{{ asset('assets/images/fa6-regular_user.svg') }}" alt=""></span>
+                            @endfor
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+               
             </div>
         </div>
     </div>
