@@ -39,6 +39,16 @@
         var r=i.createElement("script");r.type="text/javascript",r.async=!0,r["ch"+"ar"+"set"]="UTF-8",r.src="https://cdn.provesrc.com/provesrc.js";var e=i.getElementsByTagName("script")[0];e.parentNode.insertBefore(r,e)}(window,document);
     </script><!-- End of Async ProveSource Code -->
 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-04YRGHLZ7Q">
+        </script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-04YRGHLZ7Q');
+        </script>
+
 
 </head>
 

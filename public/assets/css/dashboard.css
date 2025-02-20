@@ -4374,6 +4374,7 @@ s .card-calendar .card-body .calendar .calendar-body .fc-view-harness .fc-multiM
     border: 1px solid #FBAE1E;
     padding: 8px 24px;
     font-weight: 500;
+    margin: 0 0 25px !important;
 }
 
 .workshop-action .btn:hover {
