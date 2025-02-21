@@ -52,6 +52,11 @@ class HomeController extends Controller
 
         $ourprocess = OurProcess::get();
 
+        if(Auth::guard('web')->check()){
+
+            return redirect('/dashboard');
+        }
+
 
         return view("welcome",compact('banner','feature','courses','feed','faq','ourprocess'));
 
