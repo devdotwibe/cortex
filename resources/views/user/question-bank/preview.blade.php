@@ -361,8 +361,6 @@
 
         function loadlessonreview(reviewurl) {
 
-            console.log(urlcount);
-
             $.get(reviewurl || "{{ route('question-bank.preview', $userExamReview->slug) }}", function(res) {
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
@@ -586,10 +584,6 @@
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
             }, 'json')
-
-            console.log('tets');
-
-            urlcount++;
 
         }
 
