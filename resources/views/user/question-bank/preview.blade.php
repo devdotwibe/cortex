@@ -585,6 +585,8 @@
 
             }, 'json')
 
+            console.log('tets');
+
             urlcount++;
 
         }
