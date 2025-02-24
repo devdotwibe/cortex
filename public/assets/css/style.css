@@ -185,4 +185,7 @@ body {
 .login-wrapp .login-head .logo img { width: 100%;}
 .login-wrapp .login-cont .login-row .login-right .card .forms-inputs input::placeholder { color: #000;}
 
+.login-wrapp .login-cont .login-row .login-right .form-check { width: fit-content;  margin-inline: auto;}
+   
+
 }
