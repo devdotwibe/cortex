@@ -65,7 +65,7 @@ class HomeController extends Controller
         return view("welcome",compact('banner','feature','courses','feed','faq','ourprocess'));
 
     }
-    
+
     public function menustatus(Request $request)
     {
 
@@ -119,6 +119,17 @@ class HomeController extends Controller
             RateLimiter::clear($this->throttleKey($request));
             $request->session()->regenerate();
             session()->put('sidebarCollapsed','true');
+
+            $remember = $request->has('remember'); 
+
+            if (Auth::attempt([
+                'email' => $request->email,
+                'password' => $request->password
+            ], $remember)) {
+               
+                return redirect()->intended('/dashboard');
+            }
+            
             return redirect()->intended('/admin/dashboard');
         }
         RateLimiter::hit($this->throttleKey($request));
