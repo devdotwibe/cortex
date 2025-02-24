@@ -122,14 +122,14 @@ class HomeController extends Controller
 
             $remember = $request->has('remember'); 
 
-            if (Auth::attempt([
+            if (Auth::guard('admin')->attempt([
                 'email' => $request->email,
                 'password' => $request->password
             ], $remember)) {
                
                 return redirect()->intended('/dashboard');
             }
-            
+
             return redirect()->intended('/admin/dashboard');
         }
         RateLimiter::hit($this->throttleKey($request));
