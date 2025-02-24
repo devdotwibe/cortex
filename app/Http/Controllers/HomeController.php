@@ -57,11 +57,15 @@ class HomeController extends Controller
             return redirect('/dashboard');
         }
 
+        if(Auth::guard('admin')->check()){
 
+		    return redirect('/dashboard');
+		}
+            
         return view("welcome",compact('banner','feature','courses','feed','faq','ourprocess'));
 
-
     }
+    
     public function menustatus(Request $request)
     {
 
