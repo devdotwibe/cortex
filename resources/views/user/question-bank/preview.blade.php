@@ -358,6 +358,9 @@
         }
 
         function loadlessonreview(reviewurl) {
+
+            console.log(reviewurl);
+            
             $.get(reviewurl || "{{ route('question-bank.preview', $userExamReview->slug) }}", function(res) {
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
