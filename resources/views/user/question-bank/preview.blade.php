@@ -569,6 +569,7 @@
                     $('.lesson-right').show()
                         .find('button.right-btn')
                         .data('pageurl', res.next_page_url)
+                        .off('click')
                         .attr('onclick', `loadlessonreview('${res.next_page_url}')`); // Adding onclick event
                         $('.lesson-finish').hide();
                 } else {
@@ -578,6 +579,7 @@
                     $('.lesson-left').show()
                         .find('button.left-btn')
                         .data('pageurl', res.prev_page_url)
+                        .off('click')
                         .attr('onclick', `loadlessonreview('${res.prev_page_url}')`); // Adding onclick event
                 }
 
