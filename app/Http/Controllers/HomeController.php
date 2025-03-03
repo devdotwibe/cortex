@@ -38,8 +38,6 @@ class HomeController extends Controller
     use ResourceController;
     public function index(Request $request,$loggined =null){
 
-        dd($loggined);
-
         $banner = banner::first();
 
         $feature = Feature::get();
