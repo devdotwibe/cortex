@@ -49,7 +49,7 @@
                                     $qry->where('exam_id',$exam->id);
                                 })->orderBy('created_at','asc')->get() as $sk=> $set)
                                 @if($set->time_of_exam && $set->time_of_exam !== '00 : 00')
-                                    <div class="sets-item">
+                                    <div class="sets-item {{ $k }} {{ $sk }}">
                                         @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed"||($k == 0&&$sk==0)) 
                                         <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") 
                                             @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  
