@@ -48,21 +48,29 @@
                                 @foreach ($item->setname()->whereHas('questions',function($qry)use($exam){
                                     $qry->where('exam_id',$exam->id);
                                 })->orderBy('created_at','asc')->get() as $sk=> $set)
-                                @if($set->time_of_exam && $set->time_of_exam !== '00 : 00')
-                                    <div class="sets-item {{ $k }} {{ $sk }} {{ optional($user->subscription())->status }}">
-                                        @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed"||($k == 0&&$sk==0)) 
-                                        <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") 
-                                            @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  
-                                            @guest('admin') onclick="confimexam('{{route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest 
-                                            @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif >
-                                        @else
-                                        {{-- <a href="{{route('pricing.index')}}"> --}}
-                                            <a href="javascript:void(0);" onclick="showLockedModal()">
-                                        @endif
-                                            <span class="sets-title">{{$set->name}}</span>
-                                        </a>
-                                    </div>  
-                                @endif                                  
+                                    @if($set->time_of_exam && $set->time_of_exam !== '00 : 00')
+
+                                        <div class="sets-item {{ '$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review'' }}">
+                                            
+                                            @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed"||($k == 0&&$sk==0)) 
+
+                                            <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") 
+
+                                                @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  
+
+                                                @guest('admin') onclick="confimexam('{{route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest 
+
+                                                @else onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endif >
+                                                
+                                            @else
+                                            {{-- <a href="{{route('pricing.index')}}"> --}}
+                                                <a href="javascript:void(0);" onclick="showLockedModal()">
+                                            @endif
+                                                <span class="sets-title">{{$set->name}}</span>
+                                            </a>
+                                        </div>  
+
+                                    @endif                                  
                                 @endforeach
                             </div> 
                         </div> 
