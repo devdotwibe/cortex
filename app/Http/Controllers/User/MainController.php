@@ -23,9 +23,7 @@ use Illuminate\Support\Facades\DB;
 class MainController extends Controller
 { 
     use ResourceController;
-    public function index(Request $request,$loggined=null){
-
-        dd($loggined);
+    public function index(Request $request){
         /**
          * @var User
          */
