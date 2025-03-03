@@ -49,7 +49,7 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/{loggined}', [HomeController::class, 'index']);
 
 Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'])->name('file.view');
 Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloaduploadedFiles'])->name('file.download');

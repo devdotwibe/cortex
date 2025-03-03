@@ -56,7 +56,7 @@
                     </a>
                    
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLogin">
-                        <a class="dropdown-item" href="{{ route('dashboard', ['loggined' => '']) }}">Dashboard</a>
+                        <a class="dropdown-item" href="{{ route('dashboard', ['loggined' => true]) }}">Dashboard</a>
                         @guest('admin')
                         <a class="dropdown-item" href="{{ route('profile.view') }}">Profile</a>
                         <div class="dropdown-divider"></div>
