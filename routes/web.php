@@ -49,7 +49,7 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/{loggined}', [HomeController::class, 'index']);
 
 Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'])->name('file.view');
 Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloaduploadedFiles'])->name('file.download');
@@ -97,7 +97,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     Route::post('/reminder/add', [UserMainController::class, 'addreminder'])->name('reminder.store');
     Route::put('/reminder/{reminder}/edit', [UserMainController::class, 'editreminder'])->name('reminder.update');
     Route::get('/dashboard', [UserMainController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/{loggined}', [UserMainController::class, 'index'])->name('dashboard');
     Route::post('/progress', [UserMainController::class, 'progress'])->name('progress');
     Route::post('/getprogress', [UserMainController::class, 'getprogress'])->name('getprogress');
     Route::get('/logout', [UserMainController::class, 'logout'])->name('logout');
