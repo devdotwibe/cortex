@@ -125,7 +125,7 @@
                             <li class="nav-link"><a href="{{ route('course.index') }}">Course</a></li>
                             <li class="nav-link"><a href="{{ route('pricing.index') }}">Pricing</a></li>
 
-                            <li class="nav-link"><a href="">Find a Tutor</a></li>
+                            <li class="nav-link"><a href="https://www.cortexacademy.com.au">Find a Tutor</a></li>
 
                             @if (session('is.logined.as') == 'user' && Auth::check())
 
