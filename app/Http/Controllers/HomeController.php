@@ -36,7 +36,7 @@ use Illuminate\Validation\ValidationException;
 class HomeController extends Controller
 {
     use ResourceController;
-    public function index(Request $request,$loggined =null){
+    public function index(Request $request){
 
         $banner = banner::first();
 
