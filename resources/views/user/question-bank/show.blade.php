@@ -50,7 +50,7 @@
                                 })->orderBy('created_at','asc')->get() as $sk=> $set)
                                     @if($set->time_of_exam && $set->time_of_exam !== '00 : 00')
 
-                                        <div class="sets-item {{ $user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date') }}">
+                                        <div class="sets-item">
                                             
                                             @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed"||($k == 0&&$sk==0)) 
 
