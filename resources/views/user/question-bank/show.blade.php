@@ -56,6 +56,8 @@
 
                                             <a @if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-review',"no")=="yes") 
 
+                                                onclick="loadlessonsetreviews('{{route('question-bank.set.history',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')"
+                                                
                                                 @elseif($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$item->id.'-set-'.$set->id.'-complete-date',"")=="")  
 
                                                 @guest('admin') onclick="confimexam('{{route('question-bank.set.attempt',['category'=>$category->slug,'sub_category'=>$item->slug,'setname'=>$set->slug])}}')" @endguest 
