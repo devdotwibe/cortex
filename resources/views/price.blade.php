@@ -57,12 +57,12 @@
                         @if ($plan->is_external)
                             <a href="{{ $plan->external_link }}" class="buy-btn">{{ $plan->external_label }}</a>
                         @else
-                            <h6>FROM @if (($plan->basic_amount ?? 0) < $plan->combo_amount)
+                            {{-- <h6>FROM @if (($plan->basic_amount ?? 0) < $plan->combo_amount)
                                     <span>${{ $plan->basic_amount ?? 0 }}</span>
                                 @else
                                     <span>${{ $plan->combo_amount ?? 0 }}</span>
                                 @endif
-                            </h6>
+                            </h6> --}}
                             <div class="price-detail">
                                 <h5>GROUP: <span class="amount">${{ $plan->combo_amount }}</span>/<span
                                         class="divident">Per Person</span></h5>
