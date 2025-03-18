@@ -35,7 +35,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} .</h3>
+                                                <h3>{{ucfirst($item->name)}} test</h3>
                                                    
                                             </div>
                                             <div class="overview-graph">
