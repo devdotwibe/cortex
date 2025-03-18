@@ -68,7 +68,7 @@
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
                                                     <div class="overview-graph-inner"> 
-                                                        <canvas id="question-bank-chart-{{$item->id}}" data-avg="{{$item->getExamAvgPercentage('question-bank')}}" data-mrk="{{$item->getExamMarkPercentage('question-bank',auth()->id())}}" data-max="100" class="overview-graph-bar overview-graph-bar-question-bank" width="100%" ></canvas>
+                                                        <canvas id="question-bank-chart-{{$item->id}}" data-avg="{{$item->getExamAvgPercentage('question-bank')}}" data-mrk="{{$item->getExamMarkPercentage('question-bank',auth()->id())}}" data-qus="{{ getQuestionUserCount('question-bank',auth()->id()) }}" data-user-mark="{{ getExamMark('question-bank',auth()->id()) }}" data-max="100" class="overview-graph-bar overview-graph-bar-question-bank" width="100%" ></canvas>
                                                     </div>
                                                 </div>
                                             </div>
