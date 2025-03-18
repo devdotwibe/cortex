@@ -64,6 +64,11 @@ class Category extends Model
     public function getQuestionCount($exam){
         return Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->count();
     }
+
+    public function getQuestionUserCount($exam,$user){
+
+        return UserReviewQuestion::where('user_id',$user)->whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->count();
+    }
     public function getExamQuestionTime($exam){
         $cnt=$this->getQuestionCount($exam);
         if($exam=="topic-test"){
@@ -89,7 +94,7 @@ class Category extends Model
     }
     public function getExamMarkPercentage($exam,$user){
         $avg=$this->getExamMark($exam,$user);
-        $total=$this->getQuestionCount($exam);
+        $total=$this->getQuestionUserCount($exam,$user);
         if($avg>0&&$total>0){
             return round($avg*100/$total,2);
         }else{
