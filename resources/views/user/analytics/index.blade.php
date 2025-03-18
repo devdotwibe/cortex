@@ -5,7 +5,7 @@
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
-            <h2>Analytics /</h2>
+            <h2>Analytics</h2>
         </div> 
         <div class="header_content">
             <div class="form-group">
@@ -35,7 +35,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} 1</h3>
+                                                <h3>{{ucfirst($item->name)}} </h3>
                                                    
                                             </div>
                                             <div class="overview-graph">
@@ -63,7 +63,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} 2</h3>
+                                                <h3>{{ucfirst($item->name)}}</h3>
                                             </div>
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
@@ -85,7 +85,7 @@
                                     <div class="exam-overview"> 
                                         <div class="exam-overview-content">
                                             <div class="overview-title text-center">
-                                                <h3>{{ucfirst($item->name)}} 3</h3>
+                                                <h3>{{ucfirst($item->name)}}</h3>
                                             </div>
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
@@ -201,7 +201,7 @@
                                                 <div class="list-group">
                                                     @foreach($mockExams as $k=> $item)
                                                     <div class="list-item"> 
-                                                        <a onclick="loadexamgrapg('{{route('analytics.index',["page"=>$k+1])}}')">{{$item->title}} 4</a>
+                                                        <a onclick="loadexamgrapg('{{route('analytics.index',["page"=>$k+1])}}')">{{$item->title}}</a>
                                                     </div>
                                                     @endforeach
                                                 </div>
@@ -233,7 +233,7 @@
                             <div class="exam-overview"> 
                                 <div class="exam-overview-content">
                                     <div class="overview-title text-center">
-                                        <h3>${v.title} 5</h3>
+                                        <h3>${v.title}</h3>
                                     </div>
                                     <div class="overview-graph">
                                         <div class="overview-graph-body">
