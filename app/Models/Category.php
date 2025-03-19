@@ -123,16 +123,22 @@ class Category extends Model
         }
         
         // Get the list of users and their correct answers
-        $userScores = UserReviewAnswer::whereIn('user_exam_review_id', 
-                    UserExamReview::where('exam_id', $examId->id)
-                    ->where("category_id", $this->id)
-                    ->groupBy('user_id')
-                    ->pluck('id'))
-                    ->where('iscorrect', true)
-                    ->where('user_answer', true)
-                    ->groupBy('user_id')
-                    ->selectRaw('user_id, COUNT(*) as correct_answers')
-                    ->get();
+        // $userScores = UserReviewAnswer::whereIn('user_exam_review_id', 
+        //             UserExamReview::where('exam_id', $examId->id)
+        //             ->where("category_id", $this->id)
+        //             ->groupBy('user_id')
+        //             ->pluck('id'))
+        //             ->where('iscorrect', true)
+        //             ->where('user_answer', true)
+        //             ->groupBy('user_id')
+        //             ->selectRaw('user_id, COUNT(*) as correct_answers')
+        //             ->get();
+
+        $userScores = UserExamReview::where('exam_id', $examId->id)
+        ->where("category_id", $this->id)
+        ->groupBy('user_id')
+        ->select(DB::raw('MAX(id) as latest_id'), 'user_id')
+        ->get();
     
         $totalUsers = $userScores->count();
     
