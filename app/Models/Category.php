@@ -64,47 +64,33 @@ class Category extends Model
 
     public function getExamAvg($exam) {
      
-        $totalQuestions = Question::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
-                                   ->where("category_id", $this->id)
-                                   ->count();
-    
+        $totalQuestions = UserReviewQuestion::whereIn('exam_id',Exam::where('name',$exam)
+                            ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
+                            ->select('id'))->where("category_id",$this->id)
+                            ->select('id'))->count();
+
         if ($totalQuestions == 0) {
             return 0;
         }
     
-        // $userScores = UserExamReview::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
-        //                             ->where("category_id", $this->id)
-        //                             ->groupBy('user_id')
-        //                             ->select('user_id', DB::raw('SUM(iscorrect) as correct_answers'))
-        //                             ->get();
-
-        $userScores = UserReviewAnswer::whereIn('user_exam_review_id', 
-                UserExamReview::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
-                ->where("category_id", $this->id)
-                ->select(DB::raw('MAX(id)')) // Get the latest review per user
-            )
-            ->where('iscorrect', true) // Filter by correct answers
-            ->groupBy('user_id') 
-            ->select('user_id', DB::raw('COUNT(*) as correct_answers')) // Count correct answers per user
-            ->get();
-
-
-    
-            // $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)
-            // ->select('id'))->where("category_id",$this->id)
-            // ->groupBy('user_id')->select(DB::raw('MAX(id)')))
-            // ->whereIn('exam_id',Exam::where('name',$exam)
-            // ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
-            // ->select('id'))->where("category_id",$this->id)
-            // ->select('id'))->where('iscorrect',true)
-            // ->where('user_answer',true)->count();
+        $userScores=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)
+                    ->select('id'))->where("category_id",$this->id)
+                    ->groupBy('user_id')->select(DB::raw('MAX(id)')))
+                    ->whereIn('exam_id',Exam::where('name',$exam)
+                    ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
+                    ->select('id'))->where("category_id",$this->id)
+                    ->select('id'))->where('iscorrect',true)
+                    ->where('user_answer',true)->get();
     
         $totalUsers = $userScores->count();
+
         $totalScore = 0;
-    
+
         foreach ($userScores as $userScore) {
+
+            $correct_answers = UserReviewAnswer::where('user_id',$userScore->user_id)->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
       
-            $userAverage = $userScore->correct_answers / $totalQuestions;
+            $userAverage = $correct_answers / $totalQuestions;
             $totalScore += $userAverage;
         }
 
@@ -169,7 +155,7 @@ class Category extends Model
     }
     public function getExamMark($exam,$user){
 
-        return UserReviewAnswer::where('user_id',$user)->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();;
+        return UserReviewAnswer::where('user_id',$user)->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
         // ->whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
     }
     public function getExamTime($exam,$user){
