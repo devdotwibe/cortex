@@ -115,31 +115,30 @@ class Category extends Model
 
 
     public function getExamAvg($exam) {
-        // Get the IDs of exams matching the name
+
+
         $examIds = Exam::where('name', $exam)->pluck('id');
     
-        // Get the total number of questions in the exam for the given category
-        $totalQuestions = Question::whereIn('exam_id', $examIds)
-            ->where('category_id', $this->id)
-            ->count();
+        // $totalQuestions = Question::whereIn('exam_id', $examIds)
+        //     ->where('category_id', $this->id)
+        //     ->count();
+            
+        $totalQuestions = UserReviewQuestion::whereIn('exam_id', $examIds)
+        ->where("category_id", $this->id)
+        ->count();
     
-        // Return 0 if there are no questions
         if ($totalQuestions == 0) {
             return 0;
         }
-    
-        // Get distinct user IDs who reviewed the exam
         $totalUsers = UserExamReview::whereIn('exam_id', $examIds)
             ->where('category_id', $this->id)
             ->distinct()
             ->count('user_id');
     
-        // Return 0 if there are no users
         if ($totalUsers == 0) {
             return 0;
         }
     
-        // Calculate the total score for all users in a single query
         $userScores = UserReviewAnswer::join('questions', 'user_review_answers.question_id', '=', 'questions.id')
             ->join('user_exam_reviews', 'user_review_answers.user_exam_review_id', '=', 'user_exam_reviews.id')
             ->whereIn('questions.exam_id', $examIds)
@@ -149,16 +148,14 @@ class Category extends Model
             ->groupBy('user_review_answers.user_exam_review_id')
             ->get();
     
-        // Calculate total score across all users
         $totalScore = 0;
     
         foreach ($userScores as $userScore) {
-            // Calculate user average score
+       
             $userAverage = $userScore->correct_answers / $totalQuestions;
             $totalScore += $userAverage;
         }
     
-        // Return average score rounded to 2 decimal places
         return round($totalScore / $totalUsers, 2);
     }
     
