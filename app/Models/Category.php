@@ -159,8 +159,10 @@ class Category extends Model
             $userAverage = $userScore->correct_answers / $totalQuestions;
             $totalScore += $userAverage;
         }
+
+        return $totalScore;
     
-        return round($totalScore / $totalUsers, 2);
+        // return round($totalScore / $totalUsers, 2);
     }
     
 
@@ -214,14 +216,7 @@ class Category extends Model
         ->distinct('user_id')
         ->count('user_id'); 
 
-        $examIds = Exam::where('name', $exam)->pluck('id');
-        
-        $totalUsers = UserExamReview::whereIn('exam_id', $examIds)
-        ->where('category_id', $this->id)
-        ->distinct()
-        ->count('user_id');
-
-        return $totalUsers;
+        return $userScores;
     }
     
     public function getExamAvgPercentage($exam){
