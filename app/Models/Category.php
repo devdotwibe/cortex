@@ -143,14 +143,23 @@ class Category extends Model
             return 0;
         }
     
-        $userScores = UserReviewAnswer::join('questions', 'user_review_answers.question_id', '=', 'questions.id')
-            ->join('user_exam_reviews', 'user_review_answers.user_exam_review_id', '=', 'user_exam_reviews.id')
-            ->whereIn('questions.exam_id', $examIds)
-            ->where('questions.category_id', $this->id)
-            ->where('user_review_answers.iscorrect', true)
-            ->selectRaw('user_review_answers.user_exam_review_id, COUNT(user_review_answers.id) as correct_answers')
-            ->groupBy('user_review_answers.user_exam_review_id')
-            ->get();
+        // $userScores = UserReviewAnswer::join('questions', 'user_review_answers.question_id', '=', 'questions.id')
+        //     ->join('user_exam_reviews', 'user_review_answers.user_exam_review_id', '=', 'user_exam_reviews.id')
+        //     ->whereIn('questions.exam_id', $examIds)
+        //     ->where('questions.category_id', $this->id)
+        //     ->where('user_review_answers.iscorrect', true)
+        //     ->selectRaw('user_review_answers.user_exam_review_id, COUNT(user_review_answers.id) as correct_answers')
+        //     ->groupBy('user_review_answers.user_exam_review_id')
+        //     ->get();
+
+        $userScores = UserReviewAnswer::join('user_exam_reviews', 'user_review_answers.user_exam_review_id', '=', 'user_exam_reviews.id')
+        ->whereIn('user_exam_reviews.exam_id', $examIds)
+        ->where('user_exam_reviews.category_id', $this->id)
+        ->where('user_review_answers.iscorrect', true)
+        ->selectRaw('user_review_answers.user_exam_review_id, COUNT(user_review_answers.id) as correct_answers')
+        ->groupBy('user_review_answers.user_exam_review_id')
+        ->havingRaw('COUNT(user_review_answers.id) > 0') 
+        ->get();
     
         $totalScore = 0;
     
@@ -160,9 +169,7 @@ class Category extends Model
             $totalScore += $userAverage;
         }
 
-        return $totalScore;
-    
-        // return round($totalScore / $totalUsers, 2);
+        return round($totalScore / $totalUsers, 2);
     }
     
 
