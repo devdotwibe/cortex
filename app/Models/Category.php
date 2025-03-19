@@ -213,8 +213,15 @@ class Category extends Model
         ->where("category_id", $this->id)
         ->distinct('user_id')
         ->count('user_id'); 
+
+        $examIds = Exam::where('name', $exam)->pluck('id');
         
-        return $userScores;
+        $totalUsers = UserExamReview::whereIn('exam_id', $examIds)
+        ->where('category_id', $this->id)
+        ->distinct()
+        ->count('user_id');
+
+        return $totalUsers;
     }
     
     public function getExamAvgPercentage($exam){
