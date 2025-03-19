@@ -72,11 +72,21 @@ class Category extends Model
             return 0;
         }
     
-        $userScores = UserExamReview::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
-                                    ->where("category_id", $this->id)
-                                    ->groupBy('user_id')
-                                    ->select('user_id', DB::raw('SUM(iscorrect) as correct_answers'))
-                                    ->get();
+        // $userScores = UserExamReview::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
+        //                             ->where("category_id", $this->id)
+        //                             ->groupBy('user_id')
+        //                             ->select('user_id', DB::raw('SUM(iscorrect) as correct_answers'))
+        //                             ->get();
+
+        $userScores = UserReviewAnswer::whereIn('user_exam_review_id', 
+                UserExamReview::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
+                ->where("category_id", $this->id)
+                ->select(DB::raw('MAX(id)')) // Get the latest review per user
+            )
+            ->where('iscorrect', true) // Filter by correct answers
+            ->groupBy('user_id') // Group by user to get correct answers per user
+            ->select('user_id', DB::raw('COUNT(*) as correct_answers')) // Count correct answers per user
+            ->get();
     
         $totalUsers = $userScores->count();
         $totalScore = 0;
