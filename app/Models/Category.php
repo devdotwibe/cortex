@@ -214,7 +214,12 @@ class Category extends Model
         ->distinct('user_id')
         ->count('user_id'); 
 
-        return $userScores;
+        $totalQuestions = UserReviewQuestion::whereIn('exam_id',Exam::where('name',$exam)
+        ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
+        ->select('id'))->where("category_id",$this->id)
+        ->select('id'))->count();
+
+        return $totalQuestions;
     }
     
     public function getExamAvgPercentage($exam){
