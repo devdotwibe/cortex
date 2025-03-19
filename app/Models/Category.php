@@ -104,19 +104,19 @@ class Category extends Model
         //     $totalScore += $userAverage;
         // }
 
-    foreach ($userScores as $userScore) {
+    // foreach ($userScores as $userScore) {
 
-        $correct_answers = UserReviewAnswer::where('user_exam_review_id', $userScore->user_exam_review_id)
-            ->whereIn('exam_id', Exam::where('name', $exam)->pluck('id'))
-            ->whereIn('question_id', Question::whereIn('exam_id', Exam::where('name', $exam)->pluck('id'))
-                ->where("category_id", $this->id)
-                ->pluck('id'))
-            ->where('iscorrect', true)
-            ->count();
+    //     $correct_answers = UserReviewAnswer::where('user_exam_review_id', $userScore->user_exam_review_id)
+    //         ->whereIn('exam_id', Exam::where('name', $exam)->pluck('id'))
+    //         ->whereIn('question_id', Question::whereIn('exam_id', Exam::where('name', $exam)->pluck('id'))
+    //             ->where("category_id", $this->id)
+    //             ->pluck('id'))
+    //         ->where('iscorrect', true)
+    //         ->count();
 
-        $userAverage = ($totalQuestions > 0) ? ($correct_answers / $totalQuestions) : 0;
-        $totalScore += $userAverage;
-    }
+    //     $userAverage = ($totalQuestions > 0) ? ($correct_answers / $totalQuestions) : 0;
+    //     $totalScore += $userAverage;
+    // }
 
         if ($totalUsers > 0) {
             return round($totalScore / $totalUsers, 2);
