@@ -123,9 +123,13 @@ class Category extends Model
         //     ->where('category_id', $this->id)
         //     ->count();
             
-        $totalQuestions = UserReviewQuestion::whereIn('exam_id', $examIds)
-        ->where("category_id", $this->id)
-        ->count();
+        // $totalQuestions = UserReviewQuestion::whereIn('exam_id', $examIds)
+        // ->where("category_id", $this->id)
+        // ->count();
+        $totalQuestions = UserReviewQuestion::whereIn('exam_id',Exam::where('name',$exam)
+                        ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
+                        ->select('id'))->where("category_id",$this->id)
+                        ->select('id'))->count();
     
         if ($totalQuestions == 0) {
             return 0;
