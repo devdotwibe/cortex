@@ -78,35 +78,18 @@ class Category extends Model
         //                             ->select('user_id', DB::raw('SUM(iscorrect) as correct_answers'))
         //                             ->get();
 
-        // $userScores = UserReviewAnswer::whereIn('user_exam_review_id', 
-        //         UserExamReview::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
-        //         ->where("category_id", $this->id)
-        //         ->select(DB::raw('MAX(id)')) // Get the latest review per user
-        //     )
-        //     ->where('iscorrect', true) // Filter by correct answers
-        //     ->groupBy('user_id') 
-        //     ->select('user_id', DB::raw('COUNT(*) as correct_answers')) // Count correct answers per user
-        //     ->get();
-
-
         $userScores = UserReviewAnswer::whereIn('user_exam_review_id', 
                 UserExamReview::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
-                ->where('category_id', $this->id)
+                ->where("category_id", $this->id)
+                ->select(DB::raw('MAX(id)')) // Get the latest review per user
             )
-            ->where('iscorrect', true)  // Ensure the answer is correct
-            ->whereIn('exam_id', Exam::where('name', $exam)->select('id'))  // Filter by exam
-            ->whereIn('question_id', 
-                Question::whereIn('exam_id', Exam::where('name', $exam)->select('id'))
-                ->where('category_id', $this->id)
-                ->select('id')
-            )  // Filter by question ID
-            ->where('user_answer', true)  // Ensure that the user answered
-            ->groupBy('user_id')  // Group by user to count correct answers per user
-            ->select('user_id', DB::raw('COUNT(*) as correct_answers'))  // Count correct answers
+            ->where('iscorrect', true) // Filter by correct answers
+            ->groupBy('user_id') 
+            ->select('user_id', DB::raw('COUNT(*) as correct_answers')) // Count correct answers per user
             ->get();
 
-            
 
+    
             // $anscnt=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)
             // ->select('id'))->where("category_id",$this->id)
             // ->groupBy('user_id')->select(DB::raw('MAX(id)')))
