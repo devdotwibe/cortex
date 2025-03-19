@@ -62,44 +62,96 @@ class Category extends Model
     //     }
     // }
 
-    public function getExamAvg($exam) {
+    // public function getExamAvg($exam) {
      
-        $totalQuestions = UserReviewQuestion::whereIn('exam_id',Exam::where('name',$exam)
-                            ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
-                            ->select('id'))->where("category_id",$this->id)
-                            ->select('id'))->count();
+    //     $totalQuestions = UserReviewQuestion::whereIn('exam_id',Exam::where('name',$exam)
+    //                         ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
+    //                         ->select('id'))->where("category_id",$this->id)
+    //                         ->select('id'))->count();
 
-        if ($totalQuestions == 0) {
-            return 0;
+    //     if ($totalQuestions == 0) {
+    //         return 0;
+    //     }
+    
+    //     $userScores=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)
+    //                 ->select('id'))->where("category_id",$this->id)
+    //                 ->groupBy('user_id')->select(DB::raw('MAX(id)')))
+    //                 ->whereIn('exam_id',Exam::where('name',$exam)
+    //                 ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
+    //                 ->select('id'))->where("category_id",$this->id)
+    //                 ->select('id'))->where('iscorrect',true)
+    //                 ->where('user_answer',true)->get();
+    
+    //     $totalUsers = $userScores->count();
+
+    //     $totalScore = 0;
+
+    //     foreach ($userScores as $userScore) {
+
+    //         $correct_answers = UserReviewAnswer::where('user_id',$userScore->user_id)->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
+      
+    //         $userAverage = $correct_answers / $totalQuestions;
+    //         $totalScore += $userAverage;
+    //     }
+
+    //     if ($totalUsers > 0) {
+    //         return round($totalScore / $totalUsers, 2);
+    //     }
+    
+    //     return 0;
+    // }
+
+
+    public function getExamAvg($exam) {
+    
+        // Get the exam id first to avoid repeating the same query
+        $examId = Exam::where('name', $exam)->select('id')->first();
+    
+        if (!$examId) {
+            return 0;  // Return 0 if the exam is not found
         }
     
-        $userScores=UserReviewAnswer::whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)
-                    ->select('id'))->where("category_id",$this->id)
-                    ->groupBy('user_id')->select(DB::raw('MAX(id)')))
-                    ->whereIn('exam_id',Exam::where('name',$exam)
-                    ->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)
-                    ->select('id'))->where("category_id",$this->id)
-                    ->select('id'))->where('iscorrect',true)
-                    ->where('user_answer',true)->get();
+        // Get the total number of questions related to the given exam and category
+        $totalQuestions = UserReviewQuestion::where('exam_id', $examId->id)
+                                            ->whereIn('question_id', Question::where('exam_id', $examId->id)
+                                            ->where("category_id", $this->id)
+                                            ->pluck('id'))
+                                            ->count();
+    
+        if ($totalQuestions == 0) {
+            return 0;  // If there are no questions, return 0
+        }
+        
+        // Get the list of users and their correct answers
+        $userScores = UserReviewAnswer::whereIn('user_exam_review_id', 
+                    UserExamReview::where('exam_id', $examId->id)
+                    ->where("category_id", $this->id)
+                    ->groupBy('user_id')
+                    ->pluck('id'))
+                    ->where('iscorrect', true)
+                    ->where('user_answer', true)
+                    ->groupBy('user_id')
+                    ->selectRaw('user_id, COUNT(*) as correct_answers')
+                    ->get();
     
         $totalUsers = $userScores->count();
-
+    
         $totalScore = 0;
-
+    
+        // Calculate the average score for each user
         foreach ($userScores as $userScore) {
-
-            $correct_answers = UserReviewAnswer::where('user_id',$userScore->user_id)->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
-      
-            $userAverage = $correct_answers / $totalQuestions;
+            $userAverage = $userScore->correct_answers / $totalQuestions;
             $totalScore += $userAverage;
         }
-
+    
+        // Return the average score of all users
         if ($totalUsers > 0) {
             return round($totalScore / $totalUsers, 2);
         }
     
-        return 0;
+        return 0;  // Return 0 if no users have taken the exam
     }
+    
 
     public function getExamUser($exam)
     {
