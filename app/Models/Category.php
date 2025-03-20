@@ -159,7 +159,10 @@ class Category extends Model
     public function getExamAvgPercentage($exam){
    
 
-        $users = UserReviewAnswer::whereIn('exam_id', Exam::where('name', $exam)->select('id'))->distinct('user_id')->pluck('user_id');
+        $users = UserReviewAnswer::whereIn('exam_id', Exam::where('name', $exam)
+        ->where('iscorrect', true) 
+        ->select('id'))->distinct('user_id')
+        ->pluck('user_id');
     
         $totalPercentage = 0;
         $userCount = count($users); 
