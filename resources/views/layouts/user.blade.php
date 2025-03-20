@@ -325,15 +325,6 @@
                      </a>
                  </li>
 
-                 @php
-                    $sessionStart = session('session_start');
-                    $currentTime = \Carbon\Carbon::now();
-
-              
-                    $sessionStartTime = $sessionStart ? $sessionStart: null;
-                    $sessionExpired = $sessionStartTime ? $sessionStartTime->addHour(2)->lt($currentTime) : false;
-                @endphp
-
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
                         <span class="side-icon">
@@ -342,7 +333,7 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out" title="Log Out" data-title="Log Out" class="titledisplay">
                         </span>
-                        <span class="menutext"> Log Out</span>
+                        <span class="menutext"> Log Out </span>
                     </a>
                 </li>
 
@@ -431,41 +422,23 @@
              },
         });
 
-        @php
-            if(session()->has('session_start'))
-            {
-               $session_start_time =  session('session_start');
-
-                $current_time = \Carbon\Carbon::now();
-
-                if ($session_start_time->addHour(2)->lt($current_time))
-                {
-                    session()->forget('session_start');
-                  
-                }
-            }
-
-        @endphp
-
-        @if(!session()->has('session_start'))
             
-            $(function(){
+            // $(function(){
 
-                $.ajax({
-                    url: '{{ route('calculateavg') }}',
-                    type: 'GET',
-                    success: function(response) {
+            //     $.ajax({
+            //         url: '{{ route('calculateavg') }}',
+            //         type: 'GET',
+            //         success: function(response) {
                     
-                    },
-                    error: function(xhr, status, error) {
+            //         },
+            //         error: function(xhr, status, error) {
                     
-                        console.error('Error fetching data:', error);
-                    }
-                });
+            //             console.error('Error fetching data:', error);
+            //         }
+            //     });
 
-            });
+            // });
 
-        @endif
 
 
         function handleFileUpload(file){
