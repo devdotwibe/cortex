@@ -11,6 +11,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+
 
 class CalculateExamAverage implements ShouldQueue
 {
@@ -30,6 +32,7 @@ class CalculateExamAverage implements ShouldQueue
     public function handle(): void
     {
 
+        Log::info('CalculateExamAverage job started.');
 
         $test="1";
         $cachePath = storage_path('app/cache'); 
@@ -62,6 +65,7 @@ class CalculateExamAverage implements ShouldQueue
             });
         })->get();
 
+        Log::info('Categories retrieved for "question-bank" exam: ' . $category_question_bank->count());
 
         foreach ($category_question_bank as $item)
         {
@@ -107,6 +111,7 @@ class CalculateExamAverage implements ShouldQueue
         }
 
       
+        Log::info('CalculateExamAverage job completed.');
         
     }
 }
