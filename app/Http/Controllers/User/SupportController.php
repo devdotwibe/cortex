@@ -14,7 +14,7 @@ class SupportController extends Controller
         $support = Support::first(); 
         
         
-        dispatch(new CalculateExamAverage());
+        // dispatch(new CalculateExamAverage());
 
         return view('user.support.index', compact('support'));
     }
