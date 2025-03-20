@@ -49,6 +49,11 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
+Route::get('/schedule', function () {
+    Artisan::call('schedule:list');
+    dd(Artisan::output());
+});
+
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'])->name('file.view');
