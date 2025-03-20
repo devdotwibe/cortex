@@ -256,6 +256,42 @@ class MainController extends Controller
 
         return view("user.dashboard",compact('user','maxretry','learnprogress','practiceprogress','simulateprogress','moclateprogress','topiclateprogress'));
     }
+
+    public function calculateavg(Request $request)
+    {
+
+        $question_bank_exam=Exam::where("name",'question-bank')->first();
+        if(empty($question_bank_exam)){
+            $question_bank_exam=Exam::store([
+                "title"=>"Question Bank",
+                "name"=>"question-bank",
+            ]);
+            $question_bank_exam=Exam::find( $question_bank_exam->id );
+        }
+
+        $category_question_bank=Category::whereHas('subcategories',function($qry)use($question_bank_exam){
+            $qry->whereIn("id",Question::where('exam_id',$question_bank_exam->id)->select('sub_category_id'));
+            $qry->whereHas('setname', function ($setnameQuery) {
+                $setnameQuery->where(function ($query) {
+                    $query->where('time_of_exam', '!=', '00:00')
+                          ->where('time_of_exam', '!=', '00 : 00');
+                });
+            });
+        })->get();
+
+
+        foreach ($category_question_bank as $item)
+        {
+             $averagepersentage =  $item->getExamAvgPercentage('question-bank');
+
+             session(['exam_average_percentage_'.$item->id => $averagepersentage]);
+        }
+
+        return response()->json(['message'=>'session sored']);
+
+    }
+
+
     public function reminder(Request $request){
         /**
          *  @var User

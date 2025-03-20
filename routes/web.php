@@ -97,6 +97,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     Route::post('/reminder/add', [UserMainController::class, 'addreminder'])->name('reminder.store');
     Route::put('/reminder/{reminder}/edit', [UserMainController::class, 'editreminder'])->name('reminder.update');
     Route::get('/dashboard', [UserMainController::class, 'index'])->name('dashboard');
+    Route::get('/calculateavg', [UserMainController::class, 'calculateavg'])->name('calculateavg');
     Route::post('/progress', [UserMainController::class, 'progress'])->name('progress');
     Route::post('/getprogress', [UserMainController::class, 'getprogress'])->name('getprogress');
     Route::get('/logout', [UserMainController::class, 'logout'])->name('logout');
