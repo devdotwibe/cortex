@@ -156,31 +156,70 @@ class Category extends Model
     //     }
     // }
 
-    public function getExamAvgPercentage($exam){
+    // public function getExamAvgPercentage($exam){
    
 
-        $users = UserReviewAnswer::whereIn('exam_id', Exam::where('name', $exam)->select('id'))->distinct('user_id')->pluck('user_id');
+    //     $users = UserReviewAnswer::whereIn('exam_id', Exam::where('name', $exam)->select('id'))->distinct('user_id')->pluck('user_id');
+    
+    //     $totalPercentage = 0;
+    //     $userCount = count($users); 
+    
+    //     if ($userCount > 0) {
+    //         foreach ($users as $user) {
+              
+    //             $total = $this->getQuestionUserCount($exam, $user);
+    //             $avg = $this->getExamMark($exam, $user);
+                
+    //             if ($avg > 0 && $total > 0) {
+                 
+    //                 $totalPercentage += round($avg * 100 / $total, 2);
+    //             }
+    //         }
+            
+    //         return round($totalPercentage / $userCount, 2);
+    //     } else {
+    //         return 0;
+    //     }
+    // }
+
+
+    public function getExamAvgPercentage($exam) {
+    
+        
+        $examId = Exam::where('name', $exam)->value('id');
+        
+        if (!$examId) {
+            return 0; 
+        }
+    
+        $results = UserReviewAnswer::select('user_id', 
+                                           DB::raw('COUNT(CASE WHEN iscorrect = 1 AND user_answer = 1 THEN 1 END) AS correct_answers'),
+                                           DB::raw('COUNT(DISTINCT urq.question_id) AS total_questions'))
+            ->join('user_review_questions as urq', 'urq.user_id', '=', 'user_review_answers.user_id')
+            ->where('user_review_answers.exam_id', $examId)
+            ->where('urq.exam_id', $examId)
+            ->groupBy('user_review_answers.user_id')
+            ->get();
     
         $totalPercentage = 0;
-        $userCount = count($users); 
+        $userCount = $results->count();
     
         if ($userCount > 0) {
-            foreach ($users as $user) {
-              
-                $total = $this->getQuestionUserCount($exam, $user);
-                $avg = $this->getExamMark($exam, $user);
-                
-                if ($avg > 0 && $total > 0) {
-                 
-                    $totalPercentage += round($avg * 100 / $total, 2);
+            foreach ($results as $result) {
+                $correctAnswers = $result->correct_answers;
+                $totalQuestions = $result->total_questions;
+    
+                if ($correctAnswers > 0 && $totalQuestions > 0) {
+                    $totalPercentage += round(($correctAnswers * 100) / $totalQuestions, 2);
                 }
             }
-            
+    
             return round($totalPercentage / $userCount, 2);
-        } else {
-            return 0;
         }
+    
+        return 0;
     }
+    
     
 
     public function getExamAvgTime($exam){
