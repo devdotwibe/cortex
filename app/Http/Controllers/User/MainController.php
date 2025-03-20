@@ -285,6 +285,16 @@ class MainController extends Controller
              $averagepersentage =  $item->getExamAvgPercentage('question-bank');
 
              session(['exam_average_percentage_'.$item->id => $averagepersentage]);
+
+             $cachePath = storage_path('app/cache'); 
+
+             if (!file_exists($cachePath)) {
+                 mkdir($cachePath, 0775, true);
+             }
+ 
+             $filePath = $cachePath . '/exam_average_percentage_' . $item->id . '.json';
+ 
+             file_put_contents($filePath, json_encode($averagepersentage));
         }
 
         $category_topic = Category::with('question')
