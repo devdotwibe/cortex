@@ -159,6 +159,11 @@ class Category extends Model
     public function getExamAvgPercentage($exam){
    
 
+        if (session()->has('exam_average_percentage_'.$this->id)) {
+
+            return session('exam_average_percentage_'.$this->id);
+        }
+
         $users = UserReviewAnswer::whereIn('exam_id', Exam::where('name', $exam)
         ->where('iscorrect', true) 
         ->select('id'))->distinct('user_id')
