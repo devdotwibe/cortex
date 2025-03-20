@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\CalculateExamAverage;
 use Illuminate\Http\Request;
 use App\Models\Support;
 
@@ -15,6 +16,8 @@ class SupportController extends Controller
     {
 
         $support = Support::first();
+
+        dispatch(new CalculateExamAverage());
 
         return view('admin.pages.support', compact('support'));
     }
