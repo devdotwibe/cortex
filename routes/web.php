@@ -55,10 +55,10 @@ Route::get('/schedule', function () {
 });
 
 
-Route::get('/calculaterun', function () {
-    Artisan::call('calculaterun');
-    dd(Artisan::output());
-});
+// Route::get('/calculaterun', function () {
+//     Artisan::call('calculaterun');
+//     dd(Artisan::output());
+// });
 
 
 
