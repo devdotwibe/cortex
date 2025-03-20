@@ -109,6 +109,20 @@ class AnalyticsController extends Controller
                 "prev"=>$prev,
             ];
         }
-        return view('user.analytics.index',compact('category_question_bank','category_topic','mockExams'));   
+        
+            $category_value =[];
+            foreach($category_question_bank as $item)
+            {
+
+                $cachePath = storage_path('app/cache'); 
+
+                $filePath = $cachePath . '/exam_average_percentage_' . $item->id . '.json';
+
+                $category_value[$item->id] =json_decode(file_get_contents($filePath),true); 
+            }
+
+            
+
+        return view('user.analytics.index',compact('category_value','category_question_bank','category_topic','mockExams'));   
     }
 }
