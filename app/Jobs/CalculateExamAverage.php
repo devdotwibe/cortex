@@ -6,11 +6,11 @@ use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Question;
 use App\Models\UserReviewAnswer;
+use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Queue\Queueable;
 
 class CalculateExamAverage implements SerializesModels
 {
@@ -42,7 +42,7 @@ class CalculateExamAverage implements SerializesModels
 
         file_put_contents($filePath, json_encode($test));
 
-        
+
         $question_bank_exam=Exam::where("name",'question-bank')->first();
         if(empty($question_bank_exam)){
             $question_bank_exam=Exam::store([
