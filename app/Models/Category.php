@@ -162,9 +162,9 @@ class Category extends Model
 
         if (!session()->has('session_start')) {
 
-            session(['session_start',Carbon::now()]);
+            session(['session_start' =>Carbon::now()]);
         }
-        
+
         if (session()->has('exam_average_percentage_'.$this->id)) {
 
             return session('exam_average_percentage_'.$this->id);
@@ -230,8 +230,9 @@ class Category extends Model
 
         if (!session()->has('session_start')) {
 
-            session(['session_start',Carbon::now()]);
+            session(['session_start' =>Carbon::now()]);
         }
+        
 
         if (session()->has('exam_average_mark_'.$this->id)) {
 
