@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="analytic-list">
-                        {{-- <div class="analytic-item" id="topic-test-result" style="display: none">
+                        <div class="analytic-item" id="topic-test-result" style="display: none">
                             <div class="row">
                                 @foreach ($category_topic as $item)
                                 <div class="col-md-6">
@@ -41,7 +41,7 @@
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
                                                     <div class="overview-graph-inner"> 
-                                                        <canvas id="topic-test-chart-{{$item->id}}" data-avg="{{$item->getExamAvgMark('topic-test')}}" data-mrk="{{$item->getExamMark('topic-test',auth()->id())}}" data-max="{{ $item->getQuestionCount('topic-test',auth()->id()) }}" class="overview-graph-bar overview-graph-bar-topic-test" width="100%" ></canvas>
+                                                        <canvas id="topic-test-chart-{{$item->id}}" @if(isset($category_topic_value[$item->id])) data-avg="{{ $category_topic_value[$item->id] }}" @else data-avg="{{$item->getExamAvgMark('topic-test')}}" @endif data-mrk="{{$item->getExamMark('topic-test',auth()->id())}}" data-max="{{ $item->getQuestionCount('topic-test',auth()->id()) }}" class="overview-graph-bar overview-graph-bar-topic-test" width="100%" ></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -50,7 +50,7 @@
                                 </div>
                                 @endforeach
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="analytic-item" id="mock-exam-result" style="display: none">
                             <div class="analytic-exam" id="analytic-exam"> 
                             </div> 

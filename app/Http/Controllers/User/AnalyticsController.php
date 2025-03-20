@@ -121,8 +121,20 @@ class AnalyticsController extends Controller
                 $category_value[$item->id] =json_decode(file_get_contents($filePath),true); 
             }
 
+            $category_topic_value =[];
+
+            foreach($category_topic as $item)
+            {
+
+                $cachePath = storage_path('app/cache'); 
+
+                $filePath = $cachePath . '/exam_average_mark_' . $item->id . '.json';
+
+                $category_topic_value[$item->id] =json_decode(file_get_contents($filePath),true); 
+            }
+
             
 
-        return view('user.analytics.index',compact('category_value','category_question_bank','category_topic','mockExams'));   
+        return view('user.analytics.index',compact('category_topic_value','category_value','category_question_bank','category_topic','mockExams'));   
     }
 }
