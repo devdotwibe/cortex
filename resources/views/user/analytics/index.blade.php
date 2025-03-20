@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="analytic-list">
-                        {{-- <div class="analytic-item" id="topic-test-result" style="display: none">
+                        <div class="analytic-item" id="topic-test-result" style="display: none">
                             <div class="row">
                                 @foreach ($category_topic as $item)
                                 <div class="col-md-6">
@@ -50,7 +50,7 @@
                                 </div>
                                 @endforeach
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="analytic-item" id="mock-exam-result" style="display: none">
                             <div class="analytic-exam" id="analytic-exam"> 
                             </div> 
@@ -78,7 +78,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        {{-- <div class="analytic-item" id="question-bank-timing" style="display: none">
+                        <div class="analytic-item" id="question-bank-timing" style="display: none">
                             <div class="row">
                                 @foreach ($category_question_bank as $item)
                                 <div class="col-md-6">
@@ -99,7 +99,7 @@
                                 </div>
                                 @endforeach
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
