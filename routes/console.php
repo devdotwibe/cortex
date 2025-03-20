@@ -12,7 +12,7 @@ Artisan::command('inspire', function () {
 
 Schedule::job(new ExpireSubscription)->yearlyOn(5, 31, '00:15');
 
-// Schedule::job(new CalculateExamAverage)->everyTwoHours(); 
+Schedule::job(new CalculateExamAverage)->everyTwoHours(); 
 
-Schedule::job(new CalculateExamAverage)->everyFiveMinutes(); 
+// Schedule::job(new CalculateExamAverage)->everyFiveMinutes(); 
 

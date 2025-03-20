@@ -49,10 +49,10 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-Route::get('/schedule', function () {
-    Artisan::call('schedule:list');
-    dd(Artisan::output());
-});
+// Route::get('/schedule', function () {
+//     Artisan::call('schedule:list');
+//     dd(Artisan::output());
+// });
 
 Route::get('/', [HomeController::class, 'index']);
 
