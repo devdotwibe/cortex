@@ -30,6 +30,19 @@ class CalculateExamAverage implements SerializesModels
     public function handle(): void
     {
 
+
+        $test="1";
+        $cachePath = storage_path('app/cache'); 
+
+        if (!file_exists($cachePath)) {
+            mkdir($cachePath, 0775, true);
+        }
+
+        $filePath = $cachePath . '/test.json';
+
+        file_put_contents($filePath, json_encode($test));
+
+        
         $question_bank_exam=Exam::where("name",'question-bank')->first();
         if(empty($question_bank_exam)){
             $question_bank_exam=Exam::store([
@@ -92,6 +105,8 @@ class CalculateExamAverage implements SerializesModels
 
             file_put_contents($filePath, json_encode($averagepersentage));
         }
+
+      
         
     }
 }
