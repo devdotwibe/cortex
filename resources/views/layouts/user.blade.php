@@ -421,6 +421,44 @@
                  $('.loading-wrap').hide();
              },
         });
+
+        @php
+            if(session()->has('session_start'))
+            {
+               $session_start_time =  session('session_start');
+
+                $current_time = \Carbon\Carbon::now();
+
+                if ($session_start_time->addHour(2)->lt($current_time))
+                {
+                    session()->forget('session_start');
+
+                }
+            }
+
+        @endphp
+
+        @if(!session()->has('session_start'))
+            
+            $(function(){
+
+                $.ajax({
+                    url: '{{ route('calculateavg') }}',
+                    type: 'GET',
+                    success: function(response) {
+                    
+                    },
+                    error: function(xhr, status, error) {
+                    
+                        console.error('Error fetching data:', error);
+                    }
+                });
+
+            });
+
+        @endif
+
+
         function handleFileUpload(file){
             return new Promise((resolve, reject) => {
                 const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];

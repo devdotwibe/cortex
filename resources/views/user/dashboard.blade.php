@@ -560,22 +560,7 @@
          },'json')
     }
 
-    $(function(){
 
-        $.ajax({
-            url: '{{ route('calculateavg') }}',
-            type: 'GET',
-            success: function(response) {
-             
-            },
-            error: function(xhr, status, error) {
-               
-                console.error('Error fetching data:', error);
-            }
-        });
-
-    });
-    
     $(function(){
         updatechart('all') 
         showreminder()

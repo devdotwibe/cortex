@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Scopes\VisibleStatus;
 use App\Trait\ResourceModel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -159,6 +160,11 @@ class Category extends Model
     public function getExamAvgPercentage($exam){
    
 
+        if (!session()->has('session_start')) {
+
+            session(['session_start',Carbon::now()]);
+        }
+        
         if (session()->has('exam_average_percentage_'.$this->id)) {
 
             return session('exam_average_percentage_'.$this->id);
@@ -221,6 +227,11 @@ class Category extends Model
 
     public function getExamAvgMark($exam) {
        
+
+        if (!session()->has('session_start')) {
+
+            session(['session_start',Carbon::now()]);
+        }
 
         if (session()->has('exam_average_mark_'.$this->id)) {
 
