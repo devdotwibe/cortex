@@ -333,7 +333,7 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out" title="Log Out" data-title="Log Out" class="titledisplay">
                         </span>
-                        <span class="menutext"> Log Out </span>
+                        <span class="menutext"> Log Out {{ session('session_start'), \Carbon\Carbon::now(),session('session_start')->addHour(2)->lt(\Carbon\Carbon::now()) }}</span>
                     </a>
                 </li>
 
