@@ -41,7 +41,7 @@
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
                                                     <div class="overview-graph-inner"> 
-                                                        <canvas id="topic-test-chart-{{$item->id}}" data-avg="{{$item->getExamAvg('topic-test')}}" data-mrk="{{$item->getExamMark('topic-test',auth()->id())}}" data-max="{{$item->getQuestionCount('topic-test')}}" class="overview-graph-bar overview-graph-bar-topic-test" width="100%" ></canvas>
+                                                        <canvas id="topic-test-chart-{{$item->id}}" data-avg="{{$item->getExamAvgPercentage('topic-test')}}" data-mrk="{{$item->getExamMarkPercentage('topic-test',auth()->id())}}" data-max="{{$item->getExamMarkPercentage('topic-test')}}" class="overview-graph-bar overview-graph-bar-topic-test" width="100%" ></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,7 +68,7 @@
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
                                                     <div class="overview-graph-inner"> 
-                                                        <canvas id="question-bank-chart-{{$item->id}}" data-exam-avg="{{ $item->getExamAvg('question-bank') }}"  data-user="{{ $item->getExamUser('question-bank') }}" data-avg="{{$item->getExamAvgPercentage('question-bank')}}" data-mrk="{{$item->getExamMarkPercentage('question-bank',auth()->id())}}" data-qus="{{ $item->getQuestionUserCount('question-bank',auth()->id()) }}" data-user-mark="{{ $item->getExamMark('question-bank',auth()->id()) }}" data-max="100" class="overview-graph-bar overview-graph-bar-question-bank" width="100%" ></canvas>
+                                                        <canvas id="question-bank-chart-{{$item->id}}"    data-avg="{{$item->getExamAvgPercentage('question-bank')}}" data-mrk="{{$item->getExamMarkPercentage('question-bank',auth()->id())}}" data-qus="{{ $item->getQuestionUserCount('question-bank',auth()->id()) }}" data-user-mark="{{ $item->getExamMark('question-bank',auth()->id()) }}" data-max="100" class="overview-graph-bar overview-graph-bar-question-bank" width="100%" ></canvas>
                                                     </div>
                                                 </div>
                                             </div>
