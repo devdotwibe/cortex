@@ -342,11 +342,7 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out" title="Log Out" data-title="Log Out" class="titledisplay">
                         </span>
-                        <span class="menutext"> Log Out {{ 
-                            'Session Start: ' . ($sessionStart ? $sessionStart: 'Not set') . 
-                            ', Current Time: ' . $currentTime . 
-                            ', Session Expired: ' . ($sessionExpired ? 'Yes' : 'No') 
-                        }}</span>
+                        <span class="menutext"> Log Out</span>
                     </a>
                 </li>
 
