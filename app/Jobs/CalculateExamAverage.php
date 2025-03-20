@@ -14,7 +14,7 @@ use Illuminate\Foundation\Queue\Queueable;
 
 class CalculateExamAverage implements SerializesModels
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, SerializesModels;
 
     /**
      * Create a new job instance.
