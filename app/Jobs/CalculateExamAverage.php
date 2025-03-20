@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Queue\Queueable;
 
-class CalculateExamAverage implements ShouldQueue
+class CalculateExamAverage implements SerializesModels
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
