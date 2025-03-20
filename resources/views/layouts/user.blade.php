@@ -325,6 +325,15 @@
                      </a>
                  </li>
 
+                 @php
+                    $sessionStart = session('session_start');
+                    $currentTime = \Carbon\Carbon::now();
+
+              
+                    $sessionStartTime = $sessionStart ? \Carbon\Carbon::parse($sessionStart) : null;
+                    $sessionExpired = $sessionStartTime ? $sessionStartTime->addHour(2)->lt($currentTime) : false;
+                @endphp
+
                 <li class="side-item logout">
                     <a href="{{route('logout')}}" class="log-out">
                         <span class="side-icon">
@@ -333,7 +342,11 @@
                         <span class="active-icon">
                             <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out" title="Log Out" data-title="Log Out" class="titledisplay">
                         </span>
-                        <span class="menutext"> Log Out </span>
+                        <span class="menutext"> Log Out {{ 
+                            'Session Start: ' . ($sessionStart ? \Carbon\Carbon::parse($sessionStart)->toDateTimeString() : 'Not set') . 
+                            ', Current Time: ' . $currentTime->toDateTimeString() . 
+                            ', Session Expired: ' . ($sessionExpired ? 'Yes' : 'No') 
+                        }}</span>
                     </a>
                 </li>
 
