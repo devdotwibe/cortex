@@ -194,14 +194,15 @@ class Category extends Model
         }
     
         // Step 2: Query the database to calculate the total correct answers and total questions for each user
-        $results = UserReviewAnswer::select('user_id', 
-                                           DB::raw('COUNT(CASE WHEN iscorrect = 1 THEN 1 END) AS correct_answers'),
-                                           DB::raw('COUNT(DISTINCT urq.question_id) AS total_questions'))
+        $results = UserReviewAnswer::select('user_review_answers.user_id', 
+        DB::raw('COUNT(CASE WHEN iscorrect = 1 THEN 1 END) AS correct_answers'),
+        DB::raw('COUNT(DISTINCT urq.question_id) AS total_questions'))
             ->join('user_review_questions as urq', 'urq.user_id', '=', 'user_review_answers.user_id')
             ->where('user_review_answers.exam_id', $examId)
             ->where('urq.exam_id', $examId)
             ->groupBy('user_review_answers.user_id')
             ->get();
+
     
         // Step 3: Calculate the total percentage from the results
         $totalPercentage = 0;
