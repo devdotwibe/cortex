@@ -7,11 +7,12 @@ use App\Models\Exam;
 use App\Models\Question;
 use App\Models\UserReviewAnswer;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Queue\Queueable;
 
 class CalculateExamAverage implements ShouldQueue
 {
-    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new job instance.
