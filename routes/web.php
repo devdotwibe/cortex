@@ -54,11 +54,6 @@ Route::get('/schedule', function () {
     dd(Artisan::output());
 });
 
-Route::get('/queue', function () {
-    Artisan::call('queue:work');
-    dd(Artisan::output());
-});
-
 
 
 Route::get('/', [HomeController::class, 'index']);
