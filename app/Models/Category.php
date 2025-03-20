@@ -221,6 +221,12 @@ class Category extends Model
 
     public function getExamAvgMark($exam) {
        
+
+        if (session()->has('exam_average_mark_'.$this->id)) {
+
+            return session('exam_average_mark_'.$this->id);
+        }
+
         $examId = Exam::where('name', $exam)->value('id');
         
         if (!$examId) {

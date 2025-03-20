@@ -287,6 +287,23 @@ class MainController extends Controller
              session(['exam_average_percentage_'.$item->id => $averagepersentage]);
         }
 
+        $category_topic = Category::with('question')
+        ->whereHas('question', function ($query) {
+            $query->whereIn('exam_id', function ($subquery) {
+                $subquery->select('id') 
+                    ->from('exams')
+                    ->where('name', 'full-mock-exam');
+            });
+        })->get();
+
+        foreach ($category_topic as $item)
+        {
+             $averagepersentage =  $item->getExamAvgMark('topic-test');
+
+             session(['exam_average_mark_'.$item->id => $averagepersentage]);
+        }
+            
+
         return response()->json(['message'=>'session sored']);
 
     }
