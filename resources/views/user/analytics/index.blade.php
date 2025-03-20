@@ -41,7 +41,7 @@
                                             <div class="overview-graph">
                                                 <div class="overview-graph-body">
                                                     <div class="overview-graph-inner"> 
-                                                        <canvas id="topic-test-chart-{{$item->id}}" data-avg="{{$item->getExamAvgPercentage('topic-test')}}" data-mrk="{{$item->getExamMarkPercentage('topic-test',auth()->id())}}" data-max="100" class="overview-graph-bar overview-graph-bar-topic-test" width="100%" ></canvas>
+                                                        <canvas id="topic-test-chart-{{$item->id}}" data-avg="{{$item->getExamAvgMark('topic-test')}}" data-mrk="{{$item->getExamMark('topic-test',auth()->id())}}" data-max="{{ $item->getQuestionCount('topic-test',auth()->id()) }}" class="overview-graph-bar overview-graph-bar-topic-test" width="100%" ></canvas>
                                                     </div>
                                                 </div>
                                             </div>

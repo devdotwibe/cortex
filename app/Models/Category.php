@@ -213,6 +213,41 @@ class Category extends Model
         }
         return 0;
     }
+
+    public function getExamAvgMark($exam) {
+       
+        $examId = Exam::where('name', $exam)->value('id');
+        
+        if (!$examId) {
+            return 0; 
+        }
+        
+        $users = UserReviewAnswer::select('user_id')
+            ->where('exam_id', $examId)
+            ->where('iscorrect', true) 
+            ->distinct('user_id')
+            ->pluck('user_id');
+        
+        $totalMarks = 0;
+        $userCount = count($users);
+    
+        if ($userCount > 0) {
+         
+            foreach ($users as $user) {
+                $total = $this->getQuestionUserCount($exam, $user);
+                $avg = $this->getExamMark($exam, $user);
+    
+                if ($avg > 0 && $total > 0) {
+                    $totalMarks += $avg; 
+                }
+            }
+    
+            return round($totalMarks / $userCount, 2);
+        } else {
+            return 0; 
+        }
+    }
+    
     public function getExamMark($exam,$user){
 
         return UserReviewAnswer::where('user_id',$user)->whereIn('exam_id',Exam::where('name',$exam)->select('id'))->whereIn('question_id',Question::whereIn('exam_id',Exam::where('name',$exam)->select('id'))->where("category_id",$this->id)->select('id'))->where('iscorrect',true)->where('user_answer',true)->count();
