@@ -301,6 +301,16 @@ class MainController extends Controller
              $averagepersentage =  $item->getExamAvgMark('topic-test');
 
              session(['exam_average_mark_'.$item->id => $averagepersentage]);
+
+             $cachePath = storage_path('app/cache'); 
+
+            if (!file_exists($cachePath)) {
+                mkdir($cachePath, 0775, true);
+            }
+
+            $filePath = $cachePath . '/exam_average_mark_' . $item->id . '.json';
+
+            file_put_contents($filePath, json_encode($averagepersentage));
         }
             
 
