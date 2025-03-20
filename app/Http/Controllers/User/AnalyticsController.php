@@ -97,7 +97,19 @@ class AnalyticsController extends Controller
             if($page>1){
                 $prev=route('analytics.index',["page"=> $page-1]);
             }
-
+            return [
+                'data'=>[
+                    'title'=>ucfirst($data->title),
+                    'max'=> $data->categoryCount(),
+                    'avg'=>$data->getExamAvg(),
+                    'mark'=>$data->getExamMark($user->id),
+                    'category'=>$categorydata
+                ],
+                "next"=>$next,
+                "prev"=>$prev,
+            ];
+        }
+        
             $category_value =[];
             foreach($category_question_bank as $item)
             {
@@ -109,24 +121,8 @@ class AnalyticsController extends Controller
                 $category_value[$item->id] =json_decode(file_get_contents($filePath),true); 
             }
 
-            return [
-                'data'=>[
-                    'title'=>ucfirst($data->title),
-                    'max'=> $data->categoryCount(),
-                    'avg'=>$data->getExamAvg(),
-                    'mark'=>$data->getExamMark($user->id),
-                    'category'=>$categorydata
-                ],
-                "next"=>$next,
-                "prev"=>$prev,
-                "category_value"=>$category_value,
-            ];
-        }
-        
             
 
-
-
-        return view('user.analytics.index',compact('category_question_bank','category_topic','mockExams'));   
+        return view('user.analytics.index',compact('category_value','category_question_bank','category_topic','mockExams'));   
     }
 }
