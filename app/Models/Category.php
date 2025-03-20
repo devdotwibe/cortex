@@ -156,34 +156,34 @@ class Category extends Model
     //     }
     // }
 
-    // public function getExamAvgPercentage($exam){
+    public function getExamAvgPercentage($exam){
    
 
-    //     $users = UserReviewAnswer::whereIn('exam_id', Exam::where('name', $exam)
-    //     ->where('iscorrect', true) 
-    //     ->select('id'))->distinct('user_id')
-    //     ->pluck('user_id');
+        $users = UserReviewAnswer::whereIn('exam_id', Exam::where('name', $exam)
+        ->where('iscorrect', true) 
+        ->select('id'))->distinct('user_id')
+        ->pluck('user_id');
     
-    //     $totalPercentage = 0;
-    //     $userCount = count($users); 
+        $totalPercentage = 0;
+        $userCount = count($users); 
     
-    //     if ($userCount > 0) {
-    //         foreach ($users as $user) {
+        if ($userCount > 0) {
+            foreach ($users as $user) {
               
-    //             $total = $this->getQuestionUserCount($exam, $user);
-    //             $avg = $this->getExamMark($exam, $user);
+                $total = $this->getQuestionUserCount($exam, $user);
+                $avg = $this->getExamMark($exam, $user);
                 
-    //             if ($avg > 0 && $total > 0) {
+                if ($avg > 0 && $total > 0) {
                  
-    //                 $totalPercentage += round($avg * 100 / $total, 2);
-    //             }
-    //         }
+                    $totalPercentage += round($avg * 100 / $total, 2);
+                }
+            }
             
-    //         return round($totalPercentage / $userCount, 2);
-    //     } else {
-    //         return 0;
-    //     }
-    // }
+            return round($totalPercentage / $userCount, 2);
+        } else {
+            return 0;
+        }
+    }
 
   
     public function getExamAvgTime($exam){
