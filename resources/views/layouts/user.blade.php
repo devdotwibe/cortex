@@ -330,7 +330,7 @@
                     $currentTime = \Carbon\Carbon::now();
 
               
-                    $sessionStartTime = $sessionStart ? \Carbon\Carbon::parse($sessionStart) : null;
+                    $sessionStartTime = $sessionStart ? $sessionStart: null;
                     $sessionExpired = $sessionStartTime ? $sessionStartTime->addHour(2)->lt($currentTime) : false;
                 @endphp
 
@@ -343,8 +343,8 @@
                             <img src="{{asset("assets/images/log-out-1.svg")}}" alt="log-out" title="Log Out" data-title="Log Out" class="titledisplay">
                         </span>
                         <span class="menutext"> Log Out {{ 
-                            'Session Start: ' . ($sessionStart ? \Carbon\Carbon::parse($sessionStart)->toDateTimeString() : 'Not set') . 
-                            ', Current Time: ' . $currentTime->toDateTimeString() . 
+                            'Session Start: ' . ($sessionStart ? $sessionStart: 'Not set') . 
+                            ', Current Time: ' . $currentTime . 
                             ', Session Expired: ' . ($sessionExpired ? 'Yes' : 'No') 
                         }}</span>
                     </a>
