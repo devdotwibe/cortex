@@ -432,7 +432,7 @@
                 if ($session_start_time->addHour(2)->lt($current_time))
                 {
                     session()->forget('session_start');
-                    @dd('test');
+                  
                 }
             }
 
