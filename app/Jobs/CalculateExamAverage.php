@@ -6,13 +6,15 @@ use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Question;
 use App\Models\UserReviewAnswer;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Queue\Queueable;
 
 class CalculateExamAverage implements ShouldQueue
 {
-    use SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
