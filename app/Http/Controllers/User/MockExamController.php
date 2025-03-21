@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\CalculateExamAverage;
 use App\Jobs\SubmitRetryReview;
 use App\Jobs\SubmitReview;
 use App\Models\Answer;
@@ -215,6 +216,9 @@ class MockExamController extends Controller
                 Session::put("exam-retry-questions" . $review->id, json_decode($questions, true));
                 Session::put($key, []);
             }
+
+            dispatch(new CalculateExamAverage());
+            
             if($request->ajax()){
                 return  response()->json(["success"=>$exam->title." Submited","preview"=>route('full-mock-exam.preview',$review->slug)]);    
             }

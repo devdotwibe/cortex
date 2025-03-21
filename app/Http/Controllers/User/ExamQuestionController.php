@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\CalculateExamAverage;
 use App\Jobs\SubmitReview;
 use App\Models\Answer;
 use App\Models\Category;
@@ -488,6 +489,9 @@ class ExamQuestionController extends Controller
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id.'-set-'.$setname->id."-complete-review",'yes');
         dispatch(new SubmitReview($review,$userExam));
         Session::forget("question-bank-attempt");
+
+        dispatch(new CalculateExamAverage());
+        
         if($request->ajax()){
             return  response()->json(["success"=>"Question set Submited","preview"=>route('question-bank.preview',$review->slug)]);
         }
