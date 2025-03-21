@@ -160,17 +160,10 @@ class Category extends Model
     public function getExamAvgPercentage($exam){
    
 
-        if (!session()->has('session_start')) {
-
-            session(['session_start' =>Carbon::now()]);
-        }
-
-        if (session()->has('exam_average_percentage_'.$this->id)) {
-
-            return session('exam_average_percentage_'.$this->id);
-        }
-
         $users = UserReviewAnswer::whereIn('exam_id', Exam::where('name', $exam)
+        ->whereIn('user_exam_review_id',UserExamReview::whereIn('exam_id',Exam::where('name',$exam)->select('id'))
+        ->where("category_id",$this->id)->groupBy('user_id')
+        ->select(DB::raw('MAX(id)')))
         ->where('iscorrect', true) 
         ->select('id'))->distinct('user_id')
         ->pluck('user_id');
