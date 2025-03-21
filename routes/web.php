@@ -49,16 +49,16 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-Route::get('/schedule', function () {
-    Artisan::call('schedule:list');
-    dd(Artisan::output());
-});
-
-
-// Route::get('/calculaterun', function () {
-//     Artisan::call('calculaterun');
+// Route::get('/schedule', function () {
+//     Artisan::call('schedule:list');
 //     dd(Artisan::output());
 // });
+
+
+Route::get('/calculaterun', function () {
+    Artisan::call('calculaterun');
+    dd(Artisan::output());
+});
 
 
 
