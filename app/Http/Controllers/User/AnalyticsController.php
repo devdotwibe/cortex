@@ -118,7 +118,10 @@ class AnalyticsController extends Controller
 
                 $filePath = $cachePath . '/exam_average_percentage_' . $item->id . '.json';
 
-                $category_value[$item->id] =json_decode(file_get_contents($filePath),true); 
+                if (file_exists($filePath)) {
+
+                    $category_value[$item->id] =json_decode(file_get_contents($filePath),true); 
+                }
             }
 
             $category_topic_value =[];
@@ -130,7 +133,10 @@ class AnalyticsController extends Controller
 
                 $filePath = $cachePath . '/exam_average_mark_' . $item->id . '.json';
 
-                $category_topic_value[$item->id] =json_decode(file_get_contents($filePath),true); 
+                if (file_exists($filePath)) {
+
+                    $category_topic_value[$item->id] =json_decode(file_get_contents($filePath),true);
+                } 
             }
 
             
