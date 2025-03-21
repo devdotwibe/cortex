@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\CalculateExamAverage;
 use App\Models\Category;
 use App\Models\Learn;
 use App\Models\Setname;
@@ -86,6 +87,8 @@ class CategoryController extends Controller
         $option = new Category;
 
         $option->store($options_data);
+
+        dispatch(new CalculateExamAverage());
         
         return response()->json(['success' => 'Module Added Successfully']);
 
