@@ -150,6 +150,8 @@ class PrivateClassHomeWorkController extends Controller
 
             $data_ids = [];
 
+            $que_types = [];
+
             foreach ($data_questions as $k => $item) {
 
                 $user_answer = $user_review->where('home_work_review_question_id', $item->id)->first();
