@@ -120,7 +120,7 @@ class PrivateClassHomeWorkController extends Controller
             $user->setProgress("home-work-{$homeWork->id}-booklet-{$homeWorkBook->id}-complete-date", date('Y-m-d H:i:s'));
         }
         $user->setProgress("home-work-{$homeWork->id}-booklet-{$homeWorkBook->id}-complete-review", 'yes');
-        dispatch(new SubmitHomeWorkReview($review));
+        dispatch(new SubmitHomeWorkReview($review))->onConnection('sync');
         if ($request->ajax()) {
             return response()->json(["success" => "{$review->title} Submited", "preview" => route('home-work.preview', $review->slug)]);
         }

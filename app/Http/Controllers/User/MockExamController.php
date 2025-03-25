@@ -574,7 +574,7 @@ class MockExamController extends Controller
                 "user_exam_review_id" => $userExamReview->id, 
             ]);
             
-            dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers));
+            dispatch(new SubmitRetryReview($review, session("exam-retry-questions" . $userExamReview->id, []), $answers))->onConnection('sync');
 
             
             if ($questioncnt > $passed) {

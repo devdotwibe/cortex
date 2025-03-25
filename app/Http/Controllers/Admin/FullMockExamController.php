@@ -133,7 +133,7 @@ class FullMockExamController extends Controller
             filename:$name,
             exam:$exam, 
             fields:$request->import_fields
-        ));
+        ))->onConnection('sync');
 
         return response()->json([
             'success'=>"Import started"

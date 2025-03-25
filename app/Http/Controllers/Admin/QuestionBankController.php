@@ -213,7 +213,7 @@ class QuestionBankController extends Controller
             subCategory: $subcategory,
             setname: $setname,
             fields: $request->import_fields
-        ));
+        ))->onConnection('sync');
 
         return response()->json([
             'success' => "Import started"

@@ -593,7 +593,7 @@ class UserController extends Controller
 
         $filePath = $request->input('path', '');
 
-        dispatch(job: new ImportIbDataJob($datas, $filePath, $experidate));
+        dispatch(job: new ImportIbDataJob($datas, $filePath, $experidate))->onConnection('sync');
 
 
         return response()->json(['success' => 'Import process has started successfully']);

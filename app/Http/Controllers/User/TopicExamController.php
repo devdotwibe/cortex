@@ -667,7 +667,7 @@ class TopicExamController extends Controller
             dispatch(new SubmitRetryReview(
                         $review, 
                         session("exam-retry-questions" . $userExamReview->id, []), 
-                        $answers));
+                        $answers))->onConnection('sync');
 
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-repeat-" . $review->id);

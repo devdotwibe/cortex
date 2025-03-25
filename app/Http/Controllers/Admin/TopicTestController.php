@@ -262,7 +262,7 @@ class TopicTestController extends Controller
             exam:$exam,
             category:$category,
             fields:$request->import_fields
-        ));
+        ))->onConnection('sync');
 
         return response()->json([
             'success'=>"Import started"
