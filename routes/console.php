@@ -14,7 +14,7 @@ Schedule::job(new ExpireSubscription)->yearlyOn(5, 31, '00:15');
 
 Schedule::job(new CalculateExamAverage)->everyTwoHours(); 
 
-Schedule::job(new CalculateExamAverage)->everyTenMinutes(); 
+// Schedule::job(new CalculateExamAverage)->everyTenMinutes(); 
 
 // Artisan::command('calculaterun', function () {
 
