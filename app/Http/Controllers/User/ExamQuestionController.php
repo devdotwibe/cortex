@@ -490,7 +490,7 @@ class ExamQuestionController extends Controller
         dispatch(new SubmitReview($review,$userExam));
         Session::forget("question-bank-attempt");
 
-        dispatch(new CalculateExamAverage());
+        dispatch(new CalculateExamAverage())->onConnection('database');
         
         if($request->ajax()){
             return  response()->json(["success"=>"Question set Submited","preview"=>route('question-bank.preview',$review->slug)]);

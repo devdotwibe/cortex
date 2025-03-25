@@ -243,7 +243,7 @@ class TopicExamController extends Controller
                 Session::put($key, []);
             }
 
-            dispatch(new CalculateExamAverage());
+            dispatch(new CalculateExamAverage())->onConnection('database');
             
             if ($request->ajax()) {
                 return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);

@@ -217,7 +217,7 @@ class MockExamController extends Controller
                 Session::put($key, []);
             }
 
-            dispatch(new CalculateExamAverage());
+            dispatch(new CalculateExamAverage())->onConnection('database');
             
             if($request->ajax()){
                 return  response()->json(["success"=>$exam->title." Submited","preview"=>route('full-mock-exam.preview',$review->slug)]);    
