@@ -103,7 +103,16 @@
                             <div class="topic-overview">
                                 <div class="overview-title">
                                     <h5>Ranking</h5>
-                                    <h3>Top {{round($passed*100/$questioncount,2)}}%</h3>
+
+                                    @if($questioncount != 0)
+
+                                        <h3>Top {{round($passed*100/$questioncount,2)}}%</h3>
+                                    @else
+
+                                        <h3>Top 0%</h3>
+
+                                    @endif
+
                                 </div>
                                 <div class="overview-graph">
                                     <div class="overview-graph-body">
