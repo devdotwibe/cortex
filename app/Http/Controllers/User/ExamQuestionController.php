@@ -487,7 +487,7 @@ class ExamQuestionController extends Controller
             $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',date('Y-m-d H:i:s'));
         }
         $user->setProgress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id.'-set-'.$setname->id."-complete-review",'yes');
-        dispatch(new SubmitReview($review,$userExam));
+        dispatch(new SubmitReview($review,$userExam))->onConnection('sync');
         Session::forget("question-bank-attempt");
 
         dispatch(new CalculateExamAverage())->onConnection('database');

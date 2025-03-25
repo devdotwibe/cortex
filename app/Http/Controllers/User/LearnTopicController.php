@@ -314,7 +314,7 @@ class LearnTopicController extends Controller
             $user->setProgress('exam-' . $exam->id . '-module-' . $category->id . '-lesson-' . $subCategory->id . '-complete-date', date('Y-m-d H:i:s'));
         }
         $user->setProgress("exam-" . $exam->id . "-module-" . $category->id . "-lesson-" . $subCategory->id . "-complete-review", 'yes');
-        dispatch(new SubmitReview($review));
+        dispatch(new SubmitReview($review))->onConnection('sync');
         return redirect()->route('learn.show', $category->slug)->with("success", "Lesson Completed");
     }
     public function lessonreviewsubmit(Request $request, Category $category, SubCategory $subCategory)
