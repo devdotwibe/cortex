@@ -208,7 +208,7 @@ class MockExamController extends Controller
                 $user->setProgress('exam-'.$exam->id.'-complete-date',date('Y-m-d H:i:s'));
             }
             $user->setProgress("exam-".$exam->id."-complete-review",'yes');
-            dispatch(new SubmitReview($review,$attemt)); 
+            dispatch(new SubmitReview($review,$attemt))->onConnection('sync'); 
             Session::forget("full-mock-exam-attempt");
             if ($questioncnt > $passed) {
                 $key = md5("exam-retry-" . $review->id);
