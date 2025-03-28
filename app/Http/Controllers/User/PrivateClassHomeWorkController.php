@@ -258,10 +258,10 @@ class PrivateClassHomeWorkController extends Controller
                 //     return $numberformat . "%";
                 // }
 
-                $no_of_questions = HomeWorkReviewQuestion::
-                    where('home_work_review_id', $data->id)
+                $no_of_questions = HomeWorkReviewQuestion::whereIn('review_type', ['mcq'])
+                    ->where('home_work_review_id', $data->id)
                     ->where('user_id', $data->user_id)
-                    ->count();
+                    ->get();
             
                 $no_of_correct_ans = HomeWorkReviewAnswer::where('user_answer', true)
                         ->where('home_work_review_id', $data->id)
