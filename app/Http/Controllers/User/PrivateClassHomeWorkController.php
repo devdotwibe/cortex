@@ -260,7 +260,6 @@ class PrivateClassHomeWorkController extends Controller
 
                 $no_of_questions = HomeWorkReviewQuestion::whereIn('review_type', ['mcq'])
                     
-                    ->where('user_id', $data->user_id)
                     ->count();
             
                 $no_of_correct_ans = HomeWorkReviewAnswer::where('user_answer', true)
