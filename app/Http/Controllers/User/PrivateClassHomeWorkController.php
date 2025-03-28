@@ -271,7 +271,7 @@ class PrivateClassHomeWorkController extends Controller
 
                 // return $progress.'%';
 
-                return $no_of_correct_ans;
+                return $no_of_questions;
                 
             })
             ->addColumn('date', function ($data) {
