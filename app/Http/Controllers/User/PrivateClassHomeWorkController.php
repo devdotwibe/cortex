@@ -260,7 +260,7 @@ class PrivateClassHomeWorkController extends Controller
 
                 $no_of_questions = HomeWorkReviewQuestion::whereIn('review_type', ['mcq'])
                     ->where('home_work_review_id', $data->id)
-                
+                    ->where('user_id',$data->user_id)
                     ->count();
             
                 $no_of_correct_ans = HomeWorkReviewAnswer::where('user_answer', true)
@@ -271,7 +271,7 @@ class PrivateClassHomeWorkController extends Controller
 
                 // return $progress.'%';
 
-                return $no_of_questions;
+                return $data->user_id;
                 
             })
             ->addColumn('date', function ($data) {
