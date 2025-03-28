@@ -264,6 +264,7 @@ class PrivateClassHomeWorkController extends Controller
                     ->count();
             
                 $no_of_correct_ans = HomeWorkReviewAnswer::where('iscorrect', true)
+                        ->where('user_answer',true)
                         ->where('home_work_review_id', $data->id)
                         ->count();
 
