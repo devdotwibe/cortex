@@ -251,12 +251,26 @@ class PrivateClassHomeWorkController extends Controller
 
                 // $numberformat=number_format($data->progress,2);
                 // return $numberformat."%";
-                if ($data->progress == 100) {
-                    return "100%"; // Return without decimals
-                } else {
-                    $numberformat = number_format($data->progress, 2);
-                    return $numberformat . "%";
-                }
+                // if ($data->progress == 100) {
+                //     return "100%"; // Return without decimals
+                // } else {
+                //     $numberformat = number_format($data->progress, 2);
+                //     return $numberformat . "%";
+                // }
+
+                $no_of_questions = HomeWorkReviewQuestion::whereIn('review_type', ['mcq'])
+                    ->where('home_work_review_id', $data->id)
+                    ->where('user_id', $data->user_id)
+                    ->count();
+            
+                $no_of_correct_ans = HomeWorkReviewAnswer::where('user_answer', true)
+                        ->where('home_work_review_id', $data->id)
+                        ->count();
+
+                $progress = ($no_of_questions > 0) ? ($no_of_correct_ans * 100) / $no_of_questions : 0;
+
+                return $progress;
+                
             })
             ->addColumn('date', function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m-Y h:i a');
