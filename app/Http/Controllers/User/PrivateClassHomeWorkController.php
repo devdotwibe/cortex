@@ -269,7 +269,9 @@ class PrivateClassHomeWorkController extends Controller
 
                 $progress = ($no_of_questions > 0) ? ($no_of_correct_ans * 100) / $no_of_questions : 0;
 
-                return $progress.'%';
+                // return $progress.'%';
+
+                return $data->id;
                 
             })
             ->addColumn('date', function ($data) {
