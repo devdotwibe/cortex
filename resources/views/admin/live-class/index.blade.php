@@ -596,79 +596,86 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 @endpush
 
 @push('footer-script')
+
     <script>
-        function deletefunction(element) {
 
-            var url = $(element).data('url');
+        $(document).ready(function() {
 
-            $('#delete-post-form').attr('action', url);
+            function deletefunction(element) {
 
+                var url = $(element).data('url');
 
-            $('#live-private-modal').modal('hide');
-
-            $('#delete-post').modal('show');
+                $('#delete-post-form').attr('action', url);
 
 
-        }
+                $('#live-private-modal').modal('hide');
 
-        function HideButton(element)
-        {
-            var value = $(element).is(':checked') ? 'Y' : 'N';
-
-            var id = $(element).attr('data-id');
-
-            console.log(value,'value');
-
-            $.ajax({
-                url: "{{route('admin.live-class.hide_button') }}",
-                type: 'POST', 
-                data : 
-                {
-                    id:id,
-                    value:value,
-                } 
-                success: function(response) {
-
-                    console.log(response);
-
-                },
-            });
-
-        }
-
-        function edittimetable(button) {
-            // Get the URL from the button's data attribute
-            var url = button.getAttribute('data-url');
-
-            // Make an AJAX request to fetch the edit data
-            $.ajax({
-                url: url,
-                type: 'GET', // Change to 'GET' since we are fetching data
-                success: function(response) {
-                    $('#day').val(response.day);
-                    $('#starttime').val(response.starttime);
-                    $('#starttime_am_pm').val(response.starttime_am_pm);
-                    $('#endtime').val(response.endtime);
-                    $('#endtime_am_pm').val(response.endtime_am_pm);
-                    $('#count').val(response.count);
+                $('#delete-post').modal('show');
 
 
-                    // Update the form action with the timetable ID
-                    $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
+            }
+
+            function HideButton(element)
+            {
+                var value = $(element).is(':checked') ? 'Y' : 'N';
+
+                var id = $(element).attr('data-id');
+
+                console.log(value,'value');
+
+                $.ajax({
+                    url: "{{route('admin.live-class.hide_button') }}",
+                    type: 'POST', 
+                    data : 
+                    {
+                        id:id,
+                        value:value,
+                    } 
+                    success: function(response) {
+
+                        console.log(response);
+
+                    },
+                });
+
+            }
+
+            function edittimetable(button) {
+                // Get the URL from the button's data attribute
+                var url = button.getAttribute('data-url');
+
+                // Make an AJAX request to fetch the edit data
+                $.ajax({
+                    url: url,
+                    type: 'GET', // Change to 'GET' since we are fetching data
+                    success: function(response) {
+                        $('#day').val(response.day);
+                        $('#starttime').val(response.starttime);
+                        $('#starttime_am_pm').val(response.starttime_am_pm);
+                        $('#endtime').val(response.endtime);
+                        $('#endtime_am_pm').val(response.endtime_am_pm);
+                        $('#count').val(response.count);
 
 
-                    $('#cancelid').show();
-                    $('#editModal').modal('show');
-                    $("#updatebutton").text('update');
-                    $("#updatebutton").text('update');
-                },
-                error: function(xhr, status, error) {
-                    // Handle errors here
-                    console.error('Error fetching data:', error);
-                    alert('Error fetching data. Please try again.');
-                }
-            });
-        }
+                        // Update the form action with the timetable ID
+                        $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
+
+
+                        $('#cancelid').show();
+                        $('#editModal').modal('show');
+                        $("#updatebutton").text('update');
+                        $("#updatebutton").text('update');
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors here
+                        console.error('Error fetching data:', error);
+                        alert('Error fetching data. Please try again.');
+                    }
+                });
+            }
+
+        });
+
     </script>
     <script>
         $(document).ready(function() {
