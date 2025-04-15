@@ -76,8 +76,23 @@ class LiveClassController extends Controller
          * @var User
          */
         $user=Auth::user();
+
+        $time_array = [];
+
+        $timetable = Timetable::where('hide_time', '!=', 'Y')->get();
+
+        foreach ($timetable as $item) {
+            $text = $item->day . ' ' . $item->starttime . ' ' . $item->starttime_am_pm . ' (' . $item->class_mode . ') - Year ' . $item->year;
+            
+            $time_array[] = [
+                'text' => $text,
+                'value' => $text,
+            ];
+        }
+
         $live_class =  LiveClassPage::first();  
-        return view('user.live-class.privateform',compact('user','live_class')); 
+
+        return view('user.live-class.privateform',compact('time_array','user','live_class')); 
     }
     public function privateclassformsubmit(Request  $request){ 
         $data=$request->validate([
