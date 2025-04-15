@@ -23,7 +23,7 @@
                             ["name"=>"full_name","label"=>"Student Full Name *","placeholder"=>"Student Full Name","type"=>"text","size"=>12],
                             ["name"=>"parent_name","label"=>"Parent Name *","placeholder"=>"Parent Name","type"=>"text","size"=>12],
                            
-                            ["name"=>"timeslot","label"=>"Select a class time (you can choose more than one) *","options"=>{!! json_encode($time_array) !!},"type"=>"checkboxgroup","size"=>12],
+                            ["name"=>"timeslot","label"=>"Select a class time (you can choose more than one) *","options"=>{!! $time_array !!},"type"=>"checkboxgroup","size"=>12],
                         ]' 
                         btnsubmit="Register"
                     ></x-general-form>
