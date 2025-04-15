@@ -621,7 +621,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
             $.ajax({
                 url: "{{route('admin.live-class.hide_button') }}",
-                type: 'POST',
+                type: 'POST', 
                 data : 
                 {
                     id:id,
