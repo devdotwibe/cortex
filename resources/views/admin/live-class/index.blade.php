@@ -483,6 +483,12 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                             <div class="action-buttons">
 
+                                                <div class="form-check form-switch">
+
+                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="users" class="form-check-input" name="users" value="Y" role="switch">
+
+                                                </div>
+                                                
                                                 <button type="button"
                                                     data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
                                                     onclick="edittimetable(this)" class="btn btn-primary hide_btn">
