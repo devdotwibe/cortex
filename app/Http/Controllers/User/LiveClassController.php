@@ -77,22 +77,24 @@ class LiveClassController extends Controller
          */
         $user=Auth::user();
 
-        $time_array = [];
-
-        $timetable = Timetable::where('hide_time', '!=', 'Y')->get();
-
-        foreach ($timetable as $item) {
+        $time_array = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
             $text = $item->day . ' ' . $item->starttime . ' ' . $item->starttime_am_pm . ' (' . $item->class_mode . ') - Year ' . $item->year;
-            
-            $time_array[] = [
+            return [
                 'text' => $text,
                 'value' => $text,
             ];
-        }
+        })->toArray();
+        
+        $fields = [
+            ["name" => "email", "label" => "Email *", "placeholder" => "Email", "type" => "text", "size" => 12],
+            ["name" => "full_name", "label" => "Student Full Name *", "placeholder" => "Student Full Name", "type" => "text", "size" => 12],
+            ["name" => "parent_name", "label" => "Parent Name *", "placeholder" => "Parent Name", "type" => "text", "size" => 12],
+            ["name" => "timeslot", "label" => "Select a class time (you can choose more than one) *", "options" => $time_array, "type" => "checkboxgroup", "size" => 12],
+        ];
 
         $live_class =  LiveClassPage::first();  
 
-        return view('user.live-class.privateform',compact('time_array','user','live_class')); 
+        return view('user.live-class.privateform',compact('fields','time_array','user','live_class')); 
     }
     public function privateclassformsubmit(Request  $request){ 
         $data=$request->validate([

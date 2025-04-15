@@ -18,13 +18,7 @@
                     <x-general-form 
                         :url="route('live-class.privateclass.form',$user->slug)" 
                         :cancel="route('live-class.privateclass', $user->slug)"
-                        :fields='[
-                            ["name"=>"email","label"=>"Email *","placeholder"=>"Email","type"=>"text","size"=>12],
-                            ["name"=>"full_name","label"=>"Student Full Name *","placeholder"=>"Student Full Name","type"=>"text","size"=>12],
-                            ["name"=>"parent_name","label"=>"Parent Name *","placeholder"=>"Parent Name","type"=>"text","size"=>12],
-                           
-                            ["name"=>"timeslot","label"=>"Select a class time (you can choose more than one) *","options"=>{!! $time_array !!},"type"=>"checkboxgroup","size"=>12],
-                        ]' 
+                        :fields="$fields"
                         btnsubmit="Register"
                     ></x-general-form>
                 </div> 
