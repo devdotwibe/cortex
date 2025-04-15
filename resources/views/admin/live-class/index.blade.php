@@ -611,6 +611,31 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
         }
 
+        function HideButton(element)
+        {
+            var value = $(element).is(':checked') ? 'Y' : 'N';
+
+            var id = $(element).attr('data-id');
+
+            console.log(value,'value');
+
+            $.ajax({
+                url: "{{route('admin.live-class.hide_button') }}",
+                type: 'POST', 
+                data : 
+                {
+                    id:id,
+                    value:value,
+                }, 
+                success: function(response) {
+
+                    console.log(response);
+
+                },
+            });
+
+        }
+
         function edittimetable(button) {
             // Get the URL from the button's data attribute
             var url = button.getAttribute('data-url');
