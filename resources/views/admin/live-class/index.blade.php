@@ -485,7 +485,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                                 <button type="button"
                                                     data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
-                                                    onclick="edittimetable(this)" class="btn btn-icons hide_btn">
+                                                    onclick="edittimetable(this)" class="btn primary hide_btn">
                                                     Hide
                                                 </button>
 
