@@ -452,7 +452,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                       
 
-                                    @foreach ($timetables as $timetable)
+                                    @foreach ($timetables as $k => $timetable)
                                         <div class="text-field-preview">
 
                                             <p>{{ $timetable->day }}
@@ -484,16 +484,10 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <div class="action-buttons">
 
                                                 <div class="form-check form-switch">
-
-                                                    <input type="checkbox" onchange="AddPermission(this)" data-name="users" class="form-check-input" name="users" value="Y" role="switch">
+                                                    <label for="hide_time_{{ $k }}">Hide</label>
+                                                    <input name="users" value="Y"  id="hide_time_{{ $k }}" onchange="AddPermission(this)" type="checkbox" class="form-check-input" role="switch">
 
                                                 </div>
-                                                
-                                                <button type="button"
-                                                    data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
-                                                    onclick="edittimetable(this)" class="btn btn-primary hide_btn">
-                                                    Hide
-                                                </button>
 
                                                 <button type="button"
                                                     data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
