@@ -452,7 +452,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                       
 
-                                    @foreach ($timetables as $k => $timetable)
+                                        @foreach ($timetables as $k => $timetable)
                                         <div class="text-field-preview">
 
                                             <p>{{ $timetable->day }}
@@ -489,7 +489,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                     <input name="hide_time"   {{ $timetable->hide_time == 'Y' ? 'checked' : '' }} data-id="{{ $timetable->id }}" value="Y"  id="hide_time_{{ $k }}" onchange="HideButton(this)"  type="checkbox" class="form-check-input" role="switch">
 
                                                 </div>
-
+                                                
                                                 <button type="button"
                                                     data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
                                                     onclick="edittimetable(this)" class="btn btn-icons edit_btn">
@@ -596,83 +596,79 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 @endpush
 
 @push('footer-script')
-
     <script>
+        function deletefunction(element) {
+
+            var url = $(element).data('url');
+
+            $('#delete-post-form').attr('action', url);
 
 
-            function deletefunction(element) {
+            $('#live-private-modal').modal('hide');
 
-                var url = $(element).data('url');
-
-                $('#delete-post-form').attr('action', url);
+            $('#delete-post').modal('show');
 
 
-                $('#live-private-modal').modal('hide');
+        }
 
-                $('#delete-post').modal('show');
+        function HideButton(element)
+        {
+            var value = $(element).is(':checked') ? 'Y' : 'N';
 
+            var id = $(element).attr('data-id');
 
-            }
+            console.log(value,'value');
 
-            function HideButton(element)
-            {
-                var value = $(element).is(':checked') ? 'Y' : 'N';
+            $.ajax({
+                url: "{{route('admin.live-class.hide_button') }}",
+                type: 'POST', 
+                data : 
+                {
+                    id:id,
+                    value:value,
+                }, 
+                success: function(response) {
 
-                var id = $(element).attr('data-id');
+                    console.log(response);
 
-                console.log(value,'value');
+                },
+            });
 
-                $.ajax({
-                    url: "{{route('admin.live-class.hide_button') }}",
-                    type: 'POST', 
-                    data : 
-                    {
-                        id:id,
-                        value:value,
-                    } 
-                    success: function(response) {
+        }
 
-                        console.log(response);
+        function edittimetable(button) {
+            // Get the URL from the button's data attribute
+            var url = button.getAttribute('data-url');
 
-                    },
-                });
-
-            }
-
-            function edittimetable(button) {
-                // Get the URL from the button's data attribute
-                var url = button.getAttribute('data-url');
-
-                // Make an AJAX request to fetch the edit data
-                $.ajax({
-                    url: url,
-                    type: 'GET', // Change to 'GET' since we are fetching data
-                    success: function(response) {
-                        $('#day').val(response.day);
-                        $('#starttime').val(response.starttime);
-                        $('#starttime_am_pm').val(response.starttime_am_pm);
-                        $('#endtime').val(response.endtime);
-                        $('#endtime_am_pm').val(response.endtime_am_pm);
-                        $('#count').val(response.count);
+            // Make an AJAX request to fetch the edit data
+            $.ajax({
+                url: url,
+                type: 'GET', // Change to 'GET' since we are fetching data
+                success: function(response) {
+                    $('#day').val(response.day);
+                    $('#starttime').val(response.starttime);
+                    $('#starttime_am_pm').val(response.starttime_am_pm);
+                    $('#endtime').val(response.endtime);
+                    $('#endtime_am_pm').val(response.endtime_am_pm);
+                    $('#count').val(response.count);
 
 
-                        // Update the form action with the timetable ID
-                        $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
+                    // Update the form action with the timetable ID
+                    $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
 
 
-                        $('#cancelid').show();
-                        $('#editModal').modal('show');
-                        $("#updatebutton").text('update');
-                        $("#updatebutton").text('update');
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle errors here
-                        console.error('Error fetching data:', error);
-                        alert('Error fetching data. Please try again.');
-                    }
-                });
-            }
-
+                    $('#cancelid').show();
+                    $('#editModal').modal('show');
+                    $("#updatebutton").text('update');
+                    $("#updatebutton").text('update');
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                    console.error('Error fetching data:', error);
+                    alert('Error fetching data. Please try again.');
+                }
+            });
+        }
     </script>
     <script>
         $(document).ready(function() {
