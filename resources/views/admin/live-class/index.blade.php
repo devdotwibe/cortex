@@ -452,7 +452,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                       
 
-                                    @foreach ($timetables as $timetable)
+                                        @foreach ($timetables as $k => $timetable)
                                         <div class="text-field-preview">
 
                                             <p>{{ $timetable->day }}
