@@ -67,7 +67,7 @@ class LiveClassController extends Controller
        
         $live_class =  LiveClassPage::first(); 
         $setting = Settings::first();
-        $timetables = Timetable::all();
+        $timetables = Timetable::where('hide_time','!=','Y')->get();
         return view('user.live-class.private',compact('user','live_class','setting','timetables'));
     }
  
@@ -76,7 +76,24 @@ class LiveClassController extends Controller
          * @var User
          */
         $user=Auth::user();
+
+        // $time_array = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
+        //     $text = $item->day . ' ' . $item->starttime . ' ' . $item->starttime_am_pm . ' (' . $item->class_mode . ') - Year ' . $item->year;
+        //     return [
+        //         'text' => $text,
+        //         'value' => $text,
+        //     ];
+        // })->toArray();
+        
+        // $fields = [
+        //     ["name" => "email", "label" => "Email *", "placeholder" => "Email", "type" => "text", "size" => 12],
+        //     ["name" => "full_name", "label" => "Student Full Name *", "placeholder" => "Student Full Name", "type" => "text", "size" => 12],
+        //     ["name" => "parent_name", "label" => "Parent Name *", "placeholder" => "Parent Name", "type" => "text", "size" => 12],
+        //     ["name" => "timeslot", "label" => "Select a class time (you can choose more than one) *", "options" => $time_array, "type" => "checkboxgroup", "size" => 12],
+        // ];
+
         $live_class =  LiveClassPage::first();  
+
         return view('user.live-class.privateform',compact('user','live_class')); 
     }
     public function privateclassformsubmit(Request  $request){ 
@@ -273,7 +290,7 @@ class LiveClassController extends Controller
             //    $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
 
 
-                dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath))->onConnection('sync');
+                dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
 
             }
             return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
