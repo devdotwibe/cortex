@@ -599,7 +599,6 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
     <script>
 
-        $(document).ready(function() {
 
             function deletefunction(element) {
 
@@ -673,8 +672,6 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     }
                 });
             }
-
-        });
 
     </script>
     <script>
