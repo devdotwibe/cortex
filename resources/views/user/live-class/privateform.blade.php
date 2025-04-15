@@ -18,7 +18,13 @@
                     <x-general-form 
                         :url="route('live-class.privateclass.form',$user->slug)" 
                         :cancel="route('live-class.privateclass', $user->slug)"
-                        :fields="$fields"
+                        :fields='[
+                            ["name"=>"email","label"=>"Email *","placeholder"=>"Email","type"=>"text","size"=>12],
+                            ["name"=>"full_name","label"=>"Student Full Name *","placeholder"=>"Student Full Name","type"=>"text","size"=>12],
+                            ["name"=>"parent_name","label"=>"Parent Name *","placeholder"=>"Parent Name","type"=>"text","size"=>12],
+                           
+                            ["name"=>"timeslot","label"=>"Select a class time (you can choose more than one) *","options"=>[["text"=>"Monday 6:30 p.m. (Online) - Year 6","value"=>"Monday 6:30 p.m. (Online) - Year 6"],["text"=>"Wednesday 6:30 p.m. (Online) - Year 5","value"=>"Wednesday 6:30 p.m. (Online) - Year 5"],["text"=>"Thursday 6:30 p.m. (Online) - Year 6","value"=>"Thursday 6:30 p.m. (Online) - Year 6"],["text"=>"Saturday 9:30 a.m. (F2F) - Year 5","value"=>"Saturday 9:30 a.m. (F2F) - Year 5"],["text"=>"Saturday 12 p.m. (F2F) - Year 5","value"=>"Saturday 12 p.m. (F2F) - Year 5"],["text"=>"Saturday 2:30 p.m. (F2F) - Year 6","value"=>"Saturday 2:30 p.m. (F2F) - Year 6"],["text"=>"Sunday 9:30 a.m. (F2F) - Year 5","value"=>"Sunday 9:30 a.m. (F2F) - Year 5"],["text"=>"Sunday 12 p.m. (F2F) - Year 5","value"=>"Sunday 12 p.m. (F2F) - Year 5"],["text"=>"Sunday 2:30 p.m. (F2F) - Year 6","value"=>"Sunday 2:30 p.m. (F2F) - Year 6"]],"type"=>"checkboxgroup","size"=>12],
+                        ]' 
                         btnsubmit="Register"
                     ></x-general-form>
                 </div> 
