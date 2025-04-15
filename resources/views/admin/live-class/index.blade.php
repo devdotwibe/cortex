@@ -486,7 +486,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                 <div class="form-check form-switch">
 
                                                     <label for="hide_time_{{ $k }}">Hide</label>
-                                                    <input name="hide_time" {{ $timetable->hide_time =='Y' ? 'checked' ? '' }} value="Y"  id="hide_time_{{ $k }}" onchange="AddPermission(this)" type="checkbox" class="form-check-input" role="switch">
+                                                    <input name="hide_time"   {{ $timetable->hide_time == 'Y' ? 'checked' : '' }} value="Y"  id="hide_time_{{ $k }}" onchange="AddPermission(this)" type="checkbox" class="form-check-input" role="switch">
 
                                                 </div>
 
