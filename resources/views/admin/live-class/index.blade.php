@@ -486,7 +486,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                 <div class="form-check form-switch">
 
                                                     <label for="hide_time_{{ $k }}">Hide</label>
-                                                    <input name="hide_time"   {{ $timetable->hide_time == 'Y' ? 'checked' : '' }} value="Y"  id="hide_time_{{ $k }}" onchange="AddPermission(this)" type="checkbox" class="form-check-input" role="switch">
+                                                    <input name="hide_time"   {{ $timetable->hide_time == 'Y' ? 'checked' : '' }} data-id="{{ $timetable->id }}" value="Y"  id="hide_time_{{ $k }}" onchange="HideButton(this)" type="checkbox" class="form-check-input" role="switch">
 
                                                 </div>
 
@@ -608,6 +608,31 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
             $('#delete-post').modal('show');
 
+
+        }
+
+        function HideButton(element)
+        {
+            var value = $(element).val();
+
+            var id = $(element).attr('data-id');
+
+            console.log(value,'value');
+
+            $.ajax({
+                url: "{{route('admin.live-class.hide_button') }}",
+                type: 'POST',
+                data : 
+                {
+                    id:id,
+                    value:value,
+                } 
+                success: function(response) {
+
+                    console.log(response);
+
+                },
+            });
 
         }
 
