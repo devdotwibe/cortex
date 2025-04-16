@@ -629,10 +629,13 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 }, 
                 success: function(response) {
 
-                    console.log(response.id);
+                    const checkbox = $(`#hide_time_${response.id}`);
 
-                    $(`#hide_time_${response.id}`).prop('checked', response.value === 'Y');
-
+                    if (response.value === 'Y') {
+                        checkbox.attr('checked', 'checked');
+                    } else {
+                        checkbox.removeAttr('checked');     
+                    }
                 },
             });
 
