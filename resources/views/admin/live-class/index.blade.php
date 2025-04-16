@@ -485,8 +485,8 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                                 <div class="form-check form-switch">
 
-                                                    <label for="hide_time_{{ $k }}">Hide</label>
-                                                    <input name="hide_time"   {{ $timetable->hide_time == 'Y' ? 'checked' : '' }} data-id="{{ $timetable->id }}" value="Y"  id="hide_time_{{ $k }}" onchange="HideButton(this)"  type="checkbox" class="form-check-input" role="switch">
+                                                    <label for="hide_time_{{ $timetable->id }}">Hide</label>
+                                                    <input name="hide_time"   {{ $timetable->hide_time == 'Y' ? 'checked' : '' }} data-id="{{ $timetable->id }}" value="Y"  id="hide_time_{{ $timetable->id }}" onchange="HideButton(this)"  type="checkbox" class="form-check-input" role="switch">
 
                                                 </div>
                                                 
@@ -629,8 +629,13 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 }, 
                 success: function(response) {
 
-                    console.log(response);
+                    const checkbox = $(`#hide_time_${response.id}`);
 
+                    if (response.value === 'Y') {
+                        checkbox.attr('checked', 'checked');
+                    } else {
+                        checkbox.removeAttr('checked');     
+                    }
                 },
             });
 
