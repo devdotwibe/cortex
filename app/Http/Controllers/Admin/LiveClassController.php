@@ -39,7 +39,7 @@ class LiveClassController extends Controller
 
         $timetable->save();
 
-        return response()->json(['sucess'=>'the time hide button updated']);
+        return response()->json(['value'=>$value,'id'=>$timetable->id]);
     }
 
     public function store(Request $request)
