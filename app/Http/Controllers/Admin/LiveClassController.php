@@ -28,6 +28,20 @@ class LiveClassController extends Controller
         return view('admin.live-class.index',compact('live_class','timetables'));
     }
 
+    public function hide_button(Request $request)
+    {
+        $value = $request->value;
+        $id = $request->id;
+
+        $timetable = Timetable::find($id);
+
+        $timetable->hide_time = $value;
+
+        $timetable->save();
+
+        return response()->json(['sucess'=>'the time hide button updated']);
+    }
+
     public function store(Request $request)
     {
         $live_class = LiveClassPage::first();
