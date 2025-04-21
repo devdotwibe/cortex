@@ -50,6 +50,7 @@ dd($timetables);
             'count' => $request->count,
             'year'=>$request->year,
             'type'=>$request->type,
+            'hide_time'=>$request->hide_time??'Y',
         ]);
 
         // Redirect back with a success message
