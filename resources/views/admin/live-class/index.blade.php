@@ -59,7 +59,7 @@
                                                         entrolling with our tutors Desinged for Year 5 students
                                                     @endif
                                                 </p>
-                                                 
+
                                             </div>
 
                                         </div>
@@ -263,7 +263,7 @@ Receive a personalised learning experience with regular feedback by enrolling wi
                                             </span>
 
 
-                                           
+
 
 
 
@@ -441,6 +441,27 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                 @endfor
                                             </select>
                                         </div>
+
+                                        <div class="text-field">
+                                            <label for="year">Select Year:</label>
+                                            <select name="year" id="year" class="form-control">
+                                                @for ($year = 2010; $year <= date('Y'); $year++)
+                                                    <option value="{{ $year }}">{{ $year }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+
+                                        <div class="text-field">
+                                            <label for="type">Type :</label>
+
+                                            <select name="type" id="type" class="form-control">
+                                                <option value=""> select </option>
+                                                <option value="Online"> Online </option>
+                                                <option value="F2F">F2F</option>
+                                            </select>
+                                        </div>
+
+
                                     </div>
 
 
@@ -450,7 +471,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                         class="add-btn cancel-button-class"  id="cancelid" style="display:none">Cancel</a>
 
 
-                                      
+
 
                                         @foreach ($timetables as $k => $timetable)
                                         <div class="text-field-preview">
@@ -472,12 +493,12 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
 
                                             {{-- <div class="action-buttons">
-            
+
                                                 <button data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
                                                     onclick="edittimetable(this)" class="btn btn-primary">Edit</button>
-            
-            
-                                                    <button 
+
+
+                                                    <button
                                                         onclick="deletefunction(this)"  data-url="{{ route('admin.timetable.destroy', $timetable->id) }}"  class="btn btn-primary">Delete</button>
                                             </div> --}}
 
@@ -489,7 +510,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                     <input name="hide_time"   {{ $timetable->hide_time == 'Y' ? 'checked' : '' }} data-id="{{ $timetable->id }}" value="Y"  id="hide_time_{{ $timetable->id }}" onchange="HideButton(this)"  type="checkbox" class="form-check-input" role="switch">
 
                                                 </div>
-                                                
+
                                                 <button type="button"
                                                     data-url="{{ route('admin.timetable.fetcheditdata', $timetable->id) }}"
                                                     onclick="edittimetable(this)" class="btn btn-icons edit_btn">
@@ -621,12 +642,12 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
             $.ajax({
                 url: "{{route('admin.live-class.hide_button') }}",
-                type: 'POST', 
-                data : 
+                type: 'POST',
+                data :
                 {
                     id:id,
                     value:value,
-                }, 
+                },
                 success: function(response) {
 
                     const checkbox = $(`#hide_time_${response.id}`);
@@ -634,7 +655,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     if (response.value === 'Y') {
                         checkbox.attr('checked', 'checked');
                     } else {
-                        checkbox.removeAttr('checked');     
+                        checkbox.removeAttr('checked');
                     }
                 },
             });
