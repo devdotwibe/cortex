@@ -10,11 +10,11 @@
                     <img src="{{ asset('assets/images/leftarrowblack.svg') }}" alt="">
                 </a>
             </div>
-            
+
 
             <h2> Class Details -> {{ $class_detail->term_name  }}</h2>
         </div>
-         
+
         <div class="header_right">
             <ul class="nav_bar">
                 {{-- <li class="nav_item"><a class="nav_link btn"  data-bs-toggle="modal" data-bs-target="#user-acces-modal" data-target="#user-acces-modal" >User Access</a></li> --}}
@@ -23,18 +23,18 @@
         </div>
     </div>
 </section>
-<section class="content_section admin_section"> 
+<section class="content_section admin_section">
     <div class="container">
         <div class="row">
             <x-ajax-table tableid="sub_class_detail"   :coloumns='[
                 ["th"=>"Date","name"=>"created_at","data"=>"date"],
-                ["th"=>"Meeting ID","name"=>"meeting_id","data"=>"meeting_id"], 
-             
-            ]' 
+                ["th"=>"Meeting ID","name"=>"meeting_id","data"=>"meeting_id"],
+
+            ]'
             />
         </div>
     </div>
-</section> 
+</section>
 @endsection
 
 
@@ -51,7 +51,7 @@
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    
+
                     <form action="{{route('admin.class-detail.store')}}"  id="class_detail_form" method="post">
                         @csrf
 
@@ -77,20 +77,31 @@
                                 </div>
 
                                 <div class="forms-inputs mb-4">
-                                    <label for="timeslote">Time Slot</label> 
+                                    <label for="timeslote">Time Slot</label>
+
                                     <div class="check-group form-control @error('timeslote') is-invalid  @enderror">
+
+                                        @foreach ($time_slot as $time)
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="{{ $time['value'] }}"  >
+                                                <label for="check-group-timeslote-1">{{ $time['text'] }}</label>
+                                            </div>
+
+                                        @endforeach
+{{--
                                         <div class="form-check">
                                             <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Monday 6:30 p.m. (Online) - Year 6"  >
                                             <label for="check-group-timeslote-1">Monday 6:30 p.m. (Online) - Year 6</label>
-                                        </div> 
+                                        </div>
                                         <div class="form-check">
                                             <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Wednesday 6:30 p.m. (Online) - Year 5"  >
                                             <label for="check-group-timeslote-1">Wednesday 6:30 p.m. (Online) - Year 5</label>
-                                        </div> 
+                                        </div>
                                         <div class="form-check">
                                             <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Thursday 6:30 p.m. (Online) - Year 6"  >
                                             <label for="check-group-timeslote-1">Thursday 6:30 p.m. (Online) - Year 6</label>
-                                        </div> 
+                                        </div>
                                         <div class="form-check">
                                             <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Saturday 9:30 a.m. (F2F) - Year 5"  >
                                             <label for="check-group-timeslote-1">Saturday 9:30 a.m. (F2F) - Year 5</label>
@@ -114,7 +125,7 @@
                                         <div class="form-check">
                                             <input type="checkbox" name="timeslote[]" class="form-check-input timeslote"  id="check-group-timeslote-1" value="Sunday 2:30 p.m. (F2F) - Year 6"  >
                                             <label for="check-group-timeslote-1">Sunday 2:30 p.m. (F2F) - Year 6</label>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
                                     <div class="invalid-feedback" id="error-timeslote">The field is required</div>
@@ -141,8 +152,8 @@
                 </div>
                 <div class="modal-body">
                     <x-ajax-table :url="route('admin.user-access.index',['type'=>'class-detail','term'=>$class_detail->slug])"   :coloumns='[
-                        ["th"=>"Name","name"=>"name","data"=>"name"],                      
-                    ]' 
+                        ["th"=>"Name","name"=>"name","data"=>"name"],
+                    ]'
                     tableinit="usertableinit"  />
                 </div>
 
@@ -211,7 +222,7 @@
        {
             event.preventDefault();
             event.stopPropagation();
-            
+
             var url ="{{route('admin.class-detail.store')}}";
 
             $('#class_detail_form').attr('action',url);
@@ -232,8 +243,8 @@
 
             $('#class_detail_form').on('submit', function(event) {
 
-                event.preventDefault(); 
-                
+                event.preventDefault();
+
                 var form = $(this);
                 var url = $(this).attr('action');
 
@@ -248,20 +259,20 @@
 
                     processData: false,
                     contentType: false,
-                
+
                     success: function(response) {
-                    
+
                         form.trigger('reset');
 
                         $('#class-detail-modal').modal('hide');
 
-                        showToast(response.success,'success');  
+                        showToast(response.success,'success');
 
                         $('#table-sub_class_detail').DataTable().ajax.reload();
 
                     },
                     error: function(response) {
-                    
+
                         var errors = response.responseJSON.errors;
 
                         $.each(errors, function(field, message) {

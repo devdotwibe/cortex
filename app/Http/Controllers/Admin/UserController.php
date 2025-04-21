@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\ImportIbDataJob;
+use App\Models\Timetable;
 use App\Models\User;
 use App\Models\UserExamReview;
 use App\Trait\ResourceController;
@@ -59,7 +60,7 @@ class UserController extends Controller
                             $qry->doesntHave('privateClass');
                         });
                         break;
-                        
+
 
                     default:
                         break;
@@ -80,7 +81,7 @@ class UserController extends Controller
                     -> orWhereIn('id',TermAccess::where('type','lesson-recording')->where('term_id',LessonRecording::where('term_name',$termname)->select('id'))->select('user_id'))
                ;
                 });
-                
+
             }
 
         //     return $this->addColumn('is_free_access', function ($data) {
@@ -104,7 +105,7 @@ class UserController extends Controller
 
                 })
 
-        
+
 
 
             ->addColumn('is_user_verfied', function ($data) {
@@ -123,7 +124,7 @@ class UserController extends Controller
                 $privateclass =PrivateClass::where('user_id',$data->id)->first();
 
                 $action ="";
-                
+
                 if(empty($privateclass))
                 {
                     $action .='
@@ -158,7 +159,7 @@ class UserController extends Controller
                                 </a> ';
 
                 return $action;
-                   
+
             })->buildTable(['post_status', 'is_free_access','is_user_verfied']);
         }
         $unverifyuser = User::whereNull('email_verified_at')->count();
@@ -173,22 +174,22 @@ class UserController extends Controller
         $terms2 = LessonMaterial::get();
         $terms3 = HomeWork::get();
         $terms4 = LessonRecording::get();
-        
+
         foreach ($terms1 as $item) {
             $terms[] = $item->term_name;
         }
         foreach ($terms2 as $item) {
-            if (!in_array($item->term_name, $terms)) { 
+            if (!in_array($item->term_name, $terms)) {
                 $terms[] = $item->term_name;
             }
         }
-        
+
         foreach ($terms3 as $item) {
             if (!in_array($item->term_name, $terms)) {
                 $terms[] = $item->term_name;
             }
         }
-        
+
         foreach ($terms4 as $item) {
             if (!in_array($item->term_name, $terms)) {
                 $terms[] = $item->term_name;
@@ -204,10 +205,16 @@ class UserController extends Controller
             $qry->whereIn('id', Learn::select('sub_category_id'));
         })
         ->get();
-    
 
+        $time_slot = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
+            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
+            return [
+                'text' => $text,
+                'value' => $text,
+            ];
+        })->toArray();
 
-        return view("admin.user.index", compact('category','page_name','unverifyuser','terms', 'verifyuser', 'paiduser', 'freeuser'));
+        return view("admin.user.index", compact('time_slot','category','page_name','unverifyuser','terms', 'verifyuser', 'paiduser', 'freeuser'));
     }
     public function create(Request $request)
     {
@@ -215,7 +222,7 @@ class UserController extends Controller
     }
     public function bulkaction(Request $request)
     {
-      
+
         if (!empty($request->deleteaction)) {
             if ($request->input('select_all', 'no') == "yes") {
 
@@ -228,7 +235,7 @@ class UserController extends Controller
                 return response()->json(["success" => "Users deleted success"]);
             }
             return redirect()->route('admin.user.index')->with("success", "Users deleted success");
-        } 
+        }
         elseif(!empty($request->time_slot_action))
         {
             $users = $request->input('selectbox', []);
@@ -243,7 +250,7 @@ class UserController extends Controller
 
                 if(empty($private_class_exist))
                 {
-                    $private_class = new PrivateClass; 
+                    $private_class = new PrivateClass;
 
                     $private_class->email = $real_user->email;
                     $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
@@ -252,7 +259,7 @@ class UserController extends Controller
                     $private_class->user_id = $user;
                     $private_class->status = 'approved';
                     $private_class->is_valid = true;
-        
+
                     $private_class->save();
                 }
             }
@@ -281,9 +288,9 @@ class UserController extends Controller
                 {
                     $access= true;
                 }
-                
+
                 $real_user->is_free_access = $access;
-              
+
                 $real_user->save();
             }
 
@@ -338,7 +345,7 @@ class UserController extends Controller
 
         if(empty($private_class_exist))
         {
-            $private_class = new PrivateClass; 
+            $private_class = new PrivateClass;
 
             $private_class->email = $real_user->email;
             $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
@@ -415,7 +422,7 @@ class UserController extends Controller
 
             $access= true;
         }
-   
+
         $user->is_free_access = $access;
         $user->free_access_terms = $user_access_string;
 
@@ -576,18 +583,18 @@ class UserController extends Controller
 
 
         $request->validate([
-            'first_name' => 'required|string|max:255', 
-         
-        'email' => 'required|max:255',       
-        'expiry_date' => 'required|date',  
-         
-            
+            'first_name' => 'required|string|max:255',
+
+        'email' => 'required|max:255',
+        'expiry_date' => 'required|date',
+
+
         ]);
 
 
         $datas = json_decode($request->input('datas'), true);
 
-        
+
 
         $experidate = $request->expiry_date;
 

@@ -35,10 +35,10 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-// Route::get('/migrate', function () {
-//     Artisan::call('migrate');
-//     dd(Artisan::output());
-// });
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    dd(Artisan::output());
+});
 // Route::get('/fresh', function () {
 //     Artisan::call('migrate:fresh');
 //     dd(Artisan::output());
@@ -181,7 +181,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/attempt/{user_exam_review}/preview', [MockExamController::class, 'preview'])->name('preview');
             Route::get('/{user_exam_review}/complete', [MockExamController::class, 'examcomplete'])->name('complete');
             Route::get('/{user_exam_review}/explanation-video', [MockExamController::class, 'explanation_video'])->name('explanation_video');
-            
+
 
             Route::get('/{user_exam_review}/retry', [MockExamController::class, 'mocexamretry'])->name('retry');
             Route::post('/fetch/{attemt}/progress', [MockExamController::class, 'getprogress'])->name('attemtprogress');
@@ -202,10 +202,10 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             // Route::get('/{live}/workshop/form', [LiveClassController::class, 'workshopform'])->name('workshop.form');
             Route::get('/{live}/private-class', [LiveClassController::class, 'privateclass'])->name('privateclass');
             Route::get('/{live}/private-class/room', [LiveClassController::class, 'privateclassroom'])->name('privateclass.room');
-            
+
             Route::get('/{live}/private-class/form', [LiveClassController::class, 'privateclassform'])->name('privateclass.form');
             Route::post('/{live}/private-class/form', [LiveClassController::class, 'privateclassformsubmit']);
-            
+
         });
 
 
@@ -280,7 +280,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 
         Route::middleware('hasPrivateClass')->group(function () {
-          
+
             Route::get('/{live}/private-class/details', [LiveClassController::class, 'privateclassdetails'])->name('privateclass.details');
             Route::get('/{live}/private-class/{class_detail}/term', [LiveClassController::class, 'privateclassterm'])->name('privateclass.term');
 

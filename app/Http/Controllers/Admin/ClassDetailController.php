@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ClassDetail;
 use App\Models\SubClassDetail;
+use App\Models\Timetable;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
@@ -18,24 +19,24 @@ class ClassDetailController extends Controller
         self::$defaultActions=[''];
 
     }
-   
+
 
     public function show(Request $request , $slug)
-    {  
-        
+    {
+
         $class_detail = ClassDetail::findSlug($slug);
 
-        if($request->ajax()){  
+        if($request->ajax()){
 
             return  $this->where('class_detail_id',$class_detail->id)
 
-            ->addAction(function($data){ 
+            ->addAction(function($data){
 
-                $action= ' 
-                        
+                $action= '
 
 
-        <a onclick="update_sub_class('."'".route('admin.class-detail.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn">                
+
+        <a onclick="update_sub_class('."'".route('admin.class-detail.edit_sub_class', $data->slug)."'".')"  class="btn btn-icons edit_btn">
     <span class="adminside-icon">
       <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
     </span>
@@ -48,8 +49,8 @@ class ClassDetailController extends Controller
                     ';
 
                     // if(empty($data->subcategories) || count($data->subcategories) == 0)
-                    // { 
-                        $action.=  
+                    // {
+                        $action.=
 
 
                         '<a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.class-detail.destroy_sub_class",$data->slug).'" >
@@ -59,24 +60,31 @@ class ClassDetailController extends Controller
                             <span class="adminactive-icon">
                                 <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                             </span>
-                        </a> '; 
+                        </a> ';
 
 
-                    // } 
-            
+                    // }
+
                     return $action;
                 })
 
                 ->buildTable();
-        } 
+        }
 
+        $time_slot = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
+            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
+            return [
+                'text' => $text,
+                'value' => $text,
+            ];
+        })->toArray();
 
-        return view('admin.class-detail.view',compact('class_detail'));
+        return view('admin.class-detail.view',compact('time_slot','class_detail'));
     }
 
     public function store(Request $request)
-    { 
-        
+    {
+
         $request->validate([
 
             "meeting_id" => "required",
@@ -101,15 +109,15 @@ class ClassDetailController extends Controller
 
 
     public function destroy_sub_class(Request $request,$subclass)
-    { 
-        
+    {
+
         $sub_detail = SubClassDetail::findSlug($subclass);
 
         $sub_detail->delete();
 
         if($request->ajax()){
             return response()->json(["success"=>"Sub Class Details deleted success"]);
-        }        
+        }
         return redirect()->back();
     }
 

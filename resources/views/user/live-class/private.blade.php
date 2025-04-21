@@ -13,7 +13,7 @@
         </div>
     </div>
 </section>
-<section class="content_section"> 
+<section class="content_section">
     <div class="workshop-wrap">
         <div class="row">
             <div class="col-md-12">
@@ -21,14 +21,14 @@
                     {!! $live_class->private_class??""!!}
                 </div>
 
-                <div class="workshop-action"> 
+                <div class="workshop-action">
                     @if (empty($user->privateClass))
-                  {{-- @guest('admin')  
-                  
+                  {{-- @guest('admin')
+
                   <a class="btn btn-outline-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a>
-                  
+
                   @endguest --}}
-                  @guest('admin')  
+                  @guest('admin')
                   @if((auth('web')->user()->is_free_access) || (optional(auth('web')->user()->subscription())->status ?? "") == "subscribed" ||1)
 
                     <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.form',$user->slug)}}">Register</a>
@@ -42,7 +42,7 @@
                     @if($user->privateClass->status=="pending") <p class="text-warning"> You are under verification, Please wait.</p> @elseif($user->privateClass->status=="rejected") <p class="text-danger" >Your are rejected by admin, Please contact Admin<a @if(!empty(optional($setting)->emailaddress)) href="mailto:{{optional($setting)->emailaddress}}" @endif > {{ optional($setting)->emailaddress }}</a> for further details.</p> @else <span class="btn btn-outline-warning"> {{ucfirst($user->privateClass->status)}} </span> @endif
                     @else
                     <a class="btn btn-warning m-2" href="{{route('live-class.privateclass.room',$user->slug)}}">Enter</a>
-                    @endif 
+                    @endif
                 </div>
 
 
@@ -51,8 +51,8 @@
                     @foreach ($timetables as $timetable)
                     <div class="timetable-row">
                         <p>
-                            {{ $timetable->day }} 
-                            <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} - {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }})</span>
+                            {{ $timetable->day }}
+                            {{ $timetable->starttime }} {{ strtolower($timetable->starttime_am_pm) }} ({{ $timetable->type }})
                         </p>
                         <div class="user-icons">
                             @for ($i = 0; $i < $timetable['count']; $i++)
@@ -65,7 +65,7 @@
                     </div>
                     @endforeach
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
 @endsection
 
 
-@push('modals')  
+@push('modals')
 
 <!-- Locked Content Modal -->
 <div id="lockedModal" class="modal" tabindex="-1" role="dialog">
@@ -98,7 +98,7 @@
 
 @endpush
 
-@push('footer-script') 
+@push('footer-script')
 
 <script>
 function showLockedModal() {
@@ -109,9 +109,8 @@ function closeLockedModal() {
     document.getElementById('lockedModal').style.display = 'none';
 }
 </script>
- 
+
 @endpush
 
 
 
- 

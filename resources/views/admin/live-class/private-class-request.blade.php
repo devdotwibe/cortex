@@ -11,17 +11,17 @@
                 </a>
             </div>
             <h2>{{$page_name}}</h2>
-        </div> 
+        </div>
         <div class="header_content">
             <div class="form-group">
                <select  id="timeslot-list" class="select2 form-control" data-allow-clear="true" ></select>
             </div>
-       </div>    
+       </div>
        <div class="header_content">
         <div class="form-group">
             @if($page_name!='Pending Users')
             <select id="term-list" class="select2 form-control" data-allow-clear="true" onchange="termchange()">
-                <option value="">Select Term</option> 
+                <option value="">Select Term</option>
                 @foreach($terms  as $term)
                     <option value="{{ $term }}">{{ $term }}</option>
                 @endforeach
@@ -29,19 +29,19 @@
             @endif
         </div>
     </div>
-    
+
         <div class="header_right">
-            <ul class="nav_bar"> 
+            <ul class="nav_bar">
                 <li class="nav_item"  >
-                    <button  class="btn btn-dark m-1"  onclick="exportrequestdata('Export Csv')">Export CSV</button> 
-                </li>  
+                    <button  class="btn btn-dark m-1"  onclick="exportrequestdata('Export Csv')">Export CSV</button>
+                </li>
                 <li class="nav_item"  >
-                    <button  class="btn btn-dark m-1"  onclick="exportrequestdata('Export Excel')">Export Excel</button> 
-                </li> 
+                    <button  class="btn btn-dark m-1"  onclick="exportrequestdata('Export Excel')">Export Excel</button>
+                </li>
             </ul>
         </div>
     </div>
-</section> 
+</section>
 <section class="content_section admin_section">
     <div class="container">
         <div class="row">
@@ -60,7 +60,7 @@
             <button class="btn btn-outline-secondary" id="multi-user-action" >+ User Access</button>
         </div>
     </div>
-</section> 
+</section>
 @endsection
 @push('modals')
 <div class="modal fade" id="multi-user-term-modal" tabindex="-1" role="dialog" aria-labelledby="multi-user-termLabel" aria-hidden="true">
@@ -70,33 +70,33 @@
                 <h5 class="modal-title" id="multi-user-termLablel">User Term</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <form action="{{route('admin.user-access.multi-user.update')}}" method="post" id="multi-user-term-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="multi-user-term-table">
-    
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
-                            <button type="submit"  class="btn btn-dark m-1" >Save</button> 
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button>
+                            <button type="submit"  class="btn btn-dark m-1" >Save</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div  class="list-group" id="multi-user-list">
-    
+
                             </div>
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
-     
+
 <div class="modal fade" id="user-term-modal" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -104,22 +104,22 @@
                 <h5 class="modal-title" id="user-termLablel">User Term</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <form action="" method="post" id="user-term-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="user-term-table">
-    
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
-                            <button type="submit"  class="btn btn-dark m-1" >Save</button> 
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button>
+                            <button type="submit"  class="btn btn-dark m-1" >Save</button>
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -131,23 +131,23 @@
                 <h5 class="modal-title" id="user-acceptreqLablel">Confirm Student Time Slot</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <form action="" method="post" id="user-acceptreq-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="user-acceptreq-table">
-    
+
                         </div>
                     </div>
                     <div class="row">
                         <p>Are you sure you want to proceed with this action?</p>
                         <div class="col-md-12">
-                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
-                            <button type="submit"  class="btn btn-dark m-1" >Accept</button> 
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button>
+                            <button type="submit"  class="btn btn-dark m-1" >Accept</button>
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -158,23 +158,23 @@
                 <h5 class="modal-title" id="user-rejectreqLablel">Reject Student Time Slot</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <form action="" method="post" id="user-rejectreq-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="user-rejectreq-table">
-    
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <p>Are you sure you want to proceed with this action?</p>
-                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
-                            <button type="submit"  class="btn btn-dark m-1" >Reject</button> 
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button>
+                            <button type="submit"  class="btn btn-dark m-1" >Reject</button>
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -186,68 +186,71 @@
                 <h5 class="modal-title" id="user-updatetreqLablel">Confirm Student Time Slot</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <form action="" method="post" id="user-updatetreq-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="user-updatetreq-table">
-    
+
                         </div>
                     </div>
-                    <div class="row"> 
+                    <div class="row">
                         <div class="col-md-12">
-                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button> 
-                            <button type="submit"  class="btn btn-dark m-1" >Update</button> 
+                            <button type="button"  class="btn btn-outline-dark m-1" data-bs-dismiss="modal"  aria-label="Close" >Close</button>
+                            <button type="submit"  class="btn btn-dark m-1" >Update</button>
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
 @endpush
 @push('footer-script')
-    <script> 
+    <script>
 
     var requesttable = null;
-    var timeslotlist=[ 
-            {
-                text:"Monday 6:30 p.m. (Online) - Year 6",
-                id:"Monday 6:30 p.m. (Online) - Year 6"
-            },
-            {
-                text:"Wednesday 6:30 p.m. (Online) - Year 5",
-                id:"Wednesday 6:30 p.m. (Online) - Year 5"
-            },
-            {
-                text:"Thursday 6:30 p.m. (Online) - Year 6",
-                id:"Thursday 6:30 p.m. (Online) - Year 6"
-            },
-            {
-                text:"Saturday 9:30 a.m. (F2F) - Year 5",
-                id:"Saturday 9:30 a.m. (F2F) - Year 5"
-            },
-            {
-                text:"Saturday 12 p.m. (F2F) - Year 5",
-                id:"Saturday 12 p.m. (F2F) - Year 5"
-            },
-            {
-                text:"Saturday 2:30 p.m. (F2F) - Year 6",
-                id:"Saturday 2:30 p.m. (F2F) - Year 6"
-            },
-            {
-                text:"Sunday 9:30 a.m. (F2F) - Year 5",
-                id:"Sunday 9:30 a.m. (F2F) - Year 5"
-            },
-            {
-                text:"Sunday 12 p.m. (F2F) - Year 5",
-                id:"Sunday 12 p.m. (F2F) - Year 5"
-            },
-            {
-                text:"Sunday 2:30 p.m. (F2F) - Year 6",
-                id:"Sunday 2:30 p.m. (F2F) - Year 6"
-            },
-    ]
+    // var timeslotlist=[
+    //         {
+    //             text:"Monday 6:30 p.m. (Online) - Year 6",
+    //             id:"Monday 6:30 p.m. (Online) - Year 6"
+    //         },
+    //         {
+    //             text:"Wednesday 6:30 p.m. (Online) - Year 5",
+    //             id:"Wednesday 6:30 p.m. (Online) - Year 5"
+    //         },
+    //         {
+    //             text:"Thursday 6:30 p.m. (Online) - Year 6",
+    //             id:"Thursday 6:30 p.m. (Online) - Year 6"
+    //         },
+    //         {
+    //             text:"Saturday 9:30 a.m. (F2F) - Year 5",
+    //             id:"Saturday 9:30 a.m. (F2F) - Year 5"
+    //         },
+    //         {
+    //             text:"Saturday 12 p.m. (F2F) - Year 5",
+    //             id:"Saturday 12 p.m. (F2F) - Year 5"
+    //         },
+    //         {
+    //             text:"Saturday 2:30 p.m. (F2F) - Year 6",
+    //             id:"Saturday 2:30 p.m. (F2F) - Year 6"
+    //         },
+    //         {
+    //             text:"Sunday 9:30 a.m. (F2F) - Year 5",
+    //             id:"Sunday 9:30 a.m. (F2F) - Year 5"
+    //         },
+    //         {
+    //             text:"Sunday 12 p.m. (F2F) - Year 5",
+    //             id:"Sunday 12 p.m. (F2F) - Year 5"
+    //         },
+    //         {
+    //             text:"Sunday 2:30 p.m. (F2F) - Year 6",
+    //             id:"Sunday 2:30 p.m. (F2F) - Year 6"
+    //         },
+    // ]
+
+    var timeslotlist = @json($sloteterms_items);
+
     function requesttableinit(table) {
         requesttable = table
     }
@@ -273,7 +276,7 @@
             // $('#user-rejectreq-table').html(`
             //     <div class="form-group">
             //         <div class="form-data">
-            //             <div class="forms-inputs mb-4"> 
+            //             <div class="forms-inputs mb-4">
             //                 <div class="check-group form-control">
             //                     ${str}
             //                 </div>
@@ -301,11 +304,11 @@
             $('#user-updatetreq-table').html(`
                 <div class="form-group">
                     <div class="form-data">
-                        <div class="forms-inputs mb-4"> 
+                        <div class="forms-inputs mb-4">
                             <div class="check-group form-control" id="user-updatetreq-form-timeslot">
                                 ${str}
                             </div>
-                            <div id="user-updatetreq-form-timeslot-error" class="invalid-feedback"></div> 
+                            <div id="user-updatetreq-form-timeslot-error" class="invalid-feedback"></div>
                         </div>
                     </div>
                 </div>
@@ -314,7 +317,7 @@
         },'json')
 
     }
-    
+
     function acceptrequest(url){
         $.get(url,function(res){
             $('#user-acceptreq-form').attr('action',res.acceptUrl)
@@ -330,11 +333,11 @@
             $('#user-acceptreq-table').html(`
                 <div class="form-group">
                     <div class="form-data">
-                        <div class="forms-inputs mb-4"> 
+                        <div class="forms-inputs mb-4">
                             <div class="check-group form-control" id="user-acceptreq-form-timeslot">
                                 ${str}
                             </div>
-                            <div id="user-acceptreq-form-timeslot-error" class="invalid-feedback"></div> 
+                            <div id="user-acceptreq-form-timeslot-error" class="invalid-feedback"></div>
                         </div>
                     </div>
                 </div>
@@ -353,26 +356,26 @@
     function termchange()
     {
         if (requesttable != null) {
-            
+
                 requesttable.ajax.reload()
         }
     }
-    function s2ab(s) { 
+    function s2ab(s) {
         var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
         var view = new Uint8Array(buf);  //create uint8array as viewer
         for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
-        return buf;    
+        return buf;
     }
     async function exportrequestdata(exportType="Export Csv"){
-        const page_name = "{{ $page_name }}"; 
+        const page_name = "{{ $page_name }}";
 
         const responce =await fetch("{{route('admin.live-class.private_class_request_export')}}?page_name=" + encodeURIComponent(page_name),{
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
             },
-        }) 
+        })
         const data = await responce.json();
         var wb = XLSX.utils.book_new();
         wb.Props = {
@@ -406,7 +409,7 @@
         $.get(url,function(res){
             $('#user-termLablel').text(res.name)
             $('#user-term-form').attr('action',res.updateUrl)
-            $('#user-term-table').html(`           
+            $('#user-term-table').html(`
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -420,8 +423,8 @@
                 </table>
             `)
             $('#user-term-modal').modal('show')
-            $.each(res.termsList,function(k,v){   
-                $(`#user-term-table-body`).append(`                
+            $.each(res.termsList,function(k,v){
+                $(`#user-term-table-body`).append(`
                     <tr>
                         <td>${k}</td>
                         <td>
@@ -463,7 +466,7 @@
                 select_all:$('[name="select_all"]').is(":checked")?"yes":"no",
                 selectbox:selectedbox
             },function(res){
-                $('#multi-user-term-table').html(`           
+                $('#multi-user-term-table').html(`
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -478,8 +481,8 @@
                 `)
                 $('#multi-user-list').html('')
                 $('#multi-user-term-modal').modal('show')
-                $.each(res.termsList,function(k,v){   
-                    $(`#multi-user-term-table-body`).append(`                
+                $.each(res.termsList,function(k,v){
+                    $(`#multi-user-term-table-body`).append(`
                         <tr>
                             <td>${k}</td>
                             <td>
@@ -489,8 +492,8 @@
                             </td>
                         </tr>
                     `)
-                }) 
-                $.each(res.userList,function(k,v){  
+                })
+                $.each(res.userList,function(k,v){
                     $('#multi-user-list').append(`
                         <div class="list-group-item">
                             <span>${v.private_class.full_name}</span>
@@ -516,7 +519,7 @@
             $('.invalid-feedback').text('')
             $.post($(this).attr('action'),$(this).serialize(),function(res){
                 if(res.success){
-                    showToast(res.success||"Time slot Accepted",'success'); 
+                    showToast(res.success||"Time slot Accepted",'success');
                 }
 
                 if (requesttable != null) {
@@ -525,13 +528,13 @@
                 $('#user-acceptreq-modal').modal('hide')
             },'json').fail(function(xhr){
                 try {
-                    let res = JSON.parse(xhr.responseText); 
+                    let res = JSON.parse(xhr.responseText);
                     $.each(res.errors,function(k,v){
                         $(`#user-acceptreq-form-${k}`).addClass('is-invalid')
                         $(`#user-acceptreq-form-${k}-error`).text(v[0])
                     })
                 } catch (error) {
-                    
+
                 }
             })
             return false;
@@ -541,7 +544,7 @@
             e.preventDefault()
             $.post($(this).attr('action'),$(this).serialize(),function(res){
                 if(res.success){
-                    showToast(res.success||"Time slot Rejected",'success'); 
+                    showToast(res.success||"Time slot Rejected",'success');
                     $('#user-rejectreq-modal').modal('hide')
                 }
                 if (requesttable != null) {
@@ -557,7 +560,7 @@
             $('.invalid-feedback').text('')
             $.post($(this).attr('action'),$(this).serialize(),function(res){
                 if(res.success){
-                    showToast(res.success||"Time slot Accepted",'success'); 
+                    showToast(res.success||"Time slot Accepted",'success');
                 }
 
                 if (requesttable != null) {
@@ -566,21 +569,21 @@
                 $('#user-updatetreq-modal').modal('hide')
             },'json').fail(function(xhr){
                 try {
-                    let res = JSON.parse(xhr.responseText);  
-                    $.each(res.errors,function(k,v){ 
+                    let res = JSON.parse(xhr.responseText);
+                    $.each(res.errors,function(k,v){
                         $(`#user-updatetreq-form-${k}`).addClass('is-invalid')
                         $(`#user-updatetreq-form-${k}-error`).text(v[0])
                     })
-                } catch (error) { 
-                    
+                } catch (error) {
+
                 }
             })
             return false;
         })
     })
-     
-    </script>
-    
 
-   
+    </script>
+
+
+
 @endpush
