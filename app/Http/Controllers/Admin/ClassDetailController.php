@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ClassDetail;
 use App\Models\SubClassDetail;
+use App\Models\Timetable;
 use App\Trait\ResourceController;
 use Illuminate\Http\Request;
 
