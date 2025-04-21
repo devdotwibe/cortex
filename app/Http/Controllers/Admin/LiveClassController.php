@@ -25,7 +25,7 @@ class LiveClassController extends Controller
 
         $live_class =  LiveClassPage::first();
 
-        $timetables = Timetable::where('static','!=','Y')->get();
+        $timetables = Timetable::where('static', '!=', 'Y')->get();
 
         dd($timetables);
 
