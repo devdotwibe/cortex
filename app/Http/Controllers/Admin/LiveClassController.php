@@ -49,7 +49,7 @@ class LiveClassController extends Controller
         if(empty( $live_class))
         {
             $live_class = new LiveClassPage;
-            
+
         }
 
         if(!empty($request->class_title_1))
@@ -71,7 +71,7 @@ class LiveClassController extends Controller
         {
             $live_class->class_description_2 = $request->class_description_2;
         }
-       
+
 
         if ($request->hasFile('class_image_1')) {
 
@@ -86,7 +86,7 @@ class LiveClassController extends Controller
             Storage::put("{$avathar}", $file);
 
             $live_class->class_image_1 = $imageName;
-        
+
         }
 
         if ($request->hasFile('class_image_2')) {
@@ -102,7 +102,7 @@ class LiveClassController extends Controller
             Storage::put("{$avathar}", $file);
 
             $live_class->class_image_2 = $imageName;
-        
+
         }
 
         $live_class->save();
@@ -150,7 +150,7 @@ class LiveClassController extends Controller
         }
 
         $live_class->intensive_class = $request->intensive_class;
-        
+
         $live_class->save();
 
         return redirect()->back()->with('success','Updated Successfully');
@@ -194,14 +194,14 @@ class LiveClassController extends Controller
 
                ;
                 });
-                
-                
-                
+
+
+
             }
 
 
-            
-            
+
+
 
             return $this->addAction(function($data) {
                 $action = "";
@@ -215,7 +215,7 @@ class LiveClassController extends Controller
                             <img src="' . asset('assets/images/iconshover/icon-park-outline_reject-yellow.svg') . '" alt="Reject Active">
                         </span>
                     </a>
-            
+
                     <a class="btn btn-icons" data-id="' . $data->user->slug . '" onclick="acceptrequest(\'' . route("admin.live-class.request.show", $data->slug) . '\')">
                         <span class="adminside-icon">
                             <img src="' . asset('assets/images/icons/accept.svg') . '" alt="Accept">
@@ -230,7 +230,7 @@ class LiveClassController extends Controller
                 // if (!empty($data->user)) {
                     if($data->status=="approved"&&!empty($data->user)){
                     $action .= '
-                   
+
 
 
                     <a href="' . route("admin.user.spectate1", $data->user->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
@@ -244,14 +244,14 @@ class LiveClassController extends Controller
 
 
                 }
-                
-                
+
+
 
 
                 if($data->status=="approved"&&!empty($data->user)){
                         $action.='
-                       
-                        
+
+
                         <a  class="btn btn-icons" onclick="updaterequest('."'".route("admin.live-class.request.show",$data->slug)."'".')">
     <span class="adminside-icon">
       <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
@@ -264,7 +264,7 @@ class LiveClassController extends Controller
 
                     ';
                 }
-                $action.=' 
+                $action.='
                  <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.live-class.request.destroy",$data->slug).'">
                         <span class="adminside-icon">
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
@@ -273,9 +273,9 @@ class LiveClassController extends Controller
                             <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                         </span>
                     </a>
-                
 
-                
+
+
 
 
                 ';
@@ -283,7 +283,7 @@ class LiveClassController extends Controller
             })->addColumn('timeslottext',function($data){
                 return implode('<br> ',$data->timeslot);
             })->addColumn('termhtml',function($data){
-                if(!empty($data->user)&&$data->status=="approved"){       
+                if(!empty($data->user)&&$data->status=="approved"){
                     return '<a  onclick="usertermlist('."'".route('admin.user.termslist', $data->user->slug)."'".')" class="btn btn-icons view_btn">+</a>';
                 }else{
                     return '';
@@ -295,16 +295,16 @@ class LiveClassController extends Controller
                             return '<div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.live-class.request.status',$data->slug)."'".')" role="switch" id="active-toggle-'.$data->id.'"  '.($data->is_valid?"checked":"").'/>
                                         <label class="form-check-label" for="active-toggle-'.$data->id.'">Active</label>
-                                    </div>'; 
+                                    </div>';
                         case 'pending';
                             return '<span class="badge bg-warning">'.ucfirst($data->status).'</span>';
                         case 'rejected';
                             return '<span class="badge bg-danger">'.ucfirst($data->status).'</span>';
                         default:
-                            return '<span class="badge bg-secondary">'.ucfirst($data->status).'</span>'; 
-                    } 
+                            return '<span class="badge bg-secondary">'.ucfirst($data->status).'</span>';
+                    }
                 }else{
-                    return '<span class="badge bg-danger"> Deleted User </span>'; 
+                    return '<span class="badge bg-danger"> Deleted User </span>';
                 }
             })->buildTable(['timeslottext','statushtml','termhtml']);
         }
@@ -317,26 +317,26 @@ class LiveClassController extends Controller
         $terms2 = LessonMaterial::get();
         $terms3 = HomeWork::get();
         $terms4 = LessonRecording::get();
-        
+
         // Collect unique terms from $terms1
         foreach ($terms1 as $item) {
             $terms[] = $item->term_name;
         }
-        
+
         // Collect unique terms from $terms2
         foreach ($terms2 as $item) {
             if (!in_array($item->term_name, $terms)) { // Use in_array() to check existence
                 $terms[] = $item->term_name;
             }
         }
-        
+
         // You can repeat similar logic for $terms3 and $terms4 if needed
         foreach ($terms3 as $item) {
             if (!in_array($item->term_name, $terms)) {
                 $terms[] = $item->term_name;
             }
         }
-        
+
         foreach ($terms4 as $item) {
             if (!in_array($item->term_name, $terms)) {
                 $terms[] = $item->term_name;
@@ -403,7 +403,7 @@ class LiveClassController extends Controller
                             <img src="' . asset('assets/images/iconshover/icon-park-outline_reject-yellow.svg') . '" alt="Reject Active">
                         </span>
                     </a>
-            
+
                     <a class="btn btn-icons" data-id="' . $data->user->slug . '" onclick="acceptrequest(\'' . route("admin.live-class.request.show", $data->slug) . '\')">
                         <span class="adminside-icon">
                             <img src="' . asset('assets/images/icons/accept.svg') . '" alt="Accept">
@@ -418,7 +418,7 @@ class LiveClassController extends Controller
                 // if (!empty($data->user)) {
                     if($data->status=="approved"&&!empty($data->user)){
                     $action .= '
-                   
+
                     <a href="' . route("admin.user.spectate1", $data->user->slug) . '" target="_blank" rel="noreferrer" class="btn btn-icons spectate_btn">
                     <span class="adminside-icon">
                         <img src="' . asset('assets/images/icons/mdi_incognitospectate.svg') . '" alt="Spectate">
@@ -436,8 +436,8 @@ class LiveClassController extends Controller
 
                 if($data->status=="approved"&&!empty($data->user)){
                         $action.='
-                       
-                        
+
+
                         <a  class="btn btn-icons" onclick="updaterequest('."'".route("admin.live-class.request.show",$data->slug)."'".')">
     <span class="adminside-icon">
       <img src="' . asset("assets/images/icons/iconamoon_edit.svg") . '" alt="Edit">
@@ -448,7 +448,7 @@ class LiveClassController extends Controller
 </a>
                     ';
                 }
-                $action.=' 
+                $action.='
                  <a  class="btn btn-icons dlt_btn" data-delete="'.route("admin.live-class.request.destroy",$data->slug).'">
                         <span class="adminside-icon">
                             <img src="' . asset("assets/images/icons/material-symbols_delete-outline.svg") . '" alt="Delete">
@@ -457,14 +457,14 @@ class LiveClassController extends Controller
                             <img src="' . asset("assets/images/iconshover/material-symbols_delete-yellow.svg") . '" alt="Delete Active" title="Delete">
                         </span>
                     </a>
-                
-                
+
+
                 ';
                 return $action;
             })->addColumn('timeslottext',function($data){
                 return implode('<br> ',$data->timeslot);
             })->addColumn('termhtml',function($data){
-                if(!empty($data->user)&&$data->status=="approved"){       
+                if(!empty($data->user)&&$data->status=="approved"){
                     return '<a  onclick="usertermlist('."'".route('admin.user.termslist', $data->user->slug)."'".')" class="btn btn-icons view_btn">+</a>';
                 }else{
                     return '';
@@ -476,16 +476,16 @@ class LiveClassController extends Controller
                             return '<div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" onchange="changeactivestatus('."'".route('admin.live-class.request.status',$data->slug)."'".')" role="switch" id="active-toggle-'.$data->id.'"  '.($data->is_valid?"checked":"").'/>
                                         <label class="form-check-label" for="active-toggle-'.$data->id.'">Active</label>
-                                    </div>'; 
+                                    </div>';
                         case 'pending';
                             return '<span class="badge bg-warning">'.ucfirst($data->status).'</span>';
                         case 'rejected';
                             return '<span class="badge bg-danger">'.ucfirst($data->status).'</span>';
                         default:
-                            return '<span class="badge bg-secondary">'.ucfirst($data->status).'</span>'; 
-                    } 
+                            return '<span class="badge bg-secondary">'.ucfirst($data->status).'</span>';
+                    }
                 }else{
-                    return '<span class="badge bg-danger"> Deleted User </span>'; 
+                    return '<span class="badge bg-danger"> Deleted User </span>';
                 }
             })->buildTable(['timeslottext','statushtml','termhtml']);
         }
@@ -524,13 +524,21 @@ class LiveClassController extends Controller
             }
         }
 
+        $sloteterms_items = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
+            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
+            return [
+                'text' => $text,
+                'id' => $text,
+            ];
+        })->toArray();
+
         $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
-        return view('admin.live-class.private-class-request',compact('live_class','terms','page_name'));
+        return view('admin.live-class.private-class-request',compact('sloteterms_items','live_class','terms','page_name'));
 
     }
 
-   
+
 
 
     public function private_class_request_show(Request $request,PrivateClass $privateClass){
@@ -544,11 +552,11 @@ class LiveClassController extends Controller
 
         if($request->ajax()){
             return response()->json(["success"=>"Request status has been successfully changed"]);
-        }  
+        }
         return redirect()->back()->with('success','Request status has been successfully changed');
     }
     public function private_class_request_export(Request $request){
-        if($request->ajax()){ 
+        if($request->ajax()){
             if($request->page_name=='Pending Users'){
                 return PrivateClass::select('email as Email','full_name as Full Name','parent_name as Parent Name','phone as Phone',DB::raw("REPLACE(REPLACE(REPLACE(JSON_EXTRACT(timeslot, '$'), '\"', ''), '[', ''),']', '') as `Available Timeslote`"),'status as Status')
                                     ->where(function($qry){
@@ -562,7 +570,7 @@ class LiveClassController extends Controller
                                     $qry->where('status', '!=', 'pending')
                                         ->where('status', '!=', 'rejected');
                                 })
-                                ->get();       
+                                ->get();
 
         }
     }
@@ -574,7 +582,7 @@ class LiveClassController extends Controller
 
         if($request->ajax()){
             return response()->json(["success"=>"Request has been successfully approved"]);
-        }  
+        }
         return redirect()->back()->with('success','Request has been successfully approved');
     }
     public function private_class_request_update(Request $request,PrivateClass $privateClass){
@@ -585,7 +593,7 @@ class LiveClassController extends Controller
 
         if($request->ajax()){
             return response()->json(["success"=>"Timeslote has been successfully updated"]);
-        }  
+        }
         return redirect()->back()->with('success','Timeslote has been successfully updated');
     }
     public function private_class_request_reject(Request $request,PrivateClass $privateClass){
@@ -593,7 +601,7 @@ class LiveClassController extends Controller
 
         if($request->ajax()){
             return response()->json(["success"=>"Request has been successfully rejected"]);
-        }  
+        }
         return redirect()->back()->with('success','Request has been successfully rejected');
     }
     public function private_class_request_destroy(Request $request,PrivateClass $privateClass){
@@ -604,7 +612,7 @@ class LiveClassController extends Controller
 
         if($request->ajax()){
             return response()->json(["success"=>"Request has been successfully deleted"]);
-        }  
+        }
         return redirect()->back()->with('success','Request has been successfully deleted');
     }
 
@@ -613,7 +621,7 @@ class LiveClassController extends Controller
         if($request->input('select_all','no')=="yes"){
 
             // PrivateClass::where('id','>',0)->delete();
-            
+
             PrivateClass::whereIn('id',$request->input('selectbox',[]))->delete();
 
         }else{
@@ -632,20 +640,20 @@ class LiveClassController extends Controller
     public function bulkupdate(Request $request){
         $terms=[];
         foreach(ClassDetail::all() as $term){
-            $name=trim($term->term_name); 
-            $terms[$name]=0; 
+            $name=trim($term->term_name);
+            $terms[$name]=0;
         }
         foreach(LessonMaterial::all() as $term){
-            $name=trim($term->term_name); 
-            $terms[$name]=0; 
+            $name=trim($term->term_name);
+            $terms[$name]=0;
         }
         foreach(HomeWork::all() as $term){
-            $name=trim($term->term_name); 
-            $terms[$name]=0; 
+            $name=trim($term->term_name);
+            $terms[$name]=0;
         }
         foreach(LessonRecording::all() as $term){
-            $name=trim($term->term_name); 
-            $terms[$name]=0; 
+            $name=trim($term->term_name);
+            $terms[$name]=0;
         }
         $privateClass=  PrivateClass::where('id','>',0);
 

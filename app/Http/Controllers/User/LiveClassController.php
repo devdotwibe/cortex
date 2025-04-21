@@ -155,44 +155,52 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first();
         $sloteterms=[];
 
-        $sloteterms_items = [
-            [
-                'text' => "Monday 6:30 p.m. (Online) - Year 6",
-                'id' => "Monday 6:30 p.m. (Online) - Year 6"
-            ],
-            [
-                'text' => "Wednesday 6:30 p.m. (Online) - Year 5",
-                'id' => "Wednesday 6:30 p.m. (Online) - Year 5"
-            ],
-            [
-                'text' => "Thursday 6:30 p.m. (Online) - Year 6",
-                'id' => "Thursday 6:30 p.m. (Online) - Year 6"
-            ],
-            [
-                'text' => "Saturday 9:30 a.m. (F2F) - Year 5",
-                'id' => "Saturday 9:30 a.m. (F2F) - Year 5"
-            ],
-            [
-                'text' => "Saturday 12 p.m. (F2F) - Year 5",
-                'id' => "Saturday 12 p.m. (F2F) - Year 5"
-            ],
-            [
-                'text' => "Saturday 2:30 p.m. (F2F) - Year 6",
-                'id' => "Saturday 2:30 p.m. (F2F) - Year 6"
-            ],
-            [
-                'text' => "Sunday 9:30 a.m. (F2F) - Year 5",
-                'id' => "Sunday 9:30 a.m. (F2F) - Year 5"
-            ],
-            [
-                'text' => "Sunday 12 p.m. (F2F) - Year 5",
-                'id' => "Sunday 12 p.m. (F2F) - Year 5"
-            ],
-            [
-                'text' => "Sunday 2:30 p.m. (F2F) - Year 6",
-                'id' => "Sunday 2:30 p.m. (F2F) - Year 6"
-            ]
-        ];
+        // $sloteterms_items = [
+        //     [
+        //         'text' => "Monday 6:30 p.m. (Online) - Year 6",
+        //         'id' => "Monday 6:30 p.m. (Online) - Year 6"
+        //     ],
+        //     [
+        //         'text' => "Wednesday 6:30 p.m. (Online) - Year 5",
+        //         'id' => "Wednesday 6:30 p.m. (Online) - Year 5"
+        //     ],
+        //     [
+        //         'text' => "Thursday 6:30 p.m. (Online) - Year 6",
+        //         'id' => "Thursday 6:30 p.m. (Online) - Year 6"
+        //     ],
+        //     [
+        //         'text' => "Saturday 9:30 a.m. (F2F) - Year 5",
+        //         'id' => "Saturday 9:30 a.m. (F2F) - Year 5"
+        //     ],
+        //     [
+        //         'text' => "Saturday 12 p.m. (F2F) - Year 5",
+        //         'id' => "Saturday 12 p.m. (F2F) - Year 5"
+        //     ],
+        //     [
+        //         'text' => "Saturday 2:30 p.m. (F2F) - Year 6",
+        //         'id' => "Saturday 2:30 p.m. (F2F) - Year 6"
+        //     ],
+        //     [
+        //         'text' => "Sunday 9:30 a.m. (F2F) - Year 5",
+        //         'id' => "Sunday 9:30 a.m. (F2F) - Year 5"
+        //     ],
+        //     [
+        //         'text' => "Sunday 12 p.m. (F2F) - Year 5",
+        //         'id' => "Sunday 12 p.m. (F2F) - Year 5"
+        //     ],
+        //     [
+        //         'text' => "Sunday 2:30 p.m. (F2F) - Year 6",
+        //         'id' => "Sunday 2:30 p.m. (F2F) - Year 6"
+        //     ]
+        // ];
+
+        $sloteterms_items = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
+            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
+            return [
+                'text' => $text,
+                'id' => $text,
+            ];
+        })->toArray();
 
         $sloteclass_terms = array_filter($sloteterms_items, function ($item) use ($classDetail) {
             return SubClassDetail::whereJsonContains('timeslot', $item['id'])
