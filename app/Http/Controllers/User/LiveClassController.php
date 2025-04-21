@@ -102,7 +102,7 @@ class LiveClassController extends Controller
 
         $live_class =  LiveClassPage::first();
 
-        return view('user.live-class.privateform',compact('user','live_class'));
+        return view('user.live-class.privateform',compact('time_array','user','live_class'));
     }
     public function privateclassformsubmit(Request  $request){
         $data=$request->validate([
