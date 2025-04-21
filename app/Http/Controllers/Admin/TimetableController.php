@@ -49,7 +49,7 @@ class TimetableController extends Controller
             'count' => $request->count,
             'year'=>$request->year,
             'type'=>$request->type,
-            'hide_time'=>$request->hide_time??'Y',
+            'hide_time'=>$request->hide_time??'N',
         ]);
 
         // Redirect back with a success message
