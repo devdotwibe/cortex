@@ -33,12 +33,12 @@ dd($timetables);
             'starttime_am_pm' => 'required', // Validate AM/PM for start time
             'endtime_am_pm' => 'required',   // Validate AM/PM for end time
         ]);
-    
+
          // Combine starttime, endtime, and day for the 'classtime' field
          $classtime = $request->starttime . ' - ' . $request->endtime . ' on ' . $request->day;
 
-   
-    
+
+
         // Create a new Timetable entry in the database
         Timetable::create([
             'starttime' => $request->starttime,
@@ -48,12 +48,14 @@ dd($timetables);
             'day' => $request->day,
             'classtime' => $classtime,
             'count' => $request->count,
+            'year'=>$request->year,
+            'type'=>$request->type,
         ]);
-    
+
         // Redirect back with a success message
-        
+
         return redirect()->back()->with('create_timetable', 'Timetable added successfully!');
-        
+
     }
 
 
@@ -67,8 +69,8 @@ dd($timetables);
 public function update(Request $request, $id)
 {
     $timetable = Timetable::findOrFail($id);
-    $timetable->update($request->all()); // validate input as needed
-   
+    $timetable->update($request->all());
+
     return redirect()->back()->with('create_timetable', 'Timetable updated successfully!');
 }
 
@@ -76,7 +78,7 @@ public function destroy($id)
 {
     $timetable = Timetable::findOrFail($id);
     $timetable->delete();
-    
+
     return redirect()->back()->with('create_timetable', 'Timetable deleted successfully!');
 }
 
@@ -91,5 +93,5 @@ public function fetcheditdata($id)
 
 
 
-    
-}    
+
+}
