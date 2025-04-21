@@ -678,6 +678,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#endtime_am_pm').val(response.endtime_am_pm);
                     $('#count').val(response.count);
 
+                    $('#year').val(response.year);
+                    $('#type').val(response.type);
+
 
                     // Update the form action with the timetable ID
                     $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
