@@ -93,7 +93,7 @@ class LiveClassController extends Controller
         // ];
 
         $time_array = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
-            $text = $item->day . ' ' . $item->starttime . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . ' (' . $item->type . ') - Year ' . $item->year;
+            $text = $item->day . ' ' . trim($item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . ' (' . $item->type . ') - Year ' . $item->year;
             return [
                 'text' => $text,
                 'value' => $text,
