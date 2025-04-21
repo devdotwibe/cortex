@@ -100,8 +100,6 @@ class LiveClassController extends Controller
             ];
         })->toArray();
 
-        dd($time_array);
-
         $live_class =  LiveClassPage::first();
 
         return view('user.live-class.privateform',compact('user','live_class'));
