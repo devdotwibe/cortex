@@ -23,7 +23,7 @@
             <div class="form-group">
                 @if($page_name!='Pending Users')
                 <select id="term-list" class="select2 form-control" data-allow-clear="true" onchange="termchange()">
-                    <option value="">Select Term</option> 
+                    <option value="">Select Term</option>
                     @foreach($terms  as $term)
                         <option value="{{ $term }}">{{ $term }}</option>
                     @endforeach
@@ -41,19 +41,19 @@
         </div>
 
 
-        
+
 <div class="modal fade importadmin-user" id="import_user_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog import_user-class">
         <div class="modal-content" >
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Import</h4>
-             
+
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body importuser-class" style="max-height: 400px; overflow-y: auto;">
 
 
-                       
+
 
                 <form action="#" name="import_user" id="import_user" method="post"  enctype="multipart/form-data">
                     @csrf
@@ -77,10 +77,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
 {{--
-                            
-                      
+
+
 
                         {{-- <div class="text-fields">
                             <label>Name : </label>
@@ -101,8 +101,8 @@
                         <option value="">--Select--</option>
                     </select>
                  </div>
-                
-                
+
+
                 <div class="text-fields">
                    <label>Email Address :</label>
                    <select class="form-control import-fields" name="email" id="email" data-value="email">
@@ -116,12 +116,12 @@
                         <option value="">--Select--</option>
                     </select>
                  </div>
-                
+
                 <div class="text-fields">
                     <label>Expiry Date: </label>
                     <input type="text" class="form-control datepicker end-datepicker" name="expiry_date" id="expiry_date" readonly>
                 </div>
-                
+
 
                    <input type="hidden" name="file_path" id="file_path" value="">
                     <input type="hidden" name="id" id="import_user_id" value="">
@@ -155,10 +155,10 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Mail Un-Verifyed  Users</h3> 
-                <span class="badge text-success">{{$unverifyuser??0}}</span> 
+                <h3>Mail Un-Verifyed  Users</h3>
+                <span class="badge text-success">{{$unverifyuser??0}}</span>
             </div>
-             
+
             <div class="dash_card">
                 <div class="admin-icon">
                     <span class="wht-icon"><img
@@ -166,8 +166,8 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Mail Verifyed  Users</h3> 
-                <span class="badge text-success">{{$verifyuser??0}}</span> 
+                <h3>Mail Verifyed  Users</h3>
+                <span class="badge text-success">{{$verifyuser??0}}</span>
             </div>
 
 
@@ -178,8 +178,8 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Free Access  Users</h3> 
-                <span class="badge text-success">{{$freeuser??0}}</span> 
+                <h3>Free Access  Users</h3>
+                <span class="badge text-success">{{$freeuser??0}}</span>
             </div>
             <div class="dash_card">
                 <div class="admin-icon">
@@ -188,22 +188,22 @@
                     <span class="red-icon"><img
                             src="{{asset("assets/images/User-red.png")}}"></span>
                 </div>
-                <h3>Paid  Users</h3> 
-                <span class="badge text-success">{{$paiduser??0}}</span> 
+                <h3>Paid  Users</h3>
+                <span class="badge text-success">{{$paiduser??0}}</span>
             </div>
         </div>
     </div>
 </section> --}}
 <section class="table-section admin_section">
     <div class="container">
-        <div class="row">             
-            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.user.bulkaction')}}" 
+        <div class="row">
+            <x-ajax-table :bulkaction="true" bulkactionlink="{{route('admin.user.bulkaction')}}"
                 :bulkotheraction='[
                     ["name"=>"Enable Free Access","value"=>"enable-free-access"],
                     ["name"=>"Disable Free Access","value"=>"disable-free-access"],
                     ["name"=>"Enable Community","value"=>"enable-community"],
                     ["name"=>"Disable Community","value"=>"disable-community"],
-                ]' 
+                ]'
                 :coloumns='[
                     ["th"=>"Date","name"=>"created_at","data"=>"date"],
                     ["th"=>"Name","name"=>"name","data"=>"name"],
@@ -217,7 +217,7 @@
 </section>
 @endsection
 @push('modals')
-   
+
 
 
 <div class="modal fade" id="free_access_modal" tabindex="-1" role="dialog" aria-labelledby="user-termLabel" aria-hidden="true">
@@ -227,10 +227,10 @@
                 <h5 class="modal-title" id="user-termLablel">User Free Access</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <form  class="form" id="admin_permission_form" data-save="create" data-action="" data-createurl="" >
-                    @csrf                
-                    <div class="row"> 
+                    @csrf
+                    <div class="row">
 
                        <div class="col-md-12" >
 
@@ -265,7 +265,7 @@
                                     </tr> --}}
 
 
-                                    @foreach($category as $item) 
+                                    @foreach($category as $item)
 
                                         <tr>
                                             <td>Learn {{ $item->name }}</td>
@@ -279,7 +279,7 @@
 
                                     @endforeach
 
-                                    
+
 
                                     <tr>
                                         <td>Question bank</td>
@@ -301,7 +301,7 @@
                                         </td>
                                     </tr>
 
-                                   
+
                                 </tbody>
 
                             </table>
@@ -310,11 +310,11 @@
 
                        <input type="hidden" id="user_access_id" name="user_access_id" >
 
-                    </div> 
+                    </div>
                 </form>
 
-              
-            </div> 
+
+            </div>
         </div>
     </div>
 </div>
@@ -330,20 +330,20 @@
             </div>
             <div class="modal-body">
                 <form action=""  id="user-password-reset-form" method="post">
-                    @csrf 
+                    @csrf
                     <div class="form-group">
                         <div class="form-data">
                             <div class="forms-inputs mb-4">
                                 <label for="user-password">Password</label>
-                                <input type="password" name="password" id="user-password" value="" class="form-control password-reset-field" placeholder="Password" aria-placeholder="Password" >        
+                                <input type="password" name="password" id="user-password" value="" class="form-control password-reset-field" placeholder="Password" aria-placeholder="Password" >
                                 <div class="invalid-feedback password-reset-error" id="error-password-field" >The field is required</div>
                             </div>
                             <div class="forms-inputs mb-4">
                                 <label for="user-re_password">Confirm Password</label>
-                                <input type="password" name="re_password" id="user-re_password" value="" class="form-control  password-reset-field" placeholder="Confirm Password" aria-placeholder="Confirm Password" >        
+                                <input type="password" name="re_password" id="user-re_password" value="" class="form-control  password-reset-field" placeholder="Confirm Password" aria-placeholder="Confirm Password" >
                                 <div class="invalid-feedback password-reset-error" id="error-re_password-field" >The field is required</div>
                             </div>
-                        </div>                        
+                        </div>
                      </div>
                     <button type="button" data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
                     <button type="submit" class="btn btn-dark">Update Password</button>
@@ -363,10 +363,10 @@
                 <h5 class="modal-title" id="user-termLablel">User Free Access</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"  aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <form  class="form" id="bulk_user_permisson" data-save="create" data-action="" data-createurl="" >
-                    @csrf                
-                    <div class="row"> 
+                    @csrf
+                    <div class="row">
 
                        <div class="col-md-12" >
 
@@ -380,7 +380,7 @@
                                 </thead>
                                 <tbody id="admin-table-body">
 
-                                    @foreach($category as $item) 
+                                    @foreach($category as $item)
 
                                         <tr>
                                             <td>Learn {{ $item->name }}</td>
@@ -394,7 +394,7 @@
 
                                     @endforeach
 
-                                    
+
 
                                     <tr>
                                         <td>Question bank</td>
@@ -416,15 +416,15 @@
                                         </td>
                                     </tr>
 
-                                   
+
                                 </tbody>
 
                             </table>
 
                        </div>
 
-                    
-                    </div> 
+
+                    </div>
 
 
                     <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
@@ -433,8 +433,8 @@
 
                 </form>
 
-              
-            </div> 
+
+            </div>
         </div>
     </div>
 </div>
@@ -451,47 +451,56 @@
             </div>
             <div class="modal-body">
                 <form action=""  id="time_slote_form" method="post">
-                    @csrf 
-                  
+                    @csrf
+
                         <div class="form-group">
                             <div class="form-data">
-                                <div class="forms-inputs mb-4"> 
+                                <div class="forms-inputs mb-4">
                                     <label for="time_slot_action">Select your available timeslot (you can choose more than one) *</label>
                                     <div class="check-group form-control ">
-                                                   
+
                                         <input type="hidden" name="time_slot_action" id="time_slot_action" value="">
 
                                         <input type="hidden" name="user_id_slug" id="user_id_slug" value="">
 
-                                            <div class="form-check">
+                                            @foreach ($time_slot as $k=> $time)
+
+                                                <div class="form-check">
+                                                    <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-{{ $k }}" value="{{ $time['value'] }}" >
+                                                    <label for="check-group-timeslot-{{ $k }}">{{ $time['text'] }}</label>
+                                                </div>
+
+                                            @endforeach
+
+                                            {{-- <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-0" value="Monday 6:30 p.m. (Online) - Year 6" >
                                                 <label for="check-group-timeslot-0">Monday 6:30 p.m. (Online) - Year 6</label>
-                                            </div>                                                            
-                                            
+                                            </div>
+
                                             <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-1" value="Wednesday 6:30 p.m. (Online) - Year 5" >
                                                 <label for="check-group-timeslot-1">Wednesday 6:30 p.m. (Online) - Year 5</label>
-                                            </div>                                                            
-                                            
+                                            </div>
+
                                             <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-2" value="Thursday 6:30 p.m. (Online) - Year 6" >
                                                 <label for="check-group-timeslot-2">Thursday 6:30 p.m. (Online) - Year 6</label>
-                                            </div>                                                            
-                                            
+                                            </div>
+
                                             <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-3" value="Saturday 9:30 a.m. (F2F) - Year 5" >
                                                 <label for="check-group-timeslot-3">Saturday 9:30 a.m. (F2F) - Year 5</label>
-                                            </div>  
-                                            
+                                            </div>
+
                                             <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-4" value="Saturday 12 p.m. (F2F) - Year 5" >
                                                 <label for="check-group-timeslot-4">Saturday 12 p.m. (F2F) - Year 5</label>
-                                            </div> 
-                                            
+                                            </div>
+
                                             <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-5" value="Saturday 2:30 p.m. (F2F) - Year 6" >
                                                 <label for="check-group-timeslot-4">Saturday 2:30 p.m. (F2F) - Year 6</label>
-                                            </div>  
+                                            </div>
 
                                             <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 9:30 a.m. (F2F) - Year 5" >
@@ -506,16 +515,16 @@
                                             <div class="form-check">
                                                 <input type="checkbox" name="user_time_slot[]" class="form-check-input"  id="check-group-timeslot-6" value="Sunday 2:30 p.m. (F2F) - Year 6" >
                                                 <label for="check-group-timeslot-4">Sunday 2:30 p.m. (F2F) - Year 6</label>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="invalid-feedback password-reset-error" id="error-user_time_slot-field" >Atleast one is field is required</div>
 
                                             <div class="note-text alert alert-warning" id="note_text" style="display:none;">Some users are already registered.</div>
-                                    </div>                                                      
+                                    </div>
                                 </div>
                             </div>
-                        </div>    
-                    
+                        </div>
+
 
                     <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
                     <button type="button" id="submit_user_slot" onclick="SubmitTimeSolt()" class="btn btn-dark">Submit</button>
@@ -541,7 +550,7 @@
         function termchange()
     {
         if (usertable != null) {
-            
+
             usertable.ajax.reload()
         }
     }
@@ -555,18 +564,18 @@
         var access = $(element).data('access');
 
         if (access) {
-          
+
             if (typeof access === 'string' && access.includes(',')) {
-                
+
                 console.log('many');
                 var accessArray = access.split(',');
 
                 $.each(accessArray, function(index, value) {
                     $('#data_' + value).prop('checked', true);
                 });
-             
+
             } else {
-                
+
                 console.log('one');
 
               $('#data_' + access).prop('checked', true);
@@ -592,7 +601,7 @@
         var user_access = [];
 
         $.each($('.user_accesss'), function(i, v) {
-          
+
             if ($(this).prop("checked")) {
                 user_access.push({
                     value: $(this).val()
@@ -632,10 +641,10 @@
 
 
         function usertablefilter(d){
-            d = d || {}; 
+            d = d || {};
             d.usertype=$('#user-filter').val();
             d.termname=$('#term-list').val();
-            
+
             return d;
         }
         function changeactivestatus(url){
@@ -655,7 +664,7 @@
             $('.password-reset-field').val('').removeClass('is-invalid')
             $('.password-reset-error').text("")
             $('#password-reset-modal').modal('show')
-        } 
+        }
         function SubmitTimeSolt()
         {
             var userTimeSlots = [];
@@ -681,7 +690,7 @@
             $('#time_slot_action').val('user_register');
 
             var formData = $(element).serializeArray();
-    
+
             formData.push({ name: 'time_slot_action', value: $('#time_slot_action').val() });
 
             formData.push({ name: 'user_time_slot', value: userTimeSlots });
@@ -695,7 +704,7 @@
                     $('#table-usertable').DataTable().ajax.reload();
                     $('.other-actions').hide();
                     location.reload();
-                   
+
             }, 'json').fail(function() {
                 showToast('User Not Registered', 'danger');
             })
@@ -709,17 +718,17 @@
             $('input[name="user_access[]"]:checked').each(function() {
                 user_access.push($(this).val());
             })
-    
+
             var element = $('#table-usertable-bulk-action-form');
 
             if ($(element).length === 0) {
                 showToast('Form not found!', 'danger');
                 return;
             }
-    
+
 
             var formData = $(element).serializeArray();
-    
+
             formData.push({ name: 'user_access_action', value:'user_access_action' });
 
             formData.push({ name: 'user_access', value:user_access });
@@ -733,7 +742,7 @@
                     $('#table-usertable').DataTable().ajax.reload();
                     $('.other-actions').hide();
                     location.reload();
-                   
+
             }, 'json').fail(function() {
                 showToast('User Access Not Updated', 'danger');
             })
@@ -769,7 +778,7 @@
             }
 
             $.post("{{ route('admin.user.upgrade_user') }}", { user_time_slot: userTimeSlots,slug:slug }, function(res) {
-     
+
                 showToast(res.success ?? 'User Registered Successfully', 'success');
 
                 $('#user_time_slote-usertableinit').modal('hide');
@@ -784,7 +793,7 @@
         }
 
 
-       
+
 
         $(function(){
             $('#user-password-reset-form').submit(function(e){
@@ -792,10 +801,10 @@
                 var form=this;
                 $('.password-reset-field').removeClass('is-invalid')
                 $.post($(form).attr('action'),$(form).serialize(),function(res){
-                    form.reset() 
+                    form.reset()
                     $('#password-reset-modal').modal('hide')
                     showToast(res.success||'Password has been successfully updated', 'success');
-                },'json').fail(function(xhr, status, error){ 
+                },'json').fail(function(xhr, status, error){
                     try {
                         var res = JSON.parse(xhr.responseText);
                         $.each(res.errors,function(k,v){
@@ -803,7 +812,7 @@
                             $(`#user-`+k).addClass('is-invalid')
                         })
                     } catch (error) {
-                        showToast("Error: " + error, 'danger'); 
+                        showToast("Error: " + error, 'danger');
                     }
                     $('#question-bank-category-title').addClass('is-invalid')
                 }).always(function(){
@@ -829,20 +838,20 @@ jQuery(document).on("change", "#file_upload", function() {
         var reader = new FileReader();
 
         reader.onload = function(e) {
-            var data = new Uint8Array(e.target.result); 
-            var workbook = XLSX.read(data, { type: 'array' }); 
-            var firstSheet = workbook.Sheets[workbook.SheetNames[0]]; 
-            var parsedData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 }); 
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, { type: 'array' });
+            var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            var parsedData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
             parsedData = parsedData.filter(function(v,k){
                 const uniqueArray = [...new Set(v)];
                 return uniqueArray.length > 1;
-            }); 
+            });
             var upfile=new Blob([JSON.stringify(parsedData)], { type: 'application/json' })
             const newfile = new File([upfile], 'ib-import.json', { type:'application/json' });
 
-           
+
         var formData = new FormData();
-      
+
             formData.append('file_upload', newfile);
 
             $.ajax({
@@ -858,10 +867,10 @@ jQuery(document).on("change", "#file_upload", function() {
                 success: function(response) {
                     console.log(response);
                     $("#file_path").val(response["filepath"]);
-                  
+
                     $("select.import-fields").empty();
                     $("select.import-fields").append("<option value=''>--Select--</option>");
-                  
+
                     response["data"].forEach(function(data) {
 
                         $("select.import-fields").append("<option value='"+data+"'>" + data + "</option>");
@@ -870,7 +879,7 @@ jQuery(document).on("change", "#file_upload", function() {
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
                 }
-            }); 
+            });
         };
 
         // Read the file as binary
@@ -900,11 +909,11 @@ jQuery(document).on("change", "#file_upload", function() {
                         datas[fieldName] = selectedValue;
                     }
                 });
-              
+
                 var path = $("#file_path").val();
 
                 console.log(path);
-            
+
             var requestData = new FormData();
 
             requestData.append('endplan', endplan);
@@ -918,7 +927,7 @@ jQuery(document).on("change", "#file_upload", function() {
                 requestData.append(pair[0], pair[1]);
 
             }
-           
+
 
                 $.ajax({
                     url: '{{ route('admin.import_users_from_csv_submit')}}',
@@ -938,28 +947,28 @@ jQuery(document).on("change", "#file_upload", function() {
                         $("#import_load_service").css("display","none");
 
                         showToast('Successfully imported', 'success');
-                         usertableinit(); 
+                         usertableinit();
 
                          setTimeout(function() {
                             location.reload();
-                         }, 350); 
-        
-       
+                         }, 350);
+
+
                         usertablefilter();
 
                     },
 
                     error: function(xhr, status, error) {
                         if (xhr.responseJSON && xhr.responseJSON.errors) {
-             
+
                 $(".error-message").remove();
-                
-             
+
+
                 $.each(xhr.responseJSON.errors, function(key, messages) {
-                    
+
                     var field = $('[name="' + key + '"]');
 
-                   
+
                     field.after('<div class="error-message" style="color: red;">' + messages.join(', ') + '</div>');
                 });
             }
@@ -972,13 +981,13 @@ jQuery(document).on("change", "#file_upload", function() {
 
             $(document).ready(function() {
     $('.end-datepicker').datepicker({
-        dateFormat: 'yy-mm-dd', 
-      
-        minDate: 0, 
-        maxDate: null, 
-        changeMonth: true, 
+        dateFormat: 'yy-mm-dd',
+
+        minDate: 0,
+        maxDate: null,
+        changeMonth: true,
         changeYear: true,
-        showButtonPanel: true, 
+        showButtonPanel: true,
     });
 });
 
