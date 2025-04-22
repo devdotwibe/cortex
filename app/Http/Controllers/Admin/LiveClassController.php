@@ -347,7 +347,15 @@ class LiveClassController extends Controller
 
         $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
-        return view('admin.live-class.private-class-request',compact('live_class','terms','page_name'));
+        $sloteterms_items = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
+            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
+            return [
+                'text' => $text,
+                'id' => $text,
+            ];
+        })->toArray();
+
+        return view('admin.live-class.private-class-request',compact('sloteterms_items','live_class','terms','page_name'));
     }
     public function private_class_pending(Request $request){
 
