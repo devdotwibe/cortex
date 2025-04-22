@@ -1,6 +1,13 @@
 @extends('layouts.admin')
 @section('title', 'Live Teaching')
 @section('content')
+
+<style>
+    .modal-content {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+</style>
     <section class="header_nav">
         <div class="header_wrapp">
             <div class="header_title">
@@ -715,7 +722,6 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#year').val(response.year);
                     $('#type').val(response.type);
 
-
                     // Update the form action with the timetable ID
                     $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
 
@@ -724,7 +730,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#editModal').modal('show');
                     $("#updatebutton").text('update');
                     $("#updatebutton").text('update');
-                    $('#live-private-modal .modal-body').animate({ scrollTop: 0 }, 'slow');
+
+                    $('#live-private-modal .modal-content').animate({ scrollTop: 0 }, 'slow');
+
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
