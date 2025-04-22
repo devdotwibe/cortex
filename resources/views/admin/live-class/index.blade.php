@@ -504,6 +504,19 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                             <div class="action-buttons">
 
+                                                <div class="form-check order-change">
+
+                                                    <select name="order_no" id="order_no" data-id={{ $timetable->id }} onchange="OrderChange(this)">
+                                                            <option value="">Select Order</option>
+                                                            @for ($i = 1; $i <= $time_count; $i++)
+
+                                                                <option value="{{ $i }}" {{ $timetable->order_no == $i ? 'selected' : ''}}>{{ $i  }}</option>
+
+                                                            @endfor
+                                                    </select>
+
+                                                </div>
+
                                                 <div class="form-check form-switch">
 
                                                     <label for="hide_time_{{ $timetable->id }}">Hide</label>
@@ -661,6 +674,28 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
         }
 
+        function OrderChange(element)
+        {
+            var id = $(element).attr('data-id');
+
+            var value = $(element).val();
+
+            $.ajax({
+                url: "{{route('admin.live-class.time_order') }}",
+                type: 'POST',
+                data :
+                {
+                    id:id,
+                    value:value,
+                },
+                success: function(response) {
+                    console.log(response);
+                    window.location.reload();
+                },
+            });
+
+        }
+
         function edittimetable(button) {
             // Get the URL from the button's data attribute
             var url = button.getAttribute('data-url');
@@ -703,7 +738,11 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
             @if (session()->has('create_timetable'))
 
-                console.log('yyy');
+                $('#live-private-modal').modal('show');
+            @endif
+
+            @if (session()->has('timeorder'))
+
                 $('#live-private-modal').modal('show');
             @endif
 
