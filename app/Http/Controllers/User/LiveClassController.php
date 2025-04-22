@@ -80,7 +80,7 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first();
 
         $time_array = Timetable::where('hide_time', '!=', 'Y')->orderBy('order_no')->get()->map(function($item) {
-            $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
+            $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year;
             $text = $item->day . ' (' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) .'-'. str_replace(' ', '', $item->endtime) . ' ' . implode('.', str_split(strtolower($item->endtime_am_pm))) .  ') (' . $item->type . ') ';
             return [
                 'text' => $text,
@@ -181,8 +181,8 @@ class LiveClassController extends Controller
         // ];
 
         $sloteterms_items = Timetable::where('hide_time', '!=', 'Y')->orderBy('order_no')->get()->map(function($item) {
-            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
-            $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year;
+            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ')' . $item->year;
+            $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ')' . $item->year;
             return [
                 'text' => $text,
                 'id' => $value,
