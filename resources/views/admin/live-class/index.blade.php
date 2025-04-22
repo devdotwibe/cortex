@@ -510,7 +510,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                             <option value="">Select Order</option>
                                                             @for ($i = 1; $i <= $time_count; $i++)
 
-                                                                <option value="{{ $i }}" {{ $timetable->order_no ==$i ? 'selected' : ''}}>{{ $i }}</option>
+                                                                <option value="{{ $i }}" {{ $timetable->order_no == $i ? 'selected' : ''}}>{{ $i  }} {{ $timetable->order_no }}</option>
 
                                                             @endfor
                                                     </select>
