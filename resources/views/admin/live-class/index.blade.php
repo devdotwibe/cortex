@@ -485,7 +485,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                             <p>{{ $timetable->day }}
                                                 <span>({{ $timetable->starttime }} {{ $timetable->starttime_am_pm }} -
-                                                    {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }}) ({{ $timetable->type }}) Year - {{  $timetable->year }}</span>
+                                                    {{ $timetable->endtime }} {{ $timetable->endtime_am_pm }}) ({{ $timetable->type }}) {{  $timetable->year }}</span>
                                             </p>
 
                                             <div class="user-icons">
