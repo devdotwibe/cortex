@@ -22,5 +22,6 @@ class Timetable extends Model
         'count',
         'year',
         'type',
+        'hide_time',
     ];
 }
