@@ -732,11 +732,8 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $("#updatebutton").text('update');
                     $("#updatebutton").text('update');
 
-                    $('#live-private-modal').modal('show').on('shown.bs.modal', function () {
-                        $(this).find('.modal-content').animate({ scrollTop: 0 }, 'slow');
-                        console.log('test scroll');
-                    });
-
+                    $('#live-private-modal .modal-content').animate({ scrollTop: 0 }, 'slow');
+                    console.log('check scoll');
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
