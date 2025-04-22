@@ -25,7 +25,7 @@ class LiveClassController extends Controller
 
         $live_class =  LiveClassPage::first();
 
-        $timetables = Timetable::whereNull('static')->get();
+        $timetables = Timetable::whereNull('static')->orderBy('order_no')->get();
 
         $time_count = Timetable::whereNull('static')->count();
 
