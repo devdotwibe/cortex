@@ -52,7 +52,7 @@
                     <div class="timetable-row">
                         <p>
                             {{ $timetable->day }}
-                            {{ $timetable->starttime }} {{ strtolower($timetable->starttime_am_pm) }} ({{ $timetable->type }})
+                            ( {{ $timetable->starttime }} {{ strtolower($timetable->starttime_am_pm) }} - {{ $timetable->endtime }} {{ strtolower($timetable->endtime_am_pm) }} ) ({{ $timetable->type }})
                         </p>
                         <div class="user-icons">
                             @for ($i = 0; $i < $timetable['count']; $i++)
