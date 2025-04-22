@@ -48,12 +48,12 @@ class LiveClassController extends Controller
 
     public function time_order(Request $request)
     {
-        $value = $request->value;
-        $order = $request->id;
+        $id = $request->id;
+        $order = $request->value;
 
         if (!empty($order)) {
 
-            $timetables = Timetable::whereNull('static')->first();
+            $timetables = Timetable::find($id);
 
             if (!empty($timetables)) {
 
