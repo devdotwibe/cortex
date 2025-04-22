@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('timetable', function (Blueprint $table) {
-            $table->string('hide_time')->nullbale();
+            $table->string('hide_time')->nullable();
         });
     }
 
