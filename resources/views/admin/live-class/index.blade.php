@@ -1,6 +1,13 @@
 @extends('layouts.admin')
 @section('title', 'Live Teaching')
 @section('content')
+
+<style>
+    .modal-content {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+</style>
     <section class="header_nav">
         <div class="header_wrapp">
             <div class="header_title">
@@ -724,7 +731,11 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#editModal').modal('show');
                     $("#updatebutton").text('update');
                     $("#updatebutton").text('update');
-                    $('html, body').animate({ scrollTop: 0 }, 'slow');
+
+                    $('#live-private-modal').modal('show').on('shown.bs.modal', function () {
+                        $(this).find('.modal-content').animate({ scrollTop: 0 }, 'slow');
+                    });
+
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
