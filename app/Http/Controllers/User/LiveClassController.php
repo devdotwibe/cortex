@@ -67,7 +67,8 @@ class LiveClassController extends Controller
 
         $live_class =  LiveClassPage::first();
         $setting = Settings::first();
-        $timetables = Timetable::where('hide_time','!=','Y')->get();
+        $timetables = Timetable::where('hide_time','!=','Y')->orderBy('order_no')->get();
+
         return view('user.live-class.private',compact('user','live_class','setting','timetables'));
     }
 
