@@ -722,7 +722,6 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#year').val(response.year);
                     $('#type').val(response.type);
 
-                    console.log('test insorder');
                     // Update the form action with the timetable ID
                     $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
 
@@ -733,7 +732,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $("#updatebutton").text('update');
 
                     $('#live-private-modal .modal-content').animate({ scrollTop: 0 }, 'slow');
-                    console.log('check scoll');
+
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here
