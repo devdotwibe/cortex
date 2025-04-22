@@ -510,7 +510,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                                             <option value="">Select Order</option>
                                                             @for ($i = 1; $i <= $time_count; $i++)
 
-                                                                <option value="{{ $i }}" {{ $timetable->order_no == $i ? 'selected' : ''}}>{{ $i  }} {{ $timetable->order_no }}</option>
+                                                                <option value="{{ $i }}" {{ $timetable->order_no == $i ? 'selected' : ''}}>{{ $i  }}</option>
 
                                                             @endfor
                                                     </select>
@@ -690,6 +690,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                 },
                 success: function(response) {
                     console.log(response);
+                    window.location.reload();
                 },
             });
 
@@ -737,7 +738,11 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
             @if (session()->has('create_timetable'))
 
-                console.log('yyy');
+                $('#live-private-modal').modal('show');
+            @endif
+
+            @if (session()->has('timeorder'))
+
                 $('#live-private-modal').modal('show');
             @endif
 

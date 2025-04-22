@@ -97,6 +97,7 @@ class LiveClassController extends Controller
                 }
             }
         }
+        session()->flash('timeorder', 'Time order updated successfully.');
 
         return response()->json(['time'=>'Time order Updated']);
     }
