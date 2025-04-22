@@ -506,7 +506,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                                 <div class="form-check order-change">
 
-                                                    <select name="order_no" id="order_no" onchange="OrderChange()">
+                                                    <select name="order_no" id="order_no" data-id={{ $timetable->id }} onchange="OrderChange(this)">
                                                             <option value="">Select Order</option>
                                                             @for ($i = 1; $i <= $time_count; $i++)
 
@@ -669,6 +669,27 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     } else {
                         checkbox.removeAttr('checked');
                     }
+                },
+            });
+
+        }
+
+        function OrderChange(element)
+        {
+            var id = $(element).attr('data-id');
+
+            var value = $(element).val();
+
+            $.ajax({
+                url: "{{route('admin.live-class.time_order') }}",
+                type: 'POST',
+                data :
+                {
+                    id:id,
+                    value:value,
+                },
+                success: function(response) {
+                    console.log(response);
                 },
             });
 

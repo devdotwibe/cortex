@@ -335,7 +335,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
                 Route::post('/intensive/class', [LiveClassController::class, 'intensive_class'])->name('intensive_class');
 
                 Route::post('/hide-button', [LiveClassController::class, 'hide_button'])->name('hide_button');
-                
+
+                Route::post('/time-order', [LiveClassController::class, 'time_order'])->name('time_order');
+
             });
 
             Route::prefix('timetable')->name('timetable.')->group(function () {

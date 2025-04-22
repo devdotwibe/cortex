@@ -46,6 +46,61 @@ class LiveClassController extends Controller
         return response()->json(['value'=>$value,'id'=>$timetable->id]);
     }
 
+    public function time_order(Request $request)
+    {
+        $value = $request->value;
+        $order = $request->id;
+
+        if (!empty($order)) {
+
+            $timetables = Timetable::whereNull('static')->first();
+
+            if (!empty($timetables)) {
+
+                $currentOrder = $timetables->order_no;
+                $newOrder = $order;
+
+                if ($currentOrder != $newOrder) {
+
+                    if (abs($currentOrder - $newOrder) == 1) {
+
+                        $newtimetables = Timetable::whereNull('static')
+                                        ->where('order_no', $newOrder)->first();
+                        $timetables->order_no = $newOrder;
+                        $newtimetables->order_no = $currentOrder;
+
+                        $timetables->save();
+                        $newtimetables->save();
+                    }
+                    else
+                    {
+                        if ($newOrder > $currentOrder) {
+
+                            Timetable::whereNull('static')
+                            ->where('order_no', '>', $currentOrder)
+                            ->where('order_no', '<=', $newOrder)
+                            ->decrement('order_no');
+                        }
+                        else
+                        {
+                            Timetable::whereNull('static')
+                            ->where('order_no', '<', $currentOrder)
+                            ->where('order_no', '>=', $newOrder)
+                            ->increment('order_no');
+
+                        }
+
+                        $timetables->order_no = $newOrder;
+                        $timetables->save();
+                    }
+
+                }
+            }
+        }
+
+        return response()->json(['time'=>'Time order Updated']);
+    }
+
     public function store(Request $request)
     {
         $live_class = LiveClassPage::first();
