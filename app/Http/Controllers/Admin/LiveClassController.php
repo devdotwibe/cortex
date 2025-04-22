@@ -25,9 +25,11 @@ class LiveClassController extends Controller
 
         $live_class =  LiveClassPage::first();
 
-        $timetables = Timetable::whereNull('static')->get();
+        $timetables = Timetable::whereNull('static')->orderBy('order_no')->get();
 
-        return view('admin.live-class.index',compact('live_class','timetables'));
+        $time_count = Timetable::whereNull('static')->count();
+
+        return view('admin.live-class.index',compact('time_count','live_class','timetables'));
     }
 
     public function hide_button(Request $request)
@@ -42,6 +44,62 @@ class LiveClassController extends Controller
         $timetable->save();
 
         return response()->json(['value'=>$value,'id'=>$timetable->id]);
+    }
+
+    public function time_order(Request $request)
+    {
+        $id = $request->id;
+        $order = $request->value;
+
+        if (!empty($order)) {
+
+            $timetables = Timetable::find($id);
+
+            if (!empty($timetables)) {
+
+                $currentOrder = $timetables->order_no;
+                $newOrder = $order;
+
+                if ($currentOrder != $newOrder) {
+
+                    if (abs($currentOrder - $newOrder) == 1) {
+
+                        $newtimetables = Timetable::whereNull('static')
+                                        ->where('order_no', $newOrder)->first();
+                        $timetables->order_no = $newOrder;
+                        $newtimetables->order_no = $currentOrder;
+
+                        $timetables->save();
+                        $newtimetables->save();
+                    }
+                    else
+                    {
+                        if ($newOrder > $currentOrder) {
+
+                            Timetable::whereNull('static')
+                            ->where('order_no', '>', $currentOrder)
+                            ->where('order_no', '<=', $newOrder)
+                            ->decrement('order_no');
+                        }
+                        else
+                        {
+                            Timetable::whereNull('static')
+                            ->where('order_no', '<', $currentOrder)
+                            ->where('order_no', '>=', $newOrder)
+                            ->increment('order_no');
+
+                        }
+
+                        $timetables->order_no = $newOrder;
+                        $timetables->save();
+                    }
+
+                }
+            }
+        }
+        session()->flash('timeorder', 'Time order updated successfully.');
+
+        return response()->json(['time'=>'Time order Updated']);
     }
 
     public function store(Request $request)
@@ -347,7 +405,7 @@ class LiveClassController extends Controller
 
         $allTerms = $terms1->concat($terms2)->concat($terms3)->concat($terms4);
 
-        $sloteterms_items = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
+        $sloteterms_items = Timetable::where('hide_time', '!=', 'Y')->orderBy('order_no')->get()->map(function($item) {
             $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
             return [
                 'text' => $text,
@@ -534,7 +592,7 @@ class LiveClassController extends Controller
             }
         }
 
-        $sloteterms_items = Timetable::where('hide_time', '!=', 'Y')->get()->map(function($item) {
+        $sloteterms_items = Timetable::where('hide_time', '!=', 'Y')->orderBy('order_no')->get()->map(function($item) {
             $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') - Year ' . $item->year;
             return [
                 'text' => $text,
