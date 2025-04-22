@@ -69,7 +69,12 @@ class TimetableController extends Controller
 public function update(Request $request, $id)
 {
     $timetable = Timetable::findOrFail($id);
-    $timetable->update($request->all());
+
+    $fields = $request->except('hide_time');
+
+    $fields['hide_time'] = $timetable->hide_time;
+
+    $timetable->update($fields);
 
     return redirect()->back()->with('create_timetable', 'Timetable updated successfully!');
 }
