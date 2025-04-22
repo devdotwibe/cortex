@@ -446,7 +446,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             <label for="year">Select Year:</label>
                                             <select name="year" id="year" class="form-control">
                                                 <option value=""> select </option>
-                                                @for ($year = date('Y'); $year+10 <= date('Y'); $year++)
+                                                @for ($year = date('Y'); $year <= date('Y') + 10; $year++)
                                                     <option value="{{ $year }}">{{ $year }}</option>
                                                 @endfor
                                             </select>
