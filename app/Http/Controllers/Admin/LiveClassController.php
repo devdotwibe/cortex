@@ -27,7 +27,9 @@ class LiveClassController extends Controller
 
         $timetables = Timetable::whereNull('static')->get();
 
-        return view('admin.live-class.index',compact('live_class','timetables'));
+        $time_count = Timetable::whereNull('static')->count();
+
+        return view('admin.live-class.index',compact('time_count','live_class','timetables'));
     }
 
     public function hide_button(Request $request)

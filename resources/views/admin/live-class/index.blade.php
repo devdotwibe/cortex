@@ -504,6 +504,19 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                             <div class="action-buttons">
 
+                                                <div class="form-check order-change">
+
+                                                    <select name="order_no" id="order_no" onchange="OrderChange()">
+                                                            <option value="">Select Order</option>
+                                                            @for ($i = 1; $i <= $time_count; $i++)
+
+                                                                <option value="{{ $i }}" {{ $timetable->order_no ==$i ? 'selected' : ''}}>{{ $i }}</option>
+
+                                                            @endfor
+                                                    </select>
+
+                                                </div>
+
                                                 <div class="form-check form-switch">
 
                                                     <label for="hide_time_{{ $timetable->id }}">Hide</label>
