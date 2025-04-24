@@ -290,11 +290,11 @@ class MockExamController extends Controller
                                 ->where('iscorrect', true)
                                 ->where('user_answer', true)
                                 ->groupBy('user_id')
-                                ->select('user_id', DB::raw('COUNT(*) as mark')) // count correct answers per user
+                                ->select('user_id', DB::raw('COUNT(*) as mark'))
                                 ->get()
-                                ->groupBy('mark') // group users by their mark
+                                ->groupBy('mark')
                                 ->map(function ($group) {
-                                    return count($group); // count how many users got each mark
+                                    return count($group);
                                 });
 
                             foreach ($userReviewAnswers as $mark => $count) {
