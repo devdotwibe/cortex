@@ -278,8 +278,6 @@ class MockExamController extends Controller
 
         $exam=  Exam::where('id',$userExamReview->exam_id)->first();
 
-        dd($chartdata,$chartlabel);
-
         return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','category','userExamReview','passed','attemttime','questioncount','attemtcount','exam'));
 
     }
