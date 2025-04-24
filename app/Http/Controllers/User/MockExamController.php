@@ -295,7 +295,7 @@ class MockExamController extends Controller
                                 ->groupBy('mark')
                                 ->map(function ($group) {
                                     return count($group);
-                                });
+                                })->sortKeys();
 
                             foreach ($userReviewAnswers as $mark => $count) {
                                 $chartlabel[] = (string)$mark;
