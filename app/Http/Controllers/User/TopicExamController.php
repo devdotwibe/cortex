@@ -86,7 +86,7 @@ class TopicExamController extends Controller
         }
         $user->setProgress("exam-{$exam->id}-topic-{$category->id}-progress-url", null);
         $attemtcount = UserExamReview::where('exam_id', $exam->id)->where('user_id', $user->id)->where('category_id', $category->id)->count() + 1;
-        $attemt=UserExam::store([ 
+        $attemt=UserExam::store([
             'name'=>$exam->name,
             'title'=>$exam->title,
             'timed'=>"timed",
@@ -94,9 +94,9 @@ class TopicExamController extends Controller
             'exam_id'=>$exam->id,
             'progress'=>0,
             'category_id'=>$category->id,
-            'time_of_exam'=>$category->time_of_exam, 
+            'time_of_exam'=>$category->time_of_exam,
         ]);
-        Session::put("topic-test-attempt",$attemt->slug); 
+        Session::put("topic-test-attempt",$attemt->slug);
         return view("user.topic-test.summery", compact('category', 'exam', 'user', 'questioncount', 'endtime', 'attemtcount'));
     }
     public function questions(Request $request,UserExam $userExam){
@@ -106,37 +106,37 @@ class TopicExamController extends Controller
              */
             $user = Auth::user();
             $exam = Exam::find($userExam->exam_id);
-            $category =Category::find($userExam->category_id); 
+            $category =Category::find($userExam->category_id);
             $questions=Question::with('answers')->where('exam_id', $exam->id)->where('category_id', $category->id)->paginate(50);
             foreach ($questions as $question) {
                 $userQuestion=UserExamQuestion::store([
-                    'title'=>$question->title, 
-                    'description'=>$question->description, 
-                    'duration'=>$question->duration, 
-                    'exam_id'=>$userExam->exam_id, 
-                    'user_exam_id'=>$userExam->id, 
-                    'category_id'=>$question->category_id, 
-                    'sub_category_id'=>$question->sub_category_id, 
-                    'sub_category_set'=>$question->sub_category_set,  
-                    'explanation'=>$question->explanation,  
-                    'title_text'=>$question->title_text, 
-                    'sub_question'=>$question->sub_question, 
+                    'title'=>$question->title,
+                    'description'=>$question->description,
+                    'duration'=>$question->duration,
+                    'exam_id'=>$userExam->exam_id,
+                    'user_exam_id'=>$userExam->id,
+                    'category_id'=>$question->category_id,
+                    'sub_category_id'=>$question->sub_category_id,
+                    'sub_category_set'=>$question->sub_category_set,
+                    'explanation'=>$question->explanation,
+                    'title_text'=>$question->title_text,
+                    'sub_question'=>$question->sub_question,
                     'question_id'=>$question->id,
                     'user_id'=>$user->id,
                     'order_no'=>$question->order_no
                 ]);
                 foreach($question->answers as $answer){
                     UserExamAnswer::store([
-                        'title'=>$answer->title, 
-                        'description'=>$answer->description,  
-                        'image'=>$answer->image,  
-                        'user_exam_question_id'=>$userQuestion->id, 
-                        'iscorrect'=>$answer->iscorrect, 
+                        'title'=>$answer->title,
+                        'description'=>$answer->description,
+                        'image'=>$answer->image,
+                        'user_exam_question_id'=>$userQuestion->id,
+                        'iscorrect'=>$answer->iscorrect,
                         'question_id'=>$question->id,
                         'answer_id'=>$answer->id,
                         'user_id'=>$user->id,
-                        'exam_id'=>$userExam->exam_id, 
-                        'user_exam_id'=>$userExam->id, 
+                        'exam_id'=>$userExam->exam_id,
+                        'user_exam_id'=>$userExam->id,
                     ]);
                 }
             }
@@ -145,7 +145,7 @@ class TopicExamController extends Controller
             ]);
         }else{
             abort(403);
-        }        
+        }
     }
 
     public function confirmshow(Request $request, Category $category)
@@ -244,7 +244,7 @@ class TopicExamController extends Controller
             }
 
             dispatch(new CalculateExamAverage())->onConnection('database');
-            
+
             if ($request->ajax()) {
                 return response()->json(["success" => "Topic Test Submited", "preview" => route('topic-test.preview', $review->slug)]);
             }
@@ -275,17 +275,48 @@ class TopicExamController extends Controller
 
         $attemttime = "$m:$s";
         $questioncount = UserReviewQuestion::where('user_exam_review_id', $userExamReview->id)->count();
+
+
+        // $chartlabel = [];
+        // $chartbackgroundColor = [];
+        // $chartdata = [];
+        // foreach (UserReviewAnswer::select('mark', DB::raw('count(mark) as marked_users'))->fromSub(function ($query) use ($userExamReview) {
+        //     $query->from('user_review_answers')->where('user_exam_review_id', '<=', $userExamReview->id)->whereIn('user_exam_review_id', UserExamReview::where('name', 'topic-test')->where('user_exam_review_id', '<=', $userExamReview->id)->where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
+        //     ->where('iscorrect', true)->where('user_answer', true)->select(DB::raw('count(user_id) as mark'));
+        // }, 'subquery')->groupBy('mark')->get() as $row) {
+        //     $chartlabel[] = strval($row->mark);
+        //     $chartbackgroundColor[] = $passed == $row->mark ? "#ef9b10" : '#dfdfdf';
+        //     $chartdata[] = $row->marked_users;
+        // }
+
         $chartlabel = [];
         $chartbackgroundColor = [];
         $chartdata = [];
-        foreach (UserReviewAnswer::select('mark', DB::raw('count(mark) as marked_users'))->fromSub(function ($query) use ($userExamReview) {
-            $query->from('user_review_answers')->where('user_exam_review_id', '<=', $userExamReview->id)->whereIn('user_exam_review_id', UserExamReview::where('name', 'topic-test')->where('user_exam_review_id', '<=', $userExamReview->id)->where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->groupBy('user_id')->select(DB::raw('MAX(id)')))
-            ->where('iscorrect', true)->where('user_answer', true)->select(DB::raw('count(user_id) as mark'));
-        }, 'subquery')->groupBy('mark')->get() as $row) {
-            $chartlabel[] = strval($row->mark);
-            $chartbackgroundColor[] = $passed == $row->mark ? "#ef9b10" : '#dfdfdf';
-            $chartdata[] = $row->marked_users;
+
+        $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
+            ->where('exam_id', $userExamReview->exam_id)
+            ->where('category_id', $userExamReview->category_id)
+            ->where('user_exam_review_id', '<=', $userExamReview->id)
+            ->groupBy('user_id')
+            ->selectRaw('MAX(id) as id');
+
+        $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+            ->where('iscorrect', true)
+            ->where('user_answer', true)
+            ->groupBy('user_id')
+            ->select('user_id', DB::raw('COUNT(*) as mark'))
+            ->get()
+            ->groupBy('mark')
+            ->map(function ($group) {
+                return count($group);
+            });
+        foreach ($userReviewAnswers as $mark => $count) {
+            $chartlabel[] = (string)$mark;
+            $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
+            $chartdata[] = $count;
         }
+
+
         $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->where('id', '<', $userExamReview->id)->count() + 1;
         $categorylist = Category::all();
         return view('user.topic-test.resultpage', compact('chartdata', 'chartbackgroundColor', 'chartlabel', 'categorylist', 'userExamReview', 'passed', 'attemttime', 'questioncount', 'attemtcount'));
@@ -325,9 +356,9 @@ class TopicExamController extends Controller
             $data_ids = [];
 
             foreach ($data_questions as $k => $item) {
-               
+
                 $user_answer = $user_review->where('user_review_question_id', $item->id)->first();
-            
+
                 if ($user_answer) {
                     $data_ids[$k] = $user_answer->id;
                     $index[] = $k;
@@ -348,7 +379,7 @@ class TopicExamController extends Controller
                     'active' => $page === $data->currentPage(),
                 ];
             });
-        
+
             // Add navigation links for Previous and Next
             $paginationLinks = collect([
                 [
@@ -365,7 +396,7 @@ class TopicExamController extends Controller
                     'active' => false,
                 ],
             ]);
-        
+
             // Build the response structure
             return response()->json([
                 'current_page' => $data->currentPage(),
@@ -415,7 +446,7 @@ class TopicExamController extends Controller
                 $examtime+=intval(trim($times[1]??"0"));
             }
             $exam_time_sec = $examtime *60;
-          
+
             if($exam_time_sec>0&& $total_questions>0 ){
                 $examtime=$exam_time_sec/$total_questions;
             }
@@ -469,11 +500,11 @@ class TopicExamController extends Controller
             })
             ->addColumn('date', function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m-Y h:i a');
-            }) 
+            })
             ->addColumn('action', function ($data) use($userExamReview){
                 return '<a type="button" href="' . route('topic-test.retry.preview', ['user_exam_review' => $userExamReview->slug, 'exam_retry_review' => $data->slug]) . '" class="btn btn-warning btn-sm">Review</a>';
             })
-            ->rawColumns(['action'])  
+            ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
     }
@@ -525,7 +556,7 @@ class TopicExamController extends Controller
             })
             ->addColumn('retries',function($data){
                 if(ExamRetryReview::where('user_exam_review_id', UserExamReview::findSlug($data->slug)->id)->count()>0){
-                    
+
                 return '<a onclick="loadretry('."'".route('topic-test.retryhistory', $data->slug) ."'".')" class="btn btn-icons view_btn">
                             <img src="'.asset("assets/images/eye.svg").'" alt="">
                         </a>';
@@ -645,7 +676,7 @@ class TopicExamController extends Controller
             }
             $answers = Session::get($attemt, []);
             $passed = $request->input("passed", '0');
-            $questions = $request->input("questions", '[]'); 
+            $questions = $request->input("questions", '[]');
             $questioncnt = UserExamQuestion::whereNotIn('slug', session("exam-retry-questions" . $userExamReview->id, []))->where('user_exam_id',$userExam->id)->count();
             // dd($request->input("times", '[]'));
             $review = ExamRetryReview::store([
@@ -663,10 +694,10 @@ class TopicExamController extends Controller
                 "user_exam_review_id" => $userExamReview->id,
                 "category_id" => $category->id,
             ]);
-            
+
             dispatch(new SubmitRetryReview(
-                        $review, 
-                        session("exam-retry-questions" . $userExamReview->id, []), 
+                        $review,
+                        session("exam-retry-questions" . $userExamReview->id, []),
                         $answers))->onConnection('sync');
 
             if ($questioncnt > $passed) {
@@ -748,12 +779,12 @@ class TopicExamController extends Controller
             $data_ids = [];
 
             foreach ($data_questions as $k => $item) {
-               
+
                 $exam_answer = $exam_review->where('exam_retry_question_id', $item->id)->first();
-            
+
                 if ($exam_answer) {
                     $data_ids[$k] = $exam_answer->id;
-                    
+
                 } else {
                     $data_ids[$k] = null;
                 }
@@ -770,7 +801,7 @@ class TopicExamController extends Controller
                     'active' => $page === $data->currentPage(),
                 ];
             });
-        
+
             // Add navigation links for Previous and Next
             $paginationLinks = collect([
                 [
@@ -787,7 +818,7 @@ class TopicExamController extends Controller
                     'active' => false,
                 ],
             ]);
-        
+
             return response()->json([
                 'current_page' => $data->currentPage(),
                 'data' => $data->items(),
@@ -824,7 +855,7 @@ class TopicExamController extends Controller
             $examtime += intval(trim($times[0] ?? "0")) * 60;
             $examtime += intval(trim($times[1] ?? "0"));
         }
-        
+
         $exam_time_sec = $examtime *60;
 
         if($exam_time_sec>0&& $total_questions>0 ){
