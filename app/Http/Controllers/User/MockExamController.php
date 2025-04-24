@@ -265,16 +265,16 @@ class MockExamController extends Controller
         //     $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
         //     $chartdata[]=$row->marked_users;
         // }
-        // $attemtcount=UserExamReview::where('exam_id',$userExamReview->exam_id)
-        //                             ->where('user_id',$user->id)
-        //                             ->count();
-        // // $category=Category::all();
-        // $category = Category::whereHas('question', function ($query) use ($userExamReview){
-        //                         $query->whereHas('questionExam', function ($query)use ($userExamReview) {
-        //                             $query->where('name', 'full-mock-exam')
-        //                                     ->where('id',$userExamReview->exam_id);
-        //                         });
-        //                     })->get();
+        $attemtcount=UserExamReview::where('exam_id',$userExamReview->exam_id)
+                                    ->where('user_id',$user->id)
+                                    ->count();
+        $category=Category::all();
+        $category = Category::whereHas('question', function ($query) use ($userExamReview){
+                                $query->whereHas('questionExam', function ($query)use ($userExamReview) {
+                                    $query->where('name', 'full-mock-exam')
+                                            ->where('id',$userExamReview->exam_id);
+                                });
+                            })->get();
 
                             $chartlabel = [];
                             $chartbackgroundColor = [];
