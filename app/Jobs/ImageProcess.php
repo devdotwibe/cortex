@@ -40,7 +40,7 @@ class ImageProcess implements ShouldQueue
     {
         try {
 
-            $this->subLessonMaterial->status = 'processing';
+            $this->subLessonMaterial->status = 'start processing';
             $this->subLessonMaterial->save();
 
             $imgdata=[];
