@@ -298,7 +298,7 @@ class LiveClassController extends Controller
                 // dispatch(new CalculateExamAverage())->onConnection('database');
 
             }
-            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
+            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => $subLessonMaterial->status]);
 
         }
         elseif ($subLessonMaterial->status === 'failled') {
