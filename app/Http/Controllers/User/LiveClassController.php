@@ -314,6 +314,8 @@ class LiveClassController extends Controller
 
         }
 
+        dd($imgdata);
+
         $imgdataurl = [];
 
         foreach($imgdata as $item)
@@ -327,8 +329,6 @@ class LiveClassController extends Controller
                 ])
             ];
         }
-
-        dd($imgdataurl);
 
 
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
