@@ -16,7 +16,7 @@ class ImageProcess implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $filepath;
-    protected $live_class;
+    protected $live;
     protected $subLessonMaterial;
     protected $cachepath;
     protected $jobIdentifier;
@@ -25,10 +25,10 @@ class ImageProcess implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct($filepath,$live_class,$subLessonMaterial,$cachepath)
+    public function __construct($filepath,$live,$subLessonMaterial,$cachepath)
     {
        $this->filepath = $filepath;
-       $this->live_class = $live_class;
+       $this->live = $live;
        $this->subLessonMaterial = $subLessonMaterial;
        $this->cachepath = $cachepath;
     }
@@ -72,7 +72,7 @@ class ImageProcess implements ShouldQueue
                         // 'height' => $height,
                         'data' => $bytefile,
                         'url' => route("live-class.privateclass.lessonpdf.load", [
-                            'live' => $this->live_class->slug,
+                            'live' => $this->live,
                             'sub_lesson_material' => $this->subLessonMaterial->slug,
                             'file' => $bytefile,
                         ])
