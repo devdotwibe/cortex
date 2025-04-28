@@ -271,8 +271,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 // Route::middleware(['auth', 'subscription'])->group(function () {
 
-    // Route::get('live-class/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
-
     Route::prefix('live-class')->name('live-class.')->group(function () {
         //         Route::get('/', [LiveClassController::class, 'index'])->name('index');
         Route::get('/{live}', [LiveClassController::class, 'show'])->name('show');
@@ -290,7 +288,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::get('/{live}/private-class/lesson/{lesson_material}/show', [LiveClassController::class, 'privateclasslessonshow'])->name('privateclass.lessonshow');
 
             Route::get('/{live}/private-class/lesson/{sub_lesson_material}.pdf', [LiveClassController::class, 'privateclasslessonpdf'])->name('privateclass.lessonpdf');
-            // Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
+            Route::get('/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
         });
     });
     Route::middleware('hasPrivateClass')->group(function () {
