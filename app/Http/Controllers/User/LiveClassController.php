@@ -320,13 +320,13 @@ class LiveClassController extends Controller
 
 
 
-    public function privateclasslessonpdfload(Request  $request,$live,SubLessonMaterial $subLessonMaterial,$file){
-        dd('trest');
-        // $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
-        // File::ensureDirectoryExists($cachepath);
-        // header('Content-Type: image/jpeg');
-        // print_r(file_get_contents("$cachepath/$file"));
-        // exit;
-    }
+    // public function privateclasslessonpdfload(Request  $request,$live,SubLessonMaterial $subLessonMaterial,$file){
+    //     dd('trest');
+    //     // $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial->pdf_file));
+    //     // File::ensureDirectoryExists($cachepath);
+    //     // header('Content-Type: image/jpeg');
+    //     // print_r(file_get_contents("$cachepath/$file"));
+    //     // exit;
+    // }
 
 }
