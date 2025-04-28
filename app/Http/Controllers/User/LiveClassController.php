@@ -231,6 +231,8 @@ class LiveClassController extends Controller
     }
 
     public function privateclasslessonpdf(Request  $request,$live,SubLessonMaterial $subLessonMaterial){
+
+        dd('test');
         /**
          * @var User
          */
