@@ -325,7 +325,7 @@ class LiveClassController extends Controller
             // dd($subLessonMaterial);
             $subLessonMaterial_model = SubLessonMaterial::findSlug($subLessonMaterial);
 
-              dd($subLessonMaterial);
+              dd($subLessonMaterial_model->pdf_file);
 
             $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial_model->pdf_file));
             File::ensureDirectoryExists($cachepath);
