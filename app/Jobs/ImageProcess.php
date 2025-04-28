@@ -16,19 +16,19 @@ class ImageProcess implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $filepath;
-    protected $user;
+    protected $live_class;
     protected $subLessonMaterial;
     protected $cachepath;
     protected $jobIdentifier;
-    
+
 
     /**
      * Create a new job instance.
      */
-    public function __construct($filepath,$user,$subLessonMaterial,$cachepath)
+    public function __construct($filepath,$live_class,$subLessonMaterial,$cachepath)
     {
        $this->filepath = $filepath;
-       $this->user = $user;
+       $this->live_class = $live_class;
        $this->subLessonMaterial = $subLessonMaterial;
        $this->cachepath = $cachepath;
     }
@@ -43,47 +43,47 @@ class ImageProcess implements ShouldQueue
             $this->subLessonMaterial->status = 'processing';
             $this->subLessonMaterial->save();
 
-            $imgdata=[];   
-            $resolution = 300;  
-            $hash = md5($this->filepath . "render" . time()); 
+            $imgdata=[];
+            $resolution = 300;
+            $hash = md5($this->filepath . "render" . time());
 
             if (!is_dir($this->cachepath)) {
                 mkdir($this->cachepath, 0777, true);
             }
-             
+
             $command = "gs -q -dNODISPLAY -c \"({$this->filepath}) (r) file runpdfbegin pdfpagecount = quit\"";
-            exec($command, $output, $returnCode); 
+            exec($command, $output, $returnCode);
             if ($returnCode !== 0 || empty($output)) {
-                $this->subLessonMaterial->status = 'failled'; 
+                $this->subLessonMaterial->status = 'failled';
                 $this->subLessonMaterial->save();
                 die("Error: Unable to determine the number of pages in the PDF.");
-            } 
-            $count = (int) $output[0];  
+            }
+            $count = (int) $output[0];
             for ($page = 1; $page <= $count; $page++) {
-                $bytefile = sprintf("$hash-%02d.jpg", $page); 
+                $bytefile = sprintf("$hash-%02d.jpg", $page);
                 $command = "gs -dNOPAUSE -dBATCH -sDEVICE=jpeg -r$resolution -dFirstPage=$page -dLastPage=$page -sOutputFile={$this->cachepath}/{$bytefile} {$this->filepath}";
                 exec($command, $execOutput, $returnCode);
-            
-                if ($returnCode === 0) { 
-                    
+
+                if ($returnCode === 0) {
+
                     $imgdata[] = [
                         'page' => $page,
                         // 'width' => $width,
                         // 'height' => $height,
                         'data' => $bytefile,
                         'url' => route("live-class.privateclass.lessonpdf.load", [
-                            'live' => $this->user->slug,
+                            'live' => $this->live_class->slug,
                             'sub_lesson_material' => $this->subLessonMaterial->slug,
-                            'file' => $bytefile
+                            'file' => $bytefile,
                         ])
                     ];
-                } else { 
-                    $this->subLessonMaterial->status = 'failled'; 
+                } else {
+                    $this->subLessonMaterial->status = 'failled';
                     $this->subLessonMaterial->save();
                     die("Error:  PDF Page missing on generation.");
                 }
             }
-            $this->subLessonMaterial->status = 'completed'; 
+            $this->subLessonMaterial->status = 'completed';
             $this->subLessonMaterial->save();
             file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata));
 
@@ -92,15 +92,15 @@ class ImageProcess implements ShouldQueue
 
            /*
             $imginfo = new \Imagick();
-            $imginfo->pingImage($this->filepath);    
-        
+            $imginfo->pingImage($this->filepath);
+
             $count= $imginfo->getNumberImages();
-        
+
             $imagic = new \Imagick();
             $imagic->setResolution(570, 800);
             $imagic->readImage($this->filepath);
-            
-            $imgdata=[]; 
+
+            $imgdata=[];
             $pageindex = 0;
 
             $hash = md5($this->filepath . "render" . time());
@@ -108,17 +108,17 @@ class ImageProcess implements ShouldQueue
             for ($pageIndex = 0; $pageIndex < $count; $pageIndex++) {
 
                 $imagic->setIteratorIndex($pageIndex);
-            
+
                 $imagic->setImageFormat('jpeg');
-                $imagic->setCompressionQuality(99); 
-            
+                $imagic->setCompressionQuality(99);
+
                 $bytefile = sprintf("$hash-%02d.jpg", $pageIndex);
-            
+
                 $imagic->writeImage($this->cachepath . '/' . $bytefile);
-            
+
                 $width = $imagic->getImageWidth();
                 $height = $imagic->getImageHeight();
-            
+
                 $imgdata[] = [
                     'page' => $pageIndex + 1,
                     'width' => $width,
@@ -131,17 +131,17 @@ class ImageProcess implements ShouldQueue
                     ])
                 ];
             }
-            
+
             $imagic->clear();
             $imagic->destroy();
 
-            $this->subLessonMaterial->status = 'completed'; 
+            $this->subLessonMaterial->status = 'completed';
 
             $this->subLessonMaterial->save();
-            
+
             // foreach ($imagic as $pageIndex => $page) {
             //     $bytefile=sprintf("$hash-%02d.jpg",$pageIndex);
-            //     $page->setImageFormat('jpeg');   
+            //     $page->setImageFormat('jpeg');
             //     $page->setCompressionQuality(99);
 
             //     $imagic->writeImage("$this->cachepath/$bytefile");
@@ -149,14 +149,14 @@ class ImageProcess implements ShouldQueue
             //     $width = $page->getImageWidth();
             //     $height = $page->getImageHeight();
             //     $imgdata[] = [
-            //         'page' => $pageIndex + 1, 
+            //         'page' => $pageIndex + 1,
             //         'width' => $width,
             //         'height' => $height,
             //         "data" => $bytefile,
             //         'url'=> route("live-class.privateclass.lessonpdf.load",['live' => $this->user->slug, 'sub_lesson_material' => $this->subLessonMaterial->slug,"file"=>$bytefile])
             //     ];
             // }
-        
+
             // file_put_contents("$this->cachepath/render.map.json",json_encode($imgdata));
             file_put_contents($this->cachepath . '/render.map.json', json_encode($imgdata));
 
@@ -164,12 +164,12 @@ class ImageProcess implements ShouldQueue
             */
         } catch (Exception $e) {
 
-            $this->subLessonMaterial->status = 'failled'; 
+            $this->subLessonMaterial->status = 'failled';
 
             $this->subLessonMaterial->save();
-           
+
             // \log::error("Error processing file: " . $this->filepath . " - " . $e->getMessage());
         }
-            
+
     }
 }

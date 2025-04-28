@@ -293,7 +293,7 @@ class LiveClassController extends Controller
             //    $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
 
 
-                dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
+                dispatch(new ImageProcess($filepath, $live_class, $subLessonMaterial, $cachepath));
 
             }
             return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
@@ -313,8 +313,6 @@ class LiveClassController extends Controller
             }
 
         }
-
-        dd($imgdata);
 
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata'));
