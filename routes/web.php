@@ -271,7 +271,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
 // Route::middleware(['auth', 'subscription'])->group(function () {
 
-    Route::get('live-class/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
+    // Route::get('live-class/{live}/private-class/lesson/{sub_lesson_material}/load/{file}', [LiveClassController::class, 'privateclasslessonpdfload'])->name('privateclass.lessonpdf.load');
 
     Route::prefix('live-class')->name('live-class.')->group(function () {
         //         Route::get('/', [LiveClassController::class, 'index'])->name('index');
