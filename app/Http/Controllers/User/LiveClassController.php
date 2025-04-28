@@ -314,6 +314,8 @@ class LiveClassController extends Controller
 
         }
 
+        dd($imgdata);
+
         $imgdataurl = [];
 
         foreach($imgdata as $item)
