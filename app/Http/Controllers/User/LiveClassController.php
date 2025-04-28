@@ -322,7 +322,7 @@ class LiveClassController extends Controller
 
         public function privateclasslessonpdfload(Request  $request,$live,$subLessonMaterial,$file){
 
-            dd($subLessonMaterial);
+            // dd($subLessonMaterial);
             $subLessonMaterial_model = SubLessonMaterial::findSlug($subLessonMaterial);
 
             $cachepath=Storage::disk('private')->path('cache/'.md5($subLessonMaterial_model->pdf_file));
