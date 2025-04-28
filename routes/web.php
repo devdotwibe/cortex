@@ -55,8 +55,8 @@ Route::get('/migrate', function () {
 // });
 
 
-Route::get('/calculaterun', function () {
-    Artisan::call('calculaterun');
+Route::get('route-clear', function () {
+    Artisan::call('route:clear');
     dd(Artisan::output());
 });
 
