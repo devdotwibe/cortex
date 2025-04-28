@@ -293,10 +293,10 @@ class LiveClassController extends Controller
             //    $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
 
 
-                dispatch(new ImageProcess($filepath, $live, $subLessonMaterial, $cachepath));
+                dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
 
             }
-            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => $subLessonMaterial->status]);
+            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
 
         }
         elseif ($subLessonMaterial->status === 'failled') {
