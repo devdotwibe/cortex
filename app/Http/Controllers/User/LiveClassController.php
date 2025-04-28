@@ -314,8 +314,6 @@ class LiveClassController extends Controller
 
         }
 
-        dd($imgdata);
-
         $imgdataurl = [];
 
         foreach($imgdata as $item)
@@ -325,7 +323,7 @@ class LiveClassController extends Controller
                 'url' => route("live-class.privateclass.lessonpdf.load", [
                     'live' => $live,
                     'sub_lesson_material' =>$subLessonMaterial->slug,
-                    'file' => $item->file,
+                    'file' => $item['data'],
                 ])
             ];
         }
