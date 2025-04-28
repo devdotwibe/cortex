@@ -60,6 +60,10 @@ Route::get('route-clear', function () {
     dd(Artisan::output());
 });
 
+Route::get('cache-clear', function () {
+    Artisan::call('cache:clear');
+    dd(Artisan::output());
+});
 
 
 Route::get('/', [HomeController::class, 'index']);
