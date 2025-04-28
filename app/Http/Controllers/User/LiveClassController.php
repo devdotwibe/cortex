@@ -314,6 +314,23 @@ class LiveClassController extends Controller
 
         }
 
+        $imgdataurl = [];
+
+        foreach($imgdata as $item)
+        {
+
+            $imgdataurl[] = [
+                'url' => route("live-class.privateclass.lessonpdf.load", [
+                    'live' => $live,
+                    'sub_lesson_material' =>$subLessonMaterial->slug,
+                    'file' => $item['file'],
+                ])
+            ];
+        }
+
+        dd($imgdataurl);
+
+
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
         return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata'));
     }
