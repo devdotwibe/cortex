@@ -20,9 +20,9 @@
 
                                     <div class="exam-title">
                                         <h3>{{ $exam->title }}</h3>
-                                        @if (($user->is_free_access && in_array('exam_simulator',explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0) 
+                                        @if (($user->is_free_access && in_array('exam_simulator',explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0)
                                             @if ($user->progress('exam-' . $exam->id . '-complete-review', 'no') == 'yes')
-                                            @elseif($user->progress('exam-' . $exam->id . '-complete-date', '') == '')
+                                            @elseif($user->progress('exam-' . $exam->id . '-complete-date', '',$exam->id) == '')
                                                 @guest('admin')
                                                 <a class="btn btn-warning action-btn" onclick="confimexam('{{ route('full-mock-exam.show', $exam->slug) }}',`{{ $exam->title }}`)">ATTEMPT</a>
                                                 @endguest
@@ -35,7 +35,7 @@
                                         @else
                                         {{-- <a class="btn btn-warning action-btn" href="{{route('pricing.index')}}#our-plans">ATTEMPT</a> --}}
                                         <a class="btn btn-warning action-btn" href="javascript:void(0);" onclick="showLockedModal()">ATTEMPT</a>
-                                       
+
                                         @endif
                                     </div>
                                     @endif
@@ -110,7 +110,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="table-outer" id="attemt-list">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -123,14 +123,14 @@
                     <h5 class="modal-title"><span  class="review-history-label" ></span></h5>
                     <button type="button" class="close" onclick="toggleretry()" ><span  aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body" > 
+                <div class="modal-body" >
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="table-outer" id="attemt-retry-list">
-                                 
-                            </div> 
+
+                            </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@
                     <tr>
                         <th>Sl.No</th>
                         <th>Date</th>
-                        <th>Progress</th> 
+                        <th>Progress</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -167,7 +167,7 @@
             processing: true,
             serverSide: true,
             searching: false,
-            bFilter: false,                
+            bFilter: false,
             ajax: {
                 url:url
             },
@@ -175,8 +175,8 @@
                 [2, 'ASC']
             ],
             initComplete: function() {
-                var info = this.api().page.info(); 
-                var json = this.api().ajax.json();  
+                var info = this.api().page.info();
+                var json = this.api().ajax.json();
                 if (info.pages > 1) {
                     $("#attemt-retry-list-table_wrapper .pagination").show();
                 } else {
@@ -186,11 +186,11 @@
                     $("#attemt-retry-list-table_wrapper #attemt-retry-list-table_info").show();
                 } else {
                     $("#attemt-retry-list-table_wrapper #attemt-retry-list-table_info").hide();
-                } 
+                }
             },
             drawCallback: function() {
                 var info = this.api().page.info();
-                var json = this.api().ajax.json(); 
+                var json = this.api().ajax.json();
                 if (info.pages > 1) {
                     $("#attemt-retry-list-table_wrapper .pagination").show();
                 } else {
@@ -200,9 +200,9 @@
                     $("#attemt-retry-list-table_wrapper #attemt-retry-list-table_info").show();
                 } else {
                     $("#attemt-retry-list-table_wrapper #attemt-retry-list-table_info").hide();
-                } 
+                }
             },
-            columns: [ 
+            columns: [
                 {
                     data: 'DT_RowIndex',
                     name: 'id',
@@ -220,11 +220,11 @@
                     name: 'progress',
                     orderable: true,
                     searchable: false,
-                }, 
+                },
                 {
-                    data: 'action', 
+                    data: 'action',
                     orderable: false,
-                    searchable: false, 
+                    searchable: false,
                 },
             ],
         })
@@ -256,7 +256,7 @@
                 processing: true,
                 serverSide: true,
                 searching: false,
-                bFilter: false,                
+                bFilter: false,
                 ajax: {
                     url:url
                 },
@@ -264,7 +264,7 @@
                     [0, 'DESC']
                 ],
                 initComplete: function() {
-                    var info = this.api().page.info(); 
+                    var info = this.api().page.info();
                     var json = this.api().ajax.json();
                     $('#restart-btn').attr('href', json.url);
                     $('#review-history-label').html(` ${json.name} `)
@@ -277,7 +277,7 @@
                         $("#attemt-list-table_wrapper #attemt-list-table_info").show();
                     } else {
                         $("#attemt-list-table_wrapper #attemt-list-table_info").hide();
-                    } 
+                    }
                 },
                 drawCallback: function() {
                     var info = this.api().page.info();
@@ -293,9 +293,9 @@
                         $("#attemt-list-table_wrapper #attemt-list-table_info").show();
                     } else {
                         $("#attemt-list-table_wrapper #attemt-list-table_info").hide();
-                    } 
+                    }
                 },
-                columns: [ 
+                columns: [
 
                     {
                         data: 'DT_RowIndex',
@@ -322,9 +322,9 @@
                         searchable: false,
                     },
                     {
-                        data: 'action', 
+                        data: 'action',
                         orderable: false,
-                        searchable: false, 
+                        searchable: false,
                     },
                 ],
             })
@@ -349,11 +349,11 @@
     function showLockedModal() {
         document.getElementById('lockedModal').style.display = 'block';
     }
-    
+
     function closeLockedModal() {
         document.getElementById('lockedModal').style.display = 'none';
     }
     </script>
 
-    
+
 @endpush
