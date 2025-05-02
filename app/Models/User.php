@@ -60,7 +60,42 @@ class User extends Authenticatable
         ];
     }
 
-    public function progress($name,$default=null){
+    public function progress($name,$default=null,$exam_id=null){
+
+        $user_exam =true;
+
+        if (str_contains($name, 'complete-date'))
+        {
+            $userExamReviews = UserExamReview::where('user_id',$this->id)
+            ->where('exam_id',$exam_id)
+            ->select('slug','created_at','progress','id','exam_id','ticket')
+            ->orderBy('created_at','ASC')->get();
+
+            foreach($userExamReviews as $row)
+            {
+                $userExam = UserExam::findSlug($row->ticket);
+
+                if (!$userExam) {
+                    $user_exam = false;
+                    break;
+                }
+
+                $exam_questions_count = UserExamQuestion::where('exam_id', $row->exam_id)
+                ->where('user_exam_id', $userExam->id)
+                ->count();;
+
+                if ($exam_questions_count === 0) {
+                    $user_exam = false;
+                    break;
+                }
+            }
+
+        }
+            if(!$user_exam)
+            {
+                return null;
+            }
+
         return optional($this->userProgress()->where("name",$name)->first())->value??$default;
     }
     public function setProgress($name,$value=null){
@@ -100,7 +135,7 @@ class User extends Authenticatable
         return UserSubscription::where('user_id',$this->id)
                                 ->whereDate('expire_at','>=',Carbon::now())
                                 ->orderBy('id','DESC')->first();
-    } 
+    }
 
     public function subscriptionExpire()
     {
@@ -125,7 +160,7 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::creating(function ($user) {
-            
+
             $user->email_verified_at = Carbon::now();
         });
     }
@@ -138,7 +173,7 @@ class User extends Authenticatable
 }
 class UserEmailVerifyNotification extends VerifyEmail{
 
- 
+
     /**
      * Build the mail representation of the notification.
      *
@@ -154,7 +189,7 @@ class UserEmailVerifyNotification extends VerifyEmail{
 
 }
 class UserPasswrdResetNotification extends ResetPassword{
-    
+
    /**
     * Build the mail representation of the notification.
     *
@@ -173,12 +208,12 @@ public function toMail($notifiable)
 {
     $url = $this->resetUrl($notifiable);
     $name = $notifiable->first_name;
-    
+
     return (new MailMessage)
         ->subject('Reset your Cortex Online password')
         ->view('email.reset', compact('url', 'name'))
         ->salutation('The Cortex Online Team');
 }
 
-    
+
 }

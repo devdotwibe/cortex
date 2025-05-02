@@ -22,7 +22,7 @@
                                         <h3>{{ $exam->title }}</h3>
                                         @if (($user->is_free_access && in_array('exam_simulator',explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0)
                                             @if ($user->progress('exam-' . $exam->id . '-complete-review', 'no') == 'yes')
-                                            @elseif($user->progress('exam-' . $exam->id . '-complete-date', '') == '')
+                                            @elseif($user->progress('exam-' . $exam->id . '-complete-date', '',$exam->id) == '')
                                                 @guest('admin')
                                                 <a class="btn btn-warning action-btn" onclick="confimexam('{{ route('full-mock-exam.show', $exam->slug) }}',`{{ $exam->title }}`)">ATTEMPT</a>
                                                 @endguest
