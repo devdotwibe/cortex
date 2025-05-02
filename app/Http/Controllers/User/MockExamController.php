@@ -457,14 +457,27 @@ class MockExamController extends Controller
                     $exam_questions = UserExamQuestion::where('exam_id',$data->exam_id)
                                                     ->where('user_exam_id',$userExam->id)
                                                     ->select('question_id');
-                    $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
-                                        ->where('exam_id',$data->exam_id)
-                                        ->whereIn('question_id',$exam_questions)
-                                        ->where('iscorrect',true)
-                                        ->where('user_answer',true)
-                                        ->count();
-                    $progress = $right_answers * 100 / count($exam_questions->get());
-                    $data->progress = (floor($progress) == $progress) ? number_format($progress, 0) : number_format($progress, 2);
+
+                    $total_questions = $exam_questions->count();
+
+                    if ($total_questions > 0) {
+
+                        $right_answers =  UserReviewAnswer::where('user_exam_review_id',$data->id)
+                                            ->where('exam_id',$data->exam_id)
+                                            ->whereIn('question_id',$exam_questions)
+                                            ->where('iscorrect',true)
+                                            ->where('user_answer',true)
+                                            ->count();
+
+                        $progress = ($right_answers * 100) / $total_questions;
+
+                        $data->progress = (floor($progress) == $progress) ? number_format($progress, 0) : number_format($progress, 2);
+                    }
+                    else
+                    {
+                        return "0%";
+                    }
+
                     return $data->progress."%";
                 }
                return 0;
