@@ -4,7 +4,7 @@
 
 <style>
     .card.grey {
-        background: gray;
+        background:#c4c4c4;
     }
 
 </style>
