@@ -109,7 +109,7 @@ function showLockedModal(slug) {
 
     var content = "";
 
-    if(slug =='Logical Reasoning')
+    if(slug =='Critical Reasoning')
     {
         var content = "Term 1 Week 7";
     }
