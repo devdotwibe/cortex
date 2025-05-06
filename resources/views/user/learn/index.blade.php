@@ -17,7 +17,7 @@
                 <a href="{{ route('learn.show', $item->slug) }}">
                 @else
                     {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}
-                        <a href="javascript:void(0);" onclick="showLockedModal({{ $item->slug }})">
+                        <a href="javascript:void(0);" onclick="showLockedModal('{{ $item->name }}')">
                 @endif
                     <div class="card">
                         <div class="card-body">
