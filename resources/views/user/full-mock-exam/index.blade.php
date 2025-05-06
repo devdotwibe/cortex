@@ -1,6 +1,12 @@
 @extends('layouts.user')
 @section('title', 'Full Mock Exams')
 @section('content')
+<style>
+    .exam-title.grey {
+        background: #c4c4c4;
+    }
+
+</style>
     <section class="header_nav">
         <div class="header_wrapp">
             <div class="header_title">
@@ -18,7 +24,18 @@
                                 @foreach ($exams as $k => $exam)
                                 @if($exam->time_of_exam && $exam->time_of_exam !== '00 : 00')
 
-                                    <div class="exam-title">
+                                    @php
+                                    $user_access =false;
+                                    @endphp
+                                @if (($user->is_free_access && in_array('exam_simulator',explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0)
+
+                                    @php
+                                    $user_access =true;
+                                    @endphp
+
+                                @endif
+
+                                    <div class="exam-title  {{ !$user_access ? 'grey' : '' }}">
                                         <h3>{{ $exam->title }}</h3>
                                         @if (($user->is_free_access && in_array('exam_simulator',explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0)
                                             @if ($user->progress('exam-' . $exam->id . '-complete-review', 'no') == 'yes')
@@ -87,6 +104,7 @@
             </div>
             <div class="modal-body">
                 <p>The content is locked and a subscription is required.</p>
+                <p>If you are enrolled in our classes, this will be unlocked in Term 4 Week 7</p>
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
