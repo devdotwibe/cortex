@@ -1,6 +1,12 @@
 @extends('layouts.user')
 @section('title', 'Learn')
 @section('content')
+
+<style>
+
+
+</style>
+
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
@@ -13,13 +19,26 @@
         <div class="row {{ $user->free_access_terms }}">
             @foreach ($categorys as $k => $item)
             <div class="col-md-6">
+                @php
+                    $user_access =false;
+                @endphp
+
                 @if (($user->is_free_access && in_array($item->id, explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0)
                 <a href="{{ route('learn.show', $item->slug) }}">
+
+                    @php
+                        $user_access = true;
+
+                    @endphp
                 @else
+                    @php
+                        $user_access = false;
+
+                    @endphp
                     {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}
                         <a href="javascript:void(0);" onclick="showLockedModal('{{ $item->name }}')">
                 @endif
-                    <div class="card">
+                    <div class="card {{ $user_access ? 'grey' : '' }}">
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
