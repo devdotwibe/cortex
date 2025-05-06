@@ -1,10 +1,15 @@
 @extends('layouts.user')
 @section('title', $exam->subtitle($category->id,"Module ".($category->getIdx()+1)).':'.$category->name)
 @section('content')
+<style>
+    .col-md-6.grey {
+        background:#c4c4c4;
+    }
 
+</style>
 <section class="header_nav">
     <div class="header_wrapp">
-        <div class="header_title"> 
+        <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
                 <a href="{{ route('learn.index') }}">
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
@@ -21,21 +26,34 @@
                 <div class="lesson-body">
                     <div class="row" id="lesson-list">
                         @forelse ($lessons as $k => $item)
-                        <div class="col-md-6"> 
+
+                        @php
+                            $user_access =false;
+                        @endphp
+                        @if (($user->is_free_access && in_array($category->id, explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
+
+                            @php
+                                $user_access =true;
+                            @endphp
+
+                        @endif
+
+                        <div class="col-md-6 {{ !$user_access ? 'grey' : '' }}">
+
                             @if (($user->is_free_access && in_array($category->id, explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed"||$k == 0)
-                                <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes") 
-                                    
+                                <a @if ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-review',"no") == "yes")
+
                                     @elseif ($user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$item->id.'-complete-date',"") == "")
-                                    @guest('admin')   
+                                    @guest('admin')
                                     @if($item->progress==0)
-                                        href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}" 
+                                        href="{{ route('learn.lesson.show', ["category" => $category->slug, "sub_category" => $item->slug]) }}"
                                     @else
                                         href="javascript:void(0);" onclick="showLearnModal('{{ route('learn.lesson.show', ['category' => $category->slug, 'sub_category' => $item->slug]) }}')"
                                     @endif
                                     @endguest
                                 @else
                                     href="#" onclick="loadlessonreviews('{{ route('learn.lesson.history', ['category' => $category->slug, 'sub_category' => $item->slug]) }}', {{$k+1}}); return false;"
-                                @endif> 
+                                @endif>
                             @else
                             {{-- <a href="{{route('pricing.index')}}"> --}}
                                 <a href="javascript:void(0);" onclick="showLockedModal()">
@@ -79,6 +97,7 @@
             </div>
             <div class="modal-body">
                 <p>The content is locked and a subscription is required.</p>
+                <p>If you are enrolled in our classes, this will be unlocked in Term 1 Week 7.</p>
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
@@ -132,7 +151,7 @@
         </div>
     </div>
 </div>
- 
+
 <div id="learnModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -154,20 +173,20 @@
 </div>
 @endpush
 
-@push('footer-script') 
+@push('footer-script')
 
 <script>
     function showLockedModal() {
         document.getElementById('lockedModal').style.display = 'block';
     }
-    
+
     function closeLockedModal() {
         document.getElementById('lockedModal').style.display = 'none';
     }
     </script>
- 
- 
- 
+
+
+
 <script>
     // Get the lesson ID from the server-side to the client-side
     const lessonId = "{{ $item->id }}"; // Ensure this variable is passed from the controller
@@ -194,7 +213,7 @@
     }
 </script>
 <script>
- 
+
     function loadlessonreviews(url, i) {
         $('#attemt-list').html('');
         $.get(url, function(res) {
@@ -216,7 +235,7 @@
                         </tr>
                     `);
                 }
-                
+
             });
             if(res.starturl){
                 $('#restart-btn').attr('href', res.starturl);
@@ -241,6 +260,6 @@
         $('body').removeClass('modal-open');
     }
 
-    
+
 </script>
 @endpush
