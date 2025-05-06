@@ -64,7 +64,7 @@
             <div class="modal-body">
                 <p>The content is locked and a subscription is required. </p>
 
-                <p>  If you are enrolled in our classes, this will be unlocked in <span id="term_content">Term 1 Week 7</span> </p>
+                <p id="content_graph">  If you are enrolled in our classes, this will be unlocked in <span id="term_content">Term 1 Week 7</span> </p>
 
             </div>
             <div class="modal-footer">
@@ -84,9 +84,15 @@ function showLockedModal(slug) {
 
     console.log(slug);
 
+    $('#content_graph').show();
+
     var content = "";
 
     if(slug =='Logical Reasoning')
+    {
+        var content = "Term 1 Week 7";
+    }
+    else if(slug =='Logical Reasoning')
     {
         content="Term 1 Week 10";
     }
@@ -101,6 +107,11 @@ function showLockedModal(slug) {
     else if(slug =='Exam Performance')
     {
         content="";
+    }
+
+    if(content =="")
+    {
+        $('#content_graph').hide();
     }
 
     $('#term_content').text(content);
