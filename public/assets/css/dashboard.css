@@ -841,9 +841,9 @@ button.close {
 
 .pdfsection .lesson .lesson-pdf-body {
     width: 100%;
-    display: block; 
-    float: left; 
-    position: relative; 
+    display: block;
+    float: left;
+    position: relative;
     height: calc(100vh - 170px);
 }
 
@@ -3780,7 +3780,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
     .exam-container .mcq-container-wrap .lesson .lesson-body .mcq-container:after {
         height: 100%;
     }
-    
+
     .exam-container.questionclass.answerclass .quest-progress + .container-wrap .lesson .lesson-body.lessonbodyclass {
         height: calc(100vh - 120px);
     }
@@ -7260,7 +7260,7 @@ nav.navbar.header-class {
 
 .exam-container .container-wrap .lesson .lesson-body p,
 .exam-container .container-wrap .lesson .lesson-body .mcq-container .form-group .form-check label,
-.exam-container .container-wrap .lesson .lesson-body p sup, 
+.exam-container .container-wrap .lesson .lesson-body p sup,
 .exam-container .container-wrap .lesson .lesson-body p sub {
     font-family: 'Arial';
     line-height: 1.5;
@@ -8101,6 +8101,12 @@ nav.navbar.top-barhide {
     margin: 0 0 0 35px;
 }
 
+
+.category .category-image img {
+    border-radius: 9px;
+}
+
+
 @media screen and (max-width:1599px) {
     .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview p {
         width: 100%;
@@ -8182,7 +8188,7 @@ nav.navbar.top-barhide {
     .questionclass .mcq-container-wrap .lesson .lesson-body .mcq-container .mcq-answer {
         height: calc(100vh - 200px) !important;
     }
-    
+
     .critical-reasoning h2 {
         font-size: 26px;
     }
@@ -9271,7 +9277,7 @@ nav.navbar.top-barhide {
     .exam-container.questionclass.answerclass .quest-progress + .container-wrap .lesson .lesson-body.lessonbodyclass {
         height: inherit;
     }
-    
+
     .live-class-section .col-md-6 {
         width: 100%;
     }
