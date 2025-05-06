@@ -3,7 +3,9 @@
 @section('content')
 
 <style>
-
+    .card.grey {
+        background: gray;
+    }
 
 </style>
 
@@ -38,7 +40,7 @@
                     {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}
                         <a href="javascript:void(0);" onclick="showLockedModal('{{ $item->name }}')">
                 @endif
-                    <div class="card {{ $user_access ? 'grey' : '' }}">
+                    <div class="card {{ !$user_access ? 'grey' : '' }}">
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
