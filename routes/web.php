@@ -55,11 +55,20 @@ Route::get('/migrate', function () {
 // });
 
 
-Route::get('/calculaterun', function () {
-    Artisan::call('calculaterun');
+Route::get('route-clear', function () {
+    Artisan::call('route:clear');
     dd(Artisan::output());
 });
 
+Route::get('cache-clear', function () {
+    Artisan::call('cache:clear');
+    dd(Artisan::output());
+});
+
+Route::get('config-clear', function () {
+    Artisan::call('config:clear');
+    dd(Artisan::output());
+});
 
 
 Route::get('/', [HomeController::class, 'index']);

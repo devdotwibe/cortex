@@ -7356,7 +7356,7 @@ nav.navbar.header-class {
 
 .live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons button.btn.btn-icons {
     padding: 0;
-    width: 30px;
+    width: 28px;
     position: relative;
 }
 
@@ -7399,6 +7399,25 @@ nav.navbar.header-class {
     color: #ffff;
 }
 
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons .order-change {
+    padding: 0;
+    max-width: 84px;
+    margin: 0 7px 0 0;
+}
+
+.live-modal .modal-dialog .modal-row .modal-col1 .form-row .text-field-preview .action-buttons .order-change select {
+    width: 100%;
+    font-size: 12px;
+    padding: 5px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 .critical-reasoning .backtitleclass {
     width: 100%;

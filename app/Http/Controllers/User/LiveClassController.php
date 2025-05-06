@@ -293,10 +293,12 @@ class LiveClassController extends Controller
             //    $out= shell_exec("php /home/cortex1/public_html/imagic.php --filepath=$filepath --cachepath=$cachepath  --subLessonMaterial={$subLessonMaterial->slug}  --user=$user->slug > output.log 2>&1 &");
 
 
-                dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath));
+                dispatch(new ImageProcess($filepath, $user, $subLessonMaterial, $cachepath))->onConnection('database');
+
+                // dispatch(new CalculateExamAverage())->onConnection('database');
 
             }
-            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => 'processing']);
+            return response()->json(['message' => 'Please wait for the file to finish processing.',"out"=>$out ,'status' => $subLessonMaterial->status]);
 
         }
         elseif ($subLessonMaterial->status === 'failled') {
@@ -314,8 +316,22 @@ class LiveClassController extends Controller
 
         }
 
+        $imgdataurl = [];
+
+        foreach($imgdata as $item)
+        {
+
+            $imgdataurl[] = [
+                'url' => route("live-class.privateclass.lessonpdf.load", [
+                    'live' => $live,
+                    'sub_lesson_material' =>$subLessonMaterial->slug,
+                    'file' => $item['data'],
+                ])
+            ];
+        }
+
         // $pdfmap['url']=route('live-class.privateclass.lessonpdf', ["live" =>$user->slug,"sub_lesson_material"=>$subLessonMaterial->slug ]);
-        return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdata'));
+        return view('user.live-class.pdfrender',compact('user','live_class','subLessonMaterial','lessonMaterial','imgdataurl'));
     }
 
 

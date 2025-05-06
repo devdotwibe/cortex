@@ -1,6 +1,12 @@
 @extends('layouts.user')
 @section('title', 'Topic Test')
 @section('content')
+<style>
+    .card.grey {
+        background:#c4c4c4;
+    }
+
+</style>
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
@@ -15,7 +21,19 @@
             @if($item->time_of_exam && $item->time_of_exam !== '00 : 00')
             <div class="col-md-6">
 
-                    <div class="card">
+                @php
+                    $user_access = false;
+
+                @endphp
+                @if (($user->is_free_access && in_array('exam_simulator', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed")
+
+                    @php
+                    $user_access = true;
+
+                    @endphp
+                @endif
+
+                    <div class="card {{ !$user_access ? 'grey' : '' }}">
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
@@ -27,10 +45,10 @@
                                     <h3>{{$item->name}}</h3>
                                     </div>
                                     <div class="action-button">
-                                        @if (($user->is_free_access && in_array('exam_simulator', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed") 
-                                            @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes") 
-                                            
-                                            @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="") 
+                                        @if (($user->is_free_access && in_array('exam_simulator', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed")
+                                            @if($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-review',"no")=="yes")
+
+                                            @elseif($user->progress('exam-'.$exam->id.'-topic-'.$item->id.'-complete-date',"")=="")
                                             @guest('admin')    <a   class="btn btn-warning" onclick="confimexam('{{route('topic-test.show',$item->slug)}}')">ATTEMPT</a> @endguest
                                             @else
                                                 <a   class="btn btn-primary" onclick="loadlessonsetreviews('{{route('topic-test.topic.history',$item->slug)}}')">REVIEW</a>
@@ -70,6 +88,7 @@
             </div>
             <div class="modal-body">
                 <p>The content is locked and a subscription is required.</p>
+                <p>If you are enrolled in our classes, this will be unlocked in Term 4 Week 7</p>
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>

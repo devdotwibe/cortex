@@ -2,7 +2,7 @@
 @section('title', ucfirst($subLessonMaterial->pdf_name))
 @section('content')
     <style>
-        
+
         .lesson-body {
                 width: 100%;
                 padding-left: 150px;
@@ -12,7 +12,7 @@
                 flex-direction: column;
                 align-items: center;
                 margin: 25px;
-            }   
+            }
     </style>
      <section class="exam-container pdfsection">
         <div class="container-wrap" id="question-answer-page">
@@ -26,12 +26,12 @@
                     <h5><span>{{ ucfirst($subLessonMaterial->pdf_name) }}</h5>
                 </div>
                 <div class="lesson-body">
-                    <div id="lesson-pdf-body" class="lesson-pdf-body"> 
+                    <div id="lesson-pdf-body" class="lesson-pdf-body">
                         <iframe id="print-frame" frameborder="0" width="500" height="800"></iframe>
                         <div class="canover"></div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </section>
@@ -40,25 +40,25 @@
 
 @push('footer-script')
     <script>
-        var imgdata = @json($imgdata);
+        var imgdata = @json($imgdataurl);
         let printFrame = document.getElementById("print-frame");
         var scale = 500/800;
         pdfwidth=$('#lesson-pdf-body').width()
         pdfheight= pdfwidth/scale
 
         printFrame.width=pdfwidth;
-        printFrame.height=pdfheight*imgdata.length; 
-       
-        function printdata() {            
+        printFrame.height=pdfheight*imgdata.length;
+
+        function printdata() {
             printFrame.contentWindow.print();
         }
-        
+
 
         $(function(){
-           
+
             $('#print-data').prop("disabled", true);
             let htmlsection ="";
-            $.each(imgdata,function(k,v){ 
+            $.each(imgdata,function(k,v){
                 htmlsection+=`
                 <section>
                     <img src="${v.url}" alt="">
@@ -77,15 +77,15 @@
                         }
                         @media print {
                             body { margin: 0; }
-                            img{ width:100%!important; } 
+                            img{ width:100%!important; }
                         }
                         body { margin: 0; }
                         img{ width: 100% !important; /* Fit horizontally */
                             height: auto;
-                            display: block; } 
+                            display: block; }
                         section {
                             margin:10px
-                        }  
+                        }
                     </style>
                 </head>
                 <body>
@@ -97,8 +97,8 @@
             doc.document.open();
             doc.document.write(windowContent);
             doc.document.close();
-            printFrame.onload = function() { 
-                $('#print-data').prop("disabled", false); 
+            printFrame.onload = function() {
+                $('#print-data').prop("disabled", false);
             };
         })
     </script>

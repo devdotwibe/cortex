@@ -1,11 +1,19 @@
 @extends('layouts.user')
 @section('title', 'Question Bank')
 @section('content')
+
+<style>
+    .card.grey {
+        background:#c4c4c4;
+    }
+
+</style>
+
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
             <h2>Question Bank</h2>
-        </div> 
+        </div>
     </div>
 </section>
 <section class="content_section learn-section">
@@ -13,13 +21,26 @@
         <div class="row">
             @foreach ($categorys as $k=> $item)
             <div class="col-md-6">
-                @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0) 
+
+                @php
+                    $user_access =false;
+                 @endphp
+                @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0)
                 <a href="{{route('question-bank.show',$item->slug)}}">
+
+                    @php
+                    $user_access =true;
+                    @endphp
                 @else
                 {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}
                     <a href="javascript:void(0);" onclick="showLockedModal()">
+
+                    @php
+                    $user_access =false;
+                    @endphp
+
                 @endif
-                    <div class="card">
+                    <div class="card {{ !$user_access ? 'grey' : '' }}">
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
@@ -35,17 +56,17 @@
                                 </div>
                             </div>
                         </div>
-                    </div>        
+                    </div>
                 </a>
-                
+
             </div>
-            @endforeach  
+            @endforeach
         </div>
     </div>
-</section> 
+</section>
 @endsection
 
-@push('modals')  
+@push('modals')
 
 <!-- Locked Content Modal -->
 <div id="lockedModal" class="modal" tabindex="-1" role="dialog">
@@ -59,6 +80,7 @@
             </div>
             <div class="modal-body">
                 <p>The content is locked and a subscription is required.</p>
+                <p>If you are enrolled in our classes, this will be unlocked in Term 3 Week 7</p>
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
@@ -76,10 +98,10 @@
     function showLockedModal() {
         document.getElementById('lockedModal').style.display = 'block';
     }
-    
+
     function closeLockedModal() {
         document.getElementById('lockedModal').style.display = 'none';
     }
     </script>
-     
+
 @endpush
