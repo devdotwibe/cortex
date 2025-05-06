@@ -49,7 +49,7 @@
 </section>
 @endsection
 
-@push('modals')  
+@push('modals')
 
 <!-- Locked Content Modal -->
 <div id="lockedModal" class="modal" tabindex="-1" role="dialog">
@@ -62,7 +62,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>The content is locked and a subscription is required.</p>
+                <p>The content is locked and a subscription is required.
+                    If you are enrolled in our classes, this will be unlocked in Term 1 Week 7
+                </p>
             </div>
             <div class="modal-footer">
                 <a href="{{ route('pricing.index') }}#our-plans" class="btn btn-primary">View Pricing Plans</a>
@@ -74,7 +76,7 @@
 
 @endpush
 
-@push('footer-script') 
+@push('footer-script')
 
 <script>
 function showLockedModal() {
@@ -88,5 +90,5 @@ function closeLockedModal() {
     $('body').removeClass('modal-open');
 }
 </script>
- 
+
 @endpush
