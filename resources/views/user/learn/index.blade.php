@@ -17,7 +17,7 @@
                 <a href="{{ route('learn.show', $item->slug) }}">
                 @else
                     {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}
-                        <a href="javascript:void(0);" onclick="showLockedModal()">
+                        <a href="javascript:void(0);" onclick="showLockedModal({{ $item->slug }})">
                 @endif
                     <div class="card">
                         <div class="card-body">
@@ -63,7 +63,7 @@
             </div>
             <div class="modal-body">
                 <p>The content is locked and a subscription is required. </p>
-                <p>  If you are enrolled in our classes, this will be unlocked in Term 1 Week 7 </p>
+                <p>  If you are enrolled in our classes, this will be unlocked in <span id="term_content">Term 1 Week 7</span> </p>
 
             </div>
             <div class="modal-footer">
@@ -79,7 +79,10 @@
 @push('footer-script')
 
 <script>
-function showLockedModal() {
+function showLockedModal(slug) {
+
+    console.log(slug);
+
     document.getElementById('lockedModal').style.display = 'block';
 }
 
