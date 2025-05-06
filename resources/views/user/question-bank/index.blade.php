@@ -1,6 +1,14 @@
 @extends('layouts.user')
 @section('title', 'Question Bank')
 @section('content')
+
+<style>
+    .card.grey {
+        background: gray;
+    }
+
+</style>
+
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
@@ -13,13 +21,26 @@
         <div class="row">
             @foreach ($categorys as $k=> $item)
             <div class="col-md-6">
+
+                @php
+                    $user_access =false;
+                 @endphp
                 @if (($user->is_free_access && in_array('question_bank', explode(',', $user->free_access_terms)))||(optional($user->subscription())->status??"")=="subscribed" || $k==0)
                 <a href="{{route('question-bank.show',$item->slug)}}">
+
+                    @php
+                    $user_access =true;
+                    @endphp
                 @else
                 {{-- <a href="{{ route('pricing.index') }}#our-plans"> --}}
                     <a href="javascript:void(0);" onclick="showLockedModal()">
+
+                    @php
+                    $user_access =false;
+                    @endphp
+
                 @endif
-                    <div class="card">
+                    <div class="card {{ !$user_access ? 'grey' : '' }}">
                         <div class="card-body">
                             <div class="category">
                                 <div class="category-image">
