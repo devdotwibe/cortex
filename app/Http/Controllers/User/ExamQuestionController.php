@@ -164,9 +164,6 @@ class ExamQuestionController extends Controller
     }
 
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
-
-        dd('test');
-
         if(session("question-bank-attempt")){
             $exam=Exam::where("name",'question-bank')->first();
             if(empty($exam)){
