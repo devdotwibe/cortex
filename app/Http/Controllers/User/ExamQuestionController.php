@@ -217,17 +217,18 @@ class ExamQuestionController extends Controller
                     foreach ($lessons as $lesson) {
                         $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
                         $setcount=count($sets);
-                        $catprogres=0;
+                        // $catprogres=0;
+                        $attendedCount = 0;
                         foreach ($sets as $sitm) {
 
                             $catprogres+=$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id.'-set-'.$sitm->id,0);
+
+                            if ($catprogres > 0) {
+
+                                $attendedCount += 1;
+                            }
                         }
                         $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id,$catprogres>0?($catprogres/$setcount):0);
-
-                        if ($catprogres > 0) {
-
-                            $attendedCount += 1;
-                        }
 
                         $totalAttended += $attendedCount;
 
