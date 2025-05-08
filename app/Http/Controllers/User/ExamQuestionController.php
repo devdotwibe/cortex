@@ -180,25 +180,36 @@ class ExamQuestionController extends Controller
             $user=Auth::user();
 
             // if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
-            //     $lessons=SubCategory::where('category_id',$category->id)->get();
-            //     $lessencount=count($lessons);
-            //     $totalprogres=0;
+                $lessons=SubCategory::where('category_id',$category->id)->get();
+                $lessencount=count($lessons);
+                $totalprogres=0;
 
-            //     $totalSetCount = 0;
+                $totalSetCount = 0;
 
-            //     foreach ($lessons as $lesson) {
-            //         $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
-            //         $setcount=count($sets);
-            //         $catprogres=0;
-            //         foreach ($sets as $sitm) {
-            //             $catprogres+=$user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id.'-set-'.$sitm->id,0);
-            //         }
-            //         $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id,$catprogres>0?($catprogres/$setcount):0);
-            //         $totalprogres+=$catprogres;
+                $totalAttended = 0;
 
-            //         $totalSetCount += $setcount;
-            //     }
-            //     $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$totalSetCount);
+                foreach ($lessons as $lesson) {
+                    $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
+                    $setcount=count($sets);
+                    $catprogres=0;
+                    $attendedCount = 0;
+                    foreach ($sets as $sitm) {
+
+                        $catprogres = $user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id.'-set-'.$sitm->id,0);
+
+                        if ($catprogres != 0) {
+
+                            $attendedCount += 1;
+                        }
+                    }
+                    $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id,$catprogres>0?($catprogres/$setcount):0);
+
+                    $totalAttended += $attendedCount;
+
+                    $totalSetCount += $setcount;
+                }
+
+                $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,64);
             // // }
 
             $user->setProgress("attempt-recent-link",route('question-bank.show',['category'=>$category->slug]));
