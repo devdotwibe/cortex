@@ -186,6 +186,9 @@ class ExamQuestionController extends Controller
                     $lessons=SubCategory::where('category_id',$category->id)->get();
                     $lessencount=count($lessons);
                     $totalprogres=0;
+
+                    $totalSetCount = 0;
+
                     foreach ($lessons as $lesson) {
                         $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
                         $setcount=count($sets);
@@ -195,8 +198,10 @@ class ExamQuestionController extends Controller
                         }
                         $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$lesson->id,$catprogres>0?($catprogres/$setcount):0);
                         $totalprogres+=$catprogres;
+
+                        $totalSetCount += $setcount;
                     }
-                    $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$lessencount);
+                    $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalprogres/$totalSetCount);
                 }
                 if(!empty($request->question)){
                     $question=UserExamQuestion::findSlug($request->question);
