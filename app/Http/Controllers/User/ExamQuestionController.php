@@ -209,7 +209,7 @@ class ExamQuestionController extends Controller
                     $totalSetCount += $setcount;
                 }
 
-                $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalAttended/$totalSetCount);
+                $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id, $totalAttended>0?($totalAttended/$totalSetCount*100):0);
             // // }
 
             $user->setProgress("attempt-recent-link",route('question-bank.show',['category'=>$category->slug]));
