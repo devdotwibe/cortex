@@ -62,39 +62,39 @@ class User extends Authenticatable
 
     public function progress($name,$default=null,$exam_id=null){
 
-        // $user_exam =true;
+        $user_exam =true;
 
-        // if (str_contains($name, 'complete-date'))
-        // {
-        //     $userExamReviews = UserExamReview::where('user_id',$this->id)
-        //     ->where('exam_id',$exam_id)
-        //     ->select('slug','created_at','progress','id','exam_id','ticket')
-        //     ->orderBy('created_at','ASC')->get();
+        if (str_contains($name, 'complete-date'))
+        {
+            $userExamReviews = UserExamReview::where('user_id',$this->id)
+            ->where('exam_id',$exam_id)
+            ->select('slug','created_at','progress','id','exam_id','ticket')
+            ->orderBy('created_at','ASC')->get();
 
-        //     foreach($userExamReviews as $row)
-        //     {
-        //         $userExam = UserExam::findSlug($row->ticket);
+            foreach($userExamReviews as $row)
+            {
+                $userExam = UserExam::findSlug($row->ticket);
 
-        //         if (!$userExam) {
-        //             $user_exam = false;
-        //             break;
-        //         }
+                if (!$userExam) {
+                    $user_exam = false;
+                    break;
+                }
 
-        //         $exam_questions_count = UserExamQuestion::where('exam_id', $row->exam_id)
-        //         ->where('user_exam_id', $userExam->id)
-        //         ->count();;
+                $exam_questions_count = UserExamQuestion::where('exam_id', $row->exam_id)
+                ->where('user_exam_id', $userExam->id)
+                ->count();;
 
-        //         if ($exam_questions_count === 0) {
-        //             $user_exam = false;
-        //             break;
-        //         }
-        //     }
+                if ($exam_questions_count === 0) {
+                    $user_exam = false;
+                    break;
+                }
+            }
 
-        // }
-        //     if(!$user_exam)
-        //     {
-        //         return null;
-        //     }
+        }
+            if(!$user_exam)
+            {
+                return null;
+            }
 
         return optional($this->userProgress()->where("name",$name)->first())->value??$default;
     }
