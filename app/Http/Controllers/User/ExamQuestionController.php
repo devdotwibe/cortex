@@ -235,7 +235,7 @@ class ExamQuestionController extends Controller
                         $totalSetCount += $setcount;
                     }
 
-                    $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,$totalAttended/$totalSetCount);
+                    $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id,64);
                 }
                 if(!empty($request->question)){
                     $question=UserExamQuestion::findSlug($request->question);
