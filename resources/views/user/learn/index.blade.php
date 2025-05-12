@@ -127,7 +127,7 @@ function showLockedModal(slug) {
     }
     else if(slug =='Exam Performance')
     {
-        content="If you are enrolled in our classes, this will be unlocked in Term 3 Week 7";
+        content="Term 3 Week 7";
     }
 
     if(content =="")
