@@ -1,18 +1,18 @@
 @extends('layouts.user')
-@section('title', 'Class Details')
+@section('title', 'Zoom Details')
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
                 <a href="{{ route('live-class.privateclass.room',$user->slug) }}">
-                  
+
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                 </a>
             </div>
             {{-- <h2>Term {{$classDetail->getIdx()+1}} : Class Details </h2> --}}
-                <h2>{{$classDetail->term_name}} : Class Details </h2>
-                
+                <h2>{{$classDetail->term_name}} : Zoom Details </h2>
+
         </div>
     </div>
 </section>
@@ -22,15 +22,15 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-3">
-                    <div class="card-body"> 
+                    <div class="card-body">
                         <div class="class-term-list">
-                            
+
                             @if(!empty($sloteterms) && count($sloteterms) > 0)
 
                                 @foreach ($sloteterms as  $k=>$item)
                                 <div class="class-term" >
                                     <div class="class-term-label">
-                                        <span>{{$item['slot']}} </span>  
+                                        <span>{{$item['slot']}} </span>
                                     </div>
                                     <div class="class-term-content">
                                         <div class="zoom-list">
@@ -52,14 +52,14 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                </div>           
+                                </div>
                                 @endforeach
 
                             @endif
                             {{-- <div >
                                 <div class="class-term-label">
-                                    <span>Time Slot </span>  
-                                </div>                                        
+                                    <span>Time Slot </span>
+                                </div>
                                 <div class="class-term-content">
                                     <span> : </span>
                                     <ul>
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="class-term-content">
                                     <span> : {{$item->meeting_id}}</span>
-                                </div>    
+                                </div>
                             </div>
                             <div class="class-term">
                                 <div class="class-term-label">
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="class-term-content">
                                     <span> : {{$item->passcode}}</span>
-                                </div>    
+                                </div>
                             </div>
                             <div class="class-term">
                                 <div class="class-term-label">
@@ -89,13 +89,13 @@
                                 </div>
                                 <div class="class-term-content">
                                     <span> : <a href="{{$item->zoom_link}}" target="_blank" rel="noopener noreferrer">{{$item->zoom_link}}</a> </span>
-                                </div>    
+                                </div>
                             </div> --}}
-                        </div>                                    
-                                     
+                        </div>
+
                     </div>
                 </div>
-            </div>     
+            </div>
         </div>
     </div>
 </section>

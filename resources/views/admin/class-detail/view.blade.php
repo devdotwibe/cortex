@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Class Details -> '.$class_detail->term_name)
+@section('title', 'Zoom Details -> '.$class_detail->term_name)
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
@@ -12,7 +12,7 @@
             </div>
 
 
-            <h2> Class Details -> {{ $class_detail->term_name  }}</h2>
+            <h2> Zoom Details -> {{ $class_detail->term_name  }}</h2>
         </div>
 
         <div class="header_right">

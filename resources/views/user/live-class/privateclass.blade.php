@@ -6,7 +6,7 @@
             <div class="header_title">
                 <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
                     <a href="{{ route('live-class.privateclass',$user->slug) }}">
-                      
+
                         <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                     </a>
                 </div>
@@ -27,7 +27,7 @@
                                         <img src="{{ asset('assets/images/class.svg') }}">
                                     </div>
                                     <div class="category-content">
-                                        <h3>Class Details</h3> 
+                                        <h3>Zoom Details</h3>
                                     </div>
                                 </div>
                                 <div class="category cat-1" id="category-content-class-detail">
@@ -112,7 +112,7 @@
                         </div>
                     </div>
                 </div>
- 
+
 
             </div>
         </div>
@@ -144,7 +144,7 @@
                 // pagetoggle()
             },'json')
         }
-        
+
         function loadlessonmaterial(url){
             $.get(url,function(res){
                 $.each(res,function(k,v){

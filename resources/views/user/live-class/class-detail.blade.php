@@ -1,16 +1,16 @@
 @extends('layouts.user')
-@section('title', 'Class Details')
+@section('title', 'Zoom Details')
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
                 <a href="{{ route('live-class.privateclass.room',$user->slug) }}">
-                  
+
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                 </a>
             </div>
-            <h2>Class Details </h2>
+            <h2>Zoom Details </h2>
         </div>
     </div>
 </section>
@@ -26,20 +26,20 @@
                             <div class="category">
                                 <div class="category-image">
                                     <img src="{{ asset('assets/images/User-red.png') }}">
-                                </div> 
+                                </div>
                                 <div class="category-content">
                                     <div class="class-title">
                                         <h4>{{$item->term_name}}</h4>
                                     </div>
                                     <div class="class-term">
-                                        <h3>Term {{$k+1}}</h3> 
+                                        <h3>Term {{$k+1}}</h3>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-            </div>                
+            </div>
             @endforeach
         </div>
     </div>

@@ -31,7 +31,7 @@
 <section class="content_section admin_section admin-live-class">
     <div class="container">
         <div class="row">
-           
+
             <div class="col-md-6 pt-4">
 
                 <a  onclick="loadclassdetail('{{route('admin.term.class_detail')}}')">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="category-content">
                                     {{-- <h5><span >  </span> <img src="{{asset('assets/images/pen.png')}}" width="15" alt=""></h5> --}}
-                                    <h3>Class Details</h3>
+                                    <h3>Zoom Details</h3>
                                 </div>
                                 <div class="category-action">
 
@@ -153,7 +153,7 @@
             </div>
 
             </div>
-          
+
         </div>
     </div>
 </section>
@@ -202,18 +202,18 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                         <div class="col-md-4 pt-4">
                             <button type="submit" class="btn btn-dark" id="table-subcategoryset-form-submit"> Add + </button>
                             <button type="button" class="btn btn-secondary" style="display: none" id="table-subcategoryset-form-clear" >Cancel</button>
                         </div>
-                    </div> 
+                    </div>
                 </form>
 
                 <div id="class_detail" class="table-term-ajax" style="display: none">
 
                     <x-ajax-table
-                
+
                         popupid="private-class-modal"
                         deletecallbackafter='deletecallbackafter'
                         tableid="class_detail"
@@ -222,13 +222,13 @@
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
                         ]" />
-                        
+
                 </div>
 
                 <div id="lesson_material" class="table-term-ajax" style="display: none">
 
                     <x-ajax-table
-                    
+
                         popupid="private-class-modal"
                         deletecallbackafter='deletecallbackafter'
                         tableid='lesson_material'
@@ -237,13 +237,13 @@
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
                         ]" />
-                        
+
                 </div>
 
                 <div id="home_work" class="table-term-ajax" style="display: none">
 
                     <x-ajax-table
-                    
+
                         popupid="private-class-modal"
                         deletecallbackafter='deletecallbackafter'
                         tableid='home_work'
@@ -252,13 +252,13 @@
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
                         ]" />
-                        
+
                 </div>
 
                 <div id="lesson_recording" class="table-term-ajax" style="display: none">
 
                     <x-ajax-table
-                    
+
                         popupid="private-class-modal"
                         tableid='lesson_recording'
                         deletecallbackafter='deletecallbackafter'
@@ -268,7 +268,7 @@
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Term Name', 'name' => 'term_name', 'data' => 'term_name'],
                         ]" />
-                        
+
                 </div>
 
             </div>
@@ -297,27 +297,27 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                         <div class="col-md-4 pt-4">
                             <button type="submit" class="btn btn-dark" id="booklet-form-submit"> Add + </button>
                             <button type="button" class="btn btn-secondary" style="display: none" id="booklet-form-clear" >Cancel</button>
                         </div>
-                    </div> 
+                    </div>
                 </form>
 
                 <div class="table-booklet-ajax"  >
 
-                    <x-ajax-table 
-                        deletecallbackbefore='deletecallbackbefore' 
-                        deletecallbackafter='deletecallbackafter' 
-                        tableinit="booklettableinit" 
+                    <x-ajax-table
+                        deletecallbackbefore='deletecallbackbefore'
+                        deletecallbackafter='deletecallbackafter'
+                        tableinit="booklettableinit"
                         beforeajax="booklettablebeforeajax"
                         :url="route('admin.term.show_table_week_booklet')"
                         :coloumns="[
                             ['th' => 'Date', 'name' => 'created_at', 'data' => 'date'],
                             ['th' => 'Title', 'name' => 'title', 'data' => 'title'],
                         ]" />
-                        
+
                 </div>
             </div>
         </div>
@@ -378,7 +378,7 @@
 
 
             if (term == 'class_detail') {
-                $('#add_term_name').text('Class Details');
+                $('#add_term_name').text('Zoom Details');
             } else if (term == 'lesson_material') {
                 $('#add_term_name').text('Lesson Material');
             } else if (term == 'home_work') {
@@ -410,7 +410,7 @@
 
         }
 
-        function deletecallbackbefore(){ 
+        function deletecallbackbefore(){
 
             $('#private-class-modal').modal('hide');
         }
@@ -419,8 +419,8 @@
             var term = $('#add_term_name').text();
 
             console.log(term);
-            
-            if(term == 'Class Details')
+
+            if(term == 'Zoom Details')
             {
                 loadclassdetail('{{route('admin.term.class_detail')}}');
             }
@@ -433,7 +433,7 @@
                 loadhomework('{{route('admin.term.home_work')}}');
             }
             else if(term == 'Lesson Recording')
-            { 
+            {
                 loadlessonrecord('{{route('admin.term.lesson_recording')}}');
             }
 
@@ -441,7 +441,7 @@
         }
         function weekbooklet(event,slug)
         {
-            $('#week_booklet_parent').val(slug) 
+            $('#week_booklet_parent').val(slug)
             weekbooklettoggle()
             booklettable.ajax.reload()
         }
@@ -532,13 +532,13 @@
                 }
             })
         })
-        
+
         $(document).ready(function() {
 
             $('#term_form').on('submit', function(event) {
 
-                event.preventDefault(); 
-                
+                event.preventDefault();
+
                 var form = $(this);
                 var url = form.data('action');
                 var formData = new FormData(this);
@@ -554,9 +554,9 @@
 
                     processData: false,
                     contentType: false,
-                  
+
                     success: function(response) {
-                      
+
 
                         var new_url = "{{ route('admin.term.store') }}";
 
@@ -587,11 +587,11 @@
                         {
                             loadlessonrecord('{{route('admin.term.lesson_recording')}}');
                         }
-                        
+
 
                     },
                     error: function(response) {
-                       
+
                         var errors = response.responseJSON.errors;
                         if (errors.term_name) {
                             $('#term-errror').text(errors.term_name[0]).show();
@@ -604,7 +604,7 @@
                 $('#term-errror').hide().text('');
             });
         });
-        
+
     </script>
 
     <script>
@@ -628,7 +628,7 @@
                     // pagetoggle()
                 },'json')
             }
-            
+
             function loadlessonmaterial(url){
                 $.get(url,function(res){
                     $.each(res,function(k,v){

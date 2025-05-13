@@ -1,12 +1,12 @@
 @extends('layouts.user')
-@section('title', 'Class Details')
+@section('title', 'Zoom Details')
 @section('content')
 <section class="header_nav">
     <div class="header_wrapp">
         <div class="header_title">
             <div class="back-btn" id="back-btn" style="display: block"> <!-- Ensure proper display value -->
                 <a href="{{ route('live-class.privateclass.room',$user->slug) }}">
-                  
+
                     <img src="{{ asset('assets/images/exiticon.svg') }}" alt="">
                 </a>
             </div>
@@ -34,17 +34,17 @@
                     <div class="card-body">
                         <a  onclick="checkStatus('{{ route('live-class.privateclass.lessonpdf', ['live' => $user->slug, 'sub_lesson_material' => $item->slug]) }}')">
                             <div class="category">
-                                <div class="category-content"> 
-                                    <h4>{{$item->pdf_name}}</h4> 
+                                <div class="category-content">
+                                    <h4>{{$item->pdf_name}}</h4>
                                 </div>
                                 <div class="category-image">
                                     <img src="{{ asset('assets/images/pdf.png') }}">
-                                </div> 
+                                </div>
                             </div>
                         </a>
                     </div>
                 </div>
-            </div>                
+            </div>
             @endforeach
         </div>
     </div>
@@ -65,14 +65,14 @@
 //             type: 'GET',
 //             success: function(response) {
 //                 if (response.status === 'processing') {
-        
+
 //                     $('#refreshing-gif').show();
 //                 }
 //                 else if (response.status === 'completed') {
-//                     window.location.reload(); 
-//                     clearInterval(interval);  
+//                     window.location.reload();
+//                     clearInterval(interval);
 //                 } else if (response.status === 'failed') {
-                  
+
 //                     $('#refreshing-gif').hide();
 //                     alert('There was an error processing the file.');
 //                     clearInterval(interval);
@@ -106,16 +106,16 @@ function checkStatus(route) {
                 // }, 20000);
 
             } else if (response.status === 'completed') {
-              
-                window.location.href = route; 
+
+                window.location.href = route;
 
             } else if (response.status === 'failed') {
-                
+
                 $('#refreshing-gif').hide();
             }
         },
         error: function() {
-           
+
             $('#refreshing-gif').hide();
             alert('An error occurred while checking the status.');
         }
