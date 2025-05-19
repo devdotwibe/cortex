@@ -647,7 +647,7 @@ function HideTime() {
 
 
             },'json').fail(function(xhr,status,error){
-                showToast("Error test 5: " + error, 'danger');
+                showToast("Error: " + error,status, 'danger');
             })
 
             const csrf= $('meta[name="csrf-token"]').attr('content');
