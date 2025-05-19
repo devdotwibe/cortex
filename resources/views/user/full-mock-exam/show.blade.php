@@ -38,7 +38,7 @@
                          <div id="magnifier-icon" style="cursor: pointer; display: inline-block;">
                              <i class="fas fa-search-plus" style="font-size: 24px; color: #333;"></i>
                          </div>
-                     
+
                          <!-- Hidden Dropdown for Zoom Options -->
                          <div id="zoom-dropdown" style="
                              display: none;
@@ -109,10 +109,10 @@
                             <span class="runner">00</span>
                             <span>Seconds</span>
                         </div>
-                    </div> 
+                    </div>
 
-                    
-                    
+
+
                     <button class="btn hide-btn" id="hide_button" onclick="HideTime()">Hide<br>Time</button>
 
                 </div>
@@ -122,34 +122,34 @@
                     <div class="menu-text">
                         <span id="menu-text" >Question <span> 0 </span>  of <span>0 </span> </span>
                     </div>
-                    <div class="menu-icon"> 
+                    <div class="menu-icon">
                         <a onclick="toglepreviewpage()"  >
                             <img src="{{asset("assets/images/menu.svg")}}" alt="menu">
                         </a>
                     </div>
                 </div>
             </div>
-           
+
         </div>
-        
+
     </div>
     <div class="container-wrap mcq-container-wrap full-mock-exam nopaginationclass" id="question-answer-page">
-        <div class="lesson">   
-            <div class="lesson-body"> 
+        <div class="lesson">
+            <div class="lesson-body">
                 <div class="row" id="lesson-questionlist-list" style="display: none">
                 </div>
             </div>
-            <div class="lesson-footer" id="lesson-footer-pagination"> 
-            </div>           
+            <div class="lesson-footer" id="lesson-footer-pagination">
+            </div>
         </div>
-    </div> 
+    </div>
 </section>
-<section class="exam-footer"> 
+<section class="exam-footer">
     <div class="lesson-pagination">
         <div class="lesson-left pagination-arrow" style="display: none" >
             <button class="button left-btn"><img src="{{asset('assets/images/leftarrow.svg')}}" alt="<"> Back </button>
         </div>
-       
+
         <div class="exam-right exam-progress-inner-item">
             <div class="progress-main">
                 <div class="bookmark">
@@ -158,7 +158,7 @@
 
                         <span id="flagimages" class="flagclass">
                         <img class="active-img" src="{{asset("assets/images/flag-blue.svg")}}" alt="bookmark">
-                     
+
                         <img class="inactive-img" src="{{asset("assets/images/flag-red.svg")}}" alt="bookmark">
                         </span>
                     </a>
@@ -168,17 +168,17 @@
         <div class="lesson-right pagination-arrow" style="display:none">
             <button class="button right-btn"> Next <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
         </div>
-       
+
         <div class="lesson-finish pagination-arrow" style="display:none">
             <button class="button finish-btn" > Finish Set <img src="{{asset('assets/images/rightarrow.svg')}}" alt=">"></button>
-        </div>  
-    </div> 
+        </div>
+    </div>
 </section>
- 
+
 
 <section class="modal-expand" id="question-preview-page" style="display: none;">
     <div class="container-wrap">
-        <div class="question-preview">  
+        <div class="question-preview">
             <div class="question-preview-title">
                 <h3>Progress Summary</h3>
             </div>
@@ -186,19 +186,19 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="nav nav-tabs question-tab" id="questionPreviewTab" role="tablist">
-                            <li class="nav-item" role="presentation"> 
+                            <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="show-all-tab" data-bs-toggle="tab" data-bs-target="#show-all" type="button" role="tab" aria-controls="show-all" aria-selected="true"><div class="nav-status status-active"><img src="{{asset('assets/images/showall-icon.svg')}}" alt="all"><span></span></div> Show All</button>
                             </li>
-                            <li class="nav-item" role="presentation"> 
+                            <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="answered-tab" data-bs-toggle="tab" data-bs-target="#answered" type="button" role="tab" aria-controls="answered" aria-selected="false"><div class="nav-status status-active" ><span id="answered-nav">0</span></div> Answered</button>
                             </li>
-                            <li class="nav-item" role="presentation"> 
+                            <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="not-answered-tab" data-bs-toggle="tab" data-bs-target="#not-answered" type="button" role="tab" aria-controls="not-answered" aria-selected="false"><div class="nav-status status-inactive" ><span id="not-answered-nav">0</span></div> Not Answered</button>
                             </li>
-                            <li class="nav-item" role="presentation"> 
+                            <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="not-readed-tab" data-bs-toggle="tab" data-bs-target="#not-readed" type="button" role="tab" aria-controls="not-readed" aria-selected="false"><div class="nav-status"><span  id="not-readed-nav">{{($questioncount??0)}}</span></div> Not Read</button>
                             </li>
-                            <li class="nav-item" role="presentation"> 
+                            <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="flagged-tab" data-bs-toggle="tab" data-bs-target="#flagged" type="button" role="tab" aria-controls="flagged" aria-selected="false"><div class="nav-status status-active" ><img src="{{asset('assets/images/flaged.svg')}}" alt="all"><span id="flagged-nav">0</span> </div> Flagged</button>
                             </li>
                         </ul>
@@ -216,7 +216,7 @@
                                                     <div class="question-item" data-idx="{{$i}}">
                                                         <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
-                                                            <span>{{$i}}</span> 
+                                                            <span>{{$i}}</span>
                                                         </button>
                                                     </div>
                                                 @endfor
@@ -260,7 +260,7 @@
                                                     <div class="question-item" data-idx="{{$i}}">
                                                         <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
-                                                            <span>{{$i}}</span> 
+                                                            <span>{{$i}}</span>
                                                         </button>
                                                     </div>
                                                 @endfor
@@ -283,7 +283,7 @@
                                                     <div class="question-item status-not-read"  data-idx="{{$i}}">
                                                         <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}');})">
                                                             <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
-                                                            <span>{{$i}}</span> 
+                                                            <span>{{$i}}</span>
                                                         </button>
                                                     </div>
                                                 @endfor
@@ -304,10 +304,10 @@
                                                 @for ($i = 1; $i <= ($questioncount??0); $i++)
                                                     <div class="question-item" data-idx="{{$i}}">
                                                         <button class="item-group" onclick="updateandsave(function(){loadlesson('{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug,'page'=>$i]) }}');})">
-                                                             
+
                                                                 <img src="{{asset('assets/images/flaged.svg')}}" alt="all">
                                                                 <span>{{$i}}</span>
-                                                             
+
                                                         </button>
                                                     </div>
                                                 @endfor
@@ -332,8 +332,8 @@
         <input type="hidden" name="timetaken" id="finish-exam-confirmed-form-timetaken" value="" >
         <input type="hidden" name="flags" id="finish-exam-confirmed-form-flags" value="" >
         <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
-        <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" > 
-        <input type="hidden" name="questions" id="finish-exam-confirmed-form-questions" value="" > 
+        <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" >
+        <input type="hidden" name="questions" id="finish-exam-confirmed-form-questions" value="" >
 
     </form>
 </div>
@@ -349,7 +349,7 @@
                 <h5 class="modal-title" id="Lablel">Submit Assessment</h5>
                 <button type="button" class="close" data-bs-dismiss="modal"    aria-label="Close"><span  aria-hidden="true">&times;</span></button>
             </div>
-            {{-- <div class="modal-body"> 
+            {{-- <div class="modal-body">
                 <p>Do you want to submit this assessment ?</p>
                 <p style="display:none" class="unfinish-message"> You still have <span class="unfinish-count">0</span> unfinished questions. </p>
                 <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
@@ -357,7 +357,7 @@
             </div> --}}
 
 
-            <div class="modal-body"> 
+            <div class="modal-body">
                 <p>Do you want to submit this assessment?</p>
                 <p style="display:none" class="unfinish-message">
                     You still have <span class="unfinish-count">0</span> unfinished <span class="question-text">questions</span>.
@@ -370,7 +370,7 @@
 </div>
 @endpush
 
-@push('footer-script') 
+@push('footer-script')
 
 
 <script>
@@ -391,7 +391,7 @@
 </script>
 
 
-    <script>  
+    <script>
 
 function HideTime() {
         const timerDiv = $('#exam_timer');
@@ -414,15 +414,15 @@ function HideTime() {
                 return target[propertyName] || null;
             },
             set: function(target, propertyName, value) {
-                target[propertyName] = value; 
+                target[propertyName] = value;
                 return true;
             }
         });
         function refreshpreviewstate(){
-            
+
         }
         function toglepreviewpage(){
-            // summery.timerActive=!summery.timerActive; 
+            // summery.timerActive=!summery.timerActive;
             $('#question-preview-page').slideToggle()
             $('#question-answer-page').fadeToggle()
             // summery.save();
@@ -442,8 +442,8 @@ function HideTime() {
             return result;
         }
         function countownRun(){
-            if(summery.timerActive&&summery.examActive){ 
-                if(summery.endTime>0){ 
+            if(summery.timerActive&&summery.examActive){
+                if(summery.endTime>0){
                     var d=summery.endTime;
                     var m=Math.floor(d/60);
                     var s=d-(m*60);
@@ -454,7 +454,7 @@ function HideTime() {
                     }else if(summery.endTime<=10){
                         $('.exam-timer').addClass('time-up');
                     }else{
-                        $('.exam-timer').removeClass('time-up');  
+                        $('.exam-timer').removeClass('time-up');
                     }
                     summery.endTime--;
                     summery.timetaken++;
@@ -464,39 +464,39 @@ function HideTime() {
                     $('.exam-timer .minute .runner').text(d2s(0))
                     $('.exam-timer .second .runner').text(d2s(0))
                     $('.exam-timer').addClass('time-up')
-                    summery.examActive=false 
+                    summery.examActive=false
                     summery.save()
                     updateandsave(function(){
-                        var unfinishcount=summery.totalcount-summery.questionids.length; 
+                        var unfinishcount=summery.totalcount-summery.questionids.length;
                         if(unfinishcount>0){
                             $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                         }else{
                             $('.unfinish-message').hide().find('.unfinish-count').text(0)
                         }
-                        lessonreviewconfirm() 
-                    })   
+                        lessonreviewconfirm()
+                    })
                     if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                         $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
                     }else{
                         $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
-                    } 
+                    }
                 }
-            }            
-        } 
+            }
+        }
         function getVimeoId(url) {
             // Regular expression to match Vimeo URL format
             const regex = /vimeo\.com\/(?:video\/|)(\d+)/;
             // Extract video ID using match function
             const match = url.match(regex);
-            
+
             if (match) {
                 return match[1]; // Return the captured video ID
             } else {
                 return url; // Return null if no match found
             }
-        } 
+        }
         async function verifyquestion(question,ans){
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            const csrf= $('meta[name="csrf-token"]').attr('content');
             var response=await fetch("{{route('full-mock-exam.verify',['exam'=>$exam->slug])}}", {
                 method: 'POST',
                 headers: {
@@ -508,8 +508,8 @@ function HideTime() {
                     question:question,
                     answer:ans
                 }),
-            }); 
-            const data = await response.json(); 
+            });
+            const data = await response.json();
             if(data.iscorrect){
                 summery.verifydx[question]=true;
             }else{
@@ -533,34 +533,34 @@ function HideTime() {
                 summery.notansweridx.forEach(idx => refreshstatus(idx, 'not-answered'));
             }
         }
-         function loadlesson(pageurl=null){ 
-             
+         function loadlesson(pageurl=null){
+
             $.get(pageurl||"{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug]) }}",function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 summery.timerActive=true;
                 $('#question-preview-page').fadeOut()
                 $('#question-answer-page').fadeIn()
-                const lesseonId=generateRandomId(10);  
+                const lesseonId=generateRandomId(10);
                 summery.cudx=res.current_page;
-                summery.notansweridx.push(summery.cudx) 
+                summery.notansweridx.push(summery.cudx)
                 summery.notansweridx = [...new Set(summery.notansweridx)]
                 summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
                 refreshstatus(summery.cudx,'not-answered');
                 if(summery.flagdx[summery.cudx]){
                     $("#bookmark-current").addClass('active');
                     $("#flagtext").text('Unflag');
-                  
+
                 }else{
                     $("#bookmark-current").removeClass('active');
-                   
-                   
+
+
                     $("#flagtext").text('Flag');
-                    
+
 
                 }
                 summery.save()
-                $.each(res.data,function(k,v){ 
+                $.each(res.data,function(k,v){
                         $('#lesson-questionlist-list').html(`
                             <div class="col-md-12">
                                 <div class="mcq-row" >
@@ -569,33 +569,33 @@ function HideTime() {
                                     </div>
                                     <div class="mcq-container">
                                         <div class="mcq-group">
-                                           
+
                                             <div class="mcq-title-text" ${v.title_text?"":'style="display:none"'}>
                                                ${v.title_text||""}
                                             </div>
                                             <div id="mcq-${lesseonId}" class="mcq-description">
                                                ${v.description}
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="mcq-answer mcq-group-right">
                                             <div  class="mcq-description">
                                                ${v.sub_question||""}
-                                            </div>  
+                                            </div>
                                             <div id="mcq-${lesseonId}-ans" class="form-group" >
                                                 <div class="form-data" >
-                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list"> 
-                                                        
-                                                    </div> 
-                                                </div> 
+                                                    <div class="forms-inputs mb-4" id="mcq-${lesseonId}-list">
+
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         `).fadeIn();
-                        if(!summery.timercurrent[v.slug]){ 
-                            summery.timercurrent[v.slug]=0; 
-                        } 
+                        if(!summery.timercurrent[v.slug]){
+                            summery.timercurrent[v.slug]=0;
+                        }
                         summery.currentSlug=v.slug;
                         summery.save()
                         $.get(pageurl||"{{ route('full-mock-exam.confirmshow',['exam'=>$exam->slug]) }}",{question:v.slug},function(ans){
@@ -624,34 +624,34 @@ function HideTime() {
                             refreshquestionanswer(v.slug,function(data){
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
                                 if(data.value){
-                                    summery.answeridx.push(summery.cudx) 
+                                    summery.answeridx.push(summery.cudx)
                                     summery.answeridx = [...new Set(summery.answeridx)]
                                     summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
                                     summery.save();
                                     refreshstatus(summery.cudx,'answered');
                                 }
-                            }) 
+                            })
                         },'json').fail(function(xhr,status,error){
-                            showToast("Error: " + error, 'danger'); 
-                        }) 
-                }) 
-                if(res.next_page_url){ 
+                            showToast("Error: " + error, 'danger');
+                        })
+                })
+                if(res.next_page_url){
                     $('.lesson-right').show().find('button.right-btn').data('pageurl',res.next_page_url);
                 }else{
                     $('.lesson-finish').show();
                 }
                 if(res.prev_page_url){
                     $('.lesson-left').show().find('button.left-btn').data('pageurl',res.prev_page_url);
-                }  
+                }
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
-                 
+
 
             },'json').fail(function(xhr,status,error){
-                showToast("Error: " + error, 'danger'); 
+                showToast("Error: " + error, 'danger');
             })
 
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
-            progressurl=pageurl; 
+            const csrf= $('meta[name="csrf-token"]').attr('content');
+            progressurl=pageurl;
             fetch("{{route('progress')}}", {
                 method: 'POST',
                 headers: {
@@ -663,14 +663,14 @@ function HideTime() {
                     name:"exam-{{$exam->id}}-progress-url",
                     value:progressurl
                 }),
-            }); 
+            });
 
             restoreQuestionStatuses()
-                 
+
          }
-         async function updateprogress(callback){  
-            try { 
-                const csrf= $('meta[name="csrf-token"]').attr('content');  
+         async function updateprogress(callback){
+            try {
+                const csrf= $('meta[name="csrf-token"]').attr('content');
                 var currentprogress=(summery.questionids.length*100/summery.totalcount)
                 const response1 = await fetch("{{route('progress')}}", {
                     method: 'POST',
@@ -683,7 +683,7 @@ function HideTime() {
                         name:"exam-{{$exam->id}}-progress-ids",
                         value:JSON.stringify(summery.questionids)
                     }),
-                });  
+                });
 
                 const response2 = await fetch("{{route('progress')}}", {
                     method: 'POST',
@@ -696,13 +696,26 @@ function HideTime() {
                         name:"exam-{{$exam->id}}",
                         value:currentprogress
                     }),
-                }); 
+                });
                 if (!response2.ok) {
-                    showToast("Error: " + response2.status, 'danger'); 
-                }  
+
+                    if(response2.status ==419)
+                    {
+                        showToast("Error: " + 'Page expired. Please refresh.', 'danger');
+                    }
+                    else
+                    {
+                        showToast("Error: " + response2.status, 'danger');
+                    }
+
+                }
                 callback()
-            } catch (error) { 
-                showToast("Error: " + error, 'danger'); 
+            } catch (error) {
+
+                // showToast("Error: " + error, 'danger');
+                showToast("Error: " + (error.message || error), 'danger');
+
+
             }
          }
          async function updatequestionanswer(question,ans){
@@ -711,7 +724,7 @@ function HideTime() {
                 return array.indexOf(value) === index;
             })
             summery.save()
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            const csrf= $('meta[name="csrf-token"]').attr('content');
             const response = await fetch("{{route('progress')}}", {
                 method: 'POST',
                 headers: {
@@ -723,10 +736,10 @@ function HideTime() {
                     name:"exam-{{$exam->id}}-answer-of-"+question,
                     value:ans
                 }),
-            }); 
+            });
          }
          async function refreshquestionanswer(question,callback){
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            const csrf= $('meta[name="csrf-token"]').attr('content');
             const response = await fetch("{{route('getprogress')}}", {
                 method: 'POST',
                 headers: {
@@ -738,15 +751,15 @@ function HideTime() {
                     name:"exam-{{$exam->id}}-answer-of-"+question,
                     value:''
                 }),
-            }); 
+            });
             if (response.ok) {
                 const data = await response.json();
                 callback(data);
             }
-         } 
+         }
 
          async function lessonreviewconfirm(){
-            const csrf= $('meta[name="csrf-token"]').attr('content'); 
+            const csrf= $('meta[name="csrf-token"]').attr('content');
             // currentprogress=(summery.questionids.length*100/summery.totalcount)
             await fetch("{{route('progress')}}", {
                 method: 'POST',
@@ -759,69 +772,69 @@ function HideTime() {
                     name:"exam-{{$exam->id}}-complete-review",
                     value:'pending'
                 }),
-            }); 
-            $('#finish-exam-confirm').modal('hide') 
-            var timed="timed";             
+            });
+            $('#finish-exam-confirm').modal('hide')
+            var timed="timed";
             $('#finish-exam-confirmed-form-timed').val(timed)
             $('#finish-exam-confirmed-form-timetaken').val(summery.timetaken)
             $('#finish-exam-confirmed-form-flags').val(JSON.stringify(summery.flagcurrent))
             $('#finish-exam-confirmed-form-times').val(JSON.stringify(summery.timercurrent))
-            $('#finish-exam-confirmed-form-passed').val(Object.keys(summery.verifydx).length); 
-            $('#finish-exam-confirmed-form-questions').val(JSON.stringify(Object.keys(summery.verifydx))); 
+            $('#finish-exam-confirmed-form-passed').val(Object.keys(summery.verifydx).length);
+            $('#finish-exam-confirmed-form-questions').val(JSON.stringify(Object.keys(summery.verifydx)));
             $('#finish-exam-confirmed-form').submit();
             summery.timerActive=false;
             summery.examActive=false;
-            summery.save() 
+            summery.save()
          }
-         async function updateandsave(callback){ 
+         async function updateandsave(callback){
             if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
                 $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]:checked').each(function(){
                     updatequestionanswer($(this).data('question'),$(this).val());
                     verifyquestion($(this).data('question'),$(this).val());
                     if($(this).val()){
-                        summery.answeridx.push(summery.cudx) 
+                        summery.answeridx.push(summery.cudx)
                         summery.answeridx = [...new Set(summery.answeridx)]
                         summery.notansweridx=summery.notansweridx.filter(item => item !== summery.cudx)
                         summery.save();
                         refreshstatus(summery.cudx,'answered');
                     }else{
-                        summery.notansweridx.push(summery.cudx) 
+                        summery.notansweridx.push(summery.cudx)
                         summery.notansweridx = [...new Set(summery.notansweridx)]
                         summery.answeridx=summery.answeridx.filter(item => item !== summery.cudx)
                         summery.save();
                         refreshstatus(summery.cudx,'not-answered');
                     }
                 })
-            } 
-            updateprogress(callback) 
+            }
+            updateprogress(callback)
          }
-          
+
          async function exitconfirm(url){
-            if(await showConfirm({ 
+            if(await showConfirm({
                 title:"Are you sure do you want to exit?" ,
                 message: "If you exit in-between the exam, The answered questions will not save and you should need to start the exam from the beginning.",
             })){
                 window.location.href=url;
             }
         }
-         $(function(){  
+         $(function(){
             refreshpreviewstate()
-            loadlesson(progressurl) 
-            $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){  
-                const pageurl=$(this).data('pageurl');  
+            loadlesson(progressurl)
+            $('.lesson-left button.left-btn,.lesson-right button.right-btn').click(function(){
+                const pageurl=$(this).data('pageurl');
                 updateandsave(function(){
                     loadlesson(pageurl)
                 })
-            });  
+            });
 
-            $('.lesson-finish button.finish-btn').click(function(){  
+            $('.lesson-finish button.finish-btn').click(function(){
                 updateandsave(function(){
-                    var unfinishcount=summery.totalcount-summery.questionids.length; 
+                    var unfinishcount=summery.totalcount-summery.questionids.length;
                     if(unfinishcount>0){
                         $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
                     }else{
                         $('.unfinish-message').hide().find('.unfinish-count').text(0)
-                    }  
+                    }
                     $('#finish-exam-confirm').modal('show')
 
                     updateUnfinishedMessage(unfinishcount);
@@ -844,43 +857,43 @@ function HideTime() {
                     $("#flagtext").text('Unflag')
                     $(`#show-all .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
                     $(`#flagged .question-item[data-idx="${summery.cudx}"]`).addClass('status-flag')
-                } 
+                }
                 var lenflag=0;
                 $.each(summery.flagdx,(k,v)=>v?lenflag++:null);
 
                 $('#flagged-nav').text(lenflag)
-            })  
+            })
             $('.timer').show()
-           
+
             setInterval(countownRun,1000)
 
             $('.exam-exit a').click(function(e){
                 e.preventDefault();
                 e.stopPropagation();
                 localStorage.removeItem("full-mock-exam-summery")
-                exitconfirm($(this).attr("href")); 
-            }) 
+                exitconfirm($(this).attr("href"));
+            })
          })
 
-         //Exit the test page on switching tabs or out of focus 
+         //Exit the test page on switching tabs or out of focus
         //  function exitExam(reason) {
         //     alert("You have left the exam page, and the exam will now end.");
         //     summery.examActive = false;
         //     summery.save();
         //     updateandsave(function(){
-        //         var unfinishcount=summery.totalcount-summery.questionids.length; 
+        //         var unfinishcount=summery.totalcount-summery.questionids.length;
         //         if(unfinishcount>0){
         //             $('.unfinish-message').show().find('.unfinish-count').text(unfinishcount)
         //         }else{
         //             $('.unfinish-message').hide().find('.unfinish-count').text(0)
         //         }
-        //             lessonreviewconfirm() 
-        //         })   
+        //             lessonreviewconfirm()
+        //         })
         //         if($('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').length>0){
         //             $('#lesson-questionlist-list .forms-inputs .form-check input[name="answer"]').prop('disabled',true)
         //         }else{
         //             $('#lesson-questionlist-list .forms-inputs input[name="answer"]').prop('readonly',true)
-        //         } 
+        //         }
         // }
 
         // // Listen for tab switching
