@@ -632,7 +632,7 @@ function HideTime() {
                                 }
                             })
                         },'json').fail(function(xhr,status,error){
-                            showToast("Error: " + error, 'danger');
+                            showToast("Error tets 4: " + error, 'danger');
                         })
                 })
                 if(res.next_page_url){
@@ -647,7 +647,7 @@ function HideTime() {
 
 
             },'json').fail(function(xhr,status,error){
-                showToast("Error: " + error, 'danger');
+                showToast("Error test 5: " + error, 'danger');
             })
 
             const csrf= $('meta[name="csrf-token"]').attr('content');
@@ -701,11 +701,11 @@ function HideTime() {
 
                     if(response2.status ==419)
                     {
-                        showToast("Error: " + 'Page expired. Please refresh.', 'danger');
+                        showToast("Error: test 1" + 'Page expired. Please refresh.', 'danger');
                     }
                     else
                     {
-                        showToast("Error: " + response2.status, 'danger');
+                        showToast("Error test 2: " + response2.status, 'danger');
                     }
 
                 }
@@ -713,7 +713,7 @@ function HideTime() {
             } catch (error) {
 
                 // showToast("Error: " + error, 'danger');
-                showToast("Error: " + (error.message || error), 'danger');
+                showToast("Error test3: " + (error.message || error), 'danger');
 
 
             }
