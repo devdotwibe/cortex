@@ -650,7 +650,7 @@ function HideTime() {
 
                 if(error !='Unauthorized')
                 {
-                    showToast("Error: Page expired. Please refresh.", 'danger');
+                    showToast("Error:" + 'Page expired. Please refresh.', 'danger');
 
                 }
                 else
