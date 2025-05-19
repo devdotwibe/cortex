@@ -54,9 +54,9 @@
                 @if($review>0)
                     <button type="button" onclick="lessonreviewconfirm()" class="btn btn-dark">Yes</button>
                 @else
-                <a href="{{route('learn.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}"> 
+                <a href="{{route('learn.submit',['category'=>$category->slug,'sub_category'=>$subCategory->slug])}}">
                     <button type="button"   class="btn btn-dark">Yes</button>
-                </a> 
+                </a>
                 @endif
                 <button type="button"  data-bs-dismiss="modal"  class="btn btn-secondary">Cancel</button>
             </div>
@@ -90,7 +90,7 @@
         var totalcount={{$learncount??0}};
         var questionids={!! $user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id."-progress-ids",'[]') !!};
         var progressurl="{{$user->progress('exam-'.$exam->id.'-module-'.$category->id.'-lesson-'.$subCategory->id.'-progress-url','')}}";
-        var examPlayers={}; 
+        var examPlayers={};
         var vimeotime=0;
         var vimeoinput=null;
         var vimeoplay=false;
@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="video-container">
                                         <div class="videoframe" id="vimo-videoframe-${lesseonId}">
-                                            
+
                                         </div>
                                         <div class="forms-inputs">
                                             <input type="hidden" name="answer" data-question="${v.slug}" value="N"  id="user-answer-${lesseonId}-vimo" />
@@ -170,13 +170,13 @@
                             controls: true
                         });
                         vimeoinput=`user-answer-${lesseonId}-vimo`;
-                        examPlayers[v.slug].getDuration().then(function(duration) { 
-                            vimeotime=duration; 
-                        }); 
-                        examPlayers[v.slug].on('play', function() { 
+                        examPlayers[v.slug].getDuration().then(function(duration) {
+                            vimeotime=duration;
+                        });
+                        examPlayers[v.slug].on('play', function() {
                             vimeoplay=true;
                         });
-                        examPlayers[v.slug].on('pause', function() { 
+                        examPlayers[v.slug].on('pause', function() {
                             vimeoplay=false;
                         });
                         /* {{-- <iframe src="https://player.vimeo.com/video/${vimeoid}?byline=0&keyboard=0&dnt=1&app_id=${lesseonId}" width="100%" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="${v.title}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> --}} */
@@ -273,7 +273,17 @@
                                 $(`#mcq-${lesseonId}-list input[value="${data.value}"]`).prop("checked",true)
                             })
                         },'json').fail(function(xhr,status,error){
-                            showToast("Error: " + error, 'danger');
+
+                              if(error !='Unauthorized')
+                                {
+                                    showToast("Error:" + 'Page expired. Please refresh.', 'danger');
+
+                                }
+                                else
+                                {
+                                    showToast("Error: " + error, 'danger');
+                                }
+
                         })
                     }
                 })
@@ -287,7 +297,17 @@
                 }
 
             },'json').fail(function(xhr,status,error){
-                showToast("Error: " + error, 'danger');
+
+                   if(error !='Unauthorized')
+                {
+                    showToast("Error:" + 'Page expired. Please refresh.', 'danger');
+
+                }
+                else
+                {
+                    showToast("Error: " + error, 'danger');
+                }
+
             })
 
             const csrf= $('meta[name="csrf-token"]').attr('content');
@@ -334,11 +354,30 @@
                     }),
                 });
                 if (!response2.ok) {
-                    showToast("Error: " + response2.status, 'danger');
+
+                    if(response2.status ==419)
+                    {
+                        showToast("Error: " + 'Page expired. Please refresh.', 'danger');
+                    }
+                    else
+                    {
+                        showToast("Error: " + response2.status, 'danger');
+                    }
+
                 }
                 callback()
             } catch (error) {
-                showToast("Error: " + error, 'danger');
+
+                  if(error !='Unauthorized')
+                {
+                    showToast("Error:" + 'Page expired. Please refresh.', 'danger');
+
+                }
+                else
+                {
+                    showToast("Error: " + error, 'danger');
+                }
+
             }
          }
          async function updatequestionanswer(question,ans){
@@ -556,7 +595,7 @@
                 updateprogress(function(){
                     $('#finish-exam-confirm').modal('show')
                     updateUnfinishedMessage(unfinishcount);
-                    
+
                 })
             });
 
