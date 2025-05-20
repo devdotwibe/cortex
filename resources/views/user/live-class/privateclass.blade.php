@@ -11,6 +11,8 @@
                     </a>
                 </div>
                 <h2>Live Class - {{ $live_class->class_title_1 ?? ' Private Class Room ' }}</h2>
+
+                <button class="btn btn-dark" href="https://youtu.be/UPZV-xWkqu8" target="_blank" >Need Help?</button>
             </div>
         </div>
     </section>
