@@ -2531,7 +2531,7 @@ aside.side_bar.slider-btn .sidebar-content ul ul li.side-item a {
 }
 
 .header_nav .header_wrapp .header_title {
-    width: auto;
+    width: 100%;
     float: left;
     display: flex;
     flex-wrap: wrap;
