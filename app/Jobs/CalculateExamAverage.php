@@ -100,6 +100,9 @@ class CalculateExamAverage implements ShouldQueue
 
         foreach ($category_topic as $item)
         {
+              try {
+                Log::info("🔍 Processing category ID: {$item->id}");
+
              $averagepersentage =  $item->getExamAvgMark('topic-test');
 
              $cachePath = storage_path('app/cache');
@@ -111,6 +114,11 @@ class CalculateExamAverage implements ShouldQueue
             $filePath = $cachePath . '/exam_average_mark_' . $item->id . '.json';
 
             file_put_contents($filePath, json_encode($averagepersentage));
+
+            } catch (\Throwable $e) {
+
+                Log::error("❌ Failed processing category ID 2 {$item->id}: " . $e->getMessage());
+            }
         }
 
 
