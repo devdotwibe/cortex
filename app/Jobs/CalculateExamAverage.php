@@ -74,8 +74,6 @@ class CalculateExamAverage implements ShouldQueue
         {
              $averagepersentage =  $item->getExamAvgPercentage('question-bank');
 
-             session(['exam_average_percentage_'.$item->id => $averagepersentage]);
-
              $cachePath = storage_path('app/cache');
 
              if (!file_exists($cachePath)) {
@@ -99,8 +97,6 @@ class CalculateExamAverage implements ShouldQueue
         foreach ($category_topic as $item)
         {
              $averagepersentage =  $item->getExamAvgMark('topic-test');
-
-             session(['exam_average_mark_'.$item->id => $averagepersentage]);
 
              $cachePath = storage_path('app/cache');
 
