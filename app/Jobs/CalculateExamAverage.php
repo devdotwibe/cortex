@@ -32,10 +32,13 @@ class CalculateExamAverage implements ShouldQueue
     public function handle(): void
     {
 
+    try {
+
+
         Log::info('CalculateExamAverage job started.');
 
         $test="1";
-        $cachePath = storage_path('app/cache'); 
+        $cachePath = storage_path('app/cache');
 
         if (!file_exists($cachePath)) {
             mkdir($cachePath, 0775, true);
@@ -73,21 +76,21 @@ class CalculateExamAverage implements ShouldQueue
 
              session(['exam_average_percentage_'.$item->id => $averagepersentage]);
 
-             $cachePath = storage_path('app/cache'); 
+             $cachePath = storage_path('app/cache');
 
              if (!file_exists($cachePath)) {
                  mkdir($cachePath, 0775, true);
              }
- 
+
              $filePath = $cachePath . '/exam_average_percentage_' . $item->id . '.json';
- 
+
              file_put_contents($filePath, json_encode($averagepersentage));
         }
 
         $category_topic = Category::with('question')
         ->whereHas('question', function ($query) {
             $query->whereIn('exam_id', function ($subquery) {
-                $subquery->select('id') 
+                $subquery->select('id')
                     ->from('exams')
                     ->where('name', 'full-mock-exam');
             });
@@ -99,7 +102,7 @@ class CalculateExamAverage implements ShouldQueue
 
              session(['exam_average_mark_'.$item->id => $averagepersentage]);
 
-             $cachePath = storage_path('app/cache'); 
+             $cachePath = storage_path('app/cache');
 
             if (!file_exists($cachePath)) {
                 mkdir($cachePath, 0775, true);
@@ -110,8 +113,13 @@ class CalculateExamAverage implements ShouldQueue
             file_put_contents($filePath, json_encode($averagepersentage));
         }
 
-      
+
         Log::info('CalculateExamAverage job completed.');
-        
+
+         } catch (\Throwable $e) {
+
+            Log::error('CalculateExamAverage job failed: ' . $e->getMessage());
+        }
+
     }
 }
