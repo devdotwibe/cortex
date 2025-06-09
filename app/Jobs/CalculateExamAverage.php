@@ -70,20 +70,24 @@ class CalculateExamAverage implements ShouldQueue
 
         Log::info('Categories retrieved for "question-bank" exam: ' . $category_question_bank->count());
 
-        foreach ($category_question_bank as $item)
-        {
-             $averagepersentage =  $item->getExamAvgPercentage('question-bank');
+       foreach ($category_question_bank as $item) {
+            try {
+                Log::info("🔍 Processing category ID: {$item->id}");
 
-             $cachePath = storage_path('app/cache');
+                $averagePercentage = $item->getExamAvgPercentage('question-bank');
 
-             if (!file_exists($cachePath)) {
-                 mkdir($cachePath, 0775, true);
-             }
+                Log::info("✅ Average percentage calculated: {$averagePercentage}");
 
-             $filePath = $cachePath . '/exam_average_percentage_' . $item->id . '.json';
+                $filePath = $cachePath . '/exam_average_percentage_' . $item->id . '.json';
+                file_put_contents($filePath, json_encode($averagePercentage));
 
-             file_put_contents($filePath, json_encode($averagepersentage));
+                Log::info("💾 Saved average percentage to: {$filePath}");
+            } catch (\Throwable $e) {
+
+                Log::error("❌ Failed processing category ID {$item->id}: " . $e->getMessage());
+            }
         }
+
 
         $category_topic = Category::with('question')
         ->whereHas('question', function ($query) {
