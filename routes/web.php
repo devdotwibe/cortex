@@ -77,7 +77,7 @@ Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'
 Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloaduploadedFiles'])->name('file.download');
 
 Route::prefix('stripe')->name('stripe.')->group(function () {
-    Route::post('/webhook', [StripeWebHookController::class, 'handlewebhook']);
+    // Route::post('/webhook', [StripeWebHookController::class, 'handlewebhook']);
     Route::get('/workshop/{user}/payment/{payment}', [StripePaymentController::class, 'workshop_payment'])->name('payment.workshop');
     // Route::get('/subscription/{user}/payment/{payment}', [StripePaymentController::class, 'subscription_payment'])->name('payment.subscription');
     Route::get('/subscription/{user}/plan/{subscription_plan}/{type}/payment/{payment}', [StripePaymentController::class, 'subscription_payment'])->name('payment.subscription');
