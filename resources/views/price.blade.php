@@ -71,7 +71,7 @@
                             @guest('admin')
                                 @auth('web')
                                     @if ((optional(auth('web')->user()->subscription())->status ?? '') !== 'subscribed')
-                                        <a class="buy-btn" onclick="paymodel('{{ route('pricing.pay', $plan->slug) }}')">Buy</a>
+                                        <a class="buy-btn">Buy</a>
                                     @elseif((optional(auth('web')->user()->subscription())->subscription_plan_id ?? '') == $plan->id)
                                         <a class="buy-btn">Subscribed</a>
                                     @endif
@@ -306,7 +306,7 @@
 
                         </h5>
                     </div>
-                    
+
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="form-check">
@@ -328,7 +328,7 @@
                                 <input type="hidden" name="subscription" id="subscription-combo" value="">
                                 <input type="hidden" name="plan" value="combo">
                                 <input type="hidden" name="year" value="{{ date('Y') + 0 }}-{{ date('Y') + 1 }}">
-                                <span>Note: This package grants access to you and another account holder. 
+                                <span>Note: This package grants access to you and another account holder.
                                     Please enter the email of the other account holder</span>
                                 <div class="form-group">
                                     {{-- <label for="email-2">Invite User</label> --}}
@@ -444,7 +444,7 @@
             $('input[name="add_coupon"]').change(function() {
                 if ($('#add_coupon_yes').is(':checked')) {
                     $('#coupon-field').show();
-                   
+
                 } else {
                     $('#coupon-field').hide();
                     $('#tabs2-message-area').html("");
@@ -465,7 +465,7 @@
                     $('#coupon-field2').hide();
                     $('#tabs2-combo-message-area').html("");
                     paymodel('{{ route('pricing.pay', $plan->slug) }}');
-                  
+
                 }
             });
             $('#contact_form').on('submit', function(event) {
@@ -573,7 +573,7 @@
                                     $('#tabs2-combo-message-area').html(`
                                         <div class="alert alert-danger" role="alert">
                                             Please confirm your inviting friend mail by click on "Confirm Email" button.
-                                        </div>                        
+                                        </div>
                                     `)
                                 }
                             }, 'json').fail(function(xhr) {
@@ -588,7 +588,7 @@
                         {
 
                             if (validated =='validated') {
-                            
+
                                $('#tabs2-combo-message-area').html('')
                                 $('.invalid-feedback').text('')
                                 $('.form-control').removeClass('is-invalid')
@@ -600,7 +600,7 @@
                                         $('#tabs2-combo-message-area').html(`
                                             <div class="alert alert-danger" role="alert">
                                                 Please confirm your inviting friend mail by click on "Confirm Email" button.
-                                            </div>                        
+                                            </div>
                                         `)
                                     }
                                 }, 'json').fail(function(xhr) {
@@ -612,20 +612,20 @@
 
                             }
                             else
-                            { 
+                            {
                                 $('#tabs2-combo-message-area').text('Please click apply button for validate coupon code').show();
 
                             }
 
-                            
+
                         }
 
-                    } 
+                    }
                     else {
 
                         $('#tabs2-combo-message-area').text('Please Provide Coupon code and click apply button').show();
                     }
-                    
+
             })
 
 
@@ -637,7 +637,7 @@
                 $('#tabs2-message-area').html('');
                 $('.invalid-feedback').text('');
                 $('.form-control').removeClass('is-invalid');
-          
+
                 $('#coupon_error1').hide();
 
                 var coupen = $('#tabs2-coupon').val();
@@ -650,7 +650,7 @@
                             $('#tabs2-message-area').html(`
                                 <div class="alert alert-info" role="alert">
                                     ${res.message}
-                                </div>                        
+                                </div>
                             `)
                         }
                         if (res.pay) {
@@ -692,11 +692,11 @@
                             $('#tabs2-combo-message-area').html(`
                                 <div class="alert alert-info" role="alert">
                                     ${res.message}
-                                </div>                        
+                                </div>
                             `)
                         }
                         if (res.pay) {
-                            
+
                             $('#tabs2-combo-coupon-valiated').val('validated');
                             $('#tabs2-cortext-combo-subscription-payment-form-buttom-price').text(res.pay)
                         }
@@ -726,7 +726,7 @@
                         $('#tabs2-combo-message-area').html(`
                             <div class="alert alert-info" role="alert">
                                 ${res.message}
-                            </div>                        
+                            </div>
                         `)
                         $('#tabs2-verify-mail').val('Y')
                     }
@@ -748,7 +748,7 @@
 
                     var validated = $('#tabs2-coupon-valiated').val();
 
-                    
+
 
                     if(!$('#add_coupon_yes').is(':checked'))
                     {
@@ -771,7 +771,7 @@
                     {
 
                         if (validated =='validated') {
-                        
+
                             $('#tabs2-message-area').html('')
                             $('.invalid-feedback').text('')
                             $('.form-control').removeClass('is-invalid')
@@ -787,20 +787,20 @@
 
                         }
                         else
-                        { 
+                        {
                             $('#tabs2-message-area').text('Please click apply button for validate coupon code').show();
 
                         }
 
-                        
+
                     }
 
-                } 
+                }
                 else {
 
                     $('#tabs2-message-area').text('Please Provide Coupon code and click apply button').show();
                 }
-               
+
             })
         </script>
     @endauth
