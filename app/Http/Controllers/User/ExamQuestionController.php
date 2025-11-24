@@ -167,10 +167,7 @@ class ExamQuestionController extends Controller
 
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
-        if (!session("question-bank-attempt")) {
-
-            return redirect()->route('question-bank.index')->with("error","Question set not initialized");
-        }
+    if (session("question-bank-attempt")) {
 
         $exam=Exam::where("name",'question-bank')->first();
 
@@ -285,6 +282,11 @@ class ExamQuestionController extends Controller
             $view = view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','slug','userExam'));
 
             return $view;
+        }
+        else {
+
+             return redirect()->route('question-bank.index')->with("error","Question set not initialized");
+        }
     }
     public function preview(Request $request,UserExamReview $userExamReview){
 
