@@ -23,6 +23,7 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -234,12 +235,38 @@ class ExamQuestionController extends Controller
                     // return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
                     return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->select(['slug', 'title', 'answer_id','image'])->get();
                 }
-                return UserExamQuestion::where('user_exam_id',$userExam->id)
-                                ->where('category_id',$category->id)
-                                ->where('sub_category_id',$subCategory->id)
-                                ->where('sub_category_set',$setname->id)
-                                ->orderBy('order_no')
-                                ->paginate(1,['slug','title','description','duration','title_text','sub_question']);
+                // return UserExamQuestion::where('user_exam_id',$userExam->id)
+                //                 ->where('category_id',$category->id)
+                //                 ->where('sub_category_id',$subCategory->id)
+                //                 ->where('sub_category_set',$setname->id)
+                //                 ->orderBy('order_no')
+                //                 ->simplePaginate(1,['slug','title','description','duration','title_text','sub_question']);
+
+                    $cacheKey = "user_exam_question_count_{$userExam->id}_{$category->id}_{$subCategory->id}_{$setname->id}";
+
+                    $totalQuestions = Cache::remember($cacheKey, now()->addHours(1), function () use ($userExam, $category, $subCategory, $setname) {
+                        return UserExamQuestion::where('user_exam_id', $userExam->id)
+                            ->where('category_id', $category->id)
+                            ->where('sub_category_id', $subCategory->id)
+                            ->where('sub_category_set', $setname->id)
+                            ->count();
+                    });
+
+                    $questions = UserExamQuestion::where('user_exam_id', $userExam->id)
+                        ->where('category_id', $category->id)
+                        ->where('sub_category_id', $subCategory->id)
+                        ->where('sub_category_set', $setname->id)
+                        ->orderBy('order_no')
+                        ->simplePaginate(1, ['slug','title','description','duration','title_text','sub_question']);
+
+                    $response = [
+                        'total' => $totalQuestions,
+                        'data' => $questions->items(),
+                        'next_page_url' => $questions->nextPageUrl(),
+                        'prev_page_url' => $questions->previousPageUrl(),
+                    ];
+
+                    return response()->json($response);
             }
 
             $questioncount=UserExamQuestion::where('user_exam_id',$userExam->id)
