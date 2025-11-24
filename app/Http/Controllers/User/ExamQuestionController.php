@@ -247,7 +247,7 @@ class ExamQuestionController extends Controller
 
                       $question=Question::findSlug($request->question);
 
-                     return Answer::where('question_id', $question->id)->select(['slug', 'title', 'answer_id','image'])->get();
+                     return Answer::where('question_id', $question->id)->select(['slug', 'title','image'])->get();
 
                 }
                     // return UserExamQuestion::where('user_exam_id',$userExam->id)
