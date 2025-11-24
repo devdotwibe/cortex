@@ -238,9 +238,11 @@ class ExamQuestionController extends Controller
 
 
                 if(!empty($request->question)){
+
                     $question=UserExamQuestion::findSlug($request->question);
                     // return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
                     return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->select(['slug', 'title', 'answer_id','image'])->get();
+
                 }
                     // return UserExamQuestion::where('user_exam_id',$userExam->id)
                     //                 ->where('category_id',$category->id)
@@ -249,22 +251,50 @@ class ExamQuestionController extends Controller
                     //                 ->orderBy('order_no')
                     //                 ->simplePaginate(1,['slug','title','description','duration','title_text','sub_question']);
 
+                    // $cacheKey = "user_exam_question_count_{$userExam->id}_{$category->id}_{$subCategory->id}_{$setname->id}";
+
+                    // $totalQuestions = Cache::remember($cacheKey, now()->addHours(1), function () use ($userExam, $category, $subCategory, $setname) {
+                    //     return UserExamQuestion::where('user_exam_id', $userExam->id)
+                    //         ->where('category_id', $category->id)
+                    //         ->where('sub_category_id', $subCategory->id)
+                    //         ->where('sub_category_set', $setname->id)
+                    //         ->count();
+                    // });
+
                     $cacheKey = "user_exam_question_count_{$userExam->id}_{$category->id}_{$subCategory->id}_{$setname->id}";
 
-                    $totalQuestions = Cache::remember($cacheKey, now()->addHours(1), function () use ($userExam, $category, $subCategory, $setname) {
-                        return UserExamQuestion::where('user_exam_id', $userExam->id)
+                    $totalQuestions = Cache::remember($cacheKey, now()->addHours(1), function () use ($exam, $category, $subCategory, $setname) {
+                        return Question::where('exam_id', $exam->id)
                             ->where('category_id', $category->id)
                             ->where('sub_category_id', $subCategory->id)
                             ->where('sub_category_set', $setname->id)
                             ->count();
                     });
 
-                    $questions = UserExamQuestion::where('user_exam_id', $userExam->id)
+
+                    // $questions = UserExamQuestion::where('user_exam_id', $userExam->id)
+                    //     ->where('category_id', $category->id)
+                    //     ->where('sub_category_id', $subCategory->id)
+                    //     ->where('sub_category_set', $setname->id)
+                    //     ->orderBy('order_no')
+                    //     ->simplePaginate(1, ['slug','title','description','duration','title_text','sub_question']);
+
+                    $questions = Question::with(['answers' => function($q) use ($user, $userExam) {
+                            $q->select('id','title','description','image','iscorrect','question_id')
+                            ->leftJoin('user_exam_answers', function($join) use ($user, $userExam) {
+                                $join->on('answers.id','=','user_exam_answers.answer_id')
+                                    ->where('user_exam_answers.user_exam_id', $userExam->id)
+                                    ->where('user_exam_answers.user_id', $user->id);
+                            });
+                        }])
+                        ->where('exam_id', $exam->id)
                         ->where('category_id', $category->id)
                         ->where('sub_category_id', $subCategory->id)
                         ->where('sub_category_set', $setname->id)
                         ->orderBy('order_no')
                         ->simplePaginate(1, ['slug','title','description','duration','title_text','sub_question']);
+
+
 
                     $response = [
                         'total' => $totalQuestions,
