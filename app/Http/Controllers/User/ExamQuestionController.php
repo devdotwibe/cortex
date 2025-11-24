@@ -16,6 +16,7 @@ use App\Models\UserExam;
 use App\Models\UserExamAnswer;
 use App\Models\UserExamQuestion;
 use App\Models\UserExamReview;
+use App\Models\UserProgress;
 use App\Models\UserReviewAnswer;
 use App\Models\UserReviewQuestion;
 use App\Trait\ResourceController;
@@ -269,9 +270,24 @@ class ExamQuestionController extends Controller
 
             $start = microtime(true);
 
-            foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
-                $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
-            }
+            // foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
+            //     $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
+            // }
+
+            $questionSlugs = Question::where('exam_id', $exam->id)
+                ->where('category_id', $category->id)
+                ->where('sub_category_id', $subCategory->id)
+                ->where('sub_category_set', $setname->id)
+                ->pluck('slug');
+
+            $progressKeys = $questionSlugs->map(function($slug) use ($exam, $category, $subCategory, $setname) {
+                return "exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$slug}";
+            })->toArray();
+
+            UserProgress::where('user_id', $user->id)
+                ->whereIn('name', $progressKeys)
+                ->delete();
+
 
              Log::info('Question fetch + setProgress loop time: ' . (microtime(true) - $start));
 
