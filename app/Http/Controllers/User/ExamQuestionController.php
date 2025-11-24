@@ -118,6 +118,9 @@ class ExamQuestionController extends Controller
                 'sub_category_set'=>$setname->id,
                 'time_of_exam'=>$setname->time_of_exam,
             ]);
+
+            Session::forget("question-bank-attempt");
+
             Session::put("question-bank-attempt",$userExam->slug);
 
             $questions = Question::with('answers')
