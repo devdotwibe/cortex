@@ -239,7 +239,7 @@ class ExamQuestionController extends Controller
                                 ->where('sub_category_id',$subCategory->id)
                                 ->where('sub_category_set',$setname->id)
                                 ->orderBy('order_no')
-                                ->simplePaginate(1,['slug','title','description','duration','title_text','sub_question']);
+                                ->paginate(1,['slug','title','description','duration','title_text','sub_question']);
             }
 
             $questioncount=UserExamQuestion::where('user_exam_id',$userExam->id)
