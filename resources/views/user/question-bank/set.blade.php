@@ -648,7 +648,7 @@
                             })
                         },'json').fail(function(xhr,status,error){
 
-                            console.log(error);
+                            console.log(error,'ererer');
 
                             if(error !='Unauthorized')
                             {
@@ -674,6 +674,8 @@
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
             },'json').fail(function(xhr,status,error){
+
+                      console.log(error,'ererer');
 
                 if(error !='Unauthorized')
                 {
