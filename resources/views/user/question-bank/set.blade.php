@@ -648,6 +648,8 @@
                             })
                         },'json').fail(function(xhr,status,error){
 
+                            console.log(error);
+
                             if(error !='Unauthorized')
                             {
                                 showToast("Error:" + 'Page expired. Please refresh.', 'danger');
