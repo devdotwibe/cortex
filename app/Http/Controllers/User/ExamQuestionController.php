@@ -119,9 +119,13 @@ class ExamQuestionController extends Controller
                 'time_of_exam'=>$setname->time_of_exam,
             ]);
 
-            Session::forget("question-bank-attempt");
+            Session::forget('question-bank-attempt');
 
-            Session::put("question-bank-attempt",$userExam->slug);
+            Session::regenerate();
+
+            Session::put('question-bank-attempt', $userExam->slug);
+
+            Session::save();
 
             $questions = Question::with('answers')
                                 ->where('exam_id',$exam->id)
@@ -569,7 +573,7 @@ class ExamQuestionController extends Controller
                                 $qry->where('time_of_exam', '!=', '00:00')
                                 ->where('time_of_exam', '!=', '00 : 00');
                             })->get();
-        $lessencount=count($lessons);
+        // $lessencount=count($lessons);
 
         // $totalprogres=0;
         $totalSetCount = 0;
