@@ -199,12 +199,7 @@ class ExamQuestionController extends Controller
 
                 if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
 
-                    // $lessons=SubCategory::where('category_id',$category->id)->get();
-
-                    $lessons = SubCategory::with(['sets' => function ($q) use ($category) {
-                        $q->where('category_id', $category->id);
-                    }])->where('category_id', $category->id)->get();
-
+                    $lessons=SubCategory::where('category_id',$category->id)->get();
                     $lessencount=count($lessons);
                     // $totalprogres=0;
 
@@ -213,11 +208,7 @@ class ExamQuestionController extends Controller
                     $totalAttended = 0;
 
                     foreach ($lessons as $lesson) {
-
-                        // $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
-
-                        $sets = $lesson->sets;
-
+                        $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
                         $setcount=count($sets);
                         $catprogres=0;
                         $attendedCount = 0;
