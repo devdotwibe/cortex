@@ -267,7 +267,7 @@ class ExamQuestionController extends Controller
                         'prev_page_url' => $questions->previousPageUrl(),
                     ];
 
-                    return response()->json($questions);
+                    return response()->json($response);
             }
 
             $questioncount=UserExamQuestion::where('user_exam_id',$userExam->id)
