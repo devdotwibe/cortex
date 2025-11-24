@@ -261,6 +261,7 @@ class ExamQuestionController extends Controller
 
                     $response = [
                         'total' => $totalQuestions,
+                        'current_page' => $questions->currentPage(),
                         'data' => $questions->items(),
                         'next_page_url' => $questions->nextPageUrl(),
                         'prev_page_url' => $questions->previousPageUrl(),
