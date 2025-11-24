@@ -243,8 +243,10 @@ class ExamQuestionController extends Controller
             }
 
             $slug = $request->user_exam;
-            $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
-            return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','attemtcount','slug','userExam'));
+
+            // $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
+
+            return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','slug','userExam'));
         }
         else{
             return  redirect()->route('question-bank.index')->with("error","Question set not initialized");
