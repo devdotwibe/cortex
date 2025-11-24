@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -164,8 +165,18 @@ class ExamQuestionController extends Controller
     }
 
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
-        if(session("question-bank-attempt")){
-            $exam=Exam::where("name",'question-bank')->first();
+
+        if (!session("question-bank-attempt")) {
+
+            return redirect()->route('question-bank.index')->with("error","Question set not initialized");
+        }
+
+        $startTotal = microtime(true);
+
+        $start = microtime(true);
+
+        $exam=Exam::where("name",'question-bank')->first();
+
             if(empty($exam)){
                 $exam=Exam::store([
                     "title"=>"Question Bank",
@@ -179,7 +190,16 @@ class ExamQuestionController extends Controller
              */
             $user=Auth::user();
 
+            Log::info('Exam retrieval time: ' . (microtime(true) - $start));
+
+            $start = microtime(true);
+
             $user->setProgress("attempt-recent-link",route('question-bank.show',['category'=>$category->slug]));
+
+             Log::info('User session/progress time: ' . (microtime(true) - $start));
+
+            $start = microtime(true);
+
             $userExam = UserExam ::findSlug($request->user_exam);
             if($request->ajax()){
                 $userExam = UserExam ::findSlug($request->user_exam);
@@ -232,25 +252,40 @@ class ExamQuestionController extends Controller
                                     ->where('sub_category_id',$subCategory->id)
                                     ->where('sub_category_set',$setname->id)
                                     ->count();
+
+            Log::info('Question count query time: ' . (microtime(true) - $start));
+
+            $start = microtime(true);
+
             $endtime=0;
+
             $times=explode(':',$setname->time_of_exam);
             if(count($times)>0){
                 $endtime+=intval(trim($times[0]??"0"))*60;
                 $endtime+=intval(trim($times[1]??"0"));
             }
+
+            Log::info('Endtime calculation time: ' . (microtime(true) - $start));
+
+            $start = microtime(true);
+
             foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
                 $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
             }
 
+             Log::info('Question fetch + setProgress loop time: ' . (microtime(true) - $start));
+
             $slug = $request->user_exam;
+
+            $start = microtime(true);
 
             // $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
 
-            return view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','slug','userExam'));
-        }
-        else{
-            return  redirect()->route('question-bank.index')->with("error","Question set not initialized");
-        }
+            $view = view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','slug','userExam'));
+
+            Log::info('View render prep time: ' . (microtime(true) - $start));
+
+            return $view;
     }
     public function preview(Request $request,UserExamReview $userExamReview){
 
