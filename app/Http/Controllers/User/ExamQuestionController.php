@@ -121,8 +121,6 @@ class ExamQuestionController extends Controller
 
             Session::forget('question-bank-attempt');
 
-            Session::regenerate();
-
             Session::put('question-bank-attempt', $userExam->slug);
 
             Session::save();
