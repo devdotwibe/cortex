@@ -172,10 +172,6 @@ class ExamQuestionController extends Controller
             return redirect()->route('question-bank.index')->with("error","Question set not initialized");
         }
 
-        $startTotal = microtime(true);
-
-        $start = microtime(true);
-
         $exam=Exam::where("name",'question-bank')->first();
 
             if(empty($exam)){
@@ -191,21 +187,24 @@ class ExamQuestionController extends Controller
              */
             $user=Auth::user();
 
-            Log::info('Exam retrieval time: ' . (microtime(true) - $start));
-
-            $start = microtime(true);
 
             $user->setProgress("attempt-recent-link",route('question-bank.show',['category'=>$category->slug]));
 
-             Log::info('User session/progress time: ' . (microtime(true) - $start));
-
-            $start = microtime(true);
-
             $userExam = UserExam ::findSlug($request->user_exam);
+
+
             if($request->ajax()){
+
                 $userExam = UserExam ::findSlug($request->user_exam);
+
                 if($user->progress('exam-'.$exam->id.'-topic-'.$category->id.'-lesson-'.$subCategory->id.'-set-'.$setname->id.'-complete-date',"")==""){
-                    $lessons=SubCategory::where('category_id',$category->id)->get();
+
+                    // $lessons=SubCategory::where('category_id',$category->id)->get();
+
+                    $lessons = SubCategory::with(['sets' => function ($q) use ($category) {
+                        $q->where('category_id', $category->id);
+                    }])->where('category_id', $category->id)->get();
+
                     $lessencount=count($lessons);
                     // $totalprogres=0;
 
@@ -214,7 +213,11 @@ class ExamQuestionController extends Controller
                     $totalAttended = 0;
 
                     foreach ($lessons as $lesson) {
-                        $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
+
+                        // $sets=Setname::where('category_id',$category->id)->where('sub_category_id',$lesson->id)->get();
+
+                        $sets = $lesson->sets;
+
                         $setcount=count($sets);
                         $catprogres=0;
                         $attendedCount = 0;
@@ -236,6 +239,8 @@ class ExamQuestionController extends Controller
 
                     $user->setProgress('exam-'.$exam->id.'-topic-'.$category->id, $totalAttended>0?($totalAttended/$totalSetCount*100):0);
                 }
+
+
                 if(!empty($request->question)){
                     $question=UserExamQuestion::findSlug($request->question);
                     // return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
@@ -248,15 +253,12 @@ class ExamQuestionController extends Controller
                                 ->orderBy('order_no')
                                 ->paginate(1,['slug','title','description','duration','title_text','sub_question']);
             }
+
             $questioncount=UserExamQuestion::where('user_exam_id',$userExam->id)
                                     ->where('category_id',$category->id)
                                     ->where('sub_category_id',$subCategory->id)
                                     ->where('sub_category_set',$setname->id)
                                     ->count();
-
-            Log::info('Question count query time: ' . (microtime(true) - $start));
-
-            $start = microtime(true);
 
             $endtime=0;
 
@@ -265,10 +267,6 @@ class ExamQuestionController extends Controller
                 $endtime+=intval(trim($times[0]??"0"))*60;
                 $endtime+=intval(trim($times[1]??"0"));
             }
-
-            Log::info('Endtime calculation time: ' . (microtime(true) - $start));
-
-            $start = microtime(true);
 
             // foreach (Question::where('exam_id',$exam->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->get() as $d) {
             //     $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-answer-of-{$d->slug}",null);
@@ -289,17 +287,11 @@ class ExamQuestionController extends Controller
                 ->delete();
 
 
-             Log::info('Question fetch + setProgress loop time: ' . (microtime(true) - $start));
-
             $slug = $request->user_exam;
-
-            $start = microtime(true);
 
             // $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->where('category_id',$category->id)->where('sub_category_id',$subCategory->id)->where('sub_category_set',$setname->id)->count()+1;
 
             $view = view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','slug','userExam'));
-
-            Log::info('View render prep time: ' . (microtime(true) - $start));
 
             return $view;
     }
