@@ -164,8 +164,6 @@ class ExamQuestionController extends Controller
             }
 
 
-        dd(session()->all());
-
         return redirect()->route('question-bank.set.show',
                                     ['category'=>$category->slug,
                                                 'sub_category'=>$subCategory->slug,
