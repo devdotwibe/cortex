@@ -158,7 +158,7 @@ class MockExamController extends Controller
             }
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count()+1;
 
-            return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount'));
+            return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount','attemt'));
 
     }
 
