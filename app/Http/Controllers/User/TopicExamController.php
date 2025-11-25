@@ -375,51 +375,55 @@ class TopicExamController extends Controller
 
     public function topicChartDataIncremental(Request $request, UserExamReview $userExamReview)
     {
-        $user = Auth::user();
-        $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
-        $offset = $request->get('offset', 0);
-        $limit = 50; // Load 50 records at a time
+            $user = Auth::user();
+            $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
+            $offset = $request->get('offset', 0);
+            $limit = 50; // Load 50 records at a time
 
-        $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
-            ->where('exam_id', $userExamReview->exam_id)
-            ->where('category_id', $userExamReview->category_id)
-            ->where('user_exam_review_id', '<=', $userExamReview->id)
-            ->groupBy('user_id')
-            ->selectRaw('MAX(id) as id')
-            ->pluck('id');
+            // Fixed: Changed user_exam_review_id to id
+            $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
+                ->where('exam_id', $userExamReview->exam_id)
+                ->where('category_id', $userExamReview->category_id)
+                ->where('id', '<=', $userExamReview->id)  // Fixed column name
+                ->groupBy('user_id')
+                ->selectRaw('MAX(id) as id')
+                ->pluck('id');
 
-        $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-            ->where('iscorrect', true)
-            ->where('user_answer', true)
-            ->distinct('user_id')
-            ->count('user_id');
+            // Get total count of unique users
+            $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+                ->where('iscorrect', true)
+                ->where('user_answer', true)
+                ->distinct('user_id')
+                ->count('user_id');
 
-        $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-            ->where('iscorrect', true)
-            ->where('user_answer', true)
-            ->groupBy('user_id')
-            ->select('user_id', DB::raw('COUNT(*) as mark'))
-            ->offset($offset)
-            ->limit($limit)
-            ->get();
+            // Get paginated user answers
+            $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+                ->where('iscorrect', true)
+                ->where('user_answer', true)
+                ->groupBy('user_id')
+                ->select('user_id', DB::raw('COUNT(*) as mark'))
+                ->offset($offset)
+                ->limit($limit)
+                ->get();
 
-        $markData = [];
-        foreach ($userReviewAnswers as $answer) {
-            $mark = $answer->mark;
-            if (!isset($markData[$mark])) {
-                $markData[$mark] = 0;
+            // Aggregate marks
+            $markData = [];
+            foreach ($userReviewAnswers as $answer) {
+                $mark = $answer->mark;
+                if (!isset($markData[$mark])) {
+                    $markData[$mark] = 0;
+                }
+                $markData[$mark]++;
             }
-            $markData[$mark]++;
-        }
 
-        return response()->json([
-            'markData' => $markData,
-            'passed' => $passed,
-            'offset' => $offset,
-            'limit' => $limit,
-            'total' => $total,
-            'hasMore' => ($offset + $limit) < $total
-        ]);
+            return response()->json([
+                'markData' => $markData,
+                'passed' => $passed,
+                'offset' => $offset,
+                'limit' => $limit,
+                'total' => $total,
+                'hasMore' => ($offset + $limit) < $total
+            ]);
     }
 
 
