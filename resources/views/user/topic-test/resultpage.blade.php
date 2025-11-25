@@ -140,57 +140,38 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         localStorage.removeItem("topic-test-summery-retry")
+        $(document).ready(function() {
 
-         $(document).ready(function() {
-
-            $.ajax({
-                url: "{{ route('topic-test.chart-data', $userExamReview->slug) }}",
-                method: 'GET',
-                success: function(response) {
-
-                    $('#chart-loader').hide();
-                    $('#myChart').show();
-
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    const progressBar = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: response.labels,
-                            datasets: [{
-                                label: 'Students',
-                                data: response.data,
-                                backgroundColor: response.backgroundColor,
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    display: false,
-                                },
-                                x: {
-                                    grid: {
-                                        display: false
-                                    },
-                                },
-                            },
-                            plugins: {
-                                legend: {
-                                    display: false
-                                }
-                            }
-                        },
-                    });
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const progressBar = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: @json($chartlabel),
+                    datasets: [{
+                        label: 'Students',
+                        data:@json($chartdata),
+                        backgroundColor: @json($chartbackgroundColor),
+                    }]
                 },
-                error: function(xhr, status, error) {
-                    $('#chart-loader').html('<p class="text-danger">Failed to load chart data. Please refresh the page.</p>');
-                    console.error('Chart data loading error:', error);
-                }
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            display: false,
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                        },
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                },
             });
-        });
-
-
-
-
+        })
     </script>
 @endpush
