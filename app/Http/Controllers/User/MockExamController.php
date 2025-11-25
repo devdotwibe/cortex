@@ -245,33 +245,12 @@ class MockExamController extends Controller
 
         $attemttime="$m:$s";
         $questioncount=UserReviewQuestion::where('user_exam_review_id',$userExamReview->id)->count();
-        // $chartlabel=[];
-        // $chartbackgroundColor=[];
-        // $chartdata=[];
-        // $userReviewAnswers = UserReviewAnswer::select('mark',DB::raw('count(mark) as marked_users'))
-        //                                         ->fromSub(function ($query)use($userExamReview){
-        //                                         $query->from('user_review_answers')
-        //                                         ->where('user_exam_review_id','<=',$userExamReview->id)
-        //                                         ->whereIn('user_exam_review_id',UserExamReview::where('name','full-mock-exam')
-        //                                         ->where('user_exam_review_id','<=',$userExamReview->id)
-        //                                         ->where('exam_id',$userExamReview->exam_id)
-        //                                         ->groupBy('user_id')
-        //                                         ->select(DB::raw('MAX(id)')))
-        //                                         ->where('iscorrect',true)
-        //                                         ->where('user_answer',true)
-        //                                         ->select(DB::raw('count(user_id) as mark'));
-        //                                         }, 'subquery')
-        //                                         ->groupBy('mark')
-        //                                         ->get();
-        // foreach ($userReviewAnswers as  $row) {
-        //     $chartlabel[]=strval($row->mark);
-        //     $chartbackgroundColor[]=$passed==$row->mark? "#ef9b10" : '#dfdfdf';
-        //     $chartdata[]=$row->marked_users;
-        // }
+
         $attemtcount=UserExamReview::where('exam_id',$userExamReview->exam_id)
                                     ->where('user_id',$user->id)
                                     ->count();
         $category=Category::all();
+
         $category = Category::whereHas('question', function ($query) use ($userExamReview){
                                 $query->whereHas('questionExam', function ($query)use ($userExamReview) {
                                     $query->where('name', 'full-mock-exam')
@@ -279,39 +258,82 @@ class MockExamController extends Controller
                                 });
                             })->get();
 
-                            $chartlabel = [];
-                            $chartbackgroundColor = [];
-                            $chartdata = [];
+            // $chartlabel = [];
+            // $chartbackgroundColor = [];
+            // $chartdata = [];
 
-                            $latestUserReviewIds = UserExamReview::where('name', 'full-mock-exam')
-                                ->where('exam_id', $userExamReview->exam_id)
-                                ->where('user_exam_review_id', '<=', $userExamReview->id)
-                                ->groupBy('user_id')
-                                ->selectRaw('MAX(id) as id');
+            // $latestUserReviewIds = UserExamReview::where('name', 'full-mock-exam')
+            //     ->where('exam_id', $userExamReview->exam_id)
+            //     ->where('user_exam_review_id', '<=', $userExamReview->id)
+            //     ->groupBy('user_id')
+            //     ->selectRaw('MAX(id) as id');
 
-                            $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-                                ->where('iscorrect', true)
-                                ->where('user_answer', true)
-                                ->groupBy('user_id')
-                                ->select('user_id', DB::raw('COUNT(*) as mark'))
-                                ->get()
-                                ->groupBy('mark')
-                                ->map(function ($group) {
-                                    return count($group);
-                                })->sortKeys();
+            // $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+            //     ->where('iscorrect', true)
+            //     ->where('user_answer', true)
+            //     ->groupBy('user_id')
+            //     ->select('user_id', DB::raw('COUNT(*) as mark'))
+            //     ->get()
+            //     ->groupBy('mark')
+            //     ->map(function ($group) {
+            //         return count($group);
+            //     })->sortKeys();
 
-                            foreach ($userReviewAnswers as $mark => $count) {
-                                $chartlabel[] = (string)$mark;
-                                $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
-                                $chartdata[] = $count;
-                            }
+            // foreach ($userReviewAnswers as $mark => $count) {
+            //     $chartlabel[] = (string)$mark;
+            //     $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
+            //     $chartdata[] = $count;
+            // }
 
 
         $exam=  Exam::where('id',$userExamReview->exam_id)->first();
 
 
-        return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','category','userExamReview','passed','attemttime','questioncount','attemtcount','exam'));
+        return view('user.full-mock-exam.resultpage',compact('category','userExamReview','passed','attemttime','questioncount','attemtcount','exam'));
 
+        // return view('user.full-mock-exam.resultpage',compact('chartdata','chartbackgroundColor','chartlabel','category','userExamReview','passed','attemttime','questioncount','attemtcount','exam'));
+
+    }
+
+    public function mockChartData(Request $request, UserExamReview $userExamReview)
+    {
+        $user = Auth::user();
+        $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
+
+        $chartlabel = [];
+        $chartbackgroundColor = [];
+        $chartdata = [];
+
+        $latestUserReviewIds = UserExamReview::where('name', 'full-mock-exam')
+            ->where('exam_id', $userExamReview->exam_id)
+            ->where('category_id', $userExamReview->category_id)
+            ->where('user_exam_review_id', '<=', $userExamReview->id)
+            ->groupBy('user_id')
+            ->selectRaw('MAX(id) as id');
+
+        $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+            ->where('iscorrect', true)
+            ->where('user_answer', true)
+            ->groupBy('user_id')
+            ->select('user_id', DB::raw('COUNT(*) as mark'))
+            ->get()
+            ->groupBy('mark')
+            ->map(function ($group) {
+                return count($group);
+            })->sortKeys();
+
+        foreach ($userReviewAnswers as $mark => $count) {
+            $chartlabel[] = (string)$mark;
+            $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
+            $chartdata[] = $count;
+        }
+
+        return response()->json([
+            'labels' => $chartlabel,
+            'data' => $chartdata,
+            'backgroundColor' => $chartbackgroundColor,
+            'passed' => $passed
+        ]);
     }
 
 

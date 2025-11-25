@@ -2,16 +2,16 @@
 @section('headerclass', 'top-barhide')
 @section('bodyclass', 'bartop-hide')
 @section('title', 'Congratulation on Completing the '.$userExamReview->title)
-@section('content')  
+@section('content')
 
 <section class="modal-expand modal-expand-result" id="question-complete-page" >
     <div class="container-wrap">
-        <div class="result-preview">   
+        <div class="result-preview">
             <div class="result-preview-body">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="exam-result">
-                            <div class="exam-result-content">  
+                            <div class="exam-result-content">
                                 <div class="exam-mark-body">
                                     <div class="mark-title">
                                         <h3>Attempt details</h3>
@@ -19,17 +19,17 @@
                                     <div class="mark-label">
                                         <span>Time taken :</span>
                                         <span id="time-taken">{{$attemttime}}</span>
-                                    </div> 
+                                    </div>
                                     <div class="mark-label">
                                         <span>Attempt Number :</span>
                                         <span>#{{$attemtcount}}</span>
-                                    </div> 
+                                    </div>
                                     <div class="mark-label">
                                         <span>Attempt Date :</span>
                                         <span>@if(!empty($userExamReview->created_at)) {{$userExamReview->created_at->format('d M Y')}} @endif</span>
-                                    </div> 
-                                </div>  
-        
+                                    </div>
+                                </div>
+
                                 <p>Next Step: Review and Improve</p>
                                 <div class="exam-mark-bottom">
                                     @if (session("exam-retry-".$userExamReview->id))
@@ -41,7 +41,7 @@
                                     @if(!empty($exam->explanation_video))
                                     <a class="btn btn-warning btn-lg video-btn" id="explanation_video" href="{{ route('full-mock-exam.explanation_video', $userExamReview->slug) }}">Explanation Video</a>
                                 @endif
-                                
+
 
 
                                     <a href="{{route('full-mock-exam.index')}}" class="btn btn-outline-dark btn-lg">Exit Set</a>
@@ -64,7 +64,7 @@
                                                 <th></th>
                                                 <th>Overall</th>
                                                 @foreach ($category as $item)
-                                                <th>{{ucfirst($item->name)}}</th>                                                     
+                                                <th>{{ucfirst($item->name)}}</th>
                                                 @endforeach
                                             </tr>
                                         </thead>
@@ -78,25 +78,25 @@
                                                     @else
                                                     <td></td>
                                                 @endif
-                                            @endforeach 
+                                            @endforeach
                                             </tr>
                                             <tr>
                                                 <th>Average</th>
                                                 <td>{{$userExamReview->avgMark()}}</td>
                                                 @foreach ($category as $item)
                                                 <td></td>
-                                                @endforeach 
+                                                @endforeach
                                             </tr>
                                             <tr>
                                                 <th>Average Time <br>Per Question</th>
-                                                <td>{{$userExamReview->avgTime()}}</td>                                                
+                                                <td>{{$userExamReview->avgTime()}}</td>
                                                 @foreach ($category as $item)
                                                     @if ($userExamReview->avgTime($item->id)>0)
                                                         <td>{{$userExamReview->avgTime($item->id)}}</td>
                                                     @else
                                                         <td></td>
-                                                    @endif                                                                                                   
-                                                @endforeach 
+                                                    @endif
+                                                @endforeach
                                             </tr>
                                         </tbody>
                                     </table>
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="overview-graph">
                                     <div class="overview-graph-body">
-                                        <div class="overview-graph-inner"> 
+                                        <div class="overview-graph-inner">
                                             <canvas id="myChart" class="overview-graph-bar" width="100%" ></canvas>
                                         </div>
                                     </div>
@@ -124,45 +124,57 @@
         </div>
     </div>
 </section>
- 
+
 @endsection
- 
 
-@push('footer-script')  
+
+@push('footer-script')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script> 
-        $(document).ready(function() {
+    <script>
+           $(document).ready(function() {
 
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const progressBar = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: @json($chartlabel),
-                    datasets: [{
-                        label: 'Students',
-                        data:@json($chartdata),
-                        backgroundColor: @json($chartbackgroundColor),  
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            display: false,
-                        }, 
-                        x: {  
-                            grid: {
-                                display: false
-                            }, 
-                        },  
-                    },
-                    plugins: { 
-                        legend: {
-                            display: false 
+            $.ajax({
+                url: "{{ route('full-mock-exam.chart-data', $userExamReview->slug) }}",
+                method: 'GET',
+                success: function(response) {
+                    $('#chart-loader').hide();
+                    $('#myChart').show();
+
+                    const ctx = document.getElementById('myChart').getContext('2d');
+
+                    // Start with empty data
+                    const chartInstance = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: response.labels,
+                            datasets: [{
+                                label: 'Students',
+                                data: new Array(response.data.length).fill(0), // Start at 0
+                                backgroundColor: response.backgroundColor
+                            }]
+                        },
+                        options: {
+                            animation: { duration: 300 },
+                            scales: {
+                                y: { beginAtZero: true, display: false },
+                                x: { grid: { display: false } }
+                            },
+                            plugins: { legend: { display: false } }
                         }
-                    }
+                    });
+
+                    // Animate bars appearing one by one
+                    response.data.forEach((value, index) => {
+                        setTimeout(() => {
+                            chartInstance.data.datasets[0].data[index] = value;
+                            chartInstance.update();
+                        }, index * 100); // 100ms delay between each bar
+                    });
                 },
+                error: function() {
+                    $('#chart-loader').html('<p class="text-danger">Failed to load chart.</p>');
+                }
             });
-        })
+        });
     </script>
 @endpush
