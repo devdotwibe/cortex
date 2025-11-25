@@ -324,7 +324,7 @@ class TopicExamController extends Controller
 
     }
 
-    public function topicChartData(Request $request, UserExamReview $userExamReview)
+   public function topicChartData(Request $request, UserExamReview $userExamReview)
     {
         $user = Auth::user();
         $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
@@ -333,39 +333,42 @@ class TopicExamController extends Controller
         $chartbackgroundColor = [];
         $chartdata = [];
 
-        $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
+        // Step 1: get all relevant review IDs
+        $latestReviewIds = UserExamReview::where('name', 'topic-test')
             ->where('exam_id', $userExamReview->exam_id)
             ->where('category_id', $userExamReview->category_id)
-            ->where('user_exam_review_id', '<=', $userExamReview->id)
-            ->groupBy('user_id')
-            ->selectRaw('MAX(id) as id');
+            ->where('id', '<=', $userExamReview->id)
+            ->pluck('id')
+            ->toArray();
 
-        // $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-        //     ->where('iscorrect', true)
-        //     ->where('user_answer', true)
-        //     ->groupBy('user_id')
-        //     ->select('user_id', DB::raw('COUNT(*) as mark'))
-        //     ->get()
-        //     ->groupBy('mark')
-        //     ->map(function ($group) {
-        //         return count($group);
-        //     })->sortKeys();
+        // Step 2: aggregate marks per user using chunk()
+        $marks = [];
 
-      $userReviewAnswers = DB::table('user_review_answers as ura')
-            ->join('user_exam_reviews as uer', 'ura.user_exam_review_id', '=', 'uer.id')
-            ->where('uer.name', 'topic-test')
-            ->where('uer.exam_id', $userExamReview->exam_id)
-            ->where('uer.category_id', $userExamReview->category_id)
-            ->where('uer.id', '<=', $userExamReview->id) // <-- use id instead of user_exam_review_id
-            ->where('ura.iscorrect', true)
-            ->where('ura.user_answer', true)
-            ->groupBy('ura.user_id')
-            ->select('ura.user_id', DB::raw('COUNT(*) as mark'))
-            ->get();
+        UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewIds)
+            ->where('iscorrect', true)
+            ->where('user_answer', true)
+            ->chunk(1000, function($answers) use (&$marks) {
+                foreach ($answers as $answer) {
+                    $userId = $answer->user_id;
+                    if (!isset($marks[$userId])) {
+                        $marks[$userId] = 0;
+                    }
+                    $marks[$userId]++;
+                }
+            });
 
+        // Step 3: regroup by mark count for chart
+        $chartGrouped = [];
+        foreach ($marks as $userId => $mark) {
+            if (!isset($chartGrouped[$mark])) {
+                $chartGrouped[$mark] = 0;
+            }
+            $chartGrouped[$mark]++;
+        }
 
+        ksort($chartGrouped);
 
-        foreach ($userReviewAnswers as $mark => $count) {
+        foreach ($chartGrouped as $mark => $count) {
             $chartlabel[] = (string)$mark;
             $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
             $chartdata[] = $count;
@@ -378,6 +381,7 @@ class TopicExamController extends Controller
             'passed' => $passed
         ]);
     }
+
 
     public function preview(Request $request, UserExamReview $userExamReview)
     {
