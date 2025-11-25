@@ -97,6 +97,9 @@ class TopicExamController extends Controller
             'time_of_exam'=>$category->time_of_exam,
         ]);
         Session::put("topic-test-attempt",$attemt->slug);
+
+        session()->save();
+
         return view("user.topic-test.summery", compact('category', 'exam', 'user', 'questioncount', 'endtime', 'attemtcount'));
     }
     public function questions(Request $request,UserExam $userExam){
