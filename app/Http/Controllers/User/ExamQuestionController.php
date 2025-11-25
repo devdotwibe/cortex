@@ -95,6 +95,9 @@ class ExamQuestionController extends Controller
     }
     public function setattempt(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
+
+          DB::beginTransaction();
+
             $exam=Exam::where("name",'question-bank')->first();
             if(empty($exam)){
                 $exam=Exam::store([
@@ -124,6 +127,8 @@ class ExamQuestionController extends Controller
             Session::put('question-bank-attempt', $userExam->slug);
 
             Session::save();
+
+            DB::commit();
 
             $questions = Question::with('answers')
                                 ->where('exam_id',$exam->id)
