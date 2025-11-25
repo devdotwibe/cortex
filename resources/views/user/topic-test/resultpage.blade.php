@@ -141,53 +141,144 @@
     <script>
         localStorage.removeItem("topic-test-summery-retry")
 
-         $(document).ready(function() {
 
-            $.ajax({
-                url: "{{ route('topic-test.chart-data', $userExamReview->slug) }}",
-                method: 'GET',
-                success: function(response) {
+        $(document).ready(function() {
+            let chartInstance = null;
+            let aggregatedData = {};
+            let currentOffset = 0;
+            const passedScore = {{ $passed }};
 
-                    $('#chart-loader').hide();
-                    $('#myChart').show();
+            function initChart() {
+                $('#chart-loader').hide();
+                $('#myChart').show();
 
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    const progressBar = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: response.labels,
-                            datasets: [{
-                                label: 'Students',
-                                data: response.data,
-                                backgroundColor: response.backgroundColor,
-                            }]
+                const ctx = document.getElementById('myChart').getContext('2d');
+                chartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Students',
+                            data: [],
+                            backgroundColor: []
+                        }]
+                    },
+                    options: {
+                        animation: { duration: 200 },
+                        scales: {
+                            y: { beginAtZero: true, display: false },
+                            x: { grid: { display: false } }
                         },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    display: false,
-                                },
-                                x: {
-                                    grid: {
-                                        display: false
-                                    },
-                                },
-                            },
-                            plugins: {
-                                legend: {
-                                    display: false
-                                }
-                            }
-                        },
-                    });
-                },
-                error: function(xhr, status, error) {
-                    $('#chart-loader').html('<p class="text-danger">Failed to load chart data. Please refresh the page.</p>');
-                    console.error('Chart data loading error:', error);
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            function updateChart(markData) {
+                // Merge new data
+                for (let mark in markData) {
+                    if (aggregatedData[mark]) {
+                        aggregatedData[mark] += markData[mark];
+                    } else {
+                        aggregatedData[mark] = markData[mark];
+                    }
                 }
-            });
+
+                // Sort marks
+                const sortedMarks = Object.keys(aggregatedData).sort((a, b) => parseInt(a) - parseInt(b));
+
+                // Update chart
+                chartInstance.data.labels = sortedMarks;
+                chartInstance.data.datasets[0].data = sortedMarks.map(mark => aggregatedData[mark]);
+                chartInstance.data.datasets[0].backgroundColor = sortedMarks.map(mark =>
+                    parseInt(mark) === passedScore ? "#ef9b10" : "#dfdfdf"
+                );
+                chartInstance.update();
+            }
+
+            function loadChartData() {
+                $.ajax({
+                    url: "{{ route('topic-test.chart-data-incremental', $userExamReview->slug) }}",
+                    method: 'GET',
+                    data: { offset: currentOffset },
+                    success: function(response) {
+                        if (!chartInstance) {
+                            initChart();
+                        }
+
+                        updateChart(response.markData);
+
+                        // Update progress
+                        const progress = Math.min(100, ((currentOffset + response.limit) / response.total) * 100);
+                        $('#chart-loader').find('.progress-text').text(`Loading ${Math.round(progress)}%...`);
+
+                        if (response.hasMore) {
+                            currentOffset += response.limit;
+                            loadChartData(); // Load next batch
+                        } else {
+                            $('#chart-loader').hide();
+                        }
+                    },
+                    error: function() {
+                        $('#chart-loader').html('<p class="text-danger">Failed to load chart.</p>');
+                    }
+                });
+            }
+
+            // Start loading
+            loadChartData();
         });
+
+
+
+
+        //  $(document).ready(function() {
+
+        //     $.ajax({
+        //         url: "{{ route('topic-test.chart-data', $userExamReview->slug) }}",
+        //         method: 'GET',
+        //         success: function(response) {
+
+        //             $('#chart-loader').hide();
+        //             $('#myChart').show();
+
+        //             const ctx = document.getElementById('myChart').getContext('2d');
+        //             const progressBar = new Chart(ctx, {
+        //                 type: 'bar',
+        //                 data: {
+        //                     labels: response.labels,
+        //                     datasets: [{
+        //                         label: 'Students',
+        //                         data: response.data,
+        //                         backgroundColor: response.backgroundColor,
+        //                     }]
+        //                 },
+        //                 options: {
+        //                     scales: {
+        //                         y: {
+        //                             beginAtZero: true,
+        //                             display: false,
+        //                         },
+        //                         x: {
+        //                             grid: {
+        //                                 display: false
+        //                             },
+        //                         },
+        //                     },
+        //                     plugins: {
+        //                         legend: {
+        //                             display: false
+        //                         }
+        //                     }
+        //                 },
+        //             });
+        //         },
+        //         error: function(xhr, status, error) {
+        //             $('#chart-loader').html('<p class="text-danger">Failed to load chart data. Please refresh the page.</p>');
+        //             console.error('Chart data loading error:', error);
+        //         }
+        //     });
+        // });
 
 
 

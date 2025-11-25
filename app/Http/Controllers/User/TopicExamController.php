@@ -326,44 +326,103 @@ class TopicExamController extends Controller
 
     public function topicChartData(Request $request, UserExamReview $userExamReview)
     {
+            $user = Auth::user();
+            $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
+
+            $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
+                ->where('exam_id', $userExamReview->exam_id)
+                ->where('category_id', $userExamReview->category_id)
+                ->where('user_exam_review_id', '<=', $userExamReview->id)
+                ->groupBy('user_id')
+                ->selectRaw('MAX(id) as id')
+                ->pluck('id'); // Get IDs immediately
+
+            // Use chunk() to process data in batches
+            $markCounts = [];
+
+            UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+                ->where('iscorrect', true)
+                ->where('user_answer', true)
+                ->groupBy('user_id')
+                ->select('user_id', DB::raw('COUNT(*) as mark'))
+                ->chunk(100, function ($answers) use (&$markCounts) {
+                    foreach ($answers as $answer) {
+                        $mark = $answer->mark;
+                        $markCounts[$mark] = isset($markCounts[$mark]) ? $markCounts[$mark] + 1 : 1;
+                    }
+                });
+
+            // Sort and prepare data
+            ksort($markCounts);
+
+            $chartlabel = [];
+            $chartbackgroundColor = [];
+            $chartdata = [];
+
+            foreach ($markCounts as $mark => $count) {
+                $chartlabel[] = (string)$mark;
+                $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
+                $chartdata[] = $count;
+            }
+
+            return response()->json([
+                'labels' => $chartlabel,
+                'data' => $chartdata,
+                'backgroundColor' => $chartbackgroundColor,
+                'passed' => $passed
+            ]);
+    }
+
+    public function topicChartDataIncremental(Request $request, UserExamReview $userExamReview)
+    {
         $user = Auth::user();
         $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
-
-        $chartlabel = [];
-        $chartbackgroundColor = [];
-        $chartdata = [];
+        $offset = $request->get('offset', 0);
+        $limit = 50; // Load 50 records at a time
 
         $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
             ->where('exam_id', $userExamReview->exam_id)
             ->where('category_id', $userExamReview->category_id)
             ->where('user_exam_review_id', '<=', $userExamReview->id)
             ->groupBy('user_id')
-            ->selectRaw('MAX(id) as id');
+            ->selectRaw('MAX(id) as id')
+            ->pluck('id');
+
+        $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+            ->where('iscorrect', true)
+            ->where('user_answer', true)
+            ->distinct('user_id')
+            ->count('user_id');
 
         $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
             ->where('iscorrect', true)
             ->where('user_answer', true)
             ->groupBy('user_id')
             ->select('user_id', DB::raw('COUNT(*) as mark'))
-            ->get()
-            ->groupBy('mark')
-            ->map(function ($group) {
-                return count($group);
-            })->sortKeys();
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
 
-        foreach ($userReviewAnswers as $mark => $count) {
-            $chartlabel[] = (string)$mark;
-            $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
-            $chartdata[] = $count;
+        $markData = [];
+        foreach ($userReviewAnswers as $answer) {
+            $mark = $answer->mark;
+            if (!isset($markData[$mark])) {
+                $markData[$mark] = 0;
+            }
+            $markData[$mark]++;
         }
 
         return response()->json([
-            'labels' => $chartlabel,
-            'data' => $chartdata,
-            'backgroundColor' => $chartbackgroundColor,
-            'passed' => $passed
+            'markData' => $markData,
+            'passed' => $passed,
+            'offset' => $offset,
+            'limit' => $limit,
+            'total' => $total,
+            'hasMore' => ($offset + $limit) < $total
         ]);
     }
+
+
 
     public function preview(Request $request, UserExamReview $userExamReview)
     {

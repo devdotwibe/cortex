@@ -172,6 +172,9 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
             Route::get('/{userExamReview}/chart-data', [TopicExamController::class, 'topicChartData'])->name('chart-data');
 
+
+            Route::get('/{userExamReview}/chart-data-incremental', [TopicExamController::class, 'topicChartDataIncremental'])->name('chart-data-incremental');
+
             Route::get('/{user_exam_review}/retry', [TopicExamController::class, 'topicretry'])->name('retry');
             Route::post('/fetch/{attemt}/progress', [TopicExamController::class, 'getprogress'])->name('attemtprogress');
             Route::post('/update/{attemt}/progress', [TopicExamController::class, 'updateprogress'])->name('updateprogress');
