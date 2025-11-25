@@ -336,28 +336,56 @@ class TopicExamController extends Controller
         $chartbackgroundColor = [];
         $chartdata = [];
 
-        $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
-            ->where('exam_id', $userExamReview->exam_id)
-            ->where('category_id', $userExamReview->category_id)
-            ->where('user_exam_review_id', '<=', $userExamReview->id)
-            ->groupBy('user_id')
-            ->selectRaw('MAX(id) as id');
+        // $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
+        //     ->where('exam_id', $userExamReview->exam_id)
+        //     ->where('category_id', $userExamReview->category_id)
+        //     ->where('user_exam_review_id', '<=', $userExamReview->id)
+        //     ->groupBy('user_id')
+        //     ->selectRaw('MAX(id) as id');
 
-        $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-            ->where('iscorrect', true)
-            ->where('user_answer', true)
-            ->groupBy('user_id')
-            ->select('user_id', DB::raw('COUNT(*) as mark'))
-            ->get()
-            ->groupBy('mark')
-            ->map(function ($group) {
-                return count($group);
-            })->sortKeys();
+        // $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+        //     ->where('iscorrect', true)
+        //     ->where('user_answer', true)
+        //     ->groupBy('user_id')
+        //     ->select('user_id', DB::raw('COUNT(*) as mark'))
+        //     ->get()
+        //     ->groupBy('mark')
+        //     ->map(function ($group) {
+        //         return count($group);
+        //     })->sortKeys();
 
-        foreach ($userReviewAnswers as $mark => $count) {
-            $chartlabel[] = (string)$mark;
-            $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
-            $chartdata[] = $count;
+        // foreach ($userReviewAnswers as $mark => $count) {
+        //     $chartlabel[] = (string)$mark;
+        //     $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
+        //     $chartdata[] = $count;
+        // }
+
+         $results = DB::select("
+            SELECT sub.mark, COUNT(*) AS user_count
+            FROM (
+                SELECT ura.user_id, COUNT(*) AS mark
+                FROM user_review_answers AS ura
+                WHERE ura.user_exam_review_id IN (
+                    SELECT MAX(id)
+                    FROM user_exam_reviews
+                    WHERE name = 'topic-test'
+                    AND exam_id = ?
+                    AND id <= ?
+                    GROUP BY user_id
+                )
+                AND ura.iscorrect = 1
+                AND ura.user_answer = 1
+                GROUP BY ura.user_id
+            ) AS sub
+            GROUP BY sub.mark
+            ORDER BY sub.mark
+        ", [$userExamReview->exam_id, $userExamReview->id]);
+
+
+        foreach ($results as $row) {
+            $chartlabel[] = (string)$row->mark;
+            $chartbackgroundColor[] = ($row->mark == $passed) ? "#ef9b10" : "#dfdfdf";
+            $chartdata[] = $row->user_count;
         }
 
         return response()->json([
