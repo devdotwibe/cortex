@@ -327,7 +327,7 @@ class MockExamController extends Controller
         //     $chartdata[] = $count;
         // }
 
-          $results = DB::select("
+        $results = DB::select("
             SELECT ura.mark, COUNT(*) as user_count
             FROM (
                 SELECT ura.user_id, COUNT(*) AS mark
@@ -336,7 +336,7 @@ class MockExamController extends Controller
                     ON ura.user_exam_review_id = uer.id
                 WHERE uer.name = 'full-mock-exam'
                 AND uer.exam_id = ?
-                AND uer.user_exam_review_id <= ?
+                AND uer.id <= ?  -- corrected here
                 AND ura.iscorrect = 1
                 AND ura.user_answer = 1
                 GROUP BY ura.user_id
