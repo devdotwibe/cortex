@@ -561,21 +561,8 @@
             console.log('Exam Active:', summery.examActive);
             console.log(summery)
 
-            // $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug]) }}",
-            // function(res){
-
-        const requestUrl = pageurl || "{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug]) }}";
-
-            $.ajax({
-                url: requestUrl,
-                type: 'GET',
-                dataType: 'json',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(res) {
-
+            $.get(pageurl||"{{ route('question-bank.set.show',['category'=>$category->slug,'sub_category'=>$subCategory->slug,'setname'=>$setname->slug,'user_exam'=>$slug]) }}",
+            function(res){
                 $('.pagination-arrow').hide();
                 $('#lesson-footer-pagination').html('')
                 summery.timerActive=true;
@@ -689,36 +676,23 @@
 
                 $('#menu-text').html(`Question <span> ${res.current_page} </span> of <span> ${res.total}</span>`)
 
-            },
+            },'json').fail(function(xhr,status,error){
 
-            // 'json').fail(function(xhr,status,error){
+                      console.log('Status:', status);
+                            console.log('Error:', error);
+                            console.log('Response Text:', xhr.responseText);
+                            console.log('Status Code:', xhr.status);
 
-            //           console.log('Status:', status);
-            //                 console.log('Error:', error);
-            //                 console.log('Response Text:', xhr.responseText);
-            //                 console.log('Status Code:', xhr.status);
+                if(error !='Unauthorized')
+                {
+                    showToast("Error:" + 'Page expired. Please refresh.', 'danger');
 
-            //     if(error !='Unauthorized')
-            //     {
-            //         showToast("Error:" + 'Page expired. Please refresh.', 'danger');
-
-            //     }
-            //     else
-            //     {
-            //         showToast("Error: " + error, 'danger');
-            //     }
-            // })
-
-                error: function(xhr, status, error) {
-                    console.log('Main Request Error:');
-                    console.log('Status:', status);
-                    console.log('Error:', error);
-                    console.log('Status Code:', xhr.status);
-                    console.log('Response Text:', xhr.responseText);
-
-                    handleAjaxError(xhr, status, error);
                 }
-            });
+                else
+                {
+                    showToast("Error: " + error, 'danger');
+                }
+            })
 
             const csrf= $('meta[name="csrf-token"]').attr('content');
 
