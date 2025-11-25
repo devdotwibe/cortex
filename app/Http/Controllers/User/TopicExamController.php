@@ -280,6 +280,55 @@ class TopicExamController extends Controller
         $attemttime = "$m:$s";
         $questioncount = UserReviewQuestion::where('user_exam_review_id', $userExamReview->id)->count();
 
+        // $chartlabel = [];
+        // $chartbackgroundColor = [];
+        // $chartdata = [];
+
+        // $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
+        //     ->where('exam_id', $userExamReview->exam_id)
+        //     ->where('category_id', $userExamReview->category_id)
+        //     ->where('user_exam_review_id', '<=', $userExamReview->id)
+        //     ->groupBy('user_id')
+        //     ->selectRaw('MAX(id) as id');
+
+        // $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+        //     ->where('iscorrect', true)
+        //     ->where('user_answer', true)
+        //     ->groupBy('user_id')
+        //     ->select('user_id', DB::raw('COUNT(*) as mark'))
+        //     ->get()
+        //     ->groupBy('mark')
+        //     ->map(function ($group) {
+        //         return count($group);
+        //     })->sortKeys();
+        // foreach ($userReviewAnswers as $mark => $count) {
+        //     $chartlabel[] = (string)$mark;
+        //     $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
+        //     $chartdata[] = $count;
+        // }
+
+
+        $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->where('id', '<', $userExamReview->id)->count() + 1;
+        $categorylist = Category::all();
+
+        // return view('user.topic-test.resultpage', compact('chartdata', 'chartbackgroundColor', 'chartlabel', 'categorylist', 'userExamReview', 'passed', 'attemttime', 'questioncount', 'attemtcount'));
+
+        return view('user.topic-test.resultpage', compact(
+            'categorylist',
+            'userExamReview',
+            'passed',
+            'attemttime',
+            'questioncount',
+            'attemtcount'
+        ));
+
+    }
+
+    public function topicChartData(Request $request, UserExamReview $userExamReview)
+    {
+        $user = Auth::user();
+        $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
+
         $chartlabel = [];
         $chartbackgroundColor = [];
         $chartdata = [];
@@ -301,74 +350,8 @@ class TopicExamController extends Controller
             ->map(function ($group) {
                 return count($group);
             })->sortKeys();
+
         foreach ($userReviewAnswers as $mark => $count) {
-            $chartlabel[] = (string)$mark;
-            $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
-            $chartdata[] = $count;
-        }
-
-
-        $attemtcount = UserExamReview::where('exam_id', $userExamReview->exam_id)->where('category_id', $userExamReview->category_id)->where('user_id', $user->id)->where('id', '<', $userExamReview->id)->count() + 1;
-        $categorylist = Category::all();
-
-        return view('user.topic-test.resultpage', compact('chartdata', 'chartbackgroundColor', 'chartlabel', 'categorylist', 'userExamReview', 'passed', 'attemttime', 'questioncount', 'attemtcount'));
-
-        // return view('user.topic-test.resultpage', compact(
-        //     'categorylist',
-        //     'userExamReview',
-        //     'passed',
-        //     'attemttime',
-        //     'questioncount',
-        //     'attemtcount'
-        // ));
-
-    }
-
-   public function topicChartData(Request $request, UserExamReview $userExamReview)
-    {
-        $user = Auth::user();
-        $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
-
-        $chartlabel = [];
-        $chartbackgroundColor = [];
-        $chartdata = [];
-
-        // Step 1: get all relevant review IDs
-        $latestReviewIds = UserExamReview::where('name', 'topic-test')
-            ->where('exam_id', $userExamReview->exam_id)
-            ->where('category_id', $userExamReview->category_id)
-            ->where('id', '<=', $userExamReview->id)
-            ->pluck('id')
-            ->toArray();
-
-        // Step 2: aggregate marks per user using chunk()
-        $marks = [];
-
-        UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewIds)
-            ->where('iscorrect', true)
-            ->where('user_answer', true)
-            ->chunk(1000, function($answers) use (&$marks) {
-                foreach ($answers as $answer) {
-                    $userId = $answer->user_id;
-                    if (!isset($marks[$userId])) {
-                        $marks[$userId] = 0;
-                    }
-                    $marks[$userId]++;
-                }
-            });
-
-        // Step 3: regroup by mark count for chart
-        $chartGrouped = [];
-        foreach ($marks as $userId => $mark) {
-            if (!isset($chartGrouped[$mark])) {
-                $chartGrouped[$mark] = 0;
-            }
-            $chartGrouped[$mark]++;
-        }
-
-        ksort($chartGrouped);
-
-        foreach ($chartGrouped as $mark => $count) {
             $chartlabel[] = (string)$mark;
             $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
             $chartdata[] = $count;
@@ -381,7 +364,6 @@ class TopicExamController extends Controller
             'passed' => $passed
         ]);
     }
-
 
     public function preview(Request $request, UserExamReview $userExamReview)
     {

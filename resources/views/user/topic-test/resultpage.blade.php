@@ -140,38 +140,45 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         localStorage.removeItem("topic-test-summery-retry")
-        $(document).ready(function() {
+       $(document).ready(function() {
+            let chartInstance = null;
 
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const progressBar = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: @json($chartlabel),
-                    datasets: [{
-                        label: 'Students',
-                        data:@json($chartdata),
-                        backgroundColor: @json($chartbackgroundColor),
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            display: false,
+            $.ajax({
+                url: "{{ route('topic-test.chart-data', $userExamReview->slug) }}",
+                method: 'GET',
+                timeout: 5000, // 5 second timeout
+                success: function(response) {
+                    $('#chart-loader').hide();
+                    $('#myChart').show();
+
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    chartInstance = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: response.labels,
+                            datasets: [{
+                                label: 'Students',
+                                data: response.data,
+                                backgroundColor: response.backgroundColor,
+                            }]
                         },
-                        x: {
-                            grid: {
-                                display: false
+                        options: {
+                            animation: {
+                                duration: 800,
+                                easing: 'easeOutQuart'
                             },
-                        },
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
+                            scales: {
+                                y: { beginAtZero: true, display: false },
+                                x: { grid: { display: false } }
+                            },
+                            plugins: { legend: { display: false } }
                         }
-                    }
+                    });
                 },
+                error: function() {
+                    $('#chart-loader').html('<p class="text-danger">Failed to load chart. <a href="#" onclick="location.reload()">Retry</a></p>');
+                }
             });
-        })
+        });
     </script>
 @endpush
