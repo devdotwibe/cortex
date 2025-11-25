@@ -304,28 +304,30 @@ class MockExamController extends Controller
         $chartbackgroundColor = [];
         $chartdata = [];
 
-        // $latestUserReviewIds = UserExamReview::where('name', 'full-mock-exam')
-        //     ->where('exam_id', $userExamReview->exam_id)
-        //     ->where('user_exam_review_id', '<=', $userExamReview->id)
-        //     ->groupBy('user_id')
-        //     ->selectRaw('MAX(id) as id');
+        $latestUserReviewIds = UserExamReview::where('name', 'full-mock-exam')
+            ->where('exam_id', $userExamReview->exam_id)
+            ->where('user_exam_review_id', '<=', $userExamReview->id)
+            ->groupBy('user_id')
+            ->selectRaw('MAX(id) as id');
 
-        // $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-        //     ->where('iscorrect', true)
-        //     ->where('user_answer', true)
-        //     ->groupBy('user_id')
-        //     ->select('user_id', DB::raw('COUNT(*) as mark'))
-        //     ->get()
-        //     ->groupBy('mark')
-        //     ->map(function ($group) {
-        //         return count($group);
-        //     })->sortKeys();
+        $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+            ->where('iscorrect', true)
+            ->where('user_answer', true)
+            ->groupBy('user_id')
+            ->select('user_id', DB::raw('COUNT(*) as mark'))
+            ->get()
+            ->groupBy('mark')
+            ->map(function ($group) {
+                return count($group);
+            })->sortKeys();
 
         // foreach ($userReviewAnswers as $mark => $count) {
         //     $chartlabel[] = (string)$mark;
         //     $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
         //     $chartdata[] = $count;
         // }
+
+        dd($userReviewAnswers);
 
         $results = DB::select("
             SELECT ura.mark, COUNT(*) as user_count
@@ -344,6 +346,7 @@ class MockExamController extends Controller
             GROUP BY ura.mark
             ORDER BY ura.mark
         ", [$userExamReview->exam_id, $userExamReview->id]);
+
 
         foreach ($results as $row) {
             $chartlabel[] = (string)$row->mark;
