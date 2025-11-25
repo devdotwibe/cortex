@@ -317,11 +317,11 @@ class MockExamController extends Controller
             ->select('user_id', DB::raw('COUNT(*) as mark'))
            ->toSql();
 
-        // foreach ($userReviewAnswers as $mark => $count) {
-        //     $chartlabel[] = (string)$mark;
-        //     $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
-        //     $chartdata[] = $count;
-        // }
+        foreach ($userReviewAnswers as $mark => $count) {
+            $chartlabel[] = (string)$mark;
+            $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
+            $chartdata[] = $count;
+        }
 
         // dd($userReviewAnswers);
 
@@ -362,11 +362,11 @@ class MockExamController extends Controller
         // ", [$userExamReview->exam_id, $userExamReview->id]);
 
 
-        foreach ($userReviewAnswers as $row) {
-            $chartlabel[] = (string)$row->mark;
-            $chartbackgroundColor[] = ($row->mark == $passed) ? "#ef9b10" : "#dfdfdf";
-            $chartdata[] = $row->user_count;
-        }
+        // foreach ($userReviewAnswers as $row) {
+        //     $chartlabel[] = (string)$row->mark;
+        //     $chartbackgroundColor[] = ($row->mark == $passed) ? "#ef9b10" : "#dfdfdf";
+        //     $chartdata[] = $row->user_count;
+        // }
 
         return response()->json([
             'labels' => $chartlabel,
