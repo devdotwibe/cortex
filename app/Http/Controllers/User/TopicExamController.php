@@ -351,17 +351,18 @@ class TopicExamController extends Controller
         //         return count($group);
         //     })->sortKeys();
 
-        $userReviewAnswers = DB::table('user_review_answers as ura')
+      $userReviewAnswers = DB::table('user_review_answers as ura')
             ->join('user_exam_reviews as uer', 'ura.user_exam_review_id', '=', 'uer.id')
-                ->where('uer.name', 'topic-test')
-                ->where('uer.exam_id', $userExamReview->exam_id)
-                ->where('uer.category_id', $userExamReview->category_id)
-                ->where('uer.user_exam_review_id', '<=', $userExamReview->id)
-                ->where('ura.iscorrect', true)
-                ->where('ura.user_answer', true)
-                ->groupBy('ura.user_id')
-                ->select('ura.user_id', DB::raw('COUNT(*) as mark'))
+            ->where('uer.name', 'topic-test')
+            ->where('uer.exam_id', $userExamReview->exam_id)
+            ->where('uer.category_id', $userExamReview->category_id)
+            ->where('uer.id', '<=', $userExamReview->id) // <-- use id instead of user_exam_review_id
+            ->where('ura.iscorrect', true)
+            ->where('ura.user_answer', true)
+            ->groupBy('ura.user_id')
+            ->select('ura.user_id', DB::raw('COUNT(*) as mark'))
             ->get();
+
 
 
         foreach ($userReviewAnswers as $mark => $count) {
