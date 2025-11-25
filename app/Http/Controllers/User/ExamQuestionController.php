@@ -95,8 +95,6 @@ class ExamQuestionController extends Controller
     }
     public function setattempt(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
-        dd('test');
-
             $exam=Exam::where("name",'question-bank')->first();
             if(empty($exam)){
                 $exam=Exam::store([
