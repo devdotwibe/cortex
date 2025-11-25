@@ -125,6 +125,8 @@ class ExamQuestionController extends Controller
 
             Session::put('question-bank-attempt', $userExam->slug);
 
+            session()->save();
+
             // $questions = Question::with('answers')
             //                     ->where('exam_id',$exam->id)
             //                     ->where('category_id',$category->id)
