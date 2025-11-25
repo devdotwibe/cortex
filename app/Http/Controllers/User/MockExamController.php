@@ -137,7 +137,7 @@ class MockExamController extends Controller
              return  redirect()->route('full-mock-exam.index')->with("error","Exam not initialized");
         }
 
-            $attemt=UserExam::findSlug($request->user_exam);
+            $attemt=UserExam::findSlug($request->query('user_exam'));
             /**
              * @var User
              */
@@ -158,7 +158,7 @@ class MockExamController extends Controller
             }
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count()+1;
 
-            return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount','attemt'));
+            return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount'));
 
     }
 
