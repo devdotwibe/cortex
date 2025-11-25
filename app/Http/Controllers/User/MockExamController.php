@@ -75,6 +75,9 @@ class MockExamController extends Controller
             'time_of_exam'=>$exam->time_of_exam,
         ]);
         Session::put("full-mock-exam-attempt",$attemt->slug);
+
+        session()->save();
+
         return view("user.full-mock-exam.summery",compact('exam','user','questioncount','endtime','attemtcount'));
     }
 
