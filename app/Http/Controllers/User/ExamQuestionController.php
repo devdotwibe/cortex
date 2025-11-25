@@ -96,9 +96,6 @@ class ExamQuestionController extends Controller
     public function setattempt(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
 
-        dd(session()->all());
-
-
             $exam=Exam::where("name",'question-bank')->first();
             if(empty($exam)){
                 $exam=Exam::store([
@@ -166,6 +163,8 @@ class ExamQuestionController extends Controller
                 }
             }
 
+
+        dd(session()->all());
 
         return redirect()->route('question-bank.set.show',
                                     ['category'=>$category->slug,
