@@ -140,45 +140,53 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         localStorage.removeItem("topic-test-summery-retry")
-       $(document).ready(function() {
-            let chartInstance = null;
 
-            $.ajax({
-                url: "{{ route('topic-test.chart-data', $userExamReview->slug) }}",
-                method: 'GET',
-                timeout: 5000, // 5 second timeout
-                success: function(response) {
-                    $('#chart-loader').hide();
-                    $('#myChart').show();
 
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    chartInstance = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: response.labels,
-                            datasets: [{
-                                label: 'Students',
-                                data: response.data,
-                                backgroundColor: response.backgroundColor,
-                            }]
-                        },
-                        options: {
-                            animation: {
-                                duration: 800,
-                                easing: 'easeOutQuart'
-                            },
-                            scales: {
-                                y: { beginAtZero: true, display: false },
-                                x: { grid: { display: false } }
-                            },
-                            plugins: { legend: { display: false } }
-                        }
-                    });
+     $(document).ready(function() {
+    $.ajax({
+        url: "{{ route('topic-test.chart-data', $userExamReview->slug) }}",
+        method: 'GET',
+        success: function(response) {
+            $('#chart-loader').hide();
+            $('#myChart').show();
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+
+            // Start with empty data
+            const chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: response.labels,
+                    datasets: [{
+                        label: 'Students',
+                        data: new Array(response.data.length).fill(0), // Start at 0
+                        backgroundColor: response.backgroundColor
+                    }]
                 },
-                error: function() {
-                    $('#chart-loader').html('<p class="text-danger">Failed to load chart. <a href="#" onclick="location.reload()">Retry</a></p>');
+                options: {
+                    animation: { duration: 300 },
+                    scales: {
+                        y: { beginAtZero: true, display: false },
+                        x: { grid: { display: false } }
+                    },
+                    plugins: { legend: { display: false } }
                 }
             });
-        });
+
+            // Animate bars appearing one by one
+            response.data.forEach((value, index) => {
+                setTimeout(() => {
+                    chartInstance.data.datasets[0].data[index] = value;
+                    chartInstance.update();
+                }, index * 100); // 100ms delay between each bar
+            });
+        },
+        error: function() {
+            $('#chart-loader').html('<p class="text-danger">Failed to load chart.</p>');
+        }
+    });
+});
+
+
     </script>
 @endpush
