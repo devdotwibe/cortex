@@ -169,6 +169,9 @@ Route::middleware(['auth', 'isUser'])->group(function () {
             Route::middleware('subscription:topic-test')->get('/{category}/review', [TopicExamController::class, 'topicreview'])->name('topic.review');
             Route::get('/attempt/{user_exam_review}/preview', [TopicExamController::class, 'preview'])->name('preview');
             Route::get('/{user_exam_review}/complete', [TopicExamController::class, 'topiccomplete'])->name('complete');
+
+            Route::get('/{userExamReview}/chart-data', [TopicExamController::class, 'topicChartData'])->name('chart-data');
+
             Route::get('/{user_exam_review}/retry', [TopicExamController::class, 'topicretry'])->name('retry');
             Route::post('/fetch/{attemt}/progress', [TopicExamController::class, 'getprogress'])->name('attemtprogress');
             Route::post('/update/{attemt}/progress', [TopicExamController::class, 'updateprogress'])->name('updateprogress');
