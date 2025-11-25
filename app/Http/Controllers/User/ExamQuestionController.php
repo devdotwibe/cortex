@@ -196,7 +196,7 @@ class ExamQuestionController extends Controller
             $userExam = UserExam ::findSlug($request->user_exam);
 
 
-            if($request->ajax()){
+            // if($request->ajax()){
 
                 try {
 
@@ -314,7 +314,7 @@ class ExamQuestionController extends Controller
                         'message' => $e->getMessage()
                     ], 500);
                 }
-            }
+            // }
 
             $questioncount=UserExamQuestion::where('user_exam_id',$userExam->id)
                                     ->where('category_id',$category->id)
