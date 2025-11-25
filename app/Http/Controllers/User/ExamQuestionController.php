@@ -173,7 +173,10 @@ class ExamQuestionController extends Controller
 
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
-    // if (session("question-bank-attempt")) {
+        if (!session("question-bank-attempt") && $request->ajax()==false) {
+
+            return redirect()->route('question-bank.index')->with("error","Question set not initialized");
+        }
 
         $exam=Exam::where("name",'question-bank')->first();
 
@@ -196,9 +199,7 @@ class ExamQuestionController extends Controller
             $userExam = UserExam ::findSlug($request->user_exam);
 
 
-            // if($request->ajax()){
-
-                try {
+            if($request->ajax()){
 
                 $userExam = UserExam ::findSlug($request->user_exam);
 
@@ -303,18 +304,7 @@ class ExamQuestionController extends Controller
                     ];
 
                     return response()->json($response);
-
-                    }
-
-                    catch (\Exception $e) {
-
-                    \Log::error('Answer fetch error: ' . $e->getMessage());
-                    return response()->json([
-                        'error' => 'Failed to load answers',
-                        'message' => $e->getMessage()
-                    ], 500);
-                }
-            // }
+            }
 
             $questioncount=UserExamQuestion::where('user_exam_id',$userExam->id)
                                     ->where('category_id',$category->id)
@@ -356,11 +346,6 @@ class ExamQuestionController extends Controller
             $view = view("user.question-bank.set",compact('category','exam','subCategory','user','setname','questioncount','endtime','slug','userExam'));
 
             return $view;
-        // }
-        // else {
-
-        //      return redirect()->route('question-bank.index')->with("error","Question set not initialized");
-        // }
     }
     public function preview(Request $request,UserExamReview $userExamReview){
 
