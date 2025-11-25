@@ -355,6 +355,9 @@
         <input type="hidden" name="times" id="finish-exam-confirmed-form-times" value="" >
         <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" >
         <input type="hidden" name="questions" id="finish-exam-confirmed-form-questions" value="" >
+
+        <input type="hidden" name="user_exam" id="user_exam" value="{{ $userExam->slug }}">
+
     </form>
 </div>
 

@@ -178,17 +178,9 @@ class ExamQuestionController extends Controller
 
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
-        if (!session("question-bank-attempt")) {
+        if (!session("question-bank-attempt") && $request->ajax() == false) {
 
-            if($request->ajax()) {
-
-                 return response()->json(['error' => 'Unauthorized access'], 403);
-            }
-            else
-            {
-
-                return redirect()->route('question-bank.index')->with("error","Question set not initialized");
-            }
+          return redirect()->route('question-bank.index')->with("error","Question set not initialized");
         }
 
         $exam=Exam::where("name",'question-bank')->first();
@@ -569,7 +561,7 @@ class ExamQuestionController extends Controller
          * @var User
          */
         $user=Auth::user();
-        $userExam=UserExam::findSlug(session("question-bank-attempt"));
+        $userExam = UserExam::findSlug($request->user_exam);
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
@@ -579,7 +571,7 @@ class ExamQuestionController extends Controller
             $exam=Exam::find( $exam->id );
         }
         $review=UserExamReview::store([
-            "ticket" => session("question-bank-attempt"),
+            "ticket" =>$request->user_exam,
             "title"=>"Question Bank",
             "name"=>"question-bank",
             "progress"=>$user->progress("exam-".$exam->id."-topic-".$category->id."-lesson-".$subCategory->id.'-set-'.$setname->id,0),
