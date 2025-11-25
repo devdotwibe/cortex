@@ -195,10 +195,10 @@
         //     const progressBar = new Chart(ctx, {
         //         type: 'bar',
         //         data: {
-        //             labels: @json($chartlabel),
+        //             labels: @json(chartlabel),
         //             datasets: [{
         //                 label: 'Students',
-        //                 data:@json($chartdata),
+        //                 data:@json(chartdata),
         //                 backgroundColor: @json($chartbackgroundColor),
         //             }]
         //         },
