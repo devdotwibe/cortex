@@ -96,8 +96,6 @@ class ExamQuestionController extends Controller
     public function setattempt(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
 
-          DB::beginTransaction();
-
             $exam=Exam::where("name",'question-bank')->first();
             if(empty($exam)){
                 $exam=Exam::store([
@@ -108,6 +106,7 @@ class ExamQuestionController extends Controller
             }
             $user = Auth::user();
             $user->setProgress("exam-{$exam->id}-topic-{$category->id}-lesson-{$subCategory->id}-set-{$setname->id}-progress-url", null);
+
 
             $userExam = UserExam::store([
                 'name'=>$exam->name,
@@ -121,6 +120,9 @@ class ExamQuestionController extends Controller
                 'sub_category_set'=>$setname->id,
                 'time_of_exam'=>$setname->time_of_exam,
             ]);
+
+
+            Session::put('question-bank-attempt', $userExam->slug);
 
             $questions = Question::with('answers')
                                 ->where('exam_id',$exam->id)
@@ -161,13 +163,6 @@ class ExamQuestionController extends Controller
                 }
             }
 
-            DB::commit();
-
-            Session::forget('question-bank-attempt');
-
-            Session::put('question-bank-attempt', $userExam->slug);
-
-            Session::save();
 
         return redirect()->route('question-bank.set.show',
                                     ['category'=>$category->slug,
