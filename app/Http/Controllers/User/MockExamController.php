@@ -77,8 +77,9 @@ class MockExamController extends Controller
         Session::put("full-mock-exam-attempt",$attemt->slug);
 
 
-        return view("user.full-mock-exam.summery",
-        ['user_exam'=>$attemt->slug],compact('exam','user','questioncount','endtime','attemtcount'));
+       return view("user.full-mock-exam.summery", compact(
+                            'exam', 'user', 'questioncount', 'endtime', 'attemtcount'
+                        ) + ['user_exam' => $attemt->slug]);
     }
 
     public function questions(Request $request,UserExam $userExam){
