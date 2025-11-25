@@ -189,39 +189,7 @@
             });
         });
 
-        // $(document).ready(function() {
 
-        //     const ctx = document.getElementById('myChart').getContext('2d');
-        //     const progressBar = new Chart(ctx, {
-        //         type: 'bar',
-        //         data: {
-        //             labels: @json(chartlabel),
-        //             datasets: [{
-        //                 label: 'Students',
-        //                 data:@json(chartdata),
-        //                 backgroundColor: @json($chartbackgroundColor),
-        //             }]
-        //         },
-        //         options: {
-        //             scales: {
-        //                 y: {
-        //                     beginAtZero: true,
-        //                     display: false,
-        //                 },
-        //                 x: {
-        //                     grid: {
-        //                         display: false
-        //                     },
-        //                 },
-        //             },
-        //             plugins: {
-        //                 legend: {
-        //                     display: false
-        //                 }
-        //             }
-        //         },
-        //     });
-        // })
 
 
     </script>
