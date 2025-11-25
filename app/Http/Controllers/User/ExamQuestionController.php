@@ -164,11 +164,22 @@ class ExamQuestionController extends Controller
             }
 
 
-        return redirect()->route('question-bank.set.show',
-                                    ['category'=>$category->slug,
-                                                'sub_category'=>$subCategory->slug,
-                                                'setname'=>$setname->slug,
-                                                'user_exam'=>$userExam->slug]);
+        // return redirect()->route('question-bank.set.show',
+        //                             ['category'=>$category->slug,
+        //                                         'sub_category'=>$subCategory->slug,
+        //                                         'setname'=>$setname->slug,
+        //                                         'user_exam'=>$userExam->slug]);
+
+
+        return response()->json([
+            'status' => 'ok',
+            'redirect' => route('question-bank.set.show', [
+                'category' => $category->slug,
+                'sub_category' => $subCategory->slug,
+                'setname' => $setname->slug,
+                'user_exam' => $userExam->slug
+            ])
+        ]);
     }
 
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
