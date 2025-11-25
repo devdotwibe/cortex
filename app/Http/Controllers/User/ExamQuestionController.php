@@ -127,46 +127,46 @@ class ExamQuestionController extends Controller
 
             session()->save();
 
-            // $questions = Question::with('answers')
-            //                     ->where('exam_id',$exam->id)
-            //                     ->where('category_id',$category->id)
-            //                     ->where('sub_category_id',$subCategory->id)
-            //                     ->where('sub_category_set',$setname->id)
-            //                     ->get();
-            // foreach ($questions as $question) {
-            //     $userQuestion=UserExamQuestion::store([
-            //         'title'=>$question->title,
-            //         'description'=>$question->description,
-            //         'duration'=>$question->duration,
-            //         'exam_id'=>$userExam->exam_id,
-            //         'user_exam_id'=>$userExam->id,
-            //         'category_id'=>$question->category_id,
-            //         'sub_category_id'=>$question->sub_category_id,
-            //         'sub_category_set'=>$question->sub_category_set,
-            //         'explanation'=>$question->explanation,
-            //         'title_text'=>$question->title_text,
-            //         'sub_question'=>$question->sub_question,
-            //         'question_id'=>$question->id,
-            //         'user_id'=>$user->id,
-            //         'order_no'=>$question->order_no
-            //     ]);
-            //     foreach($question->answers as $answer){
-            //         UserExamAnswer::store([
-            //             'title'=>$answer->title,
-            //             'description'=>$answer->description,
-            //             'image'=>$answer->image,
-            //             'user_exam_question_id'=>$userQuestion->id,
-            //             'iscorrect'=>$answer->iscorrect,
-            //             'question_id'=>$question->id,
-            //             'answer_id'=>$answer->id,
-            //             'user_id'=>$user->id,
-            //             'exam_id'=>$userExam->exam_id,
-            //             'user_exam_id'=>$userExam->id,
-            //         ]);
-            //     }
-            // }
+            $questions = Question::with('answers')
+                                ->where('exam_id',$exam->id)
+                                ->where('category_id',$category->id)
+                                ->where('sub_category_id',$subCategory->id)
+                                ->where('sub_category_set',$setname->id)
+                                ->get();
+            foreach ($questions as $question) {
+                $userQuestion=UserExamQuestion::store([
+                    'title'=>$question->title,
+                    'description'=>$question->description,
+                    'duration'=>$question->duration,
+                    'exam_id'=>$userExam->exam_id,
+                    'user_exam_id'=>$userExam->id,
+                    'category_id'=>$question->category_id,
+                    'sub_category_id'=>$question->sub_category_id,
+                    'sub_category_set'=>$question->sub_category_set,
+                    'explanation'=>$question->explanation,
+                    'title_text'=>$question->title_text,
+                    'sub_question'=>$question->sub_question,
+                    'question_id'=>$question->id,
+                    'user_id'=>$user->id,
+                    'order_no'=>$question->order_no
+                ]);
+                foreach($question->answers as $answer){
+                    UserExamAnswer::store([
+                        'title'=>$answer->title,
+                        'description'=>$answer->description,
+                        'image'=>$answer->image,
+                        'user_exam_question_id'=>$userQuestion->id,
+                        'iscorrect'=>$answer->iscorrect,
+                        'question_id'=>$question->id,
+                        'answer_id'=>$answer->id,
+                        'user_id'=>$user->id,
+                        'exam_id'=>$userExam->exam_id,
+                        'user_exam_id'=>$userExam->id,
+                    ]);
+                }
+            }
 
-            ProcessExamSetup::dispatch($userExam);
+            // ProcessExamSetup::dispatch($userExam);
 
 
         return redirect()->route('question-bank.set.show',
