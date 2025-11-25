@@ -326,48 +326,60 @@ class TopicExamController extends Controller
 
     public function topicChartData(Request $request, UserExamReview $userExamReview)
     {
-            $user = Auth::user();
+             $user = Auth::user();
             $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
 
-            $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
-                ->where('exam_id', $userExamReview->exam_id)
-                ->where('category_id', $userExamReview->category_id)
-                ->where('user_exam_review_id', '<=', $userExamReview->id)
-                ->groupBy('user_id')
-                ->selectRaw('MAX(id) as id')
-                ->pluck('id'); // Get IDs immediately
+            // Cache the chart data for 1 hour
+            $cacheKey = "chart_data_{$userExamReview->exam_id}_{$userExamReview->category_id}_{$userExamReview->id}";
 
-            // Use chunk() to process data in batches
-            $markCounts = [];
+            $chartData = Cache::remember($cacheKey, 3600, function () use ($userExamReview) {
+                // Fixed query
+                $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
+                    ->where('exam_id', $userExamReview->exam_id)
+                    ->where('category_id', $userExamReview->category_id)
+                    ->where('id', '<=', $userExamReview->id)  // Fixed: changed from user_exam_review_id
+                    ->groupBy('user_id')
+                    ->selectRaw('MAX(id) as id')
+                    ->pluck('id');
 
-            UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-                ->where('iscorrect', true)
-                ->where('user_answer', true)
-                ->groupBy('user_id')
-                ->select('user_id', DB::raw('COUNT(*) as mark'))
-                ->chunk(100, function ($answers) use (&$markCounts) {
-                    foreach ($answers as $answer) {
-                        $mark = $answer->mark;
-                        $markCounts[$mark] = isset($markCounts[$mark]) ? $markCounts[$mark] + 1 : 1;
-                    }
-                });
+                $markCounts = [];
 
-            // Sort and prepare data
-            ksort($markCounts);
+                UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+                    ->where('iscorrect', true)
+                    ->where('user_answer', true)
+                    ->groupBy('user_id')
+                    ->select('user_id', DB::raw('COUNT(*) as mark'))
+                    ->chunk(100, function ($answers) use (&$markCounts) {
+                        foreach ($answers as $answer) {
+                            $mark = $answer->mark;
+                            $markCounts[$mark] = isset($markCounts[$mark]) ? $markCounts[$mark] + 1 : 1;
+                        }
+                    });
 
-            $chartlabel = [];
+                ksort($markCounts);
+
+                $chartlabel = [];
+                $chartdata = [];
+
+                foreach ($markCounts as $mark => $count) {
+                    $chartlabel[] = (string)$mark;
+                    $chartdata[] = $count;
+                }
+
+                return [
+                    'labels' => $chartlabel,
+                    'data' => $chartdata
+                ];
+            });
+
             $chartbackgroundColor = [];
-            $chartdata = [];
-
-            foreach ($markCounts as $mark => $count) {
-                $chartlabel[] = (string)$mark;
+            foreach ($chartData['labels'] as $mark) {
                 $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
-                $chartdata[] = $count;
             }
 
             return response()->json([
-                'labels' => $chartlabel,
-                'data' => $chartdata,
+                'labels' => $chartData['labels'],
+                'data' => $chartData['data'],
                 'backgroundColor' => $chartbackgroundColor,
                 'passed' => $passed
             ]);
