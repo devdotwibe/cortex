@@ -335,9 +335,6 @@
         <input type="hidden" name="passed" id="finish-exam-confirmed-form-passed" value="" >
         <input type="hidden" name="questions" id="finish-exam-confirmed-form-questions" value="" >
 
-        <input type="hidden" name="user_exam" id="user_exam" value="{{ $attemt->slug }}">
-
-
     </form>
 </div>
 

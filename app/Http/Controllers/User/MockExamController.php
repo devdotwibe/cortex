@@ -75,11 +75,7 @@ class MockExamController extends Controller
             'time_of_exam'=>$exam->time_of_exam,
         ]);
         Session::put("full-mock-exam-attempt",$attemt->slug);
-
-
-        return redirect()->route('full-mock-exam.confirmshow', ['exam'=>$exam->slug,'user_exam' => $attemt->slug]);
-
-        // return view("user.full-mock-exam.summery",compact('exam','user','questioncount','endtime','attemtcount'));
+        return view("user.full-mock-exam.summery",compact('exam','user','questioncount','endtime','attemtcount'));
     }
 
     public function questions(Request $request,UserExam $userExam){
@@ -131,13 +127,8 @@ class MockExamController extends Controller
     }
 
     public function confirmshow(Request $request,Exam $exam){
-
-        if(!session("full-mock-exam-attempt") && $request->ajax() == false){
-
-             return  redirect()->route('full-mock-exam.index')->with("error","Exam not initialized");
-        }
-
-            $attemt=UserExam::findSlug($request->query('user_exam'));
+        if(session("full-mock-exam-attempt")){
+            $attemt=UserExam::findSlug(session("full-mock-exam-attempt"));
             /**
              * @var User
              */
@@ -158,8 +149,11 @@ class MockExamController extends Controller
             }
             $attemtcount=UserExamReview::where('exam_id',$exam->id)->where('user_id',$user->id)->count()+1;
 
-            return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount','attemt'));
-
+            return view("user.full-mock-exam.show",compact('exam','user','questioncount','endtime','attemtcount'));
+        }
+        else{
+            return  redirect()->route('full-mock-exam.index')->with("error","Exam not initialized");
+        }
     }
 
     public function examverify(Request $request,Exam $exam){
