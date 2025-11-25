@@ -25,7 +25,6 @@ use App\Trait\ResourceController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -327,119 +326,44 @@ class TopicExamController extends Controller
 
     public function topicChartData(Request $request, UserExamReview $userExamReview)
     {
-             $user = Auth::user();
-            $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
+        $user = Auth::user();
+        $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
 
-            // Cache the chart data for 1 hour
-            $cacheKey = "chart_data_{$userExamReview->exam_id}_{$userExamReview->category_id}_{$userExamReview->id}";
+        $chartlabel = [];
+        $chartbackgroundColor = [];
+        $chartdata = [];
 
-            $chartData = Cache::remember($cacheKey, 3600, function () use ($userExamReview) {
-                // Fixed query
-                $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
-                    ->where('exam_id', $userExamReview->exam_id)
-                    ->where('category_id', $userExamReview->category_id)
-                    ->where('id', '<=', $userExamReview->id)  // Fixed: changed from user_exam_review_id
-                    ->groupBy('user_id')
-                    ->selectRaw('MAX(id) as id')
-                    ->pluck('id');
+        $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
+            ->where('exam_id', $userExamReview->exam_id)
+            ->where('category_id', $userExamReview->category_id)
+            ->where('user_exam_review_id', '<=', $userExamReview->id)
+            ->groupBy('user_id')
+            ->selectRaw('MAX(id) as id');
 
-                $markCounts = [];
+        $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+            ->where('iscorrect', true)
+            ->where('user_answer', true)
+            ->groupBy('user_id')
+            ->select('user_id', DB::raw('COUNT(*) as mark'))
+            ->get()
+            ->groupBy('mark')
+            ->map(function ($group) {
+                return count($group);
+            })->sortKeys();
 
-                UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-                    ->where('iscorrect', true)
-                    ->where('user_answer', true)
-                    ->groupBy('user_id')
-                    ->select('user_id', DB::raw('COUNT(*) as mark'))
-                    ->chunk(100, function ($answers) use (&$markCounts) {
-                        foreach ($answers as $answer) {
-                            $mark = $answer->mark;
-                            $markCounts[$mark] = isset($markCounts[$mark]) ? $markCounts[$mark] + 1 : 1;
-                        }
-                    });
+        foreach ($userReviewAnswers as $mark => $count) {
+            $chartlabel[] = (string)$mark;
+            $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
+            $chartdata[] = $count;
+        }
 
-                ksort($markCounts);
-
-                $chartlabel = [];
-                $chartdata = [];
-
-                foreach ($markCounts as $mark => $count) {
-                    $chartlabel[] = (string)$mark;
-                    $chartdata[] = $count;
-                }
-
-                return [
-                    'labels' => $chartlabel,
-                    'data' => $chartdata
-                ];
-            });
-
-            $chartbackgroundColor = [];
-            foreach ($chartData['labels'] as $mark) {
-                $chartbackgroundColor[] = ($mark == $passed) ? "#ef9b10" : "#dfdfdf";
-            }
-
-            return response()->json([
-                'labels' => $chartData['labels'],
-                'data' => $chartData['data'],
-                'backgroundColor' => $chartbackgroundColor,
-                'passed' => $passed
-            ]);
+        return response()->json([
+            'labels' => $chartlabel,
+            'data' => $chartdata,
+            'backgroundColor' => $chartbackgroundColor,
+            'passed' => $passed
+        ]);
     }
-
-    public function topicChartDataIncremental(Request $request, UserExamReview $userExamReview)
-    {
-            $user = Auth::user();
-            $passed = $user->progress("exam-review-" . $userExamReview->id . "-passed", 0);
-            $offset = $request->get('offset', 0);
-            $limit = 50; // Load 50 records at a time
-
-            // Fixed: Changed user_exam_review_id to id
-            $latestUserReviewIds = UserExamReview::where('name', 'topic-test')
-                ->where('exam_id', $userExamReview->exam_id)
-                ->where('category_id', $userExamReview->category_id)
-                ->where('id', '<=', $userExamReview->id)  // Fixed column name
-                ->groupBy('user_id')
-                ->selectRaw('MAX(id) as id')
-                ->pluck('id');
-
-            // Get total count of unique users
-            $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-                ->where('iscorrect', true)
-                ->where('user_answer', true)
-                ->distinct('user_id')
-                ->count('user_id');
-
-            // Get paginated user answers
-            $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-                ->where('iscorrect', true)
-                ->where('user_answer', true)
-                ->groupBy('user_id')
-                ->select('user_id', DB::raw('COUNT(*) as mark'))
-                ->offset($offset)
-                ->limit($limit)
-                ->get();
-
-            // Aggregate marks
-            $markData = [];
-            foreach ($userReviewAnswers as $answer) {
-                $mark = $answer->mark;
-                if (!isset($markData[$mark])) {
-                    $markData[$mark] = 0;
-                }
-                $markData[$mark]++;
-            }
-
-            return response()->json([
-                'markData' => $markData,
-                'passed' => $passed,
-                'offset' => $offset,
-                'limit' => $limit,
-                'total' => $total,
-                'hasMore' => ($offset + $limit) < $total
-            ]);
-    }
-
-
 
     public function preview(Request $request, UserExamReview $userExamReview)
     {
