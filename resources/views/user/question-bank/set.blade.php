@@ -678,7 +678,10 @@
 
             },'json').fail(function(xhr,status,error){
 
-                      console.log(error,'ererer');
+                      console.log('Status:', status);
+                            console.log('Error:', error);
+                            console.log('Response Text:', xhr.responseText);
+                            console.log('Status Code:', xhr.status);
 
                 if(error !='Unauthorized')
                 {
