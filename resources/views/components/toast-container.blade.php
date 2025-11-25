@@ -40,10 +40,10 @@
                 toastElement.find('.toast-body').text(message);
                 var toastInstance = new bootstrap.Toast(toastElement[0]);
                 toastInstance.show();
-            } 
+            }
         }
 
-        
+
     </script>
 @endpush
 
@@ -59,9 +59,9 @@
 
 @session('error')
 <script>
-    $(function(){
-        showToast("{{session('error')}}",'danger')
-    })
+    // $(function(){
+    //     showToast("{{session('error')}}",'danger')
+    // })
 </script>
 @endsession
 
