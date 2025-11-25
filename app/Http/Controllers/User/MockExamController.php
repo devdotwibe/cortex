@@ -315,7 +315,11 @@ class MockExamController extends Controller
             ->where('user_answer', true)
             ->groupBy('user_id')
             ->select('user_id', DB::raw('COUNT(*) as mark'))
-           ->toSql();
+            ->get()
+            ->groupBy('mark')
+            ->map(function ($group) {
+                return count($group);
+            })->sortKeys();
 
         foreach ($userReviewAnswers as $mark => $count) {
             $chartlabel[] = (string)$mark;
