@@ -304,18 +304,18 @@ class MockExamController extends Controller
         $chartbackgroundColor = [];
         $chartdata = [];
 
-        // $latestUserReviewIds = UserExamReview::where('name', 'full-mock-exam')
-        //     ->where('exam_id', $userExamReview->exam_id)
-        //     ->where('user_exam_review_id', '<=', $userExamReview->id)
-        //     ->groupBy('user_id')
-        //     ->selectRaw('MAX(id) as id');
+        $latestUserReviewIds = UserExamReview::where('name', 'full-mock-exam')
+            ->where('exam_id', $userExamReview->exam_id)
+            ->where('user_exam_review_id', '<=', $userExamReview->id)
+            ->groupBy('user_id')
+            ->selectRaw('MAX(id) as id');
 
-        // $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
-        //     ->where('iscorrect', true)
-        //     ->where('user_answer', true)
-        //     ->groupBy('user_id')
-        //     ->select('user_id', DB::raw('COUNT(*) as mark'))
-        //    ->toSql();
+        $userReviewAnswers = UserReviewAnswer::whereIn('user_exam_review_id', $latestUserReviewIds)
+            ->where('iscorrect', true)
+            ->where('user_answer', true)
+            ->groupBy('user_id')
+            ->select('user_id', DB::raw('COUNT(*) as mark'))
+           ->toSql();
 
         // foreach ($userReviewAnswers as $mark => $count) {
         //     $chartlabel[] = (string)$mark;
@@ -343,26 +343,26 @@ class MockExamController extends Controller
         //     ORDER BY ura.mark
         // ", [$userExamReview->exam_id, $userExamReview->id]);
 
-            $results = DB::select("
-            SELECT ura.mark, COUNT(*) as user_count
-            FROM (
-                SELECT ura.user_id, COUNT(*) AS mark
-                FROM user_review_answers AS ura
-                INNER JOIN user_exam_reviews AS uer
-                    ON ura.user_exam_review_id = uer.id
-                WHERE uer.name = 'full-mock-exam'
-                AND uer.exam_id = ?
-                AND uer.id <= ?  -- only consider reviews up to current
-                AND ura.iscorrect = 1
-                AND ura.user_answer = 1
-                GROUP BY ura.user_id
-            ) AS ura
-            GROUP BY ura.mark
-            ORDER BY ura.mark
-        ", [$userExamReview->exam_id, $userExamReview->id]);
+        //     $results = DB::select("
+        //     SELECT ura.mark, COUNT(*) as user_count
+        //     FROM (
+        //         SELECT ura.user_id, COUNT(*) AS mark
+        //         FROM user_review_answers AS ura
+        //         INNER JOIN user_exam_reviews AS uer
+        //             ON ura.user_exam_review_id = uer.id
+        //         WHERE uer.name = 'full-mock-exam'
+        //         AND uer.exam_id = ?
+        //         AND uer.id <= ?  -- only consider reviews up to current
+        //         AND ura.iscorrect = 1
+        //         AND ura.user_answer = 1
+        //         GROUP BY ura.user_id
+        //     ) AS ura
+        //     GROUP BY ura.mark
+        //     ORDER BY ura.mark
+        // ", [$userExamReview->exam_id, $userExamReview->id]);
 
 
-        foreach ($results as $row) {
+        foreach ($userReviewAnswers as $row) {
             $chartlabel[] = (string)$row->mark;
             $chartbackgroundColor[] = ($row->mark == $passed) ? "#ef9b10" : "#dfdfdf";
             $chartdata[] = $row->user_count;
