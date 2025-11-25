@@ -122,14 +122,6 @@ class ExamQuestionController extends Controller
                 'time_of_exam'=>$setname->time_of_exam,
             ]);
 
-            Session::forget('question-bank-attempt');
-
-            Session::put('question-bank-attempt', $userExam->slug);
-
-            Session::save();
-
-            DB::commit();
-
             $questions = Question::with('answers')
                                 ->where('exam_id',$exam->id)
                                 ->where('category_id',$category->id)
@@ -169,6 +161,14 @@ class ExamQuestionController extends Controller
                 }
             }
 
+            DB::commit();
+
+            Session::forget('question-bank-attempt');
+
+            Session::put('question-bank-attempt', $userExam->slug);
+
+            Session::save();
+
         return redirect()->route('question-bank.set.show',
                                     ['category'=>$category->slug,
                                                 'sub_category'=>$subCategory->slug,
@@ -178,9 +178,17 @@ class ExamQuestionController extends Controller
 
     public function setshow(Request $request,Category $category,SubCategory $subCategory,Setname $setname){
 
-        if (!session("question-bank-attempt") && $request->ajax()==false) {
+        if (!session("question-bank-attempt")) {
 
-            return redirect()->route('question-bank.index')->with("error","Question set not initialized");
+            if($request->ajax()) {
+
+                 return response()->json(['error' => 'Unauthorized access'], 403);
+            }
+            else
+            {
+
+                return redirect()->route('question-bank.index')->with("error","Question set not initialized");
+            }
         }
 
         $exam=Exam::where("name",'question-bank')->first();
