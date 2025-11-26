@@ -562,6 +562,9 @@ class ExamQuestionController extends Controller
          */
         $user=Auth::user();
         $userExam = UserExam::findSlug($request->user_exam);
+
+        dd($request->user_exam);
+
         $exam=Exam::where("name",'question-bank')->first();
         if(empty($exam)){
             $exam=Exam::store([
