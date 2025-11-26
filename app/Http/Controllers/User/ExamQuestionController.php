@@ -245,15 +245,15 @@ class ExamQuestionController extends Controller
 
                 if(!empty($request->question)){
 
-                    // $question=UserExamQuestion::findSlug($request->question);
+                    $question=UserExamQuestion::findSlug($request->question);
 
-                    // return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
+                    return UserExamAnswer::where('user_exam_question_id',$question->id)->get(['slug','title']);
 
                     // return UserExamAnswer::where('user_exam_question_id', $question->id)->with('answer')->select(['slug', 'title', 'answer_id','image'])->get();
 
-                      $question=Question::findSlug($request->question);
+                    //   $question=Question::findSlug($request->question);
 
-                     return Answer::where('question_id', $question->id)->select(['slug', 'title','image'])->get();
+                    //  return Answer::where('question_id', $question->id)->select(['slug', 'title','image'])->get();
 
                 }
                     // return UserExamQuestion::where('user_exam_id',$userExam->id)
@@ -265,38 +265,36 @@ class ExamQuestionController extends Controller
 
                     // $cacheKey = "user_exam_question_count_{$userExam->id}_{$category->id}_{$subCategory->id}_{$setname->id}";
 
+                    $totalQuestions = UserExamQuestion::where('user_exam_id', $userExam->id)
+                        ->where('category_id', $category->id)
+                        ->where('sub_category_id', $subCategory->id)
+                        ->where('sub_category_set', $setname->id)
+                        ->count();
+
+                    // $cacheKey = "user_exam_question_count_{$userExam->id}_{$category->id}_{$subCategory->id}_{$setname->id}";
+
                     // $totalQuestions = Cache::remember($cacheKey, now()->addHours(1), function () use ($userExam, $category, $subCategory, $setname) {
-                    //     return UserExamQuestion::where('user_exam_id', $userExam->id)
+                    //     return Question::where('exam_id', $userExam->exam_id)
                     //         ->where('category_id', $category->id)
                     //         ->where('sub_category_id', $subCategory->id)
                     //         ->where('sub_category_set', $setname->id)
                     //         ->count();
                     // });
 
-                    $cacheKey = "user_exam_question_count_{$userExam->id}_{$category->id}_{$subCategory->id}_{$setname->id}";
 
-                    $totalQuestions = Cache::remember($cacheKey, now()->addHours(1), function () use ($userExam, $category, $subCategory, $setname) {
-                        return Question::where('exam_id', $userExam->exam_id)
-                            ->where('category_id', $category->id)
-                            ->where('sub_category_id', $subCategory->id)
-                            ->where('sub_category_set', $setname->id)
-                            ->count();
-                    });
-
-
-                    // $questions = UserExamQuestion::where('user_exam_id', $userExam->id)
-                    //     ->where('category_id', $category->id)
-                    //     ->where('sub_category_id', $subCategory->id)
-                    //     ->where('sub_category_set', $setname->id)
-                    //     ->orderBy('order_no')
-                    //     ->simplePaginate(1, ['slug','title','description','duration','title_text','sub_question']);
-
-                    $questions = Question::where('exam_id', $userExam->exam_id)
+                    $questions = UserExamQuestion::where('user_exam_id', $userExam->id)
                         ->where('category_id', $category->id)
                         ->where('sub_category_id', $subCategory->id)
                         ->where('sub_category_set', $setname->id)
                         ->orderBy('order_no')
                         ->simplePaginate(1, ['slug','title','description','duration','title_text','sub_question']);
+
+                    // $questions = Question::where('exam_id', $userExam->exam_id)
+                    //     ->where('category_id', $category->id)
+                    //     ->where('sub_category_id', $subCategory->id)
+                    //     ->where('sub_category_set', $setname->id)
+                    //     ->orderBy('order_no')
+                    //     ->simplePaginate(1, ['slug','title','description','duration','title_text','sub_question']);
 
 
 
