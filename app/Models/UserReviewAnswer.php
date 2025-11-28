@@ -54,7 +54,7 @@ class UserReviewAnswer extends Model
     {
         $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
             ->groupBy('user_id')
-            ->select(DB::raw('MAX(id)'));
+            ->select(DB::raw('MAX(id)'))->unique('user_id');
 
         $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
             ->where('exam_id', $this->exam_id)
