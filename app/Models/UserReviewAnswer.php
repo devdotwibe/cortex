@@ -11,12 +11,12 @@ class UserReviewAnswer extends Model
 {
     use HasFactory,ResourceModel;
     protected $fillable = [
-        'title', 
+        'title',
         'description',
         'image',
-        'user_exam_review_id',  
-        'user_review_question_id', 
-        'iscorrect', 
+        'user_exam_review_id',
+        'user_review_question_id',
+        'iscorrect',
         'user_answer',
         'slug',
         'exam_id',
@@ -27,13 +27,14 @@ class UserReviewAnswer extends Model
     protected $hidden = ['user_id', 'id','exam_id','question_id','answer_id','user_exam_review_id'];
 
     protected $appends=[
-        'total_user_answered'
+        'total_user_answered',
+        'answer_stats'
     ];
     public function getTotalUserAnsweredAttribute()
-    { 
+    {
         $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
                                             ->groupBy('user_id')
-                                            ->select(DB::raw('MAX(id)')); 
+                                            ->select(DB::raw('MAX(id)'));
         $ansthis = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
                                     ->where('exam_id', $this->exam_id)
                                     ->where('question_id', $this->question_id)
@@ -48,4 +49,33 @@ class UserReviewAnswer extends Model
                                         ->count();
         return $ansthis > 0 ? ($ansthis * 100) / $ansthisall : 0;
     }
+
+    public function getAnswerStatsAttribute()
+    {
+        $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
+            ->groupBy('user_id')
+            ->select(DB::raw('MAX(id)'));
+
+        $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
+            ->where('exam_id', $this->exam_id)
+            ->where('question_id', $this->question_id)
+            ->where('user_answer', true)
+            ->count();
+
+        $attended = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
+            ->where('exam_id', $this->exam_id)
+            ->where('question_id', $this->question_id)
+            ->where('answer_id', $this->answer_id)
+            ->where('user_answer', true)
+            ->count();
+
+        $percentage = $total > 0 ? round(($attended * 100) / $total, 2) : 0;
+
+        return [
+            'attended'   => $attended,
+            'total'      => $total,
+            'percentage' => $percentage,
+        ];
+    }
+
 }
