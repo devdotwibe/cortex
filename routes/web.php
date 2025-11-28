@@ -56,8 +56,7 @@ Route::get('/migrate', function () {
 
 
 Route::get('time-zone', function () {
-
-    dd(now()->toDateTimeString());
+    dd(now()->toDateTimeString(), config('app.timezone'));
 });
 
 Route::get('route-clear', function () {
