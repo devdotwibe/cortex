@@ -55,6 +55,11 @@ Route::get('/migrate', function () {
 // });
 
 
+Route::get('time-zone', function () {
+
+    dd(now()->toDateTimeString());
+});
+
 Route::get('route-clear', function () {
     Artisan::call('route:clear');
     dd(Artisan::output());
