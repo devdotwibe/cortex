@@ -59,7 +59,9 @@ class UserReviewAnswer extends Model
             ->groupBy('user_id')
             ->select(DB::raw('MAX(id)'));
 
-            dd($latestReviewQuery->toSql(), $latestReviewQuery->getBindings());
+            $latestIds = $latestReviewQuery->pluck('latest_id'); // gets a collection of latest IDs
+dd($latestIds);
+            // dd($latestReviewQuery->toSql(), $latestReviewQuery->getBindings());
 
 
         $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
