@@ -55,7 +55,6 @@ class UserReviewAnswer extends Model
 
 
         $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
-            ->where('question_id', $this->question_id)
             ->groupBy('user_id')
             ->selectRaw('MAX(id) as latest_id');
 
