@@ -249,6 +249,8 @@ class LiveClassController extends Controller
         // {
             $subLessonMaterial->status="";
             $subLessonMaterial->save();
+
+            dd($subLessonMaterial);
         // }
 
         // if(!File::exists("$cachepath/render.map.json")){
