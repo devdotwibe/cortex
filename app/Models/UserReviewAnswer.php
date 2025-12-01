@@ -58,8 +58,8 @@ class UserReviewAnswer extends Model
             ->groupBy('user_id')
             ->selectRaw('MAX(id) as latest_id');
 
-            $latestIds = $latestReviewQuery->pluck('latest_id'); // gets a collection of latest IDs
-dd($latestIds);
+//             $latestIds = $latestReviewQuery->pluck('latest_id'); // gets a collection of latest IDs
+// dd($latestIds);
             // dd($latestReviewQuery->toSql(), $latestReviewQuery->getBindings());
 
 
