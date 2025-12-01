@@ -54,9 +54,15 @@ class UserReviewAnswer extends Model
     {
 
 
+        // $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
+        //     ->where('question_id', $this->question_id)
+        //     ->groupBy('user_id')
+        //     ->select(DB::raw('MAX(id)'));
+
         $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
+            ->where('question_id', $this->question_id)
             ->groupBy('user_id')
-            ->selectRaw('MAX(id) as latest_id');
+            ->pluck(DB::raw('MAX(id)'));
 
 //             $latestIds = $latestReviewQuery->pluck('latest_id'); // gets a collection of latest IDs
 // dd($latestIds);
