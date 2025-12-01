@@ -74,6 +74,8 @@ class UserReviewAnswer extends Model
             ->where('user_answer', true)
             ->count();
 
+            dd($total);
+
         $attended = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
             ->where('exam_id', $this->exam_id)
             ->where('question_id', $this->question_id)
