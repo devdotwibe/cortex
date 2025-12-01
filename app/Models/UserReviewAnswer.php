@@ -32,9 +32,16 @@ class UserReviewAnswer extends Model
     ];
     public function getTotalUserAnsweredAttribute()
     {
-        $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
-                                            ->groupBy('user_id')
-                                            ->select(DB::raw('MAX(id)'));
+        // $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
+        //                                     ->groupBy('user_id')
+        //                                     ->select(DB::raw('MAX(id)'));
+
+        $latestReviewQuery = UserReviewAnswer::selectRaw('MAX(user_exam_review_id)')
+                                                ->where('exam_id', $this->exam_id)
+                                                ->where('question_id', $this->question_id)
+                                                ->where('user_answer', 1)
+                                                ->groupBy('user_id');
+
         $ansthis = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
                                     ->where('exam_id', $this->exam_id)
                                     ->where('question_id', $this->question_id)
@@ -52,10 +59,6 @@ class UserReviewAnswer extends Model
 
     public function getAnswerStatsAttribute()
     {
-        // $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
-        //     ->groupBy('user_id')
-        //     ->select(DB::raw('MAX(id)'));
-
         $latestReviewQuery = UserReviewAnswer::selectRaw('MAX(user_exam_review_id)')
         ->where('exam_id', $this->exam_id)
         ->where('question_id', $this->question_id)
