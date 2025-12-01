@@ -53,6 +53,7 @@ class UserReviewAnswer extends Model
     public function getAnswerStatsAttribute()
     {
         $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
+            ->where('question_id', $this->question_id)
             ->groupBy('user_id')
             ->select(DB::raw('MAX(id)'));
 
