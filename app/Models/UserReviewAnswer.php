@@ -28,7 +28,7 @@ class UserReviewAnswer extends Model
 
     protected $appends=[
         'total_user_answered',
-        'answer_stats'
+        // 'answer_stats'
     ];
     public function getTotalUserAnsweredAttribute()
     {
@@ -57,34 +57,34 @@ class UserReviewAnswer extends Model
         return $ansthis > 0 ? ($ansthis * 100) / $ansthisall : 0;
     }
 
-    public function getAnswerStatsAttribute()
-    {
-        $latestReviewQuery = UserReviewAnswer::selectRaw('MAX(user_exam_review_id)')
-        ->where('exam_id', $this->exam_id)
-        ->where('question_id', $this->question_id)
-        ->where('user_answer', 1)
-        ->groupBy('user_id');
+    // public function getAnswerStatsAttribute()
+    // {
+    //     $latestReviewQuery = UserReviewAnswer::selectRaw('MAX(user_exam_review_id)')
+    //     ->where('exam_id', $this->exam_id)
+    //     ->where('question_id', $this->question_id)
+    //     ->where('user_answer', 1)
+    //     ->groupBy('user_id');
 
-        $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
-            ->where('exam_id', $this->exam_id)
-            ->where('question_id', $this->question_id)
-            ->where('user_answer', true)
-            ->count();
+    //     $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
+    //         ->where('exam_id', $this->exam_id)
+    //         ->where('question_id', $this->question_id)
+    //         ->where('user_answer', true)
+    //         ->count();
 
-        $attended = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
-            ->where('exam_id', $this->exam_id)
-            ->where('question_id', $this->question_id)
-            ->where('answer_id', $this->answer_id)
-            ->where('user_answer', true)
-            ->count();
+    //     $attended = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
+    //         ->where('exam_id', $this->exam_id)
+    //         ->where('question_id', $this->question_id)
+    //         ->where('answer_id', $this->answer_id)
+    //         ->where('user_answer', true)
+    //         ->count();
 
-        $percentage = $total > 0 ? round(($attended * 100) / $total, 2) : 0;
+    //     $percentage = $total > 0 ? round(($attended * 100) / $total, 2) : 0;
 
-        return [
-            'attended'   => $attended,
-            'total'      => $total,
-            'percentage' => $percentage,
-        ];
-    }
+    //     return [
+    //         'attended'   => $attended,
+    //         'total'      => $total,
+    //         'percentage' => $percentage,
+    //     ];
+    // }
 
 }

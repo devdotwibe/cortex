@@ -247,8 +247,8 @@ class LiveClassController extends Controller
 
         // if(!File::ensureDirectoryExists($cachepath) && $subLessonMaterial->status !== 'processing')
         // {
-        //     $subLessonMaterial->status="";
-        //     $subLessonMaterial->save();
+            $subLessonMaterial->status="";
+            $subLessonMaterial->save();
         // }
 
         // if(!File::exists("$cachepath/render.map.json")){
