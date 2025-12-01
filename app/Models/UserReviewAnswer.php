@@ -52,10 +52,15 @@ class UserReviewAnswer extends Model
 
     public function getAnswerStatsAttribute()
     {
+
+
         $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
             ->where('question_id', $this->question_id)
             ->groupBy('user_id')
             ->select(DB::raw('MAX(id)'));
+
+            dd($latestReviewQuery->toSql(), $latestReviewQuery->getBindings());
+
 
         $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
             ->where('exam_id', $this->exam_id)
