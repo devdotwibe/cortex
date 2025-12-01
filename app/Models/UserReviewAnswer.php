@@ -52,30 +52,21 @@ class UserReviewAnswer extends Model
 
     public function getAnswerStatsAttribute()
     {
-
-
         // $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
-        //     ->where('question_id', $this->question_id)
         //     ->groupBy('user_id')
         //     ->select(DB::raw('MAX(id)'));
 
-        $latestReviewQuery = UserExamReview::where('exam_id', $this->exam_id)
-            ->selectRaw('MAX(id) as latest_id')
-            ->groupBy('user_id')
-            ->pluck('latest_id');
-
-//             $latestIds = $latestReviewQuery->pluck('latest_id'); // gets a collection of latest IDs
-// dd($latestIds);
-            // dd($latestReviewQuery->toSql(), $latestReviewQuery->getBindings());
-
+        $latestReviewQuery = UserReviewAnswer::selectRaw('MAX(user_exam_review_id)')
+        ->where('exam_id', $this->exam_id)
+        ->where('question_id', $this->question_id)
+        ->where('user_answer', 1)
+        ->groupBy('user_id');
 
         $total = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
             ->where('exam_id', $this->exam_id)
             ->where('question_id', $this->question_id)
             ->where('user_answer', true)
             ->count();
-
-          dd($latestReviewQuery, $total);
 
         $attended = UserReviewAnswer::whereIn('user_exam_review_id', $latestReviewQuery)
             ->where('exam_id', $this->exam_id)
