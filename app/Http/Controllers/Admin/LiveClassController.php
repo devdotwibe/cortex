@@ -10,6 +10,7 @@ use App\Models\LessonRecording;
 use App\Models\LiveClassPage;
 use App\Models\PrivateClass;
 use App\Models\TermAccess;
+use App\Models\TermYear;
 use App\Models\User;
 use App\Models\Timetable;
 use App\Trait\ResourceController;
@@ -29,7 +30,9 @@ class LiveClassController extends Controller
 
         $time_count = Timetable::whereNull('static')->count();
 
-        return view('admin.live-class.index',compact('time_count','live_class','timetables'));
+        $term_years = TermYear::all();
+
+        return view('admin.live-class.index',compact('term_years','time_count','live_class','timetables'));
     }
 
     public function hide_button(Request $request)

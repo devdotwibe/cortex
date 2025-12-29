@@ -404,6 +404,21 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                                             </div>
                                         </div>
 
+                                        <div class="text-field">
+
+                                            <label for="year_name">Select Term Year</label>
+
+                                            <select name="year_name" id="year_name" class="form-control">
+
+                                                @foreach($term_years as $term_year)
+
+                                                    <option value="{{ $term_year->year_name }}">{{ $term_year->year_name }}</option>
+
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+
                                         <div class="text-field ampmclass">
                                             <label for="starttime_am_pm">Select AM/PM:</label>
                                             <div class="form-group">
