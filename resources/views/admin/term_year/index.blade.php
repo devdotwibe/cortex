@@ -159,11 +159,10 @@ $(document).ready(function () {
     // });
 
     let deleteId = null;
-    let deleteModal = new bootstrap.Modal(document.getElementById('delete_modal'));
 
     $('#termYearTable').on('click', '.delete-btn', function () {
         deleteId = $(this).data('id');
-        deleteModal.show();
+        $('#delete_modal').modal('show');
     });
 
     $('#confirmDeleteBtn').on('click', function () {
@@ -178,7 +177,8 @@ $(document).ready(function () {
                 _method: 'DELETE'
             },
             success: function (res) {
-                deleteModal.hide();
+
+                $('#delete_modal').modal('hide');
                 deleteId = null;
 
                 table.ajax.reload(null, false);
