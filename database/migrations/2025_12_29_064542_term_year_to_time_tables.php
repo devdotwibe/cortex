@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('time_tables', function (Blueprint $table) {
+        Schema::table('timetable', function (Blueprint $table) {
 
             $table->string('term_year')->nullable();
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('time_tables', function (Blueprint $table) {
+        Schema::table('timetable', function (Blueprint $table) {
 
             $table->dropColumn('term_year');
         });
