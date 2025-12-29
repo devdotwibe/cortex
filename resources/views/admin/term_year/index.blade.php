@@ -31,15 +31,17 @@
                     </div>
                 </form>
 
-                <table id="termYearTable" class="table table-bordered mt-4">
-                    <thead>
-                        <tr>
-                            <th>Sl No</th>
-                            <th>Term Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="table-outer">
+                    <table id="termYearTable" class="table table-bordered mt-4">
+                        <thead>
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Term Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
             </div>
         </div>
