@@ -406,9 +406,9 @@ These open group sessions condense the entire Thinking Skills curriculum into te
 
                                         <div class="text-field">
 
-                                            <label for="year_name">Select Term Year</label>
+                                            <label for="term_year">Select Term Year</label>
 
-                                            <select name="year_name" id="year_name" class="form-control">
+                                            <select name="term_year" id="term_year" class="form-control">
 
                                                 @foreach($term_years as $term_year)
 
@@ -737,7 +737,7 @@ These open group sessions condense the entire Thinking Skills curriculum into te
                     $('#year').val(response.year);
                     $('#type').val(response.type);
 
-                    $('#year_name').val(response.year_name);
+                    $('#term_year').val(response.term_year);
 
                     // Update the form action with the timetable ID
                     $('#formedit').attr('action', '{{ route('admin.timetable.update', '') }}/' + response.id);
