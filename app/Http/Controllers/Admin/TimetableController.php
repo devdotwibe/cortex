@@ -50,6 +50,7 @@ class TimetableController extends Controller
             'year'=>$request->year,
             'type'=>$request->type,
             'hide_time'=>'N',
+            'term_year'=>$request->term_year,
         ]);
 
         // Redirect back with a success message

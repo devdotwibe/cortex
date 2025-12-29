@@ -23,5 +23,6 @@ class Timetable extends Model
         'year',
         'type',
         'hide_time',
+        'term_year',
     ];
 }
