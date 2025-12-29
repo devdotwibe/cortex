@@ -47,7 +47,7 @@
 </section>
 @endsection
 
-@section('modals')
+@push('modals')
 
 
 <div class="modal fade show" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="delete_modal" aria-modal="true" style="display: block;">
@@ -75,7 +75,7 @@
 </div>
 
 
-@endsection
+@endpush
 @push('footer-script')
 
 <script>
