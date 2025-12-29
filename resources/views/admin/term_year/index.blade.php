@@ -47,6 +47,36 @@
 </section>
 @endsection
 
+@section('modals')
+
+<div class="modal fade" id="delete_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Confirmation Required</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this record?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    Delete
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@endsection
 @push('footer-script')
 
 <script>
@@ -109,24 +139,57 @@ $(document).ready(function () {
         });
     });
 
-    $('#termYearTable').on('click', '.delete-btn', function () {
-        let id = $(this).data('id');
+    // $('#termYearTable').on('click', '.delete-btn', function () {
+    //     let id = $(this).data('id');
 
-        if (!confirm('Are you sure?')) return;
+    //     if (!confirm('Are you sure?')) return;
+
+    //     $.ajax({
+    //         url: "{{ url('admin/term_year') }}/" + id,
+    //         type: 'POST',
+    //         data: {
+    //             _token: "{{ csrf_token() }}",
+    //             _method: 'DELETE'
+    //         },
+    //         success: function (res) {
+    //             table.ajax.reload();
+    //             showToast(res.message ?? 'Deleted successfully', 'success');
+    //         }
+    //     });
+    // });
+
+    let deleteId = null;
+    let deleteModal = new bootstrap.Modal(document.getElementById('delete_modal'));
+
+    $('#termYearTable').on('click', '.delete-btn', function () {
+        deleteId = $(this).data('id');
+        deleteModal.show();
+    });
+
+    $('#confirmDeleteBtn').on('click', function () {
+
+        if (!deleteId) return;
 
         $.ajax({
-            url: "{{ url('admin/term_year') }}/" + id,
+            url: "{{ url('admin/term_year') }}/" + deleteId,
             type: 'POST',
             data: {
                 _token: "{{ csrf_token() }}",
                 _method: 'DELETE'
             },
             success: function (res) {
-                table.ajax.reload();
+                deleteModal.hide();
+                deleteId = null;
+
+                table.ajax.reload(null, false);
                 showToast(res.message ?? 'Deleted successfully', 'success');
+            },
+            error: function () {
+                showToast('Delete failed', 'error');
             }
         });
     });
+
 
     $('#clear-btn').on('click', function () {
         resetForm();
