@@ -50,7 +50,7 @@
 @push('modals')
 
 
-<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="delete_modal" aria-modal="true" style="display: block;">
+<div class="modal fade" id="delete_modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
