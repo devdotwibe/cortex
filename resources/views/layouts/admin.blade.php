@@ -112,7 +112,7 @@
     <div class="side-nav-toggle">
         <button class="btn btn-close-toggle"><span>Close</span></button>
     </div>
-    
+
 
     <aside class="side_bar @if($sidebarCollapsed =='true')  slider-btn @endif">
 
@@ -132,7 +132,7 @@
                         Dashboard
                     </a>
                 </li> --}}
-                
+
 
                 @if ($admin->role === 'master' || optional($admin->permission)->users === 'Y')
                     <li class="side-item {{ request()->is('admin/user') ? 'active' : '' }}">
@@ -166,7 +166,7 @@
                     </li>
                 @endif
 
-                {{-- 
+                {{--
                 <li class="side-item {{request()->is('admin/learn') ? 'active':''}}">
                     <a href="{{ route('admin.learn.index') }}">
                         <span class="side-icon" >
@@ -222,6 +222,21 @@
                                             alt="Category Active" title="Category" data-title="Category" class="titledisplay">
                                     </span>
                                     <span class="menutext">Category</span>
+                                </a>
+                            </li>
+
+                            <!-- term years -->
+                            <li class="side-item {{ request()->is('admin/term_year') ? 'active' : '' }}">
+                                <a href="{{ route('admin.term_year.index') }}">
+                                    <span class="side-icon">
+                                        <img src="{{ asset('assets/images/iconshover/category.svg') }}"
+                                            alt="Term Year">
+                                    </span>
+                                    <span class="active-icon">
+                                        <img src="{{ asset('assets/images/icons/categoryyellow.svg') }}"
+                                            alt="Term Active" title="Category" data-title="Term" class="titledisplay">
+                                    </span>
+                                    <span class="menutext">Term Year</span>
                                 </a>
                             </li>
 
@@ -362,13 +377,13 @@
                                 </a>
                             </li>
 
-                            @endif 
+                            @endif
 
                         </ul>
                     </li>
 
                 @endif
-                
+
 
 
                 @if ($admin->role === 'master' || optional($admin->permission)->live_teaching === 'Y')
@@ -510,7 +525,7 @@
                 @endif
 
 
-                
+
                 @if ($admin->role === 'master')
 
                     <li class="side-item {{ request()->is('admin/live-class*') ? 'active' : '' }}">
@@ -641,16 +656,16 @@
                         if (file) {
                             handleFileUpload(file).then(function(res) {
                                     if (res.mime_type.startsWith('image/')) {
-                                        editor.insertHtml(` 
-                                        <img alt="" src="${res.url}" width="600" height="400"  /> 
+                                        editor.insertHtml(`
+                                        <img alt="" src="${res.url}" width="600" height="400"  />
                                     `);
                                     } else if (res.mime_type.startsWith('video/')) {
-                                        editor.insertHtml(` 
-                                        <video alt="" controls src="${res.url}" type="${res.mime_type}" /> 
+                                        editor.insertHtml(`
+                                        <video alt="" controls src="${res.url}" type="${res.mime_type}" />
                                     `);
                                     } else {
-                                        editor.insertHtml(` 
-                                        <iframe alt="" src="${res.url}"  width="600" height="400" frameborder="0" type="${res.mime_type}" > </iframe> 
+                                        editor.insertHtml(`
+                                        <iframe alt="" src="${res.url}"  width="600" height="400" frameborder="0" type="${res.mime_type}" > </iframe>
                                     `);
                                     }
 
@@ -693,19 +708,19 @@
                         collapsed: collapsed,
                     },
                     success: function(response) {
-            
+
                     $('.sliderbody').toggleClass('slider-active');
 
                     $('.side_bar').toggleClass('slider-btn');
 
                     if (isCollapsed) {
-                    
-                        
+
+
                         $('.titledisplay').removeAttr('title');
                     } else {
-                        
+
                             $('.titledisplay').each(function () {
-                            
+
                             var title = $(this).data('title');
 
                             $(this).attr('title', title);
@@ -723,21 +738,21 @@
 
                 function initializeSidebar() {
 
-                const isCollapsed = @if($sidebarCollapsed =='true') true @else false @endif; 
+                const isCollapsed = @if($sidebarCollapsed =='true') true @else false @endif;
 
                 const isCollapsed1 = localStorage.getItem('sidebarCollapsed1') === 'true';
 
                 // Apply the class based on stored state
                 if (!isCollapsed) {
                             $('.side_bar').removeClass('slider-btn');
-                            
+
                             $('.titledisplay').removeAttr('title');
                         } else {
-                        
-                            
+
+
                             $('.side_bar').addClass('slider-btn');
-                            
-                            
+
+
                             $('.titledisplay').each(function () {
                                 // Retrieve the data-title attribute value
                                 var title = $(this).data('title');
@@ -761,7 +776,7 @@
 
 
                     $(function() {
-                    
+
                         $('#showModalButton').click(function() {
                             $('#adminsubModal').modal('show'); // Show the modal using jQuery
                         });

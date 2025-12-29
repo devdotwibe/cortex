@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\QuestionBankControllerNew;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\SetController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\TermYearController;
 use App\Http\Controllers\Admin\TopicTestController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Admin\UserController;
@@ -267,6 +268,18 @@ Route::name('admin.')->prefix('admin')->group(function () {
                 Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
                 Route::get('/{category}/visibility', [CategoryController::class, 'visibility'])->name('visibility');
             });
+
+            Route::prefix('term_year')->name('term_year.')->group(function () {
+                Route::get('/', [TermYearController::class, 'index'])->name('index');
+                Route::get('/create', [TermYearController::class, 'create'])->name('create');
+                Route::post('/', [TermYearController::class, 'store'])->name('store');
+                Route::get('/{category}/edit', [TermYearController::class, 'edit'])->name('edit');
+                Route::put('/{category}', [TermYearController::class, 'update'])->name('update');
+                Route::get('/{category}', [TermYearController::class, 'show'])->name('show');
+                Route::delete('/{category}', [TermYearController::class, 'destroy'])->name('destroy');
+                Route::get('/{category}/visibility', [TermYearController::class, 'visibility'])->name('visibility');
+            });
+
         });
 
         Route::post('/add-subcatecory/{category}', [CategoryController::class, 'add_subcatecory'])->name('add_subcatecory');
