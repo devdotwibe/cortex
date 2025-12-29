@@ -35,10 +35,10 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-Route::get('/migrate', function () {
-    Artisan::call('migrate');
-    dd(Artisan::output());
-});
+// Route::get('/migrate', function () {
+//     Artisan::call('migrate');
+//     dd(Artisan::output());
+// });
 // Route::get('/fresh', function () {
 //     Artisan::call('migrate:fresh');
 //     dd(Artisan::output());
@@ -55,24 +55,24 @@ Route::get('/migrate', function () {
 // });
 
 
-Route::get('route-zone', function () {
-    dd(now()->toDateTimeString(), config('app.timezone'));
-});
+// Route::get('route-zone', function () {
+//     dd(now()->toDateTimeString(), config('app.timezone'));
+// });
 
-Route::get('route-clear', function () {
-    Artisan::call('route:clear');
-    dd(Artisan::output());
-});
+// Route::get('route-clear', function () {
+//     Artisan::call('route:clear');
+//     dd(Artisan::output());
+// });
 
-Route::get('cache-clear', function () {
-    Artisan::call('cache:clear');
-    dd(Artisan::output());
-});
+// Route::get('cache-clear', function () {
+//     Artisan::call('cache:clear');
+//     dd(Artisan::output());
+// });
 
-Route::get('config-clear', function () {
-    Artisan::call('config:clear');
-    dd(Artisan::output());
-});
+// Route::get('config-clear', function () {
+//     Artisan::call('config:clear');
+//     dd(Artisan::output());
+// });
 
 
 Route::get('/', [HomeController::class, 'index']);
