@@ -50,7 +50,7 @@
 @push('modals')
 
 
-<div class="modal fade show" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="delete_modal" aria-modal="true" style="display: block;">
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="delete_modal" aria-modal="true" style="display: block;">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -65,6 +65,11 @@
             </div>
 
             <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
                      Delete
                 </button>
