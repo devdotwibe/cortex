@@ -82,9 +82,8 @@ class LiveClassController extends Controller
         $time_array = Timetable::where('hide_time', '!=', 'Y')->orderBy('order_no')->get()->map(function($item) {
 
             $term_year = $item->term_year ? '-'.$item->term_year : '';
-
-            $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year . $term_year;
-            $text = $item->day . ' (' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) .'-'. str_replace(' ', '', $item->endtime) . ' ' . implode('.', str_split(strtolower($item->endtime_am_pm))) .  ') (' . $item->type . ') ';
+            $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year;
+            $text = $item->day . ' (' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) .'-'. str_replace(' ', '', $item->endtime) . ' ' . implode('.', str_split(strtolower($item->endtime_am_pm))) .  ') (' . $item->type . ') '. $term_year;
             return [
                 'text' => $text,
                 'value' => $value,
