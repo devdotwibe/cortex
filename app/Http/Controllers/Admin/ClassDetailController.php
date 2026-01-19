@@ -71,8 +71,12 @@ class ClassDetailController extends Controller
                 ->buildTable();
         }
 
+
         $time_slot = Timetable::where('hide_time', '!=', 'Y')->orderBy('order_no')->get()->map(function($item) {
-            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ')' . $item->year;
+
+            $term_year = $item->term_year ? '-'.$item->term_year : '';
+
+            $text = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ')' . $item->year .$term_year;
             $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ')' . $item->year;
             return [
                 'text' => $text,
