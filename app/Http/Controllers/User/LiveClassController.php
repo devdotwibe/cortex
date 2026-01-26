@@ -86,7 +86,7 @@ class LiveClassController extends Controller
             $text = $item->day . ' (' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) .'-'. str_replace(' ', '', $item->endtime) . ' ' . implode('.', str_split(strtolower($item->endtime_am_pm))) .  ') (' . $item->type . ') '. $term_year;
             return [
                 'text' => $text,
-                'value' => $value,
+                'value' => $item->id,
             ];
         })->toArray();
 
@@ -98,7 +98,7 @@ class LiveClassController extends Controller
             'full_name'=>['required','string','max:255'],
             'parent_name'=>['required','string','max:255'],
             // 'phone'=>['required'],
-            'timeslot'=>['required','array','min:1']
+            'timeslot_ids'=>['required','array','min:1']
         ]);
         /**
          * @var User
@@ -107,6 +107,14 @@ class LiveClassController extends Controller
         $live_class =  LiveClassPage::first();
 
         $data['user_id']=$user->id;
+
+        $slot_time =  Timetable::whereIn('id',$data['timeslot_ids'])->get()->map(function($item) {
+
+            $term_year = $item->term_year ? '-'.$item->term_year : '';
+            return $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year .$term_year;
+        })->toArray();
+
+        $data['timeslot']=$slot_time;
 
         PrivateClass::store($data);
 

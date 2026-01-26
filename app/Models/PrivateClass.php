@@ -11,12 +11,13 @@ class PrivateClass extends Model
     use HasFactory,ResourceModel;
     protected $fillable = [
         'slug',
-        'email', 
-        'full_name', 
-        'parent_name', 
-        'phone', 
-        'timeslot', 
-        'user_id',  
+        'email',
+        'full_name',
+        'parent_name',
+        'phone',
+        'timeslot',
+        'timeslot_ids',
+        'user_id',
         'status',
         'is_valid'
     ];
@@ -32,7 +33,7 @@ class PrivateClass extends Model
     protected function casts(): array
     {
         return [
-            'timeslot' => 'array', 
+            'timeslot' => 'array',
         ];
     }
 }
