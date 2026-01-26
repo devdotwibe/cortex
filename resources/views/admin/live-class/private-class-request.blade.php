@@ -293,10 +293,15 @@
         $.get(url,function(res){
             $('#user-updatetreq-form').attr('action',res.updateUrl)
             var str='';
+
+            let selectedIds = (res.timeslot_ids || []).map(String);
+
+            let id = String(v.id);
+
             $.each(timeslotlist,function(k,v){
                 str+=`
                 <div class="form-check">
-                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-updatetreq-${k}" value="${v.id}" ${(res.timeslot_ids||[]).includes(v.id)?"checked":""} >
+                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-updatetreq-${k}" value="${v.id}"  ${selectedIds.includes(id) ? "checked" : ""} >
                     <label for="user-updatetreq-${k}">${v.text}</label>
                 </div>
                 `
