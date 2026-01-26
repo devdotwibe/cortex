@@ -10,7 +10,9 @@ use App\Models\Courses;
 use App\Models\Feature;
 use App\Models\OurProcess;
 use App\Models\Feed;
+use App\Models\PrivateClass;
 use App\Models\SubscriptionPlan;
+use App\Models\Timetable;
 use App\Models\User;
 use App\Models\FaqCategory;
 use App\Models\UserProgress;
@@ -61,16 +63,60 @@ class HomeController extends Controller
 
 		    return redirect('/dashboard');
 		}
-            
+
         return view("welcome",compact('banner','feature','courses','feed','faq','ourprocess'));
+
+    }
+
+
+    public function convert_slot_ids(Request $request){
+
+
+            $pages = PrivateClass::whereNotNull('timeslot')->get();
+
+            foreach ($pages as $page) {
+
+                $slots = is_array($page->timeslot)
+                    ? $page->timeslot
+                    : json_decode($page->timeslot, true);
+
+                if (!is_array($slots)) continue;
+
+                $newIds = [];
+
+                foreach ($slots as $slotText) {
+
+                    $match = Timetable::where('hide_time', '!=', 'Y')
+                        ->whereNull('static')
+                        ->get()
+                        ->first(function ($item) use ($slotText) {
+                            $term_year = $item->term_year ? '-' . $item->term_year : '';
+
+                            $label = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' .
+                                implode('.', str_split(strtolower($item->starttime_am_pm))) .
+                                '. (' . $item->type . ') ' . $item->year . $term_year;
+
+                            return trim($label) == trim($slotText);
+                        });
+
+                    if ($match) {
+                        $newIds[] = $match->id;
+                    }
+                }
+
+                $page->timeslot = $newIds;
+                $page->save();
+            }
+
+            echo "✅ Done converting old timeslot labels into timetable IDs";
 
     }
 
     public function menustatus(Request $request)
     {
 
-        $collapsed = $request->input('collapsed'); 
-    
+        $collapsed = $request->input('collapsed');
+
         Session::put('sidebarCollapsed',$collapsed);
 
         return response()->json([
@@ -102,13 +148,13 @@ class HomeController extends Controller
 
             session()->put('sidebarCollapsed','true');
 
-            $remember = $request->has('remember'); 
+            $remember = $request->has('remember');
 
             if (Auth::attempt([
                 'email' => $request->email,
                 'password' => $request->password
             ], $remember)) {
-               
+
                 return redirect()->intended('/dashboard');
             }
 
@@ -120,13 +166,13 @@ class HomeController extends Controller
             $request->session()->regenerate();
             session()->put('sidebarCollapsed','true');
 
-            $remember = $request->has('remember'); 
+            $remember = $request->has('remember');
 
             if (Auth::guard('admin')->attempt([
                 'email' => $request->email,
                 'password' => $request->password
             ], $remember)) {
-               
+
                 return redirect()->intended('/dashboard');
             }
 
@@ -282,7 +328,7 @@ class HomeController extends Controller
 
     }
 
-    public function pricing(Request $request){ 
+    public function pricing(Request $request){
         $subscriptionPlans = SubscriptionPlan::where(function($qry){
             $qry->where(function($iqry){
                 $iqry->where('is_external',true);
@@ -292,13 +338,13 @@ class HomeController extends Controller
                 $iqry->whereNotNull('end_plan')->whereDate('end_plan','>=',Carbon::now()->toDateString());
             });
         })->get();
-        
-        
+
+
         $price = Pricing::first();
         return view("price",compact('subscriptionPlans','price'));
     }
     public function verifycoupon(Request $request){
-        $request->validate([ 
+        $request->validate([
             "coupon"=>['required'],
             "subscription"=>['required']
         ]);
@@ -327,7 +373,7 @@ class HomeController extends Controller
     }
     public function combo_mail(Request $request){
         $request->validate([
-            "email"=>['required','email'], 
+            "email"=>['required','email'],
         ]);
         $email=$request->input('email','');
         /**
@@ -340,7 +386,7 @@ class HomeController extends Controller
 
         if(User::where('email',$email)->where('id','!=',$user->id)->count()>0){
             $tuser=User::where('email',$email)->first();
-            if(!empty($tuser)&&(optional($tuser->subscription())->status??'')=="subscribed"){ 
+            if(!empty($tuser)&&(optional($tuser->subscription())->status??'')=="subscribed"){
                 return throw ValidationException::withMessages(['email'=>["You inviting friend is already subscribed . Please confirm before payment"]]);
             }
            return response()->json([
@@ -359,7 +405,7 @@ class HomeController extends Controller
         return redirect()->back();
     }
     public function verifypricing(Request $request,SubscriptionPlan $subscriptionPlan){
-        $request->validate([ 
+        $request->validate([
             "plan"=>['required'],
             "email"=>["required_if:plan,combo"]
         ]);
@@ -454,5 +500,5 @@ class HomeController extends Controller
         $payment=Payment::stripe()->paymentIntents->retrieve($payment_intent);
         return view('notice.subscription',compact('payment'));
     }
- 
+
 }

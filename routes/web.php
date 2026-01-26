@@ -35,14 +35,14 @@ use Illuminate\Support\Facades\Route;
 //     dd(Artisan::output());
 // });
 
-Route::get('/migrate', function () {
-    Artisan::call('migrate');
-    dd(Artisan::output());
-});
-Route::get('/fresh', function () {
-    Artisan::call('migrate:fresh');
-    dd(Artisan::output());
-});
+// Route::get('/migrate', function () {
+//     Artisan::call('migrate');
+//     dd(Artisan::output());
+// });
+// Route::get('/fresh', function () {
+//     Artisan::call('migrate:fresh');
+//     dd(Artisan::output());
+// });
 
 // Route::get('/db-seed', function () {
 //     Artisan::call('db:seed');
@@ -76,6 +76,8 @@ Route::get('/fresh', function () {
 
 
 Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/convert_slot_ids', [HomeController::class, 'convert_slot_ids']);
 
 Route::get('d0/{avathar}/{name}', [DocumentController::class, 'getuploadedFiles'])->name('file.view');
 Route::get('/d0/{avathar}/{name}/download', [DocumentController::class, 'downloaduploadedFiles'])->name('file.download');
