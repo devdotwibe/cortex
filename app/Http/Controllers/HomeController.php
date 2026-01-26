@@ -69,74 +69,115 @@ class HomeController extends Controller
     }
 
 
-    private function buildTimetableLabel($item, $withTermYear = true)
-    {
-        $term_year = ($withTermYear && $item->term_year) ? '-' . $item->term_year : '';
+  private function buildTimetableLabel($item, $withTermYear = true)
+{
+    $term_year = ($withTermYear && $item->term_year) ? '-' . $item->term_year : '';
 
-        return $item->day . ' ' .
-            str_replace(' ', '', $item->starttime) . ' ' .
-            implode('.', str_split(strtolower($item->starttime_am_pm))) .
-            '. (' . $item->type . ') ' .
-            $item->year . $term_year;
+    return $item->day . ' ' .
+        str_replace(' ', '', $item->starttime) . ' ' .
+        implode('.', str_split(strtolower($item->starttime_am_pm))) .
+        '. (' . $item->type . ') ' .
+        $item->year . $term_year;
+}
+
+/**
+ * Normalize slot text to match both old/new submissions
+ * Example:
+ * "Monday 06:30 p.m. (Online)2026-Y4"
+ * -> "Monday 06:30 p.m. (Online) 2026-Y4"
+ */
+private function normalizeSlotText($text)
+{
+    $text = trim($text);
+
+    // ✅ Ensure space between ")YYYY" => ") YYYY"
+    $text = preg_replace('/\)\s*(\d{4})/', ') $1', $text);
+
+    // ✅ Remove multiple spaces
+    $text = preg_replace('/\s+/', ' ', $text);
+
+    return trim($text);
+}
+
+/**
+ * Remove "-Y4" etc only from the END
+ */
+private function removeTermYearFromText($text)
+{
+    $text = trim($text);
+
+    // Removes last "-something" from end only
+    // ".... 2026-Y4" => ".... 2026"
+    return preg_replace('/-\w+$/', '', $text);
+}
+
+public function convert_slot_ids(Request $request)
+{
+    $pages = PrivateClass::whereNotNull('timeslot')->get();
+
+    $timetables = Timetable::where('hide_time', '!=', 'Y')
+        ->whereNull('static')
+        ->orderBy('order_no')
+        ->get();
+
+    foreach ($pages as $page) {
+
+        // ✅ Decode timeslot safely
+        $slots = is_array($page->timeslot)
+            ? $page->timeslot
+            : json_decode($page->timeslot, true);
+
+        if (!is_array($slots) || empty($slots)) {
+            continue;
+        }
+
+        $newIds = [];
+
+        foreach ($slots as $slotText) {
+
+            if (!$slotText) {
+                continue;
+            }
+
+            // ✅ Normalize saved slot text
+            $slotText = $this->normalizeSlotText($slotText);
+
+            // ✅ 1) Match WITH term_year
+            $match = $timetables->first(function ($item) use ($slotText) {
+                return $this->normalizeSlotText($this->buildTimetableLabel($item, true)) === $slotText;
+            });
+
+            // ✅ 2) If not found, match WITHOUT term_year
+            if (!$match) {
+
+                $slotTextWithoutTermYear = $this->normalizeSlotText(
+                    $this->removeTermYearFromText($slotText)
+                );
+
+                $match = $timetables->first(function ($item) use ($slotTextWithoutTermYear) {
+                    return $this->normalizeSlotText($this->buildTimetableLabel($item, false)) === $slotTextWithoutTermYear;
+                });
+            }
+
+            // ✅ Push timetable ID
+            if ($match) {
+                $newIds[] = $match->id;
+            }
+        }
+
+        // ✅ Remove duplicate ids
+        $newIds = array_values(array_unique($newIds));
+
+        // ✅ Save JSON in DB
+        $page->timeslot_ids = $newIds;
+        $page->save();
     }
 
-    private function removeTermYearFromText($text)
-    {
-
-        return preg_replace('/-\w+$/', '', trim($text));
-    }
-
-    public function convert_slot_ids(Request $request){
-
-
-           $pages = PrivateClass::whereNotNull('timeslot')->get();
-
-            $timetables = Timetable::where('hide_time', '!=', 'Y')
-                ->whereNull('static')
-                ->orderBy('order_no')
-                ->get();
-
-           foreach ($pages as $page) {
-
-                    $slots = is_array($page->timeslot)
-                        ? $page->timeslot
-                        : json_decode($page->timeslot, true);
-
-                    if (!is_array($slots)) {
-                        continue;
-                    }
-
-                    $newIds = [];
-
-                    foreach ($slots as $slotText) {
-
-                        $slotText = trim($slotText);
-
-                        $match = $timetables->first(function ($item) use ($slotText) {
-                            return trim($this->buildTimetableLabel($item, true)) === $slotText;
-                        });
-
-                        if (!$match) {
-
-                            $slotTextWithoutTermYear = $this->removeTermYearFromText($slotText);
-
-                            $match = $timetables->first(function ($item) use ($slotTextWithoutTermYear) {
-                                return trim($this->buildTimetableLabel($item, false)) === trim($slotTextWithoutTermYear);
-                            });
-                        }
-
-                        if ($match) {
-                            $newIds[] = $match->id;
-                        }
-                    }
-
-                    $page->timeslot_ids = $newIds;
-                    $page->save();
-                        }
-
-            echo "✅ Done converting old timeslot labels into timetable IDs";
-
-    }
+    return response()->json([
+        'status' => true,
+        'message' => '✅ Done converting old/new timeslot labels into timetable IDs',
+    ]);
+}
 
     public function menustatus(Request $request)
     {
