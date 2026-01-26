@@ -236,8 +236,12 @@ class LiveClassController extends Controller
             self::$defaultActions=[''];
             if(!empty($request->timeslot)){
                 $slot= $request->timeslot;
-                $this->where(function($qry)use($slot){
-                    $qry->whereJsonContains('timeslot',$slot);
+                // $this->where(function($qry)use($slot){
+                //     $qry->whereJsonContains('timeslot',$slot);
+                // });
+
+                $this->where(function ($qry) use ($slot) {
+                    $qry->whereRaw("JSON_SEARCH(timeslot, 'one', ?) IS NULL", ["%{$slot}%"]);
                 });
             }
             $this ->where('status','approved');
