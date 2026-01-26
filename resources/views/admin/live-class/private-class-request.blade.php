@@ -326,7 +326,7 @@
                 str+=`
                 <div class="form-check">
                     <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-acceptreq-${k}" value="${v.id}" ${(res.timeslot_ids||[]).includes(v.id)?"checked":""} >
-                    <label for="user-acceptreq-${k}">${v.id}</label>
+                    <label for="user-acceptreq-${k}">${v.id} ${res.timeslot_ids}</label>
                 </div>
                 `
             })
