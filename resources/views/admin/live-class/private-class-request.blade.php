@@ -322,11 +322,17 @@
         $.get(url,function(res){
             $('#user-acceptreq-form').attr('action',res.acceptUrl)
             var str='';
+
+            let selectedIds = (res.timeslot_ids || []).map(String);
+
             $.each(timeslotlist,function(k,v){
+
+                let id = String(v.id);
+
                 str+=`
                 <div class="form-check">
-                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-acceptreq-${k}" value="${v.id}" ${(res.timeslot_ids||[]).includes(v.id)?"checked":""} >
-                    <label for="user-acceptreq-${k}">${v.id} ${res.timeslot_ids}</label>
+                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-acceptreq-${k}" value="${v.id}"  ${selectedIds.includes(id) ? "checked" : ""} >
+                    <label for="user-acceptreq-${k}">${v.text}</label>
                 </div>
                 `
             })
