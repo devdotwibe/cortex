@@ -242,7 +242,13 @@ class UserController extends Controller
         {
             $users = $request->input('selectbox', []);
 
-            $selectedTimeSlot = explode(',',$request->timeslot_ids);
+            $selectedTimeSlot = explode(',',$request->user_time_slot);
+
+            $slot_time =  Timetable::whereIn('id',$selectedTimeSlot)->get()->map(function($item) {
+
+                $term_year = $item->term_year ? '-'.$item->term_year : '';
+                return $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year .$term_year;
+            })->toArray();
 
             foreach($users as $user)
             {
@@ -257,7 +263,8 @@ class UserController extends Controller
                     $private_class->email = $real_user->email;
                     $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
                     $private_class->parent_name = null;
-                    $private_class->timeslot = $selectedTimeSlot;
+                    $private_class->timeslot_ids = $selectedTimeSlot;
+                    $private_class->timeslot = $slot_time;
                     $private_class->user_id = $user;
                     $private_class->status = 'approved';
                     $private_class->is_valid = true;
@@ -345,6 +352,13 @@ class UserController extends Controller
 
         $private_class_exist = PrivateClass::where('user_id',$real_user->id)->first();
 
+        $slot_time =  Timetable::whereIn('id',$selectedTimeSlot)->get()->map(function($item) {
+
+            $term_year = $item->term_year ? '-'.$item->term_year : '';
+            return $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year .$term_year;
+        })->toArray();
+
+
         if(empty($private_class_exist))
         {
             $private_class = new PrivateClass;
@@ -353,6 +367,7 @@ class UserController extends Controller
             $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
             $private_class->parent_name = null;
             $private_class->timeslot_ids = $selectedTimeSlot;
+            $private_class->timeslot = $slot_time;
             $private_class->user_id = $real_user->id;
             $private_class->status = 'approved';
             $private_class->is_valid = true;
