@@ -242,7 +242,7 @@ class UserController extends Controller
         {
             $users = $request->input('selectbox', []);
 
-            $selectedTimeSlot = explode(',',$request->user_time_slot);
+            $selectedTimeSlot = explode(',',$request->timeslot_ids);
 
             foreach($users as $user)
             {
