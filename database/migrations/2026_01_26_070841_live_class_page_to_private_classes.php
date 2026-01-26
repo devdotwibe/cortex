@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('live_class_pages', function (Blueprint $table) {
+        Schema::table('private_classes', function (Blueprint $table) {
 
             $table->json('timeslot_ids')->nullable()->after('timeslot');
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('live_class_pages', function (Blueprint $table) {
+        Schema::table('private_classes', function (Blueprint $table) {
 
              $table->dropColumn('timeslot_ids');
         });
