@@ -655,7 +655,7 @@ class LiveClassController extends Controller
         $request->validate([
             'timeslot'=>['required','array']
         ]);
-        $privateClass->update(['status'=>"approved","timeslot"=>$request->input('timeslot',[])]);
+        $privateClass->update(['status'=>"approved","timeslot_ids"=>$request->input('timeslot',[])]);
 
         if($request->ajax()){
             return response()->json(["success"=>"Request has been successfully approved"]);
@@ -666,7 +666,9 @@ class LiveClassController extends Controller
         $data=$request->validate([
             'timeslot'=>['required','array']
         ]);
-        $privateClass->update($data);
+        // $privateClass->update($data);
+
+         $privateClass->update(["timeslot_ids"=>$request->input('timeslot',[])]);
 
         if($request->ajax()){
             return response()->json(["success"=>"Timeslote has been successfully updated"]);
