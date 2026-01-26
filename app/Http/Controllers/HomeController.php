@@ -104,7 +104,7 @@ class HomeController extends Controller
                     }
                 }
 
-                $page->timeslot = $newIds;
+                $page->timeslot_ids = $newIds;
                 $page->save();
             }
 
