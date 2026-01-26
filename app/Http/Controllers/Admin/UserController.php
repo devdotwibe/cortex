@@ -212,7 +212,7 @@ class UserController extends Controller
             $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year .$term_year;
             return [
                 'text' => $text,
-                'id' => $item->id,
+                'value' => $item->id,
             ];
         })->toArray();
 
