@@ -289,34 +289,34 @@
 
     }
 
-    // function updaterequest(url){
-    //     $.get(url,function(res){
-    //         $('#user-updatetreq-form').attr('action',res.updateUrl)
-    //         var str='';
-    //         $.each(timeslotlist,function(k,v){
-    //             str+=`
-    //             <div class="form-check">
-    //                 <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-updatetreq-${k}" value="${v.id}" ${(res.timeslot_ids||[]).includes(v.id)?"checked":""} >
-    //                 <label for="user-updatetreq-${k}">${v.text}</label>
-    //             </div>
-    //             `
-    //         })
-    //         $('#user-updatetreq-table').html(`
-    //             <div class="form-group">
-    //                 <div class="form-data">
-    //                     <div class="forms-inputs mb-4">
-    //                         <div class="check-group form-control" id="user-updatetreq-form-timeslot">
-    //                             ${str}
-    //                         </div>
-    //                         <div id="user-updatetreq-form-timeslot-error" class="invalid-feedback"></div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         `)
-    //         $('#user-updatetreq-modal').modal('show')
-    //     },'json')
+    function updaterequest(url){
+        $.get(url,function(res){
+            $('#user-updatetreq-form').attr('action',res.updateUrl)
+            var str='';
+            $.each(timeslotlist,function(k,v){
+                str+=`
+                <div class="form-check">
+                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-updatetreq-${k}" value="${v.id}" ${(res.timeslot_ids||[]).includes(v.id)?"checked":""} >
+                    <label for="user-updatetreq-${k}">${v.text}</label>
+                </div>
+                `
+            })
+            $('#user-updatetreq-table').html(`
+                <div class="form-group">
+                    <div class="form-data">
+                        <div class="forms-inputs mb-4">
+                            <div class="check-group form-control" id="user-updatetreq-form-timeslot">
+                                ${str}
+                            </div>
+                            <div id="user-updatetreq-form-timeslot-error" class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+            `)
+            $('#user-updatetreq-modal').modal('show')
+        },'json')
 
-    // }
+    }
 
     function acceptrequest(url){
         $.get(url,function(res){
@@ -325,7 +325,7 @@
             $.each(timeslotlist,function(k,v){
                 str+=`
                 <div class="form-check">
-                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-acceptreq-${k}" value="${v.id}" ${(res.timeslot||[]).includes(v.id)?"checked":""} >
+                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-acceptreq-${k}" value="${v.id}" ${(res.timeslot_ids||[]).includes(v.id)?"checked":""} >
                     <label for="user-acceptreq-${k}">${v.text}</label>
                 </div>
                 `
