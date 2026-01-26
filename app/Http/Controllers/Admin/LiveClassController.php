@@ -343,9 +343,42 @@ class LiveClassController extends Controller
 
                 ';
                 return $action;
-            })->addColumn('timeslottext',function($data){
-                return implode('<br> ',$data->timeslot);
-            })->addColumn('termhtml',function($data){
+            })
+
+            // ->addColumn('timeslottext',function($data){
+
+            //     return implode('<br> ',$data->timeslot);
+
+            // })
+
+            ->addColumn('timeslottext', function ($data) {
+
+                $ids = is_array($data->timeslot_ids)
+                    ? $data->timeslot_ids
+                    : json_decode($data->timeslot_ids, true);
+
+                if (empty($ids) || !is_array($ids)) {
+                    return '';
+                }
+
+                $timetables = Timetable::whereIn('id', $ids)
+                    ->orderBy('order_no')
+                    ->get();
+
+                $labels = $timetables->map(function ($item) {
+                    $term_year = $item->term_year ? '-' . $item->term_year : '';
+
+                    return $item->day . ' ' .
+                        str_replace(' ', '', $item->starttime) . ' ' .
+                        implode('.', str_split(strtolower($item->starttime_am_pm))) .
+                        '. (' . $item->type . ') ' .
+                        $item->year . $term_year;
+                })->toArray();
+
+                return implode('<br>', $labels);
+            })
+
+            ->addColumn('termhtml',function($data){
                 if(!empty($data->user)&&$data->status=="approved"){
                     return '<a  onclick="usertermlist('."'".route('admin.user.termslist', $data->user->slug)."'".')" class="btn btn-icons view_btn">+</a>';
                 }else{
