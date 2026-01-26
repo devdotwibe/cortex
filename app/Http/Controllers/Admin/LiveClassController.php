@@ -719,7 +719,16 @@ class LiveClassController extends Controller
         $request->validate([
             'timeslot'=>['required','array']
         ]);
-        $privateClass->update(['status'=>"approved","timeslot_ids"=>$request->input('timeslot',[])]);
+
+        $selectedTimeSlot = $request->input('timeslot',[]);
+
+        $slot_time =  Timetable::whereIn('id',$selectedTimeSlot)->get()->map(function($item) {
+
+            $term_year = $item->term_year ? '-'.$item->term_year : '';
+            return $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year .$term_year;
+        })->toArray();
+
+        $privateClass->update(['status'=>"approved","timeslot"=>$slot_time,"timeslot_ids"=>$request->input('timeslot',[])]);
 
         if($request->ajax()){
             return response()->json(["success"=>"Request has been successfully approved"]);
@@ -732,7 +741,15 @@ class LiveClassController extends Controller
         ]);
         // $privateClass->update($data);
 
-         $privateClass->update(["timeslot_ids"=>$request->input('timeslot',[])]);
+        $selectedTimeSlot = $request->input('timeslot',[]);
+
+        $slot_time =  Timetable::whereIn('id',$selectedTimeSlot)->get()->map(function($item) {
+
+            $term_year = $item->term_year ? '-'.$item->term_year : '';
+            return $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year .$term_year;
+        })->toArray();
+
+         $privateClass->update(["timeslot"=>$slot_time,"timeslot_ids"=>$request->input('timeslot',[])]);
 
         if($request->ajax()){
             return response()->json(["success"=>"Timeslote has been successfully updated"]);
