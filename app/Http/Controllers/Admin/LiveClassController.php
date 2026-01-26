@@ -237,7 +237,7 @@ class LiveClassController extends Controller
             if(!empty($request->timeslot)){
                 $slot= $request->timeslot;
                 $this->where(function($qry)use($slot){
-                    $qry->whereJsonContains('timeslot',$slot);
+                    $qry->whereJsonContains('timeslot_ids',$slot);
                 });
             }
             $this ->where('status','approved');
@@ -416,7 +416,7 @@ class LiveClassController extends Controller
             $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year . $term_year;
             return [
                 'text' => $text,
-                'id' => $value,
+                'id' => $item->id,
             ];
         })->toArray();
 
