@@ -296,7 +296,7 @@
             $.each(timeslotlist,function(k,v){
                 str+=`
                 <div class="form-check">
-                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-updatetreq-${k}" value="${v.id}" ${(res.timeslot||[]).includes(v.id)?"checked":""} >
+                    <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-updatetreq-${k}" value="${v.id}" ${(res.timeslot_ids||[]).includes(v.id)?"checked":""} >
                     <label for="user-updatetreq-${k}">${v.text}</label>
                 </div>
                 `
