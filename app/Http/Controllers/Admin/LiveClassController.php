@@ -241,7 +241,7 @@ class LiveClassController extends Controller
                 // });
 
                 $this->where(function ($qry) use ($slot) {
-                    $qry->whereRaw("JSON_SEARCH(timeslot, 'one', ?) IS NULL", ["%{$slot}%"]);
+                    $qry->whereRaw("JSON_SEARCH(timeslot, 'one', ?) IS NOT NULL", ["%{$slot}%"]);
                 });
             }
             $this ->where('status','approved');
