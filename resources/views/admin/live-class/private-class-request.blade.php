@@ -296,9 +296,9 @@
 
             let selectedIds = (res.timeslot_ids || []).map(String);
 
-            let id = String(v.id);
-
             $.each(timeslotlist,function(k,v){
+
+                let id = String(v.id);
                 str+=`
                 <div class="form-check">
                     <input type="checkbox" name="timeslot[]" class="form-check-input"  id="user-updatetreq-${k}" value="${v.id}"  ${selectedIds.includes(id) ? "checked" : ""} >
