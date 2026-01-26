@@ -352,7 +352,7 @@ class UserController extends Controller
             $private_class->email = $real_user->email;
             $private_class->full_name = $real_user->first_name .' '.$real_user->last_name;
             $private_class->parent_name = null;
-            $private_class->timeslot = $selectedTimeSlot;
+            $private_class->timeslot_ids = $selectedTimeSlot;
             $private_class->user_id = $real_user->id;
             $private_class->status = 'approved';
             $private_class->is_valid = true;
