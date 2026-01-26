@@ -69,44 +69,70 @@ class HomeController extends Controller
     }
 
 
+    private function buildTimetableLabel($item, $withTermYear = true)
+    {
+        $term_year = ($withTermYear && $item->term_year) ? '-' . $item->term_year : '';
+
+        return $item->day . ' ' .
+            str_replace(' ', '', $item->starttime) . ' ' .
+            implode('.', str_split(strtolower($item->starttime_am_pm))) .
+            '. (' . $item->type . ') ' .
+            $item->year . $term_year;
+    }
+
+    private function removeTermYearFromText($text)
+    {
+
+        return preg_replace('/-\w+$/', '', trim($text));
+    }
+
     public function convert_slot_ids(Request $request){
 
 
-            $pages = PrivateClass::whereNotNull('timeslot')->get();
+           $pages = PrivateClass::whereNotNull('timeslot')->get();
 
-            foreach ($pages as $page) {
+            $timetables = Timetable::where('hide_time', '!=', 'Y')
+                ->whereNull('static')
+                ->orderBy('order_no')
+                ->get();
 
-                $slots = is_array($page->timeslot)
-                    ? $page->timeslot
-                    : json_decode($page->timeslot, true);
+           foreach ($pages as $page) {
 
-                if (!is_array($slots)) continue;
+                    $slots = is_array($page->timeslot)
+                        ? $page->timeslot
+                        : json_decode($page->timeslot, true);
 
-                $newIds = [];
+                    if (!is_array($slots)) {
+                        continue;
+                    }
 
-                foreach ($slots as $slotText) {
+                    $newIds = [];
 
-                    $match = Timetable::where('hide_time', '!=', 'Y')
-                        ->whereNull('static')
-                        ->get()
-                        ->first(function ($item) use ($slotText) {
-                            $term_year = $item->term_year ? '-' . $item->term_year : '';
+                    foreach ($slots as $slotText) {
 
-                            $label = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' .
-                                implode('.', str_split(strtolower($item->starttime_am_pm))) .
-                                '. (' . $item->type . ') ' . $item->year . $term_year;
+                        $slotText = trim($slotText);
 
-                            return trim($label) == trim($slotText);
+                        $match = $timetables->first(function ($item) use ($slotText) {
+                            return trim($this->buildTimetableLabel($item, true)) === $slotText;
                         });
 
-                    if ($match) {
-                        $newIds[] = $match->id;
-                    }
-                }
+                        if (!$match) {
 
-                $page->timeslot_ids = $newIds;
-                $page->save();
-            }
+                            $slotTextWithoutTermYear = $this->removeTermYearFromText($slotText);
+
+                            $match = $timetables->first(function ($item) use ($slotTextWithoutTermYear) {
+                                return trim($this->buildTimetableLabel($item, false)) === trim($slotTextWithoutTermYear);
+                            });
+                        }
+
+                        if ($match) {
+                            $newIds[] = $match->id;
+                        }
+                    }
+
+                    $page->timeslot_ids = $newIds;
+                    $page->save();
+                        }
 
             echo "✅ Done converting old timeslot labels into timetable IDs";
 
