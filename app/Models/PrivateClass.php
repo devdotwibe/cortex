@@ -34,6 +34,7 @@ class PrivateClass extends Model
     {
         return [
             'timeslot' => 'array',
+            'timeslot_ids'=> 'array',
         ];
     }
 }
