@@ -207,7 +207,7 @@ class LiveClassController extends Controller
             $value = $item->day . ' ' . str_replace(' ', '', $item->starttime) . ' ' . implode('.', str_split(strtolower($item->starttime_am_pm))) . '. (' . $item->type . ') ' . $item->year .$term_year;
             return [
                 'text' => $text,
-                'value' => $value,
+                'id' => $value,
             ];
         })->toArray();
 
